@@ -22,7 +22,7 @@ pub async fn call_claude_to_summarize(api_key: &str, text: &str) -> Result<Strin
         .header("x-api-key", api_key)
         .json(&json!({
             "model": "claude-3-sonnet-20240229",
-            "max_tokens": 1024,
+            "max_tokens": 1536,
             "messages": [
                 {
                     "role": "user",

@@ -63,7 +63,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut target_texts: Vec<(String, String)> = vec![];
     let mut jump_links: Vec<String> = vec![];
-    for post in post_results[14..18].to_vec() {
+    for post in post_results {
         let (_, href) = post;
         if !href.starts_with("https://alb.reddit.com/") {
             if href.starts_with("/") {
