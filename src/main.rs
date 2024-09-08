@@ -6,6 +6,7 @@ use dotenv::dotenv;
 mod claude;
 
 const SLEEP_TIME: u64 = 1;
+const OLD_REDDIT: &str = "https://old.reddit.com";
 
 fn sanitize_html(html: &str) -> String {
     let fragment = Html::parse_fragment(html);
@@ -41,13 +42,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let c = ClientBuilder::native().connect("http://localhost:4444").await?;
 
     // Navigate to the Rust subreddit
-    c.goto("https://old.reddit.com/r/rust/").await?;
+    c.goto(&format!("{OLD_REDDIT}/r/rust/")).await?;
 
     // Find all post titles
     let posts = c.find_all(Locator::Css("#siteTable a.title")).await?;
 
     let mut post_results: Vec<(String, String)> = vec![];
-    for post in posts {
+    for post in &posts[2..] {
         let title = post.text().await?;
         let href = post.attr("href").await?.expect("should be a url");
         println!("=> {}, {}", title, href);
@@ -68,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if !href.starts_with("https://alb.reddit.com/") {
             if href.starts_with("/") {
                 // relative url in reddit site
-                let url = "https://old.reddit.com/".to_string() + &href;
+                let url = OLD_REDDIT.to_string() + &href;
                 c.goto(&url).await?;
                 
                 let first_content = c.find(Locator::Css("div.entry .usertext-body")).await?;
@@ -79,8 +80,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 let links_in_content = first_content.find_all(Locator::Css("a")).await?;
                 for link in links_in_content {
-                    let url = link.attr("href").await?.expect("should be a url");
+                    let mut url = link.attr("href").await?.expect("should be a url");
                     println!("link in reddit post: {}", url);
+                    if url.starts_with("/") {
+                        url = format!("{OLD_REDDIT}{url}")
+                    }
                     jump_links.push(url);
                 }
                 
@@ -127,10 +131,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("\n============>>");
         println!("\n{:?}", urltext);
         let (url, text) = urltext;
-        let text = format!("{url};;{text}");
+        let mut text: &str = &format!("{url};;{text}");
+        if text.len() > 10000 { text = &text[..10000] }
         if text.len() >= 300 {
-            let summarization = claude::call_claude_to_summarize(&api_key, &text).await?;
-            println!("\nUrl: {}\nOutput: {}", url, summarization);
+            //let summarization = claude::call_claude_to_summarize(&api_key, &text).await?;
+            //println!("\nUrl: {}\nOutput: {}", url, summarization);
         }
     }
 
