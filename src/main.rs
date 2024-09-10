@@ -1,25 +1,33 @@
-use fantoccini::{ClientBuilder, Locator};
-use tokio::time::{sleep, Duration};
-use scraper::{Html};
+use chrono::Local;
 use dotenv::dotenv;
+use fantoccini::{ClientBuilder, Locator};
+use scraper::Html;
+use std::fs::File;
+use std::io::Write;
+use tokio::time::{sleep, Duration};
 
-mod claude;
+// mod claude;
 
 const SLEEP_TIME: u64 = 1;
 const OLD_REDDIT: &str = "https://old.reddit.com";
+const ITEM_LEN: usize = 15;
 
 fn sanitize_html(html: &str) -> String {
     let fragment = Html::parse_fragment(html);
-    fragment.root_element().text().collect::<Vec<_>>().join("   ")
+    fragment
+        .root_element()
+        .text()
+        .collect::<Vec<_>>()
+        .join("   ")
 }
 
 fn extract_content(html: &str) -> String {
     use dom_content_extraction::{scraper::Html as IHtml, DensityTree};
 
     let document = IHtml::parse_document(&html);
-    let mut dtree = DensityTree::from_document(&document); // &scraper::Html 
-    // let sorted_nodes = dtree.sorted_nodes();
-    // let node_id = sorted_nodes.last().unwrap().node_id;
+    let mut dtree = DensityTree::from_document(&document); // &scraper::Html
+                                                           // let sorted_nodes = dtree.sorted_nodes();
+                                                           // let node_id = sorted_nodes.last().unwrap().node_id;
 
     // println!("{}", get_node_text(node_id, &document));
 
@@ -28,18 +36,17 @@ fn extract_content(html: &str) -> String {
 
     // println!("extracted_content {}", extracted_content);
 
-    extracted_content 
+    extracted_content
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
 
-    let api_key = std::env::var("ANTHROPIC_API_KEY")
-        .expect("ANTHROPIC_API_KEY must be set in .env file");
-
     // Set up the WebDriver client
-    let c = ClientBuilder::native().connect("http://localhost:4444").await?;
+    let c = ClientBuilder::native()
+        .connect("http://localhost:4444")
+        .await?;
 
     // Navigate to the Rust subreddit
     c.goto(&format!("{OLD_REDDIT}/r/rust/")).await?;
@@ -48,7 +55,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let posts = c.find_all(Locator::Css("#siteTable a.title")).await?;
 
     let mut post_results: Vec<(String, String)> = vec![];
-    for post in &posts[2..] {
+    for post in &posts[2..(ITEM_LEN + 2)] {
         let title = post.text().await?;
         let href = post.attr("href").await?.expect("should be a url");
         println!("=> {}, {}", title, href);
@@ -58,9 +65,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         post_results.push((title, href));
     }
 
-    
     println!("Post Results: {:?}", post_results.len());
-
 
     let mut target_texts: Vec<(String, String)> = vec![];
     let mut jump_links: Vec<String> = vec![];
@@ -71,7 +76,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 // relative url in reddit site
                 let url = OLD_REDDIT.to_string() + &href;
                 c.goto(&url).await?;
-                
+
                 let first_content = c.find(Locator::Css("div.entry .usertext-body")).await?;
                 let html_content = first_content.html(true).await?;
                 let sanitized_text = sanitize_html(&html_content);
@@ -87,9 +92,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     }
                     jump_links.push(url);
                 }
-                
-                sleep(Duration::from_secs(SLEEP_TIME)).await;
 
+                sleep(Duration::from_secs(SLEEP_TIME)).await;
             } else {
                 // outsite url
                 let url = href;
@@ -103,7 +107,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             }
         }
-
     }
 
     println!("========");
@@ -124,20 +127,26 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Close the browser
     c.close().await?;
 
-    println!("========");
-    println!("target texts len: {}", target_texts.len());
-    // call claude API to summarize these contents
-    for urltext in target_texts {
-        println!("\n============>>");
-        println!("\n{:?}", urltext);
-        let (url, text) = urltext;
-        let mut text: &str = &format!("{url};;{text}");
-        if text.len() > 10000 { text = &text[..10000] }
-        if text.len() >= 300 {
-            //let summarization = claude::call_claude_to_summarize(&api_key, &text).await?;
-            //println!("\nUrl: {}\nOutput: {}", url, summarization);
-        }
-    }
+    // write to tmp file
+    let today = Local::now().date_naive();
+    // Format the date in the form "YYYY-MM-DD"
+    let formatted_date = today.format("%Y-%m-%d").to_string();
+
+    let filename = format!("tmp/rust_diary-{formatted_date}.txt");
+    // write to file
+    let mut file = File::create(&filename)?;
+
+    let content = target_texts
+        .iter()
+        .map(|(url, text)| format!("{url}\n-->>-->>\n{text}"))
+        .collect::<Vec<String>>()
+        .join("\n======>\n");
+
+    // Write the data to the file
+    file.write_all(content.as_bytes())?;
+
+    // Optionally, flush the file to ensure all data is written
+    file.flush()?;
 
     Ok(())
 }

@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.38"
 dom-content-extraction = "0.3.2"
 dotenv = "0.15.0"
 fantoccini = "0.21.2"
@@ -12,3 +13,8 @@ reqwest = { version = "0.12.7", features = ["json"] }
 scraper = "0.20.0"
 serde_json = "1.0.128"
 tokio = { version = "1.40.0", features = ["full"] }
+
+[[bin]]
+name = "call_claude"
+path = "src/call_claude.rs"
+
