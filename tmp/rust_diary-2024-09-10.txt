@@ -1,0 +1,523 @@
+https://bevyengine.org/news/dream-job/
+-->>-->>
+Quasi-Hobby to Day Job Dream Jobs Are Still Jobs Learn or Drown Working Groups: Self-Organization and Empowerment Technical Future: UI That Doesn't Suck Product Future: Beyond Rust Gamedev I landed my dream job making a Rust game engine. Now what? Posted on September 10, 2024 by Alice I. Cecile ( @alice-i-cecile ) So I landed my dream job. Full-time open source building a game engine in Rust. Absolutely no meetings. What more could you ask for?
+With a very unconventional background (plant ecology, self-taught programming and years of disability), it's flatly astonishing to be supported by such an awesome community: surrounded and empowered by experts and beginners alike making incredible things together. But now what? Bevy's fourth birthday has rolled around, and @cart has put out a call for others to reflect on the year behind us, and plan for the year ahead.
+How have my first few months of Serious Employment at the Bevy Foundation gone, and what am I cooking up? Quasi-Hobby to Day Job # For years before I started working at the Bevy Foundation, I've helped out around Bevy: writing docs, triaging issues, reviewing PRs, designing complex systems and polishing off rough corners. I'd pitch in where I could, tackling the million small tasks in moments between working on side projects, the occasional bits of consulting and making sure life at home was running smoothly.
+And over the years that really added up!
+Reading, thinking, communicating: I've never been the sort to write reams of code for specific subsystems, or to dive into the most obscure bugs.
+But if I listened to people talk about what they needed, chewed on it for a bit, and then passed it on to the people who wanted to help, I found I could be remarkably effective! It was a good groove.
+But then all of a sudden, working on Bevy was my day job!
+That means 40 hours a week, 8 hours a day, 9-5 Monday to Friday in the office, right?
+Well, okay, sure, no one cares when I work. Or exactly how much I work per day. And we don't even have an office!
+But surely, that was the platonic ideal of what Real Work should look like, and I should be aspiring to it, even if it would forever be out of reach. Actually no, not so much.
+At first, I tried to stick to this (entirely of my own volition!): Monday to Friday, 8 hours a day, strict start and stopping time.
+I focused on big initiatives, tried to code more, and made sure I wasn't working outside of the allowed time blocks. It made me miserable .
+Pushing myself to work for long blocks at a time was physically and mentally demanding.
+I had to actively force myself not to triage that issue, leave that comment, or tackle that PR.
+And conversations across our team of dozens of globally-distributed contributors simply didn't have the decency to stay nicely confined to my 9-5 schedule! So, how did I square the circle?
+The time and freedom to tackle bigger projects was a huge advantage, but all those little tasks still mattered!
+And even though moving to a more flexible schedule was probably healthy for me,
+I needed to make sure that work didn't consume my whole life. My solution: focus tasks .
+Every work day (but not days off!), I would pick a single task to focus on.
+Writing a piece of documentation, reviewing a complex PR, adding a feature, refactoring a complex bit of code, preparing a design doc, running the weekly Merge Train...
+I would focus on that when I was feeling well, get done what I could, and as soon as my focus broke or the task was completed, that was it. I was "done work" for the day. To complement this, the strict 9-5 M-F schedule would be relaxed. I could work whenever I felt like it (turns out, for me, that's quite a bit):
+tackling the million little things that help keep Bevy ticking along.
+But there would be no obligation : no sense that I must do these things, or must do them in a timely fashion.
+I could be there for the impromptu late night design chats, but still disconnect during date night because, after all, I finished work hours ago. This balance has worked really well for me: letting me drive forward larger initiatives ( bevy_color ! A huge leafwing-input-manager refactor! The 0.14 release!) without falling behind on the flood of notifications.
+Would I recommend you use it? Probably not! It requires a degree of flexibility that many organizations won't afford you, you need to be driven and self-motivated and frankly, the work-life boundary is far blurrier than most people can live with.
+But for someone working full-time in open source? Absolutely! Dream Jobs Are Still Jobs # So, having worked at the Bevy Foundation for a few months: is this really my dream job? How does it live up to my expectations?
+Despite my boundless idealism, working for a non-profit you care about is not a panacea: if the working conditions suck,
+the fact that you're Doing Good won't get you through the day. On the bright side, I have: a mission I believe in a comfortable living (my latest budget says $84k CAD pre-tax) the opportunity to meet and learn from incredible people: within Bevy, Rust and game dev more broadly a work-from-home arrangement with incredible flexibility huge levels of agency over what I work on generous European-style vacation and sick-leave policies But it's not perfect, that's all balanced out by: a remarkably public role, where everything I do from day-to-day is visible an incredibly small team of non-volunteers that serve as a backstop for all of the needful but tedious things that need to be done fuzzy work-life boundaries a salary that is much lower than what I could be making existential dread caused by relying entirely on generous donors to keep both myself and the project I love afloat Honestly, it's a lot like founding a startup.
+It's just instead of having a small-but-nonzero chance of becoming wealthier than anyone ever needs to be,
+I have a chance to change an industry for the better and help people make cool things! Learn or Drown # The most striking thing about it though, is the extent to which I have to keep learning and growing.
+Rust? ECS? Technical writing? Project management? Input management? Community management? I can't get complacent and only work within my comfort zone of skillsets that I've mastered.
+There's always a new stalled-out work area that needs leadership, brilliant but complex PRs to review, and thorny problems to cut through.
+Even if my natural proclivities are focused on design and communication, I need to be fluent in every single area needed to make games.
+Experts are great, but keeping things moving along means I have to be able to understand what they're saying and integrate it into a broader project context. Over the next year, I hope to get comfortable with basic custom rendering, muck about with Bevy's asset solution and learn about reactive UI in earnest.
+Should be fun, and it might even drive some progress on my own games. Working Groups: Self-Organization and Empowerment # I've long believed that building systems and altering incentives is the best way to fix problems for good.
+When I first started working at Bevy, we had a pair of twin problems: contributors were frustrated by the lack of direction and reviews for complex but valuable initiatives, while maintainers were out of bandwidth and frustrated with efforts that petered out as individual contributors got busy. Enter working groups : scoped, collaborative efforts to define, explore and tackle complex problems.
+I've been incredibly pleased to see how they've turned out: an emphasis on clear, well-motivated designs a clear list of things that we're actively tackling a space to focus community efforts towards a shared goal a ready-made source of reviewers for complex efforts a mechanism for ambitious contributors to build consensus and radically change things The bevy_color working group was a wonderful bubbling hub of activity that tackled all of the gnarly corners of writing a color library from scratch,
+while the 0.14 release working group really helped take the pressure off of Cart and I, even if it was a slog. I'm really excited to see what the open groups (relations, text, audio, picking, contributing guide, scenes, render graph and curves) put together over the next year!
+I'll stir the pot periodically to keep things moving along smoothly, but overall I'm delighted by how well this experiment in self-organization has gone. Technical Future: UI That Doesn't Suck # Right now, Bevy has a critical technical limitation: our UI solution sucks.
+While of course you could argue that all UI solutions suck, bevy_ui is remarkably underbaked.
+There's too much boilerplate, there are virtually no premade widgets, and most of the hard problems are handed off to the user. While things have improved substantially since Bevy's initial release, bevy_ui operates at the same level as HTML: just raw data structures to be manipulated.
+And for most of our users, that simply isn't enough!
+Bevy's an incredible choice for CAD software, or complex simulation games, or dev tooling (like the fabled editor), except that building UIs takes too long and polishing them is nearly impossible. While I've shared my own vision for what bevy_ui could be , I trust @cart (and @viridia, @StarArawn, @UkoeHB and @SanderMertens) to figure out most of the fancy incremental, reactive, data-driven bits.
+Instead, I want to clean up all the low-hanging fruit that drags our UI solution down, no matter what solution they land on. Over the course of the next year, I want to: swap to cosmic_text , and properly support non-Latin character sets make it easier to reason about fonts and how they're related support basic localization and markup-style rich text port bevy_ui to a polished picking paradigm make sure that simple alternatives to flexbox layout can be used for those who prefer it add focus management, making it easy to navigate UI with keyboards, gamepads and screen readers upstream leafwing-input-manager , giving Bevy first-party support for keybindings for both UI and gameplay ship a modest collection of functional standard widgets: radio buttons, text input, sliders and more write examples that cover real use cases: splash screens, settings menus, drag-and-drop inventories, UI mockups for various game genres... None of these things will radically change how bevy_ui works, but taken together, should lead to a night-and-day difference in the experience for both devs and end users. Product Future: Beyond Rust Gamedev # In both Rust-focused and gamedev-focused spaces, Bevy is often defined by the fact that it's written in Rust.
+But thinking about game engines in this way is a trap, both for Bevy and for the ecosystem as a whole. Overwhelmingly, professional game developers don't decide that they're going to use Rust, look at the options within the set of Rust game engines and then choose one.
+While hobbyists and those seeking to learn Rust might choose an engine that way (Rust is delightful and making games is a great way to learn),
+it's an ineffective way to make business-critical decisions! Instead, they look at the full set of engines and what they have to offer: Unity, Unreal, Godot and dozens more.
+Every team and every project has different needs and idiosyncratic preferences: there will never be an ur-engine that others are simply wrong for not choosing.
+But if you want to compete within a crowded space, you need to both carve out and communicate a niche: a set of things that you're uniquely good at. Simply being the best, most popular, or most featureful game engine in Rust isn't enough, and frankly, barely matters at all.
+Rust is fantastic, and I think in the long-run it'll be a major advantage, but right now, the game industry perception is that it's immature and slow to develop games using it. To survive as anything beyond a hobby engine, you need to attract commercial teams building serious games, built on a budget with mixed teams of programmers, artists and designers.
+While you don't need to be better than the big kids in every way, you need to be better than them in some ways, and the rational choice for some set of teams needs to be to pick your engine. While we're not the rational choice yet for most projects and teams, I want to set us up for real success in the future.
+In the coming year, I want to network more with gamedevs outside of Rust (say hi!), learn more about the workflows that real indie teams use and challenges that they face.
+While the small improvements trickle in, one PR at a time, I want to set my eyes on the horizon, understand what talented small teams are looking for out of their next engine, and make sure we're building towards those goals. No one is writing the next Call of Duty in Bevy (yet!): the requirements around rendering, tooling, training, console support and risk are way too strict.
+But what would it take to convince teams to write the next Factorio, Terraria, Slay the Spire, Hollow Knight or Hades in Bevy?
+Time to find out! import { enable_image_compare } from '/components.js';
+
+  document.addEventListener("DOMContentLoaded", function () {
+    enable_image_compare();
+  });
+======>
+https://old.reddit.com/r/rust/comments/1fdmjzl/pax_enters_beta_rust_guis_with_an_integrated/
+-->>-->>
+Hey all!  We are Zack, Warfa, and Sam; after some man-years of building Pax, we're excited finally to enter Beta and to invite anyone to build with    Pax    for the first time.   
+
+   What is Pax?   
+
+   Pax is a tool for building native apps & websites, similar to SwiftUI or Flutter. Pax is driven by a declarative user interface description language that attaches to Rust application logic. Pax itself is built in Rust.   
+
+   Pax ships with an integrated vector design tool.  This design tool is a bidirectional view into any Pax codebase: open codebase with designer, make visual changes, edit pax-lang or Rust by hand with any code editor, and continue to switch back and forth between visual and written modes.    How does this work?       
+
+   Unlike most visual builders, Pax Designer has the tools, features, and conventions of a professional vector design tool (like Figma, Illustrator, or Flash.) This foundational goal required careful design of every aspect of Pax, from the grammar through the rendering engine, the layout system, and the standard library.   
+
+   Pax Designer goes open source   
+
+   Along with this Beta launch we are    open-sourcing Pax Designer   , Pax’s integrated vector design tool — which itself was built 100% in Pax.   
+
+   That makes Pax Designer a solid reference example of Pax in production.  Pax Designer is already running on our website    pax.dev   , but this hosted preview doesn’t yet sync code — you must currently    run Pax Designer locally    to try out reading & writing code with the designer.   
+
+   What's next?   
+
+   We're working on a fully-featured hosted version of Pax Designer, which will become    Pax Pro    — a team collaboration tool that enables non-developers to make visual contributions to GitHub repos hand-in-hand with developers.    
+
+   We are also working on Pax JavaScript, bindings that will allow pax-lang to attach to JavaScript/TypeScript application logic as an alternative to Rust.    
+
+   Other features and fixes will be a function of user feedback. Please take it for a spin, build something, and let us know what you think!  See a partial    list of current features    on the GitHub README.   
+
+   Pax today in Beta is far from perfect, but we're proud of how far it's come and excited about where it's headed. We hope some folks here will share our excitement, or even join us in our mission to make software creation more creative and accessible to more of humanity.   
+
+   Links:       
+
+   Get started   
+
+   Docs   
+
+   Github   
+
+   Discord   
+
+   Website       
+   
+
+======>
+https://blog.cloudflare.com/pingora-saving-compute-1-percent-at-a-time/
+-->>-->>
+A good day to trie-hard: saving compute 1% at a time 2024-09-10 Kevin Guthrie 7 min read Cloudflare’s global network handles a lot of HTTP requests – over 60 million per second on average. That in and of itself is not news, but it is the starting point to an adventure that started a few months ago and ends with the announcement of a new open-source Rust crate that we are using to reduce our CPU utilization, enabling our CDN to handle even more of the world’s ever-increasing Web traffic. Motivation Let’s start at the beginning. You may recall a few months ago we released Pingora (the heart of our Rust-based proxy services) as an open-source project on GitHub . I work on the team that maintains the Pingora framework, as well as Cloudflare’s production services built upon it. One of those services is responsible for the final step in transmitting users’ (non-cached) requests to their true destination. Internally, we call the request’s destination server its “origin”, so our service has the (unimaginative) name of “pingora-origin”. One of the many responsibilities of pingora-origin is to ensure that when a request leaves our infrastructure, it has been cleaned to remove the internal information we use to route, measure, and optimize traffic for our customers. This has to be done for every request that leaves Cloudflare, and as I mentioned above, it’s a lot of requests. At the time of writing, the rate of requests leaving pingora-origin (globally) is 35 million requests per second. Any code that has to be run per-request is in the hottest of hot paths, and it’s in this path that we find this code and comment: // PERF: heavy function: 1.7% CPU time pub fn clear_internal_headers (request_header: & mut RequestHeader) {
+    INTERNAL_HEADERS. iter ().for_each(|h| {
+        request_header. remove_header (h);
+    });
+} This small and pleasantly-readable function consumes more than 1.7% of pingora-origin’s total cpu time. To put that in perspective, the total cpu time consumed by pingora-origin is 40,000 compute-seconds per second. You can think of this as 40,000 saturated CPU cores fully dedicated to running pingora-origin. Of those 40,000, 1.7% (680) are only dedicated to evaluating clear_internal_headers . The function’s heavy usage and simplicity make it seem like a great place to start optimizing. Benchmarking Benchmarking the function shown above is straightforward because we can use the wonderful criterion Rust crate. Criterion provides an api for timing rust code down to the nanosecond by aggregating multiple isolated executions. It also provides feedback on how the performance improves or regresses over time. The input for the benchmark is a large set of synthesized requests with a random number of headers with a uniform distribution of internal vs. non-internal headers. With our tooling and test data we find that our original clear_internal_headers function runs in an average of 3.65µs . Now for each new method of clearing headers, we can measure against the same set of requests and get a relative performance difference. Reducing Reads One potentially quick win is to invert how we find the headers that need to be removed from requests. If you look at the original code, you can see that we are evaluating request_header.remove_header(h) for each header in our list of internal headers, so 100+ times. Diagrammatically, it looks like this: Since an average request has significantly fewer than 100 headers (10-30), flipping the lookup direction should reduce the number of reads while yielding the same intersection. Because we are working in Rust (and because retain does not exist for http::HeaderMap yet ), we have to collect the identified internal headers in a separate step before removing them from the request. Conceptually, it looks like this: Using our benchmarking tool, we can measure the impact of this small change, and surprisingly this is already a substantial improvement. The runtime improves from 3.65µs to 1.53µs . That’s a 2.39x speed improvement for our function. We can calculate the theoretical CPU percentage by multiplying the starting utilization by the ratio of the new and old times: 1.71% * 1.53 / 3.65 = 0.717%. Unfortunately, if we subtract that from the original 1.71% that only equates to saving 1.71% - 0.717% = 0.993% of the total CPU time. We should be able to do better. Searching Data Structures Now that we have reorganized our function to search a static set of internal headers instead of the actual request, we have the freedom to choose what data structure we store our header name in simply by changing the type of INTERNAL_HEADER_SET . pub fn clear_internal_headers (request_header: & mut RequestHeader) { let to_remove = request_header
+       .headers
+       . keys ()
+       . filter_map (|name| INTERNAL_HEADER_SET. get (name))
+       .collect::< Vec <_>>();
+
+
+   to_remove. into_iter ().for_each(|k| {
+       request_header. remove_header (k);
+   }); Our first attempt used std::HashMap , but there may be other data structures that better suit our needs. All computer science students were taught at some point that hash tables are great because they have constant-time asymptotic behavior, or O(1), for reading. (If you are not familiar with big O notation , it is a way to express how an algorithm consumes a resource, in this case time, as the input size changes.) This means no matter how large the map gets, reads always take the same amount of time. Too bad this is only partially true. In order to read from a hash table, you have to compute the hash. Computing a hash for strings requires reading every byte, so while read time for a hashmap is constant over the table’s size, it’s linear over key length. So, our goal is to find a data structure that is better than O(L) where L is the length of the key. There are a few common data structures that provide for reads that have read behavior that meets our criteria. Sorted sets like BTreeSet use comparisons for searching, and that makes them logarithmic over key length O(log(L)) , but they are also logarithmic in size too. The net effect is that even very fast sorted sets like FST work out to be a little (50 ns) slower in our benchmarks than the standard hashmap. State machines like parsers and regex are another common tool for searching for strings, though it’s hard to consider them data structures. These systems work by accepting input one unit at a time and determining on each step whether or not to keep evaluating. Being able to make these determinations at every step means state machines are very fast to identify negative cases (i.e. when a string is not valid or not a match). This is perfect for us because only one or two headers per request on average will be internal. In fact, benchmarking an implementation of clear_internal_headers using regular expressions clocks in as taking about twice as long as the hashmap-based solution. This is impressively fast given that regexes, while powerful, aren't known for their raw speed. This approach feels promising – we just need something in between a data structure and a state machine. That’s where the trie comes in. Don’t Just Trie A trie (pronounced like “try” or “tree”) is a type of tree data structure normally used for prefix searches or auto-complete systems over a known set of strings. The structure of the trie lends itself to this because each node in the trie represents a substring of characters found in the initial set. The connections between the nodes represent the characters that can follow a prefix. Here is a small example of a trie built from the words: “and”, “ant”, “dad”, “do”, & “dot”. The root node represents an empty string prefix, so the two lettered edges directed out of it are the only letters that can appear as the first letter in the list of strings, “a” and “d”. Subsequent nodes have increasingly longer prefixes until the final valid words are reached. This layout should make it easy to see how a trie could be useful for quickly identifying strings that are not contained. Even at the root node, we can eliminate any strings that are presented that do not start with “a” or “d”. This paring down of the search space on every step gives reading from a trie the O(log(L)) we were looking for … but only for misses. Hits within a trie are still O(L) , but that’s okay, because we are getting misses over 90% of the time. Benchmarking a few trie implementations from crates.io was disheartening. Remember, most tries are used in response to keyboard events, so optimizing them to run in the hot path of tens of millions of requests per second is not a priority. The fastest existing implementation we found was radix_trie , but it still clocked in at a full microsecond slower than hashmap. The only thing left to do was write our own implementation of a trie that was optimized for our use case. Trie Hard And we did! Today we are announcing trie-hard . The repository gives a full description of how it works, but the big takeaway is that it gets its speed from storing node relationships in the bits of unsigned integers and keeping the entire tree in a contiguous chunk of memory. In our benchmarks, we found that trie-hard reduced the average runtime for clear_internal_headers to under a microsecond (0.93µs). We can reuse the same formula from above to calculate the expected CPU utilization for trie-hard to be 1.71% * 3.65 / 0.93 = 0.43% That means we have finally achieved and surpassed our goal by reducing the compute utilization of pingora-origin by 1.71% - 0.43% = 1.28% ! Up until now we have been working only in theory and local benchmarking. What really matters is whether our benchmarking reflects real-life behavior. Trie-hard has been running in production since July 2024, and over the course of this project we have been collecting performance metrics from the running production of pingora-origin using a statistical sampling of its stack trace over time. Using this technique, the CPU utilization percentage of a function is estimated by the percent of samples in which the function appears. If we compare the sampled performance of the different versions of clear_internal_headers , we can see that the results from the performance sampling closely match what our benchmarks predicted. Implementation Stack trace samples containing clear_internal_headers Actual CPU Usage (%) Predicted CPU Usage (%) Original 19 / 1111 1.71 n/a Hashmap 9 / 1103 0.82 0.72 trie-hard 4 / 1171 0.34 0.43 Conclusion Optimizing functions and writing new data structures is cool, but the real conclusion for this post is that knowing where your code is slow and by how much is more important than how you go about optimizing it. Take a moment to thank your observability team (if you're lucky enough to have one), and make use of flame graphs or any other profiling and benchmarking tool you can. Optimizing operations that are already measured in microseconds may seem a little silly, but these small improvements add up. Cloudflare's connectivity cloud protects entire corporate networks , helps customers build Internet-scale applications efficiently , accelerates any website or Internet application , wards off DDoS attacks , keeps hackers at bay , and can help you on your journey to Zero Trust . Visit 1.1.1.1 from any device to get started with our free app that makes your Internet faster and safer. To learn more about our mission to help build a better Internet, start here . If you're looking for a new career direction, check out our open positions . Discuss on Hacker News Internet Performance Rust Open Source Optimization Follow on X Kevin Guthrie | johnhurt Cloudflare | @cloudflare Related posts August 22, 2024  7:00 AM Go wild: Wildcard support in Rules and a new open-source wildcard crate We’re excited to announce wildcard support across our Ruleset Engine-based products and our open-source wildcard crate in Rust. Configuring rules has never been easier, with powerful pattern matching enabling simple and flexible URL redirects and beyond for users on all plans.... By Nikita Cano , Diogo Sousa CDN, Edge Rules, Open Source, Rust, Developers July 25, 2024  6:00 AM Making WAF ML models go brrr: saving decades of processing time In this post, we discuss the performance optimizations we've implemented for our WAF ML product. We'll guide you through specific code examples and benchmark numbers, and we'll share the impressive latency reduction numbers observed after the rollout... By Alex Bocharov Machine Learning, WAF, Performance, Optimization, Rust, AI WAF, WAF Attack Score July 23, 2024  8:15 AM Meta Llama 3.1 now available on Workers AI Cloudflare is excited to be a launch partner with Meta to introduce Workers AI support for Llama 3.1... By Michelle Chen , Nikhil Kothari Workers AI, AI, Product News, Developer Platform, Developers, Open Source June 27, 2024  10:00 AM Embedded function calling in Workers AI: easier, smarter, faster Introducing a new way to do function calling in Workers AI by running function code alongside your inference. Plus, a new @cloudflare/ai-utils package to make getting started as simple as possible... By Harley Turan , Dhravya Shah , Michelle Chen Product News, Workers AI, Developer Platform, Developers, Open Source, AI, Internship Experience A good day to trie-hard: saving compute 1% at a time 2024-09-10 Kevin Guthrie 7 min read Cloudflare’s global network handles a lot of HTTP requests – over 60 million per second on average. That in and of itself is not news, but it is the starting point to an adventure that started a few months ago and ends with the announcement of a new open-source Rust crate that we are using to reduce our CPU utilization, enabling our CDN to handle even more of the world’s ever-increasing Web traffic. Motivation Let’s start at the beginning. You may recall a few months ago we released Pingora (the heart of our Rust-based proxy services) as an open-source project on GitHub . I work on the team that maintains the Pingora framework, as well as Cloudflare’s production services built upon it. One of those services is responsible for the final step in transmitting users’ (non-cached) requests to their true destination. Internally, we call the request’s destination server its “origin”, so our service has the (unimaginative) name of “pingora-origin”. One of the many responsibilities of pingora-origin is to ensure that when a request leaves our infrastructure, it has been cleaned to remove the internal information we use to route, measure, and optimize traffic for our customers. This has to be done for every request that leaves Cloudflare, and as I mentioned above, it’s a lot of requests. At the time of writing, the rate of requests leaving pingora-origin (globally) is 35 million requests per second. Any code that has to be run per-request is in the hottest of hot paths, and it’s in this path that we find this code and comment: // PERF: heavy function: 1.7% CPU time pub fn clear_internal_headers (request_header: & mut RequestHeader) {
+    INTERNAL_HEADERS. iter ().for_each(|h| {
+        request_header. remove_header (h);
+    });
+} This small and pleasantly-readable function consumes more than 1.7% of pingora-origin’s total cpu time. To put that in perspective, the total cpu time consumed by pingora-origin is 40,000 compute-seconds per second. You can think of this as 40,000 saturated CPU cores fully dedicated to running pingora-origin. Of those 40,000, 1.7% (680) are only dedicated to evaluating clear_internal_headers . The function’s heavy usage and simplicity make it seem like a great place to start optimizing. Benchmarking Benchmarking the function shown above is straightforward because we can use the wonderful criterion Rust crate. Criterion provides an api for timing rust code down to the nanosecond by aggregating multiple isolated executions. It also provides feedback on how the performance improves or regresses over time. The input for the benchmark is a large set of synthesized requests with a random number of headers with a uniform distribution of internal vs. non-internal headers. With our tooling and test data we find that our original clear_internal_headers function runs in an average of 3.65µs . Now for each new method of clearing headers, we can measure against the same set of requests and get a relative performance difference. Reducing Reads One potentially quick win is to invert how we find the headers that need to be removed from requests. If you look at the original code, you can see that we are evaluating request_header.remove_header(h) for each header in our list of internal headers, so 100+ times. Diagrammatically, it looks like this: Since an average request has significantly fewer than 100 headers (10-30), flipping the lookup direction should reduce the number of reads while yielding the same intersection. Because we are working in Rust (and because retain does not exist for http::HeaderMap yet ), we have to collect the identified internal headers in a separate step before removing them from the request. Conceptually, it looks like this: Using our benchmarking tool, we can measure the impact of this small change, and surprisingly this is already a substantial improvement. The runtime improves from 3.65µs to 1.53µs . That’s a 2.39x speed improvement for our function. We can calculate the theoretical CPU percentage by multiplying the starting utilization by the ratio of the new and old times: 1.71% * 1.53 / 3.65 = 0.717%. Unfortunately, if we subtract that from the original 1.71% that only equates to saving 1.71% - 0.717% = 0.993% of the total CPU time. We should be able to do better. Searching Data Structures Now that we have reorganized our function to search a static set of internal headers instead of the actual request, we have the freedom to choose what data structure we store our header name in simply by changing the type of INTERNAL_HEADER_SET . pub fn clear_internal_headers (request_header: & mut RequestHeader) { let to_remove = request_header
+       .headers
+       . keys ()
+       . filter_map (|name| INTERNAL_HEADER_SET. get (name))
+       .collect::< Vec <_>>();
+
+
+   to_remove. into_iter ().for_each(|k| {
+       request_header. remove_header (k);
+   }); Our first attempt used std::HashMap , but there may be other data structures that better suit our needs. All computer science students were taught at some point that hash tables are great because they have constant-time asymptotic behavior, or O(1), for reading. (If you are not familiar with big O notation , it is a way to express how an algorithm consumes a resource, in this case time, as the input size changes.) This means no matter how large the map gets, reads always take the same amount of time. Too bad this is only partially true. In order to read from a hash table, you have to compute the hash. Computing a hash for strings requires reading every byte, so while read time for a hashmap is constant over the table’s size, it’s linear over key length. So, our goal is to find a data structure that is better than O(L) where L is the length of the key. There are a few common data structures that provide for reads that have read behavior that meets our criteria. Sorted sets like BTreeSet use comparisons for searching, and that makes them logarithmic over key length O(log(L)) , but they are also logarithmic in size too. The net effect is that even very fast sorted sets like FST work out to be a little (50 ns) slower in our benchmarks than the standard hashmap. State machines like parsers and regex are another common tool for searching for strings, though it’s hard to consider them data structures. These systems work by accepting input one unit at a time and determining on each step whether or not to keep evaluating. Being able to make these determinations at every step means state machines are very fast to identify negative cases (i.e. when a string is not valid or not a match). This is perfect for us because only one or two headers per request on average will be internal. In fact, benchmarking an implementation of clear_internal_headers using regular expressions clocks in as taking about twice as long as the hashmap-based solution. This is impressively fast given that regexes, while powerful, aren't known for their raw speed. This approach feels promising – we just need something in between a data structure and a state machine. That’s where the trie comes in. Don’t Just Trie A trie (pronounced like “try” or “tree”) is a type of tree data structure normally used for prefix searches or auto-complete systems over a known set of strings. The structure of the trie lends itself to this because each node in the trie represents a substring of characters found in the initial set. The connections between the nodes represent the characters that can follow a prefix. Here is a small example of a trie built from the words: “and”, “ant”, “dad”, “do”, & “dot”. The root node represents an empty string prefix, so the two lettered edges directed out of it are the only letters that can appear as the first letter in the list of strings, “a” and “d”. Subsequent nodes have increasingly longer prefixes until the final valid words are reached. This layout should make it easy to see how a trie could be useful for quickly identifying strings that are not contained. Even at the root node, we can eliminate any strings that are presented that do not start with “a” or “d”. This paring down of the search space on every step gives reading from a trie the O(log(L)) we were looking for … but only for misses. Hits within a trie are still O(L) , but that’s okay, because we are getting misses over 90% of the time. Benchmarking a few trie implementations from crates.io was disheartening. Remember, most tries are used in response to keyboard events, so optimizing them to run in the hot path of tens of millions of requests per second is not a priority. The fastest existing implementation we found was radix_trie , but it still clocked in at a full microsecond slower than hashmap. The only thing left to do was write our own implementation of a trie that was optimized for our use case. Trie Hard And we did! Today we are announcing trie-hard . The repository gives a full description of how it works, but the big takeaway is that it gets its speed from storing node relationships in the bits of unsigned integers and keeping the entire tree in a contiguous chunk of memory. In our benchmarks, we found that trie-hard reduced the average runtime for clear_internal_headers to under a microsecond (0.93µs). We can reuse the same formula from above to calculate the expected CPU utilization for trie-hard to be 1.71% * 3.65 / 0.93 = 0.43% That means we have finally achieved and surpassed our goal by reducing the compute utilization of pingora-origin by 1.71% - 0.43% = 1.28% ! Up until now we have been working only in theory and local benchmarking. What really matters is whether our benchmarking reflects real-life behavior. Trie-hard has been running in production since July 2024, and over the course of this project we have been collecting performance metrics from the running production of pingora-origin using a statistical sampling of its stack trace over time. Using this technique, the CPU utilization percentage of a function is estimated by the percent of samples in which the function appears. If we compare the sampled performance of the different versions of clear_internal_headers , we can see that the results from the performance sampling closely match what our benchmarks predicted. Implementation Stack trace samples containing clear_internal_headers Actual CPU Usage (%) Predicted CPU Usage (%) Original 19 / 1111 1.71 n/a Hashmap 9 / 1103 0.82 0.72 trie-hard 4 / 1171 0.34 0.43 Conclusion Optimizing functions and writing new data structures is cool, but the real conclusion for this post is that knowing where your code is slow and by how much is more important than how you go about optimizing it. Take a moment to thank your observability team (if you're lucky enough to have one), and make use of flame graphs or any other profiling and benchmarking tool you can. Optimizing operations that are already measured in microseconds may seem a little silly, but these small improvements add up. Cloudflare's connectivity cloud protects entire corporate networks , helps customers build Internet-scale applications efficiently , accelerates any website or Internet application , wards off DDoS attacks , keeps hackers at bay , and can help you on your journey to Zero Trust . Visit 1.1.1.1 from any device to get started with our free app that makes your Internet faster and safer. To learn more about our mission to help build a better Internet, start here . If you're looking for a new career direction, check out our open positions . Discuss on Hacker News Internet Performance Rust Open Source Optimization
+======>
+https://old.reddit.com/r/rust/comments/1fdn68i/how_do_you_guys_debug_your_rust_code/
+-->>-->>
+Most of my debugging revolves around lots of prints, but I believe gdb has a rust debugger. Wondering if people used different techniques   
+   
+
+======>
+https://medium.com/@wolferxy/rust-adventure-to-develop-a-game-boy-emulator-part-1-memory-3ea6e29c254c
+-->>-->>
+Rust adventure to develop a Game Boy emulator — Part 1: Memory WolfieXY · Follow 11 min read · 4 hours ago 1 Listen Share H ey there my little tech wolfie🐺! We parted with starting decisions and basic project structure, and now we’re ready to explore some basic concepts of Rust programming while tracing our first steps through the Game Boy emulation. In this chapter, I’ll introduce you to some Rust features and dive into the basics of Game Boy memory with them. Package, Crate, and Module Packages, Crates, and Modules¹ are the foundational building blocks of Rust programs. Let’s break down each one without fear: Module & Submodule: These are the basic logic units that organize your program. In Rust, a module ( mod ) is a way to group related code. For instance, in our emulator program, RAM and CPU are modules; more specifically, they are submodules of the parent GB module. The concept of modules can be instinctively understood by looking at the project structure, but it will become more technically clear as we proceed. Crate: This is the smallest unit of compilation in Rust. A crate can be either a binary crate or a library crate. It typically includes multiple modules, and when compiled, a crate produces either an executable (in the case of a binary crate) or a library (in the case of a library crate). Every project in Rust is a crate and the src/main.rs or src/lib.rs file is the root of the crate. Package: A package is a deployable program or library composed of one or more crates, with its configuration and dependencies specified in the Cargo.toml file. Packages can include features, that allow you to add or modify functionality as needed, optimizing the package size by including only the necessary features. This modular system makes Rust packages highly adaptable and efficient. You can think of a Crate like a box. In the box, there are many tools called modules. These boxes are used for specific works by our professional worker called Package, with a name, other personal info, and all sorts of tools he needs to properly accomplish his work. YAEmulator-GB/ ├── Cargo.toml # Package properties & dependencies ├── Cargo.lock ├── src/ ├── main.rs # Entry point of Package ├── GB.rs # Module (Yes, this is the ??? file) ├── GB/ ├── CPU.rs # GB Submodule ├── RAM.rs # GB Submodule ├── instructions.rs # GB Submodule ├── registers.rs # GB Submodule (used in same level CPU submodule) With our updated structure and comments to clarify the modules and submodules, it’s time to reveal the mysterious file: GB.rs . This file is essential as it serves as the entry point to the GB module, defining access and visibility for its submodules. Without the GB.rs file, the modules within the GB directory wouldn't be part of the GB module and therefore wouldn't be accessible. It took me a couple of hours to grasp this concept, as in other languages, you typically import files and modules directly using their paths while in Rust you need to manage a correct module hierarchy and declare them with the mod keyword. You’ll see it in a flash. To achieve the module declaration in my main.rs I specify: mod GB; // This automatically search for a GB.rs file on the same folder level In this way, I’m creating a module called GB whose content is found in the GB.rs file whose file name coincides with the module name and is on the same hierarchy level as our main.rs. In the GB.rs file, I declare the submodules that will be part of the parent module (GB module in our case) in the same way as we declared the module in main.rs : pub mod RAM; pub mod CPU; pub mod instructions; pub mod registers; /* ... Other function and rust coding ... */ Here you can see the new pub keyword, used to make the submodules visible outside the GB.rs file and module. Without pub , the submodule is considered private and usable only internally by the parent module² (the module that declares it, which is for us GB module) As you can see to reach our Game Boy emulation target, we’ve already created CPU and RAM submodules, essential hardware to any electronic computer-like device. The “registers” module is an extra layer of abstraction of the CPU to define its internal memory registers and their internal behavior, while the “instructions” module represents an abstraction of commands that the CPU can execute after decoding the next program instruction to run our cartridge game. Game Boy — Memory Mapping Now we can go a little deeper to give a closer look at how GB memory works and is mapped following the below schema from the official Game Boy Programming Manual ³, keeping in mind we need to worry just about DMG properties as it is the CPU naming of classical Game Boy, ignoring the Game Boy Color CGB parts: Here we can view all different mapped sections of GB Memory This memory map shows all the 65,536 addressable locations divided by range. You should note that not all memory ranges serve the same purpose. Many different memory regions work for some specific tasks, following specific rules to allow hardware to operate correctly. Also, I/O like GB input buttons are memory mapped . Take it easy as you don’t need to understand what each memory region is suited for, I’ll show each one when I step into it 😊! You need to know that there are two ranges of memory, 0xE000–0xFEFF and 0xFEA0–0xFEFF , that are reserved and officially tagged as “ NOT USABLE ” . Begin with some code - Memory Now that we’ve clarified our structure and how Rust manages the code division let’s dive into our first true coding with our submodule RAM.rs : A few things here that are important to learning Rust programming: struct and impl keywords. If you’re familiar with OOP (Object Oriented Programming) you should know that in Rust we don’t have C lasses but Structures (something similar but powerful to the Structure of C/C++), but this structure can obtain behaviors and functionalities through the impl keyword. We declare our public (using the pub keyword - remember?) memory structure named RAM with the following line: pub struct RAM { // This line is defining a public visible structure called RAM N.B.: I choose to call the memory module RAM by this name as I can still randomly access it, even if not all addressable Game Boy memory is “Working RAM” as you can learn from the image table shown in the Game Boy memory mapping subchapter. Then within the curly braces, we define its attributes with the required type, in the form of attr_name: attr_type . In our case, we’re defining an attribute called memory of type “ Array of 65536 elements of 8-bit unsigned integer ”: pub struct RAM { memory: [ u8 ; 65536 ] // Memory attribute is an array of 65536 elements of 8-bit Unsigned Integer(u8)type } To define an array type in Rust we use the following square parenthesis notation: [type; number_of_elements] . The type u8 we used stands for “ 8-bit Unsigned Integer ” (1 byte) and after the semicolon, we’ll just specify that our array should have 65536 elements. Note well: memory attribute is not preceded by the pub keyword, this means that it is a private attribute, accessible only by a RAM structure; external RAM structure code can’t access directly to the private attribute and needs to use internal public structure functions to get ana access to it. “Why this number?” You might ask. It’s because the Game Boy has an internal memory of 2¹⁶ bytes or numerically 65536 bytes ranging from address 0x0000 to 0xFFFF. “And why u8 and not i8 ?” (why unsigned instead of signed?): because the values stored in memory are raw values and we don’t worry about what they represent ‘till we extract them and need to use them. N.B.: This big array gives us an error as rust, defined in this way, try to allocate it on the stack overflowing it on runtime, but we’ll resolve this later when we first try to run it to check everything is ok. Additionally, there are other integer types like u16 , u32 , and so on (the unsigned integer represented with 16, 32, and more bits), as well as their respective signed version ( i8 , i16 , i32 , ...), but I won’t dive into how integers, signed or unsigned, work and are represented, but I’ll provide you a lecture at the end of the articles⁴. The base structure of memory: done! Now we should give it functionalities to emulate the memory behaviors. Well, what should our memory be able to do? Surely we should be able to write to memory cells and, when needed, re ad them… simple and clear! We must implement write and read functions. To give our structure functionalities we’ll use the impl keyword followed by the functions between the brackets. impl RAM { // This line means that we are implementing functions callable by a RAM structure // Here we will define functions for RAM Struct... } Implementing Memory - Read Let’s start to think about our read function of RAM: it needs the address of the cell and it needs to return the byte contained in it. Knowing this we can say that we need an address value that I defined as u16 ⁵, as addressable memory goes from 0 to 65535, and I expect it to return an u8 , the byte contained in the specified address. Let’s review that in the code version: pub fn read (& self , address: u16 ) -> u8 { self .memory[address as usize ] // A instruction that NOT end with ';' is a simpler version of a return instruction } “Owh… but what that strange &self as first parameter?”. You’re right, there is an extra &self parameter because as this function is an instance method, it needs an auto-reference ( the “&” gives a reference ⁶) to the structure instance so we can access its element through the self keyword; this in a way similar to the Python class needs to pass the self parameter to the method to allow instances access their attributes and methods. In Rust &self parameter in a function header declaration is the shortest version of self: &Self attribute declaration , a self-attribute name of the associated struct type reference. The Return sentence Maybe you already noticed that the read function requires a u8 value to be returned, but I didn’t write any return instructions, or this is what it appears! If you look closer, I wrote the instruction to retrieve a byte stored in memory without ending the sentence with the canonical semicolon (;). When a statement in a Rust function doesn’t end with a semicolon, the compiler treats it as an implicit return instruction, returning the value of that expression. This implicit return is commonly used when the last statement of a function should return a value. However, when you need to return a value before the last line of a function—such as for an early exit within a if condition—you must explicitly use the return keyword. Knowing that we can say that the following ways to write the read function, with or without the return keyword, are equivalent: pub fn read (& self , address: u16 ) -> u8 { self .memory[address as usize ] // Implicit return } pub fn read (& self , address: u16 ) -> u8 { return self .memory[address as usize ]; // Explicit return } Just one last thing before continuing to implement the write function: in the code we use, to access our array we must cast our address parameter in a usize type, a special integer type, to access it. Citing from official documentation ⁷ we can understand how this type is pointed-related and the size is system-dependent to allow point to all system addressable memory: The pointer-sized unsigned integer type. The size of this primitive is how many bytes it takes to reference any location in memory. For example, on a 32 bit target, this is 4 bytes and on a 64 bit target, this is 8 bytes. Implementing Memory - Write We have already implemented the read function; now, we need to implement a write function for our memory structure. Our function's inputs are still an address attribute, u16 , and a byte attribute, u8 type value, to write to the specified memory address. No return value is needed here. pub fn write (& mut self , address: u16 , byte: u8 ) { self .memory[address as usize ] = byte; // Store the byte at the specified address } It’s a simple function that accesses the memory array and assigns the byte value to the specified address. Since this function modifies the state of the RAM instance, we use &mut self as the first parameter to indicate that the function requires a mutable reference to the instance. When the Rust compiler finds a mut keyword allows us to edit the content of our instance. Without this keyword, the compiler would produce an error because we are attempting to modify a read-only variable. Oh, yes, and the & is still used as we’re working with a reference of the instance, and not the instance itself as item. Get a new memory Instance We obtained the base functionalities of our memory structure, but as we made its attributes (just one is enough) we couldn’t create any RAM instance outside the implemented functions of the structure. Here to show you the compiler angry with us for trying to create a RAM instance directing initializing the attribute: error[E0451]: field `memory` of struct `RAM::RAM` is private - -> src\main.rs: 55 : 26 | 55 | let mem = RAM::RAM { memory: [ 0 ; 65536 ] }; |                          ^^^^^^^^^^^^^^^^^^ private field The Rust compiler throws a specific error warning us that we’re creating a RAM structure directly specifying private memory. As this is not possible we must indirectly create a RAM instance through an “associate function”. In the RAM functions implementation, we are going to add a new function: impl RAM { // This is the "associtaed function" which not works directly with structure instance pub fn new () -> Self { RAM { memory: [ 0 ; 65536 ] } } // ... Bla Bla, the other things we wrote by a good Horde boy } This function allows us to create a new default RAM instance when needed. If you analyze the new function’s header, you’ll notice that it specifies a return type of Self . The Self type refers to the type for which the function is implemented, which in this case is the RAM struct. This function, being implemented as RAM struct, allows us to create and return a new RAM instance initializing all the structure’s expected behaviors. Associated Methods VS. Associated Functions All functions implemented between a impl block, are called associated functions . Associated functions that work with structure instances (i.e., they take self as a parameter) are called methods . Associated functions that aren’t methods work can be in some way compared to a classical static method of OOP classes, but with some advantages as they’re not just global functions with a specific class namespace, but they can work with the implemented structure accessing all its attribute, like a normal structure method. We, in fact, use this functionality to create and initialize a new RAM instance through the new function. Methods functions are accessible with dot ( . ) notation from a structure instance. The other associated functions are usable and accessible with the double colon ( :: ) notation from the structure namespace. mod RAM; // Importing RAM module use RAM::RAM as memory; // Giving an alias to RAM structure in RAM module fn main () { let mut mem = memory:: new (); // Creating a mutable 'memory' instance mem. write ( 65535 , 64 ); // Using a method of the instance } Chapter Conclusions We began with some coding and got the first crumbs of Game Boy hardware. In the next article, I’ll guide you through implementing a primordial CPU module, the core unit for any Hardware Execution. I hope you’ve enjoyed like me exploring these first steps in my coding adventure. If you found the article helpful and want more, please leave a clap ! Owh, and if you need clarification don’t hesitate to comment below! Here to help you 🐺😁! Package, Crates, and Modules official documentation — https://doc.rust-lang.org/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html Rust by Example - Modules visibility — https://doc.rust-lang.org/rust-by-example/mod/split.html Official Game Boy programming manual V1.1 [p. 15] — https://doc.rust-lang.org/rust-by-example/mod/split.html Representation of Integer Numbers in CS — https://www.geeksforgeeks.org/different-ways-to-represent-signed-integer/ Integer primitive types in Rust — https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-types Reference ‘n Borrowing system in Rust — https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html Rust usize manual — https://doc.rust-lang.org/std/primitive.usize.html ASCII version of Game Boy DMG Memory Map — https://gist.github.com/alessandrome/dfcaa2e905bcfc145667cb0770dbf8c1
+======>
+https://bytecodealliance.org/articles/new-stack-maps-for-wasmtime
+-->>-->>
+New Stack Maps for Wasmtime and Cranelift Sep 10, 2024 Nick Fitzgerald As part of implementing the WebAssembly garbage collection proposal in Wasmtime,
+which is an ongoing process, we’ve overhauled the stack map infrastructure in
+Cranelift. This post will explain what stack maps are, why we needed to change
+them, and how the new stack maps work. Wasmtime is a lightweight WebAssembly runtime that is fast, secure, and
+standards-compliant. Cranelift is its compiler backend, which aims to strike a
+balance between code quality and compile time, while maintaining exceptionally
+high standards for correctness. The garbage collection proposal for
+WebAssembly extends the WebAssembly language with runtime-managed
+references to struct s and array s. Background: Garbage Collection, Safepoints, and Stack Maps In the garbage collection (GC) literature, we call the program that allocates
+objects and adds or removes edges between them the mutator . It mutates the
+heap graph. As the mutator runs, allocating objects and filling up the GC heap, the runtime
+must eventually perform a GC. But the runtime can’t collect garbage at any
+arbitrary moment: the mutator might be in the middle of manipulating some
+objects, keeping them in its stack frame or in registers, and effectively hiding
+them from the runtime. The runtime must know about all such objects, or else it
+might reclaim an object that it believes is garbage, but which the mutator is
+still using, leading to use-after-free bugs. This is where safepoints and stack
+maps come in. A safepoint is a program point in the mutator (that is, an instruction in the
+compiled WebAssembly program) where it is safe for the runtime to collect
+garbage. When the mutator calls out to a runtime routine, for example, that call instruction would typically be a safepoint, under the assumption that the
+runtime might need to GC while running the routine. The mutator’s compiler does two things to make a safepoint safe, in the presence
+of objects that the mutator is still actively working with: Insert instructions to move the objects from (say) volatile registers that a call safepoint might clobber to well-known locations in the stack frame. Emit stack map records that describe, for each safepoint in the mutator
+program, the locations where to find those still-in-active-use objects inside
+the stack frame. While collecting garbage, the runtime can walk the mutator’s stack frames and,
+using those stack maps, identify all of the objects that the mutator is still
+manipulating. No more potential use-after-collected bugs! But there is a final twist: if the GC is a moving collector, for example a generational or compacting collector, then an object
+may be relocated in memory during collection. If an object is moved, then all
+references to the object must also be updated to refer to the new
+location. Failure to update a reference leads to use-after-move bugs like
+accessing newly-allocated objects that happened to be placed in the original
+object’s old location. So, in the presence of a moving collector, the runtime
+must additionally update the mutator’s stack frame, redirecting each reference
+noted in the stack map so that it now points to its object’s new memory
+location. The compiler must, in turn, insert reloads of each GC-managed
+reference from its stack map location that it was spilled to — that is,
+from the location where the runtime potentially overwrote the old reference with
+a new, redirected reference — and back into a register so that the mutator
+may continue to manipulate the object. Cranelift’s Old Approach: Stack Maps During Register Allocation Cranelift previously generated stack maps during register allocation. Our
+register allocator naturally tracks the live range of each value in order to
+determine whether the same hardware register may or may not be reused for two
+values. At each safepoint, it would insert spills for each of the live values
+that are managed by the GC, and record those spilled locations in a stack map
+for that program point. This approach is straightforward on the surface, but led
+to a number of subtle downsides and complications. First, because register allocation is so late in the compiler pipeline, the
+previous system involved tracking GC-managed references through almost the
+entire compiler: from the WebAssembly frontend, through the ISA -agnostic mid-end, through the
+ISA-specific backends, and into register allocation. The only part of the
+pipeline that didn’t have to preserve knowledge of GC-managed references was the
+final instruction encoding and binary emission. In general, the fewer invariants
+we must maintain, the simpler our compiler’s implementation. If we could avoid
+precisely tracking GC references throughout most of Cranelift, we could expect
+less complexity and, in general, less complexity would mean fewer bugs. The
+complexity of the coordination required between the runtime and the compiler to
+correctly implement garbage collection and stack maps has bitten us before . Second, to make tracking GC-managed values easier, we distinguished them from
+plain pointers and integers with dedicated types in Cranelift’s intermediate
+representation (CLIF). This succeeded in making them easier to track, but led to
+foiling instruction selection rules and mid-end peephole rewrites that otherwise
+should have applied. For example, checking if a pointer is null involves simply
+comparing it to zero, the same way we compare any other integer to zero: v456 = icmp_imm eq v123 , 0 Checking whether GC reference was null, on the other hand, required a dedicated is_null instruction, despite lowering to identical machine code when it
+appears in isolation: v456 = is_null v123 This doesn’t seem like a big deal at first glance, beyond being forced to define
+additional, duplicate instructions that waste our opcode space and inflate our
+instruction set. However, we have a bunch of instruction selection rules for
+integer comparisons followed by conditional branches, for example, that let us
+avoid materializing flags on x86_64 , yielding smaller and faster machine code
+in those contexts. However, because is_null is a different instruction, these
+rules’ patterns don’t match, and their optimizations are missed. The result is
+that we must choose between generating subpar code or duplicating the relevant
+set of instruction selection rules to also match against an is_null instruction followed by a conditional branch. Third, in addition to missed optimizations, we were also seeing
+misoptimizations: incorrect transformations that broke the input program. From
+its point of view, our mid-end was performing perfectly legal optimizations. But
+the mid-end can’t reason about effects that it can’t see, and it couldn’t see
+the spills and reloads of GC references associated with a safepoint because they
+weren’t inserted yet. This lack of visibility became an issue when we were, for
+example, accessing the same field of an object before and after a safepoint: ;; `v0` is a reference to a GC-managed object.
+v0 = ...
+;; Bitcast it to an `i64` so we can do pointer
+;; arithmetic on it.
+v1 = bitcast.i64 v0
+;; Get the address of the field we want to
+;; access.
+v2 = iadd_imm v1, 8
+;; Write `11` into the object field.
+v3 = iconst.i32 11
+store.i32 v2, v3
+
+;; Call some function! This might trigger a GC
+;; and therefore must be a safepoint.
+call $f()
+
+;; Write to same field as above, but with the
+;; value `22` this time.
+v4 = bitcast.i64 v0
+v5 = iadd_imm v4, 8
+v6 = iconst.i32 22
+store.i32 v5, v6 Our mid-end performs a number of ISA-agnostic optimizations, including global
+value numbering (GVN) (as part of its e-graphs pass ) to
+eliminate duplicate computations. When the mid-end processed the CLIF snippet
+above, it would determine that the second field-address computation was
+redundant, and we could instead reuse the result of the first field computation,
+yielding the following optimized CLIF: v0 = ...
+v1 = bitcast.i64 v0
+v2 = iadd_imm v1, 8
+v3 = iconst.i32 11
+store.i32 v2, v3
+
+call $f()
+
+v6 = iconst.i32 22
+;; Reusing the field address we previously
+;; computed above.
+store.i32 v2, v6 To reason about why this transformation is invalid — despite only
+deduplicating pure, non-effectful, and otherwise-identical instructions —
+we must consider context that is invisible to the mid-end: the safepoint spills
+and reloads that will be inserted later by the register allocator. The second
+field-address computation is not actually reusing v0 as its base, it is using reload(v0) as the base, but that reload operation is hidden from the
+mid-end. If the runtime collected garbage during $f ’s execution and moved the
+object that v0 references, then in this optimized CLIF, the second store is
+writing to the object’s old, vacated location, which is a use-after-move
+vulnerability. We began to address these sorts of bugs in a whack-a-mole fashion, e.g. by
+marking bitcasts of reference types as side-effectful, but ultimately we’d
+rather not play this whack-a-mole game at all, reacting to bugs as we find them,
+never knowing how many are still lurking. Instead, we’d much prefer that the
+mid-end simply had the visibility it needs to optimize correctly in the first
+place. A final quirk of the old system was that GC references were always represented
+as pointers at the machine level. You could only use 64-bit references on 64-bit
+ISAs and 32-bit references on 32-bit ISAs, and you definitely could not do NaN boxing . This was an annoyance for us in practice because
+we’ve designed Wasmtime’s GC implementation such that our GC references are
+always 32-bit integers, even on 64-bit ISAs. This design choice lets us leverage
+the same sandboxing and virtual-memory techniques to elide bounds checks that
+Wasmtime already implements for WebAssembly linear memories. It lets us benefit
+from smaller objects and denser cache locality; because of that, it is a fairly common technique . But,
+despite storing GC references in 32 bits on the heap, Cranelift’s old system
+forced us to extend those references to 64 bits when we were manipulating them
+on the stack or in registers when targeting a 64-bit ISA. The New Approach: User Stack Maps Given the complications of Cranelift’s previous system for tracking GC
+references across safepoints and emitting stack maps, we decided to implement a
+new approach. Instead of generating safepoint spills, reloads, and stack maps at
+the end of the compiler pipeline, the user is responsible for producing CLIF
+that already contains those spills and reloads, as well as annotating each
+safepoint with the virtual stack slots live GC references were spilled into. The
+mid-end, backends, and register allocator have no extra responsibilities other
+than forwarding these annotations through to binary emission, at which point we
+can translate the virtual stack slots into precise stack-pointer offsets and
+emit stack maps. We dubbed this new approach “user stack maps” because their
+correctness largely falls upon the Cranelift user, rather than the core of
+Cranelift itself. User stack maps mean that we no longer need to precisely track GC references
+throughout the whole compiler pipeline. This simplification allows us us to
+remove the distinct reference types from CLIF, as well as their related
+instructions, like is_null . This means no more missed optimizations or
+duplicated instruction selection rules. With user stack maps, we no longer have to worry about safepoint-specific
+miscompilations in the mid-end. Let’s revisit the previous miscompilation
+example, where we wrote to a GC object’s field before and after a
+safepoint. This is what the initial CLIF looks like with user stack maps, where
+the CLIF producer has already inserted the spills and reloads for the safepoint: ;; Set the field to `11`
+v0 = ...
+v1 = iadd_imm v0, 8
+v2 = iconst.i32 11
+store.i32 v1, v2
+
+;; NEW: Spill `v0` to stack slot `ss0`
+;; before the safepoint.
+v3 = stack_addr ss0
+store.i64 notrap v3, v0
+
+;; NEW: stack map annotation on the safepoint.
+call $f(), stack_map = [i64 @ ss0]
+
+;; NEW: Reload what was `v0` from the
+;; stack slot. Don't reuse `v0` because
+;; the referenced object could have
+;; moved.
+v4 = stack_addr ss0
+v5 = load.i64 notrap v4
+
+;; Set the field to `22`.
+v6 = iadd_imm v5, 8
+v7 = iconst.i32 22
+store.i32 v6, v7 Looking at the updated CLIF, it is immediately obvious to the mid-end that
+reusing the initial field-address computation for the second store is invalid.
+The base of the second field-address computation is v5 , not v0 , and it
+cannot prove that v5 and v0 are actually the same value; indeed, if the
+referenced object moved in memory then they will not be the same! We’ve
+avoided the previous misoptimization by construction. Cranelift already must preserve the effects of accessing memory, and a
+safepoint’s spills and reloads are no different: they are explicitly present and
+modeled in the intermediate representation as loads and stores, the same as any
+other memory access. In the world of user stack maps, supporting safepoint
+spills and reloads is not an additional responsibility nor additional
+implementation complexity for the compiler. User stack maps actually unlock more potential optimizations than what used to
+be possible. Our alias analysis pass, which performs redundant load elimination
+and store-to-load forwarding, can now see and operate upon safepoint-related
+spills and reloads. And once again, Cranelift’s surface area that is critical
+for correctness has not grown; the alias analysis pass must already preserve the
+effects of accessing memory. While user stack maps are a big simplification for most of the compiler
+pipeline, they do shift some of that old complexity into the frontend. The
+mid-end, backends, and register allocator no longer need to precisely track GC
+references, and insert spills and reloads at safepoints, but now the frontend
+must. We believe that we’ve ended up at a design point with less overall
+complexity. We, the Cranelift developers, couldn’t leave users (i.e. we, the Wasmtime
+developers) completely on their own, without any tools to help produce correct
+safepoints in CLIF. Cranelift users, including Wasmtime, generally use the cranelift-frontend crate to produce the initial CLIF that Cranelift takes as
+input to compilation. cranelift-frontend helps users build CLIF from their
+source language, handles SSA construction, and etc…; it is an appropriate
+place to help with user stack maps as well. While they are creating CLIF with cranelift-frontend , users can now mark any value as requiring inclusion in
+stack maps, and cranelift-frontend will automatically insert spills and
+reloads of that value around safepoints, as well as annotate those safepoints
+with stack map entries that record the spill locations for the runtime. To fulfill these new obligations, the cranelift-frontend crate performs a
+simple liveness analysis for GC references, allocates and assigns stack slots
+for the GC references, and then inserts spills and reloads. If this sounds
+similar to register allocation, that’s because it is. The important difference
+is that the frontend performs this work only for GC references, not for the
+majority of non-GC-reference values in the program. When a program does not use
+any GC-managed objects, which is the vast majority of WebAssembly programs
+today, no overhead is imposed. Our liveness analysis flows backwards, from uses (which mark values live) to
+definitions (which remove values from the live set) in the data-flow graph and
+from successor blocks to predecessor blocks in the control-flow graph. We compute two live sets for each block: The live-in set, which is the set of values that are live when control enters
+the block. The live-out set, which is the set of values that are live when control exits
+the block. A block’s live-out set is the union of its successors’ live-in sets. A block’s
+live-in set is the set of values that are still live after the block’s
+instructions have been processed, where uses mark values live and definitions
+remove them from the set. live_in ( block ) = union ( live_out ( s ) for s in successors ( block )) live_out ( block ) = live_in ( block ) + uses ( block ) - defs ( block ) Whenever we update a block’s live-in set, we must reprocess all of its
+predecessors, because those predecessors’ live-out sets depend on this block’s
+live-in set. Processing continues until the live sets stop changing and we’ve
+reached a fixed-point. We implement this with the classic worklist approach. Once we have the results of the liveness analysis in hand, we do a final pass
+over the CLIF, assigning stack slots and inserting spills and reloads. This is
+also implemented as a backwards pass. Whenever the pass finds a use of a GC
+reference that is live across any safepoint, it allocates the reference’s stack
+slot if it doesn’t already have one, and replaces the use with a load from that
+stack slot. Upon reaching a safepoint, the pass adds user stack map entries for
+each of the GC references that are live across the safepoint. Finally, when the
+pass encounters a GC reference’s definition, it appends a spill of the reference
+to its associated stack slot to the definition. Then, knowing that the value
+will never be seen again, since we are processing SSA values in backwards order,
+the GC reference’s stack slot is returned to a free list and made available for
+any new GC references the pass has yet to encounter. Astute readers may have noticed that replacing every use with a fresh reload may
+result in many redundant loads. This is not a concern because, as previously
+noted, our mid-end’s alias analysis can already clean up and remove these
+redundant loads. Separation of concerns between compiler passes lets us decrease
+overall complexity. Conclusion We’ve moved stack map generation and safepoint spills and reloads from the end
+of the compiler pipeline and into the frontend. It simplifies the compiler and
+avoids misoptimizations and missed optimizations by relying on our existing
+correctness invariants rather than imposing new ones to maintain. It also
+unlocks efficient sandboxing of the GC heap using the same techniques we use for
+WebAssembly’s linear memories. We’re making steady progress implementing the WebAssembly garbage collection
+proposal in Wasmtime. It is not complete or ready for general use yet, but it is
+coming soon. Want to start hacking on Wasmtime or Cranelift? Check out our contributor
+documentation! Thanks to Trevor Elliott for partnering with me on implementing this stack
+maps overhaul and to Chris Fallin for design feedback, brainstorming, code
+review, and providing feedback on an early draft of this blog post.
+======>
+https://old.reddit.com/r/rust/comments/1fdjurp/updated_my_rust_snake_game/
+-->>-->>
+After taking a long break from working on my own personal projects, I have finally had some time to go back and update my rust snake game a bit further. This game uses the GGEZ crate. My recent changes are not a gigantic end product shift but required quite a large source code change. I updated to scale all game elements and to allow window resizes. I then also added some new difficulties to make the game more playable and fun.   
+
+   I would love to get more suggestions and feedback from everyone on ideas and improvements for the game, as well as on my rust code. I would love to learn more about best practices and ways to improve things as I have been mainly just hacking things together as I go to get to my goal.   
+
+   Rust Snake Game Repo   
+
+   https://preview.redd.it/z88bughywznd1.png?width=1736&format=png&auto=webp&s=f7cfdd5a27ccf83e2faadbb7e2747bfa473bb241   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fcvyjb/ferrumc_an_actually_fast_minecraft_server/
+-->>-->>
+Hey everyone! Me and my friend have been cooking up a lighting-fast Minecraft server implementation in Rust! It's written completely from scratch, including stuff like packet handling, NBT encoding/decoding, a custom built ECS and a lot of powerful features. Right now, you can join the world, and roam around.   
+It's completely multi threaded btw :)   
+
+   Chunk loading; 16 chunks in every direction. Ram usage: 10~14MB   
+
+   It's currently built for 1.20.1, and it uses a fraction of the memory the original Minecraft server currently takes. However, the server is nowhere near feature-complete, so it's an unfair comparison.     
+
+   It's still in heavy development, so any feedback is appreciated :p   
+
+   Github:    https://github.com/sweattypalms/ferrumc   
+
+   Discord:    https://discord.com/invite/qT5J8EMjwk   
+   
+
+======>
+https://github.com/rustcoreutils/posixutils-rs/tree/main/awk
+-->>-->>
+Product Actions Automate any workflow Packages Host and manage packages Security Find and fix vulnerabilities Codespaces Instant dev environments GitHub Copilot Write better code with AI Code review Manage code changes Issues Plan and track work Discussions Collaborate outside of code Explore All features Documentation GitHub Skills Blog Solutions By size Enterprise Teams Startups By industry Healthcare Financial services Manufacturing By use case CI/CD & Automation DevOps DevSecOps Resources Topics AI DevOps Security Software Development View all Explore Learning Pathways White papers, Ebooks, Webinars Customer Stories Partners Open Source GitHub Sponsors Fund open source developers The ReadME Project GitHub community articles Repositories Topics Trending Collections Enterprise Enterprise platform AI-powered developer platform Available add-ons Advanced Security Enterprise-grade security features GitHub Copilot Enterprise-grade AI features Premium Support Enterprise-grade 24/7 support Pricing Search or jump to... Search code, repositories, users, issues, pull requests... Search Clear Search syntax tips Provide feedback We read every piece of feedback, and take your input very seriously. Include my email address so I can be contacted Cancel Submit feedback Saved searches Use saved searches to filter your results more quickly Name Query To see all available qualifiers, see our documentation . Cancel Create saved search Sign in Sign up Reseting focus
+======>
+https://old.reddit.com/r/rust/comments/1fdljdj/i_am_avoiding_macros_while_learning_rust/
+-->>-->>
+While learning rust, I am avoiding the use of macros as much as possible to learn the ins and outs of the language.   
+
+   Is this a logical approach? Or am I crazy and this is just making my life harder.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fdquhy/any_tips_for_starting_a_local_usermeetup_group/
+-->>-->>
+I live in Philadelphia and there isn't a local Rust group I could find. Although I'm an experienced engineer, I'm relatively new to Rust and would like to start a local group to help share use cases and get the word out about Rust locally.   
+
+   Has anyone started a local group and have any useful insights from those startup pains, i.e.,   
+
+   
+   Is it better to try and start online, build up a small group, then do in-person meetups?   
+   How many people is the right number to lead the group? (I know it's better to co-found a group with someone so if you're in Philly let me know!)   
+   How do you balance language adoption (e.g., learning meetups for newer users) versus more advanced topics?   
+   
+
+   Any suggestions welcomed!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fdnm2f/in_rust_how_to_centrally_load_and_override/
+-->>-->>
+As someone new to Rust, I can't seem to find a way to centrally and automatically load a separate and specific .env file to override values defined in a base .env file when running unit and integration tests from the command line.   
+
+   When I say "centrally and automatically" I mean that a specific subset of environment variables are overridden at runtime for all tests (versus having to sprinkle variable override code into every test).  This is something I've commonly done in the past in other languages. For example, I've seen or could imagine 3 approaches for this:   
+
+   
+   [preferred]   
+   
+
+   <project root>/.env    contains:   
+
+   FOO=BAR   
+
+   And various other name/value pairs.   
+
+   Now I want to use use most of the name/value pairs in the    <project root>/.env   file "as is," but I also want to automatically override the BAR value when running    cargo test   .     Note, I don't care if the base       .env       file is at project root or some other sub-dir like       /configs   *, happy to follow any solution's convention.*   
+
+   Normally, I'd expect to follow some  file-naming convention like:   
+   <project root>/configs/.env   
+
+   <project root>/configs/.env.test   
+
+   And the name/value pairs in .env.test automatically overrides the base value in .env when    cargo test    is run.  Open to any naming or file path convention.   
+
+   2)   
+
+   Pass in a parameter at the command line when running    cargo test    like   
+
+   cargo test -- --config-override = ./config/.env.test   
+
+   Which then knows how to override values in a  base .env file (as described in approach #1).   
+
+   3)   
+
+   In a single .env file, have sub-header declarations that specify which sections are meant to override for which environments and then at the command line pass in the environment name to identify:   
+
+   cargo test -- --config-override = test (or unit-test, integration-test, etc.)   
+
+   But I can't seem to find anything analogous to the 3 approaches listed above. Any help in finding it would be much appreciated!   
+
+   p.s. I'm also wondering how environment variables are similarly centrally overridden for different environments like staging, production, etc. But hoping the answer to the question above is the same solution for this.   
+   
+
+======>
+https://github.com/paxdotdev/pax
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Pax Design and build user interfaces that run anywhere. Pax is two things that work together: (1) a vector design tool and (2) a cross-platform user interface engine. (1) Pax Designer is a vector design tool + visual builder that reads & writes user interface definitions as code. (2) Pax Engine is a user interface engine: a cross-platform engine for building & deploying native apps & websites. 🦀 Built in Rust 🦀 Get Started Follow the Get Started instructions in the docs. Features Integrated visual builder (Pax Designer) — a vector design tool and reads & writes code with every visual operation Cross-platform native Build WASM apps or native macOS / iOS apps (macOS and iOS targets are in Alpha; Web target is in Beta; Windows, Linux, and Android are planned.) Hot module reloading Changes to .pax files are hot-reloaded when running Pax Designer locally — try it out Responsive layout engine (top-down,) including % and px as first-class citizens Standard library of reusable components like form controls, layouts, and drawing primitives Robust text rendering , including accessibility / screen-reader support and SEO support for web builds Animation engine : every property of every element is animatable at up to 240FPS, giving an extremely high ceiling for creative expression — intended for microinteractions, data visualization, interactive cartoons, games, simulations, or whatever else you can imagine that calls for motion. Expression language : every property can be bound to spreadsheet-inspired expressions; this makes dynamic logic accessible to low-coders, offers a highly expressive & succinct substrate for LLM generation, and is a key piece of Pax's solution to designability Lightweight footprint , targeting 100KB baseline WASM network footprint (current status: 2-3x above target, with room to improve) Examples You can try out Pax Designer on your workstation by following the “Get Started” directions. This will run Pax Designer locally and allow you to make changes to the template starter project visually and via code. For a robust real-world project built in Pax, see Pax Designer's source code , which is 100% Pax. Docs Read the docs at https://docs.pax.dev/ or contribute to the docs repo on GitHub . Project status Current status: Beta This milestone includes complete open source releases of the systems comprising Pax, including Pax Engine, Pax Designer, and the Pax Standard Library. You can build a real-world app with Pax today — see pax-designer for an example that’s already shipping. Expect some rough edges with Beta: Missing vector design tool features — ( jump on our Discord to share ideas & requests!) Bugs — we appreciate any reports you can file as Github Issues . Breaking changes — we do our best to avoid breaking changes, and are held accountable through maintaining a significant Pax app ( Pax Designer ).  That said, breaking changes are subject to occur any time before 1.0. Web target is leading edge — macos and ios build targets are maintained for architectural soundness, but are several features behind the web target, e.g. occlusion and clipping.  We expect to continue prioritizing Web target development for the near term.  For mobile / desktop targets at this milestone, we recommend wrapping Pax Web with a webview e.g. Tauri. Current priorities Hosted version of Pax Designer — so anyone can use Pax Designer in the browser without any terminals or code.  This will also be the chassis for Pax Pro, our commercial collaboration service that makes it easy for non-developers to contribute visual changes to GitHub. Pax JavaScript — bindings to JavaScript so you can write Pax with JavaScript instead of Rust Responses to feedback & general functional & ergonomic improvements Our task tracker is private (Linear) but we are open to ideas for alternate solutions that can solve both productivity and visibility. We collaborate publicly on the #contribution channel of our community Discord — feel free to drop in and chat. Contribution Pax is open source and we welcome contributions.  See CONTRIBUTING.md Why? Pax aims to make software creation more creative and more accessible to humanity. Learn more about Pax and our goals in our docs . To achieve these goals, Pax is designed for "designability" — an ongoing bilateral bridge between visual vector design and user interface definitions as code. Pax also unlocks a new way to interact with AI — a visual builder that an LLM navigates natively, because language is the backbone of every visual operation.  Pax lets you design AND code with an LLM, and it can design and code in response.  We believe this is a splash of the future of building user interfaces. License © 2024 PaxCorp Inc.  [ contact@pax.dev ] This project is licensed under either of: MIT license Apache 2.0 License at your option.
+======>
+https://github.com/Feromond/rust_snake_game
+-->>-->>
+Repository files navigation README MIT license Rust Snake Game A very simple basic game of snake created in rust. Supports wall collisions, self collisions, and food with snake growth. Scores are recorded at the top. Highscores are tracked per game. A main menu to start the game and also after collisions. The game has 4 different difficulties. The first three are static changes just in the speed of the snake. The last special difficulty is a dynamically changing speed based on the current score in the game. Table of Contents About The Project Release Notes v0.1.1 v1.0.0 v1.2.0 References About The Project This project is intended to be a simple game version of snake created in rust. Just a way for me to learn the rust programming languge and practice it.
+The goal of this project is to create a snake game with collisions, score, snake growth. Future plans would be to keep track of highscores, and to improve potentially textures and assets to be used instead of just square shapes. 1Screen.Recording.2024-09-09.at.9.57.26.PM.mov Release Notes: v0.1.1 The first initial release includes a snake game with boarder collisions, self collisions, food, and snake growth, as well as a score that increases each time you get food.
+The escape key can be used to quit the game at anytime. Currently the game auto quits when you crash / die in the game. I will want to add a end screen in the future. v1.0.0 The full first release of this simple rust game contains all of the same features as the initial pre-release v0.1.1 but with even more. Collisions have been changed to not close the game window but to revert back to a main menu. The main manu was added as an alternative window to the playing game state which allows for time to view the highscore, and to choose whether to play the game again upon a lose, or to quit the game fully. This lead to a code restructure and also improvements to the gameplay experience related to key inputs. High-scores have also now been implemented and will track between the same memory instance of the application running. The game is bundled for mac os and will include some windows release installers or .exe as well. For more info, checkout the Release Notes v1.0.0 v1.2.0 The next big update to the rust snake game. This has all of the previous features but now also includes some major upgrades to the gameplay and user experience. I have added support for window resizing so that users can play on whatever screen resolutions they want, but I maintain a game border to ensure smooth gameplay. The menu has been upgraded to include new game difficulties that can be selected. There are now 4 game modes including easy, normal, hard, and special. The modes impact the speed of the snake making the game faster as it gets harder. The special mode changes the snake speed dynamically based on how much food is consumed during the round. The left over changes are to still implement and persistently save high score data. The game has been bundled for macos and there is an installer that will be provided for windows. References GGEZ
+======>
+https://github.com/sweattypalms/ferrumc
+-->>-->>
+Repository files navigation README MIT license About • Features • Getting Started • Development • License • Acknowledgments • FAQ 📖 About FerrumC is a Minecraft server implementation written from the ground up in Rust. Leveraging the power of the Rust
+programming language, it is completely multithreaded; and offers high performance as well as amazing memory efficiency! ✨ Key Features 🛈 Customizable server list 🚄 Extremely fast and adaptable update speeds 🖥️ Highly efficient memory usage 🗂️ Customizable configuration 🔄 Can import existing worlds from vanilla minecraft 🌐 Compatible with vanilla Minecraft clients (Currently only 1.20.1) 💪 Powerful Entity Component System to handle high entity loads ECS Block Diagram (credits: Unity ) 📦 Fully multithreaded; Utilizes all available CPU cores, instead of a single "main" thread 📝 Custom made network and NBT encoding system to allow for minimal I/O lag 💾 Lighting fast database to ensure extremely fast world loading speeds Currently using RocksDB 32 render distance* ✅ Upcoming features Ability to view other players World modification (place / break blocks etc) Chat & Command system Optimizations Plugin support (Javascript, Rust, and other WASM support languages) 🚀 Getting Started Prerequisites Rust compiler (latest nightly version) Cargo (comes with Rust) LLVM (required for RocksDB compilation) 📥 Installation Unfortunately, the server is not yet ready for production use. If you want to try it out, you can compile it from source. Compile from source (Bleeding edge updates, always up-to-date) Ensure you have LLVM installed on your system. This is required for RocksDB compilation. The env variable LIBCLANG_PATH must be set to the path of the [LLVM path]/bin . Clone and build the project. # Clone the repository git clone https://github.com/Sweattypalms/ferrumc cd ferrumc # Build the project cargo build --release The binary will be in target/release/ 🖥️ Usage Move the FerrumC binary to your desired server directory Open a terminal in that directory (Optional) Generate a config file: ./ferrumc --setup Edit the generated config.toml file to customize your server settings Import an existing world: Place the region files ( .mca ) in the folder named import then run ./ferrumc --import .
+The location of these files is explained here . Run the server: Windows: .\ferrumc.exe Linux/macOS: ./ferrumc Note: You can specify the directory to treat as the root directory (the place where the config files, data files,
+etc. live) by setting an environment variable FERRUMC_ROOT to the path of the directory. For example, I run set FERRUMC_ROOT=C:\Users\ReCor\Documents\Code\Rust\ferrumc before running the server. This is useful if you
+can't move the place the binary is executed from ( cargo run for example). 🛠️ Development We welcome contributions! If you'd like to contribute to FerrumC, please follow these steps: Fork the repository Create a new branch for your feature Implement your changes Write or update tests as necessary Submit a pull request Join our Discord server to get help or discuss the project! ❔ FAQ How does this project differ from: Valence : Valence is a framework for building your own custom server by pulling in different components of their
+library. FerrumC is a fully built server designed to act as a potential replacement for the vanilla server. It's like
+the difference between buying the ingredients to make a meal yourself or just buying a pre-made meal. Minestom : Same as Valence, it's a framework to build your own server, which is different to what we are trying to
+do. Paper/Spigot/Bukkit : These are all great tools and have undoubtedly set the groundwork for projects like this to
+exist, but ultimately they are still somewhat bound to the original server implementation. We aim to write the entire
+server from the ground up, hopefully giving us a leg up. Pumpkin : It really doesn't differ that much. We are both trying to achieve the same thing. It's also not a
+competition, we are both aware of each other's progress and to be honest the Pumpkin team are doing really well. We
+won't tolerate any disrespect towards them as they are also undertaking the same monumental task. Will we be implementing terrain generation? Yes! Not currently on our list of priorities and it's very unlikely that we will be able to have 1:1 terrain generation
+with the vanilla server, but we do plan on implementing some sort of terrain generation as soon as we can. Will there be plugins? And how? We do very much plan to have a plugin system and as of right now, our plan is to leverage the
+awesome Extism project to allow for plugins to be written in a multitude of languages (Rust, Go,
+JS/TS, Zig and more) while not losing out on the performance gains of native code. 📜 License This project is licensed under the MIT License - see the LICENSE.md file for details.

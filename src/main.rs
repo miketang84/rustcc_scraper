@@ -136,6 +136,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // write to file
     let mut file = File::create(&filename)?;
 
+    target_texts.reverse();
     let content = target_texts
         .iter()
         .map(|(url, text)| format!("{url}\n-->>-->>\n{text}"))
