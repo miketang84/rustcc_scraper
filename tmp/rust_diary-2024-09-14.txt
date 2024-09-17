@@ -1,0 +1,261 @@
+https://gist.github.com/BlinkingApe/9b4f5202c0294ce47a883633fc94e71b
+-->>-->>
+This file contains bidirectional Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters. Learn more about bidirectional Unicode characters Show hidden characters [ build ] target = " thumbv7em-none-eabihf " # Cortex-M4F (used by the nRF52832) [ target . thumbv7em-none-eabihf ] rustflags = [ " -Clinker=rust-lld " , " -Clink-arg=-Tlink.x " , ]
+
+======>
+https://medium.com/codex/hacker-pulse-building-a-cross-platform-hacker-news-reader-in-rust-72965e5700b9?sk=e4109da4baedf105e0a93d5e55734851
+-->>-->>
+Member-only story Hacker Pulse: Building a Cross-Platform Hacker News Reader in Rust Manpreet Singh Minhas · Follow Published in CodeX · 9 min read · 14 hours ago -- Share Dive into TUI development, web scraping, and CI/CD with Ratatui, reqwest, and GitHub Actions Photo by Compare Fibre on Unsplash Introduction I’ve been learning rust for a while now by reading books and doing exercises. However, nothing better to learn about any programming language than to build a project and write a tutorial about it. If you want your code to be usable by others it needs to have an interface. How intuitive and user friendly your interface is dictates what the user experience will be like. Following three types are that come to mind when I think of interfaces (Note this list is not exhaustive.). Command Line Interface (CLI) A CLI is a text-based interface where users interact with the program by typing commands[1]. Any programming language should allow you to create one easily. For example in Python you can use argparse to make CLI very easily. Users often interact with these by passing in arguments and running the cli program. Examples include common commands like ls, cp, mv, rm, rmdir or any bash, powershell, zsh etc. command or even nvidia-smi. Text User Interface (TUI) A TUI is a text-based interface that provides some visual elements and interactivity within a terminal[1]. A…
+======>
+https://old.reddit.com/r/rust_gamedev/comments/1fgsx3b/what_approach_should_i_take_on_making_a_realtime/
+-->>-->>
+I am thinking on making a game in Bevy which would be multiplayer where two players race against each other in a set environment, it is going to be very realtime. I have already made a small game in bevy before. What shortcomings would I face and what resources or guides do you recommend or any topics that I should know or learn about before really diving into it.    
+   
+
+======>
+https://bitfieldconsulting.com/posts/rust-errors-option-result
+-->>-->>
+Things are always going wrong, as I’m sure you’ve noticed, and that applies to our programs too. Sometimes when a function call asks a question, there’s no answer to return—either because some error happened, or because the correct answer is, simply, “no results”. When there’s no answer So, as a matter of good API design, what should we do in these cases? For example, suppose we’re trying to write a function first , that returns the first element of a given list. If there’s at least one element in the list, there’s no problem. But what if the list is empty? In a Go program, we might have the function return two values: one of the element type, which will hold the answer if there is one, and a second bool value which will be true if there’s an answer and false to indicate that there isn’t: func first ( list [] int ) ( int , bool ) { That’s not terrible, and it’s the standard API idiom in Go for this situation. In Rust, though, there’s a way to do it with just a single value: we can return an Option . fn first(list : & [ i32 ]) -> Option < i32 > { Options As you probably guessed, an Option type indicates that there may or may not be an answer. The return value from this function can be one of two things—two variants . It can either be None , meaning “no data to return”, or it can be Some(x) , meaning “the result is x ”. It’s now up to the caller to decide what to do. We could use a match expression to check whether or not there’s an answer: match first( & list) { Some (x) => println! ( "The first element is {x}" ) , None => println! ( "No result" ) , } if let expressions Commonly, though, we just want to do something if the option is Some , but nothing otherwise. It would be annoying to write an empty match arm for the None case, and fortunately we don’t have to. Instead, we can use an if let expression to execute some code only if the option is Some , and otherwise just continue: if let Some (x) = first( & list) { println! ( "The first element is {x}" ) } // moving on... The ? operator Sometimes if the answer is None , there’s nothing else useful we can do, so it’s best to just return from the function straight away. We could do this explicitly with match or if let , but there’s a better way. We can simply propagate the None value back to our caller, by appending the question mark operator ( ? ) to it: fn first_plus_1(list : & [ i32 ]) -> Option < i32 > { Some (first(list) ? + 1 ) } Here, if the value of first(list) is Some , then we add 1 to it and return the answer as Some . On the other hand, if first(list) instead returns None , then the ? operator short-circuits this function and automatically returns None as its answer. Neat! unwrap / expect If we can pretty much guarantee, because of the program’s internal logic, that there must be Some answer, we can enforce that using the unwrap method: fn first_plus_1_or_die(list : & [ i32 ]) -> i32 { first(list) . unwrap() + 1 // panics if list is empty } Calling unwrap is a big move, though. It means the program will crash with a very rude error if first(list) is ever None : thread 'main' panicked at src/main.rs:10:17:
+called `Option::unwrap()` on a `None` value Ouch! We can make that error message slightly more informative by using expect instead of unwrap : first(list) . expect( "list should not be empty" ) The name is a little confusing: expect doesn’t mean “expect the result to be this string”, it means “if the result is None , panic with this message”. But, since good programs don’t panic, and neither do good programmers, it’s very rare that using unwrap or expect is actually the right thing to do. Usually, we should either use match and handle the None case explicitly, or propagate the Option using ? . Results As handy as Option is for signalling when there’s no answer, it doesn’t give us any way to tell the caller why there isn’t an answer. With a function like first , it’s fairly obvious, so we don’t need to explain. But with a function that can fail for many different reasons, it’s useful to be able to distinguish between them. That’s where Rust’s Result type comes in. Just like Option , a Result can be one of two possible variants. It can be either Ok(x) , meaning “the answer is x ”, or it can be Err(e) , meaning “couldn’t get the answer because error e happened”. Here’s how we might define a function that returns a Result : fn sqrt(n : f64 ) -> Result < f64 , String > { if n >= 0.0 { Ok (n . sqrt()) } else { Err ( "can't take square root of negative number" . into()) } } Handling Result values Again, we can deal explicitly with the two possibilities using a match expression: match sqrt( - 5.7 ) { Ok (x) => println! ( "The answer is {x}" ) , Err (e) => println! ( "Whoops: {e}" ) , } Or we can use ? to propagate any error back to our own caller: let answer = sqrt( 9.0 ) ?; Here, if the result is Ok , then we assign the answer to answer and continue. If it’s Err , though, the ? operator causes this function to return the error, provided that its return type is also some kind of Result . Error-only results Sometimes the function’s job is just to do something, so there’s no actual answer. But maybe there can still be an error, so in that case we’d use a Result where the Ok variant doesn’t contain anything: fn print_sqrt(x : i32 ) -> Result < () , String > { let answer = sqrt(x) ?; println! ( "{answer}" ) ; Ok (()) } The Rust type () just means, in effect, “nothing goes here”. So in this example the print_sqrt function either returns Ok(()) , meaning “everything went fine”, or, implicitly, some string indicating an error (“can’t take square root of negative number”). Optionality and resultitude Some languages let you ignore possible errors altogether, automatically propagating them as exceptions , and crashing the program if they’re not handled somewhere. Other languages, like Go, make error handling explicit, at the expense of a certain amount of boilerplate code to check and handle errors everywhere they can happen. Rust’s solution, on the other hand, is rather elegant. Returning a single Option or Result from a function indicates that the answer can be “no data”, or an error. That “optionality” or “resultitude”, if you like, is part of the answer, and it can be passed around our program from place to place, or stored and retrieved, right along with the data it applies to. Sooner or later, we’ll want to extract the actual answer, if present, and that’s the point where we have to deal with the possibilities of errors or non-answers. Rust gives us the choice to deal with it right away, or defer it for later, but we have to confront the issue at some point in our program. We can’t just ignore it and hope for the best. Type checking is better than hope And, since Option and Result are distinct types , Rust can detect at compile time when we’re failing to properly address issues of optionality and resultitude. If you try to use an Option<i32> as though it were a plain old i32 value, for example, Rust will swiftly puncture your unwarranted optimism: let answer: i32 = first(&list);
+            ---   ^^^^^^^^^^^^ expected `i32`, found `Option<i32>` Which is completely reasonable, and we know what to do instead: use match or ? to deal with the None case, just as we do with Result values. The fact that Rust can catch issues of forgetfulness like this for us is helpful, and the Option and Result types are a very appealing feature of the language. In practice, a lot of our code will be about handling errors and “no data” situations, so having dedicated types and the ? shorthand to deal with them is a real boost to programmer happiness. Here’s to Rust! And you can read more about it in my early access book, The Secrets of Rust: Tools! $14.95 Add To Cart document.querySelector('.product-block .product-block').classList.add('is-first-product-block'); pre { white-space: pre-wrap; position: relative; }
+=====>
+https://old.reddit.com/r/rust/comments/1fgie48/embedded_memory_and_cpu/
+-->>-->>
+Struggling to learn rust on a ESP32.   
+
+   
+   how do you control which CPU that are used for execution ?   
+   how do you set up a memory map for the Flash memory, for example for OTA, execution or storage   
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fgzcby/need_help_with_background_tcp_reader/
+-->>-->>
+I'm new to Rust, and I thought I'd try to learn about it by implementing something that I work with a lot in my professional life:   
+
+   pub trait ByteReceiver {
+    fn receive_byte(&self, byte: &u8);
+}
+
+struct TcpComHandler<T: ByteReceiver> {
+    reader: TcpReadBackgroundHandler<T>,
+    reader_join_handle: tokio::task::JoinHandle<()>,
+}
+
+impl<T> TcpComHandler<T>
+where
+    T: ByteReceiver + std::marker::Send + 'static,
+{
+    pub async fn new_async(byte_receiver: T, minimum_message_length: usize) -> Self {
+        let mut 
+reader
+ = TcpReadBackgroundHandler {
+            stream: TcpStream::connect("192.168.3.115:10001").await.unwrap(),
+            byte_receiver,
+            minimum_message_length,
+        };
+
+        Self {
+            reader,
+            reader_join_handle: task::spawn(
+reader
+.
+receive_async
+()),
+        }
+    }
+}
+
+struct TcpReadBackgroundHandler<T: ByteReceiver> {
+    stream: tokio::net::TcpStream,
+    byte_receiver: T,
+    minimum_message_length: usize,
+}
+
+impl<T> TcpReadBackgroundHandler<T>
+where
+    T: ByteReceiver,
+{
+    async fn 
+receive_async
+(&mut 
+self
+) {
+        let mut 
+buf
+ = vec![0; 
+self
+.minimum_message_length];
+        loop {
+
+self
+.stream.
+read_exact
+(&mut 
+buf
+).await.unwrap();
+            for b in &
+buf
+ {
+
+self
+.byte_receiver.receive_byte(b);
+            }
+        }
+    }
+}pub trait ByteReceiver {
+    fn receive_byte(&self, byte: &u8);
+}
+
+
+struct TcpComHandler<T: ByteReceiver> {
+    reader: TcpReadBackgroundHandler<T>,
+    reader_join_handle: tokio::task::JoinHandle<()>,
+}
+
+
+impl<T> TcpComHandler<T>
+where
+    T: ByteReceiver + std::marker::Send + 'static,
+{
+    pub async fn new_async(byte_receiver: T, minimum_message_length: usize) -> Self {
+        let mut reader = TcpReadBackgroundHandler {
+            stream: TcpStream::connect("192.168.3.115:10001").await.unwrap(),
+            byte_receiver,
+            minimum_message_length,
+        };
+
+
+        Self {
+            reader,
+            reader_join_handle: task::spawn(reader.receive_async()),
+        }
+    }
+}
+
+
+struct TcpReadBackgroundHandler<T: ByteReceiver> {
+    stream: tokio::net::TcpStream,
+    byte_receiver: T,
+    minimum_message_length: usize,
+}
+
+
+impl<T> TcpReadBackgroundHandler<T>
+where
+    T: ByteReceiver,
+{
+    async fn receive_async(&mut self) {
+        let mut buf = vec![0; self.minimum_message_length];
+        loop {
+            self.stream.read_exact(&mut buf).await.unwrap();
+            for b in &buf {
+                self.byte_receiver.receive_byte(b);
+            }
+        }
+    }
+}
+   
+
+   Basically, it's a structure TcpComHandler that will use Tokio to handle asynchronous data coming in from a server in the background. Since I want this to be a reusable component, I'm trying to use dependency injection by passing in a variable in the constructor, byte_receiver, which implements the ByteReceiver trait. That means that other parts of the code which use the TcpComHandler will be able to define the exact behavior which should happen when a byte is received.   
+
+   However, I'm running into a tough issue with rust's lifetime and borrowing. When I try to spawn a task to start receiving data in the constructor, I end up with the following errors on the same line as task::spawn:   
+
+   error[E0597]: `reader` does not live long enough   
+
+   error[E0382]: borrow of moved value: `reader`   
+
+   My understanding is that because I'm assigning the reader variable to the new TcpComHandler that I'm creating, that TcpComHandler has ownership of it, so I can't pass it to the new task.   
+
+   I tried to fix this by simply saying "Ah well, does the TcpComHandler really need ownership of the TcpReadBackgroundHandler?" and just having the TcpComHandler hold the JoinHandle. But this ran into another error because now the reader variable created in the constructor goes out of scope and so I can't pass it to task::spawn.   
+
+   How can I solve this? Generally I've been running into similar problems a lot in trying to make constructors in Rust, where one of the structure's variables depends on another one, which isn't accessible because the structure hasn't been constructed yet.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fgus4o/embedded_rust_just_starting_out_successful_build/
+-->>-->>
+Have always used C, trying Rust out. Thought it was going well, toolchain installed, simple blinky program written and it compiled - but readelf shows the issues in the post title. Thanks in advance for any help   
+
+   Gist of project files   
+
+   OS: Mint 21   
+
+   Target: NRF52-DK   
+
+   Project structure:   
+
+   blinky_r/   
+
+   │   
+
+   ├── Cargo.toml   
+
+   ├── memory.x   
+
+   ├── src/   
+
+   │   └── main.rs   
+
+   ├── .cargo/   
+
+   │   └── config.toml   
+   
+
+======>
+https://github.com/tinybeachthor/bear_witness
+-->>-->>
+Repository files navigation README BSD-3-Clause license bear_witness This crate provides examples of type witness in rust. If you are familiar with the concept and just want to see a cool thing: [i18n] Warning This crate is not intended to be depended on, just to provide examples. There are 3 main categories of a type witness usage: trait check without type erasure ([bears]) lift a value into type ([auth]) convert a type into value ([i18n]) bonus: type isomorphism ([equals]) type witness Any program is also a proof. A simple addition calculator constructs a proof that 2 numbers can be added.
+The result of the operation is also the proof. If you try dividing by 0 , the calculator won't give you a result at all. Consider the following function: fn first_character ( s : String ) -> char { s . chars ( ) . next ( ) . unwrap ( ) } let s = "Hello" . to_string ( ) ; assert_eq ! ( first_character ( s ) , 'H' ) ; If I call this function over some x and get back a [char], I will know that x must be a [String].
+The fact that first_character can be called on some value proves that the value is a [String].
+We actually don't even need to run the function, the type-checker can verifies this during compilation. # fn first_character ( s : String ) -> char { #     s . chars ( ) . next ( ) . unwrap ( ) # } first_character ( 42 ) ; // error: expected `String`, found integer # fn first_character ( s : String ) -> char { #     s . chars ( ) . next ( ) . unwrap ( ) # } // compiles because the input is indeed a [String] but panics at runtime // sidenote: to type check this we would need a type for a non-empty String, //           e.g. `(char, String)` first_character ( "" . to_string ( ) ) ; // panic: called `Option::unwrap()` on a `None` value A type witness works similarly, we construct a type and it's existence is used to verify some property.
+The main advantage is that it's all done at compile time - so no runtime overhead at all.
+Is this ever useful? Sometimes.
+There are some examples of type witness usage: example 2 ([auth]) is a pretty common pattern.
+The most interesting one is example 3. example 1 : trait check without type erasure This example is implemented in the [bears] module. Let's say we have some concrete types: BrownBear , PolarBear , and Dog .
+And a Bear trait implemented on BrownBear and PolarBear . struct BrownBear ; impl BrownBear { fn do_brown_bear_things ( & self ) -> & str { "< eating lots of honey, yum! >" } } struct PolarBear ; struct Dog ; trait Bear { fn growl ( & self ) -> & str { "< bear growling >" } } impl Bear for BrownBear { } impl Bear for PolarBear { } We want to be sure our animal is a Bear , but we don't want to erase the concrete type.
+Wrapping in Box<dyn Bear> won't work, we wouldn't be able to call BrownBear::do_brown_bear_things on it. Instead we will construct a type witness: forcing a type check on the Bear trait, but returning the same type. # use bear_witness :: bears :: * ; # fn witness < T : Bear > ( bear : T ) -> T { bear } let animal = BrownBear ; let bear = witness ( animal ) ; This checks out, but we don't retain any information about having checked the type. # use bear_witness :: bears :: * ; #
+# fn witness < T : Bear > ( bear : T ) -> T { #     bear
+# } # fn certified_only < T : Bear > ( bear : T ) -> bool { true } assert ! ( certified_only ( witness ( BrownBear ) ) ) ; assert ! ( certified_only ( BrownBear ) ) ; // yikes, this one was not verified We want to tag the type with something to show we have checked it.
+We can use a simple transparent wrapper [Certified] for this. # use bear_witness :: bears :: * ; # use bear_witness :: Certified ; # fn certified_witness < T : Bear > ( bear : T ) -> Certified < T > { Certified :: new ( bear ) } let animal = BrownBear ; let bear = certified_witness ( animal ) ; // -> Certified<BrownBear> fn certified_only_fixed < T : Bear > ( bear : Certified < T > ) -> bool { true } assert ! ( certified_only_fixed ( certified_witness ( BrownBear ) ) ) ; // assert!(certified_only_fixed(BrownBear)); // does not compile anymore
+======>
+https://old.reddit.com/r/rust/comments/1fgu1vc/server_cost_savings_in_rust_versus_java/
+-->>-->>
+Hello learning about rust and wondering how much cost saving would be in switching Java to rust? I have googled stats but they seem to range widely and most of them old and from my understanding rust has been making great improvements.   
+   
+======>
+https://old.reddit.com/r/rust/comments/1fgyopo/lexicalcore_version_100_released_major_security/
+-->>-->>
+I just published    v1.0.0    of lexical-core, a high-performance numeric parsing and writing crate. It's been widely used, and there have been some soundness issues that were discovered so after a long, mental health break from open source work, I went over every line of code, removed unsafe code wherever possible, made safety invariants much stronger, and refactored some code to avoid use of unsafety when possible.   
+
+   This also includes a few correctness issues in parsing integers (this did not affect floating point numbers).   
+
+   For example, the number of unsafe functions dropped from 160 to 8 in this release. A huge shoutout to the Rust team, since a lot of the work to keep performance included code changes that would have created prohitively poor performance in previous versions of rustc.   
+
+   I've also added in contact points for security updates privately email in the hopes of mitigating this in the future. If any well-respected member of the community also would like to have access to both the crates.io repositories and the Github repository as a contingency plan or to review PRs, feel free to reach out to me via email (   ahuszagh@gmail.com   ). No pressure for involvement: just having someone who would be willing to yank crates in case of a major security vulnerability if I'm unavailable would be more than enough.   
+
+   Anyway, in 1 week I will be yanking every possibly vulnerable crate version published, which because I simply do not have the time to do comprehensive analysis of when unsound code may have been introduced, means    every    pre-1.0 (v7.0 for lexical, v1.0 for lexical-core) published version.   
+
+   If you're using lexical, update now and please report any bugs. We have comprehensive testing including fuzzing as part of our PR process, 4 hour+ long UB detection via Miri for significant changes involving unsoundness, and running the test suite via Valgrind.   
+
+   A few breaking changes were made:
+- There's no longer an unsafe API, at all. Which is fitting.
+- 2 features ("safe" and "nightly", which were no longer relevant) were removed.
+- The MSRV is 1.63.0   
+
+   Other than that, everything is fully backwards compatible. The full changelog can be found as part of the    release   .   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fgsmtc/u8_vs_const_u8_const_u8/
+-->>-->>
+I discovered, to my dismay, that for almost all uses a pair of pointers is faster than slice unsafe API. It really only matters if you want to squeeze out the last few percent of performance and slices work with ZSTs (a rare but important use-case and there is no specialization).   
+
+   I'm not sure what to do with that information. I guess, did anyone made a crate for that?   
+   
+
+======>
+https://adam-mcdaniel.github.io/dune-website/
+-->>-->>
+THE DUNE SHELL A shell🐚 by the beach🏖️! Dune is a shell designed for powerful scripting. Think of it as an unholy combination of bash and Lisp . You can do all the normal shell operations like piping, file redirection, and running programs. But , you also have access to a standard library and functional programming abstractions for various programming and sysadmin tasks! Install 2024-09-11 Adam McDaniel Install With Cargo To install the dunesh binary on your machine with cargo , run the following command: $ cargo install --git https://github.com/adam-mcdaniel/dune Copy Post-Install Create A Dune Prelude Dune uses a .dune-prelude file in the $HOME directory to setup the environment for your shell. This file is sourced by Dune every time it starts. You can use this file to set environment variables, define functions, or run any other shell commands you want to run every time you start a new shell session! Read more About 2024-09-11 Adam McDaniel Why Dune? I feel that bash is great in a lot of ways, but it doesn’t exactly feel cozy: it’s lacking a sort of personal touch, and it’s also missing quick and easy customizability. With my last shell, Atom , I had accomplished some of the coziness that bash was missing, but I also introduced a lot of really fatal flaws in the syntax and the type system. Dune, however, is designed completely differently from Atom (although you might notice the similarities in their widget systems). The interpreter itself is standalone, and it holds almost none of the functionality you see in the default distribution of Dune. If you wanted to, you could write a custom frontend and make a unique Dune based shell of your own! Read more Showcase 2024-09-11 Adam McDaniel ARITHMETIC OPERATORS Below is the list of arithmetic operators available in Dune. These operators each behave similarly to how they’re used in Python – integers and floats can be used interchangeably, but will default to integer arithmetic if both operands are integers. You can multiply lists or strings by integers to repeat them, and you can add lists or strings together to concatenate them. Read more THE DUNE SHELL A shell🐚 by the beach🏖️! Dune is a shell designed for powerful scripting. Think of it as an unholy combination of bash and Lisp . You can do all the normal shell operations like piping, file redirection, and running programs. But , you also have access to a standard library and functional programming abstractions for various programming and sysadmin tasks!

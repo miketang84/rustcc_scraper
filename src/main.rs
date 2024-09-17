@@ -90,7 +90,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     if url.starts_with("/") {
                         url = format!("{OLD_REDDIT}{url}")
                     }
-                    jump_links.push(url);
+                    if !url.starts_with("mailto") {
+                        jump_links.push(url);
+                    }
                 }
 
                 sleep(Duration::from_secs(SLEEP_TIME)).await;
