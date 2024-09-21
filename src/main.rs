@@ -116,13 +116,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // fetch succeding links
     for link in jump_links {
         println!("link: {}", link);
-        c.goto(&link).await?;
-        if let Ok(body) = c.find(Locator::Css("body")).await {
-            let html = body.html(false).await?;
-            let extracted_text = extract_content(&html);
-            // let extracted_text = sanitize_html(&html);
-            // println!("extracted text: {}", extracted_text);
-            target_texts.push((link, extracted_text));
+        if let Ok(_) = c.goto(&link).await {
+            if let Ok(body) = c.find(Locator::Css("body")).await {
+                let html = body.html(false).await?;
+                let extracted_text = extract_content(&html);
+                // let extracted_text = sanitize_html(&html);
+                // println!("extracted text: {}", extracted_text);
+                target_texts.push((link, extracted_text));
+            }
         }
     }
 

@@ -1,0 +1,282 @@
+https://github.com/perpetual-ml/perpetual
+-->>-->>
+Repository files navigation README AGPL-3.0 license Perpetual PerpetualBooster is a gradient boosting machine (GBM) algorithm which doesn't need hyperparameter optimization unlike other GBM algorithms. Similar to AutoML libraries, it has a budget parameter. Increasing the budget parameter increases the predictive power of the algorithm and gives better results on unseen data. Start with a small budget (e.g. 1.0) and increase it (e.g. 2.0) once you are confident with your features. If you don't see any improvement with further increasing the budget , it means that you are already extracting the most predictive power out of your data. Benchmark Hyperparameter optimization usually takes 100 iterations with plain GBM algorithms. PerpetualBooster achieves the same accuracy in a single run. Thus, it achieves up to 100x speed-up at the same accuracy with different budget levels and with different datasets. The following table summarizes the results for the California Housing dataset (regression): Perpetual budget LightGBM n_estimators Perpetual mse LightGBM mse Speed-up wall time Speed-up cpu time 1.0 100 0.192 0.192 54x 56x 1.5 300 0.188 0.188 59x 58x 2.1 1000 0.185 0.186 42x 41x The following table summarizes the results for the Cover Types dataset (classification): Perpetual budget LightGBM n_estimators Perpetual log loss LightGBM log loss Speed-up wall time Speed-up cpu time 0.9 100 0.091 0.084 72x 78x You can reproduce the results using the scripts in the examples folder. Usage You can use the algorithm like in the example below. Check examples folders for both Rust and Python. from perpetual import PerpetualBooster model = PerpetualBooster ( objective = "SquaredLoss" ) model . fit ( X , y , budget = 1.0 ) Documentation Documentation for the Python API can be found here and for the Rust API here . Installation The package can be installed directly from pypi . pip install perpetual To use in a Rust project, add the following to your Cargo.toml file to get the package from crates.io . perpetual = " 0.4.7 " Paper PerpetualBooster prevents overfitting with a generalization algorithm. The paper is work-in-progress to explain how the algorithm works. Check our blog post for a high level introduction to the algorithm.
+======>
+https://preview.redd.it/vxfribvd70qd1.png?width=1316&format=png&auto=webp&s=0906aa2f24b1e6ad31893f4970d15e1a3b4ad926
+-->>-->>
+
+======>
+https://github.com/louis-e/arnis
+-->>-->>
+Repository files navigation README Code of conduct GPL-3.0 license Arnis This open source project written in Rust generates any chosen location from the real world in Minecraft Java Edition with a high level of detail. 🖥️ Example By leveraging geospatial data from OpenStreetMap and utilizing the powerful capabilities of Rust, Arnis provides an efficient and robust solution for creating complex and accurate Minecraft worlds that reflect real-world geography and architecture. Arnis is designed to handle large-scale data and generate rich, immersive environments that bring real-world cities, landmarks, and natural features into the Minecraft universe. Whether you're looking to replicate your hometown, explore urban environments, or simply build something unique and realistic, Arnis offers a comprehensive toolset to achieve your vision. 💾 How it works The raw data obtained from the API (see FAQ) includes each element (buildings, walls, fountains, farmlands, etc.) with its respective corner coordinates (nodes) and descriptive tags. When you run Arnis, the following steps are performed automatically to generate a Minecraft world: Processing Pipeline Fetch Data from Overpass API: The script retrieves geospatial data for the desired bounding box from the Overpass API. You can specify the bounding box coordinates using the --bbox parameter. Parse Raw Data: The raw data is parsed to extract essential information like nodes, ways, and relations. Nodes are converted into Minecraft coordinates, and relations are handled similarly to ways, ensuring all relevant elements are processed correctly. Prioritize and Sort Elements: The elements (nodes, ways, relations) are sorted by priority to establish a layering system, which ensures that certain types of elements (e.g., entrances and buildings) are generated in the correct order to avoid conflicts and overlapping structures. Generate Minecraft World: The Minecraft world is generated using a series of element processors (generate_buildings, generate_highways, generate_landuse, etc.) that interpret the tags and nodes of each element to place the appropriate blocks in the Minecraft world. These processors handle the logic for creating 3D structures, roads, natural formations, and more, as specified by the processed data. Generate Ground Layer: A ground layer is generated based on the provided scale factors to provide a base for the entire Minecraft world. This step ensures all areas have an appropriate foundation (e.g., grass and dirt layers). Save the Minecraft World: All the modified chunks are saved back to the Minecraft region files. ⌨️ Usage Get the latest release or compile the project on your own. Run: arnis.exe --path="C:/YOUR_PATH/.minecraft/saves/worldname" --bbox="min_lng,min_lat,max_lng,max_lat" How to find your bbox coordinates Use http://bboxfinder.com/ to draw a rectangle of your wanted area. Then copy the four box coordinates as shown below and use them as the input for the --bbox parameter. The world will always be generated starting from the coordinates 0 0 0. Try starting with a small area since large areas take a lot of computing power and time to process. Manually generate a new Minecraft world (preferably a flat world) before running the script.
+The --bbox parameter specifies the bounding box coordinates in the format: min_lng,min_lat,max_lng,max_lat.
+Use --path to specify the location of the Minecraft world. ❓ FAQ Wasn't this written in Python before? Yes! Arnis was initially developed in Python, which benefited from Python's open-source friendliness and ease of readability. This is why we strive for clear, well-documented code in the Rust port of this project to find the right balance. I decided to port the project to Rust to learn more about it and push the algorithm's performance further. We were nearing the limits of optimization in Python, and Rust's capabilities allow for even better performance and efficiency. The old Python implementation is still available in the python-legacy branch. Where does the data come from? The geographic data is sourced from OpenStreetMap (OSM) 1 , a free, collaborative mapping project that serves as an open-source alternative to commercial mapping services. The data is accessed via the Overpass API, which queries OSM's database. How does the Minecraft world generation work? The script uses the fastnbt cargo package to interact with Minecraft's world format. This library allows Arnis to manipulate Minecraft region files, enabling the generation of real-world locations. Where does the name come from? The project is named after the smallest city in Germany, Arnis 2 . The city's small size made it an ideal test case for developing and debugging the algorithm efficiently. 📝 ToDo and Known Bugs Feel free to choose an item from the To-Do or Known Bugs list, or bring your own idea to the table. Bug reports shall be raised as a Github issue. Contributions are highly welcome and appreciated! Design and implement a GUI Memory optimization Fix Github Action Workflow for releasing Linux & MacOS Binary Evaluate and implement multithreaded region saving Better code documentation Implement house roof types Refactor railway implementation Refactor bridges implementation Refactor fountain structure implementation Automatic new world creation instead of using an existing world Tool for mapping real coordinates to Minecraft coordinates Setup fork of https://github.com/aaronr/bboxfinder.com for easy bbox picking Add interior to buildings Evaluate and implement elevation Generate a few big cities using high performance hardware and make them available to download Implement memory mapped storing of chunks to reduce memory usage Fix faulty empty chunks ( owengage/fastnbt#120 ) (workaround found) 🏆 Open Source Key objectives of this project Modularity : Ensure that all components (e.g., data fetching, processing, and world generation) are cleanly separated into distinct modules for better maintainability and scalability. Performance Optimization : Utilize Rust’s memory safety and concurrency features to optimize the performance of the world generation process. Comprehensive Documentation : Detailed in-code documentation for a clear structure and logic. User-Friendly Experience : Focus on making the project easy to use for end users, with the potential to develop a graphical user interface (GUI) in the future. Suggestions and discussions on UI/UX are welcome. Cross-Platform Support : Ensure the project runs smoothly on Windows, macOS, and Linux. How to contribute This project is open source and welcomes contributions from everyone! Whether you're interested in fixing bugs, improving performance, adding new features, or enhancing documentation, your input is valuable. Simply fork the repository, make your changes, and submit a pull request. We encourage discussions and suggestions to ensure the project remains modular, optimized, and easy to use for the community. You can use the parameter --debug to get a more detailed output of the processed values, which can be helpful for debugging and development. Contributions of all levels are appreciated, and your efforts help improve this tool for everyone. Build and run it using: cargo run --release -- --path="C:/YOUR_PATH/.minecraft/saves/worldname" --bbox="min_lng,min_lat,max_lng,max_lat" After your pull request was merged, I will take care of regularly creating update releases which will include your changes. Contributors: This section is dedicated to recognizing and celebrating the outstanding contributions of individuals who have significantly enhanced this project. Your work and dedication are deeply appreciated! louis-e callumfrance amir16yp EdwardWeir13579 daniil2327 (Including original Python implementation) ⭐ Star History ©️ License Information This project is licensed under the GNU General Public License v3.0 (GPL-3.0). 3 Copyright (c) 2022-2024 louis-e Footnotes https://en.wikipedia.org/wiki/OpenStreetMap ↩ https://en.wikipedia.org/wiki/Arnis,_Germany ↩ This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+For the full license text, see the LICENSE file. ↩
+======>
+https://github.com/fjall-rs/fjall
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Fjall is an LSM-based embeddable key-value storage engine written in Rust. It features: Thread-safe BTreeMap-like API 100% safe & stable Rust Range & prefix searching with forward and reverse iteration Automatic background maintenance Partitions (a.k.a. column families) with cross-partition atomic semantics Built-in compression (default = LZ4) Single-writer, multi-reader transactions (optional) Key-value separation for large blob use cases (optional) Each Keyspace is a single logical database and is split into partitions (a.k.a. column families) - you should probably only use a single keyspace for your application. Each partition is physically a single LSM-tree and its own logical collection; however, write operations across partitions are atomic as they are persisted in a single keyspace-level journal, which will be recovered on restart. It is not: a standalone server a relational database a wide-column database: it has no notion of columns Keys are limited to 65536 bytes, values are limited to 2^32 bytes. As is normal with any kind of storage engine, larger keys and values have a bigger performance impact. Like any typical key-value store, keys are stored in lexicographic order. If you are storing integer keys (e.g. timeseries data), you should use the big endian form to adhere to locality. Basic usage cargo add fjall use fjall :: { Config , PersistMode , Keyspace , PartitionCreateOptions } ; let keyspace = Config :: new ( folder ) . open ( ) ? ; // Each partition is its own physical LSM-tree let items = keyspace . open_partition ( "my_items" , PartitionCreateOptions :: default ( ) ) ? ; // Write some data items . insert ( "a" , "hello" ) ? ; // And retrieve it let bytes = items . get ( "a" ) ? ; // Or remove it again items . remove ( "a" ) ? ; // Search by prefix for kv in items . prefix ( "prefix" ) { // ... } // Search by range for kv in items . range ( "a" ..= "z" ) { // ... } // Iterators implement DoubleEndedIterator, so you can search backwards, too! for kv in items . prefix ( "prefix" ) . rev ( ) { // ... } // Sync the journal to disk to make sure data is definitely durable // When the keyspace is dropped, it will try to persist keyspace . persist ( PersistMode :: SyncAll ) ? ; Durability To support different kinds of workloads, Fjall is agnostic about the type of durability
+your application needs. After writing data ( insert , remove or committing a write batch), you can choose to call Keyspace::persist which takes a PersistMode parameter. By default, any operation will flush to OS buffers, but not to disk. This is in line with RocksDB's default durability. Also, when dropped, the keyspace will try to persist the journal synchronously. Multithreading, Async and Multiprocess Fjall is internally synchronized for multi-threaded access, so you can clone around the Keyspace and Partition s as needed, without needing to lock yourself. Common operations like inserting and reading are generally lock free. For an async example, see the tokio example. A single keyspace may not be loaded in parallel from separate processes however. Feature flags bloom Uses bloom filters to reduce disk I/O when serving point reads, but increases memory usage. Enabled by default. lz4 Allows using LZ4 compression, powered by lz4_flex . Enabled by default. miniz Allows using DEFLATE/zlib compression, powered by miniz_oxide . Disabled by default. single_writer_tx Allows opening a transactional Keyspace for single-writer (serialized) transactions, allowing RYOW (read-your-own-write), fetch-and-update and other atomic operations. Enabled by default. Stable disk format The disk format is stable as of 1.0.0. 2.0.0 uses a new disk format and needs a manual format migration. Future breaking changes will result in a major version bump and a migration path. For the underlying LSM-tree implementation, see: https://crates.io/crates/lsm-tree . Examples See here for practical examples. And checkout Smoltable , a standalone Bigtable-inspired mini wide-column database using fjall as its storage engine. Contributing How can you help? Ask a question or join the Discord server: https://discord.com/invite/HvYGp4NFFk Post benchmarks and things you created Open an issue (bug report, weirdness) Open a PR License All source code is licensed under MIT OR Apache-2.0. All contributions are to be licensed as MIT OR Apache-2.0.
+======>
+https://fjall-rs.github.io/post/announcing-fjall-2
+-->>-->>
+Compared to the non-KV-separated flavour, enabling key-value separation gives essentially linear write scaling through very low write amplification.
+Both GC configurations perform very similarly, but the more aggressive GC prevents higher temporary space usage, with essentially the same write amplification.
+Note that the plateaus in the graphs are caused by the workload stopping writes to truncate the history of items.
+======>
+https://github.com/fjall-rs/value-log
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Generic value log implementation for key-value separated storage, inspired by RocksDB's BlobDB [1] and Titan [2] and implemented in safe, stable Rust. This crate is intended as a building block for key-value separated storage.
+You probably want to use https://github.com/fjall-rs/fjall instead. Features Thread-safe API 100% safe & stable Rust Supports generic KV-index structures (LSM-tree, ...) Generic per-blob compression (optional) In-memory blob cache for hot data (can be shared between multiple value logs to cap memory usage) On-line garbage collection Keys are limited to 65536 bytes, values are limited to 2^32 bytes. Feature flags serde Enables serde derives. Disabled by default. Stable disk format The disk format is stable as of 1.0.0. Future breaking changes will result in a major version bump and a migration path. License All source code is licensed under MIT OR Apache-2.0. All contributions are to be licensed as MIT OR Apache-2.0. Footnotes [1] https://github.com/facebook/rocksdb/wiki/BlobDB [2] https://docs.pingcap.com/tidb/stable/titan-overview/
+======>
+https://github.com/fjall-rs/lsm-tree
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license A K.I.S.S. implementation of log-structured merge trees (LSM-trees/LSMTs) in Rust. This crate only provides a primitive LSM-tree, not a full storage engine.
+For example, it does not ship with a write-ahead log.
+You probably want to use https://github.com/fjall-rs/fjall instead. About This is the most feature-rich LSM-tree implementation in Rust! It features: Thread-safe BTreeMap-like API 100% safe & stable Rust Block-based tables with compression support Range & prefix searching with forward and reverse iteration Size-tiered, (concurrent) Leveled and FIFO compaction Multi-threaded flushing (immutable/sealed memtables) Partitioned block index to reduce memory footprint and keep startup time short [1] Block caching to keep hot data in memory Bloom filters to increase point lookup performance ( bloom feature, disabled by default) Snapshots (MVCC) Key-value separation (optional) [2] Single deletion tombstones ("weak" deletion) Keys are limited to 65536 bytes, values are limited to 2^32 bytes. As is normal with any kind of storage
+engine, larger keys and values have a bigger performance impact. Feature flags lz4 Allows using LZ4 compression, powered by lz4_flex . Disabled by default. miniz Allows using DEFLATE/zlib compression, powered by miniz_oxide . Disabled by default. bloom Uses bloom filters to reduce superfluous disk I/O during point reads, improving performance, but also increasing memory usage. Disabled by default. Stable disk format The disk format is stable as of 1.0.0. 2.0.0 uses a new disk format and needs a manual format migration ( Tree::export and Tree::import ). Future breaking changes will result in a major version bump and a migration path. License All source code is licensed under MIT OR Apache-2.0. All contributions are to be licensed as MIT OR Apache-2.0. Development Run benchmarks cargo bench --features bloom --features lz4 --features miniz Footnotes [1] https://rocksdb.org/blog/2017/05/12/partitioned-index-filter.html [2] https://github.com/facebook/rocksdb/wiki/BlobDB
+
+======>
+https://github.com/ropali/dockyard
+-->>-->>
+Repository files navigation README MIT license Dockyard is a modern, fast, and user-friendly Docker client designed to simplify container management on Linux. Built with Rust + Tauri and React.js, Dockyard offers a sleek interface and powerful features, making it easier than ever to work with Docker containers. Key Features Intuitive UI : A clean and simple interface designed for both beginners and advanced users. Real-time Stats : Monitor container stats in real-time with beautiful charts and graphs. Container Management : Easily start, stop, and remove containers with just a few clicks. Terminal inside container : Open shell inside the docker container using your favourite terminal app. Log Viewer : Integrated log viewer for real-time container logs with PatternFly support. Fast Performance : Built with Rust for speed and reliability. Multi Themes : Many themes to choose from. Screenshots Installation Prerequisites Linux (currently supported only on Linux-based systems) Docker >=27.1.1 installed and running Node.js >= v20.11.1 (for development and building from source) Rust >= 1.79.0 (for building from source) Install Dockyard You can download the latest release from GitHub Releases and install it using the following commands: Using .deb file # Download the latest .deb package wget https://github.com/yourusername/dockyard/releases/download/vX.Y.Z/dockyard_X.Y.Z_amd64.deb # Install the package sudo dpkg -i dockyard_X.Y.Z_amd64.deb # If there are missing dependencies, run sudo apt-get install -f Using AppImage file # Download the latest release wget https://github.com/ropali/dockyard/releases/download/vX.Y.Z/dockyard-X.Y.Z.AppImage # Make it executable chmod +x dockyard-X.Y.Z.AppImage # Run Dockyard ./dockyard-X.Y.Z.AppImage Build from Source To build Dockyard from source, follow these steps: # Clone the repository git clone https://github.com/ropali/dockyard.git cd dockyard # Install dependencies npm install # Build the Rust backend cargo build --release # Run the app in development mode npm run tauri dev Usage Dockyard is designed to be simple and intuitive. Once installed, launch the application and start managing your Docker containers, volumes, and networks. Contributing We welcome contributions from the community! To get started: Fork the repository. Create a new branch ( git checkout -b feature/YourFeature ). Make your changes. Commit your changes ( git commit -am 'Add YourFeature' ). Push to the branch ( git push origin feature/YourFeature ). Open a Pull Request. Development Setup To set up a development environment: Clone the repository: git clone https://github.com/ropali/dockyard.git Navigate to the project directory: cd dockyard Install Node.js dependencies: yarn install Build the Rust backend: cargo build --release Run the app in development mode: cargo tauri dev Roadmap Windows and macOS Support : Extend Dockyard to support more operating systems. Advanced Container Management : Add features like container resource limits and custom network configurations. Adavanced image management : Add more operations related to image management. License Dockyard is licensed under the MIT License . Acknowledgements Built with Tauri , React.js , and Rust . Inspired by my personal itch of creating a beatiful Docker Client(especially for Linux). Community Follow me on Twitter/X for updates and discussions. Support If you encounter any issues, please report them on GitHub Issues page.
+======>
+https://old.reddit.com/r/rust/comments/1flzpoj/perpetualbooster_improved_multithreading_and/
+-->>-->>
+PerpetualBooster v0.4.7: Multi-threading & Quantile Regression   
+
+   Excited to announce the release of PerpetualBooster v0.4.7!    
+
+   This update brings significant performance improvements with multi-threading support and adds functionality for quantile regression tasks. PerpetualBooster is a hyperparameter-tuning-free GBM algorithm that simplifies model building. Similar to AutoML, control model complexity with a single "budget" parameter for improved performance on unseen data.   
+
+   Easy to Use:
+   python
+from perpetual import PerpetualBooster
+model = PerpetualBooster(objective="SquaredLoss")
+model.fit(X, y, budget=1.0)
+   
+
+   Install:
+pip install perpetual   
+
+   Github repo:
+   https://github.com/perpetual-ml/perpetual   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1flziy0/best_way_to_run_a_webview_in_a_rust_desktop_app/
+-->>-->>
+I'm building a desktop app with a webview component, and I'm struggling to find the best way to run it. I've tried a few approaches, but none of them seem quite right. My goal is to be as lightweight as possible    (in term of binary size to the end user)   
+
+   I've experimented with:   
+
+   
+   Using    gtk-rs    with    webkitgtk    - but seems deprecated?   
+   Trying    cef-rust    with Chromium Embedded Framework, but I'm not sure if it's worth the overhead   
+   Looking into    tao    - but still unsure.   
+   
+
+   My requirements are:   
+
+   
+   Must run on Windows, but preferably cross-platform   
+   Should be easy to integrate with my existing Rust codebase   
+   
+
+   Does anyone have a way to run webview natively from the OS? Windows seems to have this with Edge, but is there some cross-platform crate so there is virtually no weight in the final binary?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fm4eat/serde_lifting_values_from_nested_levels/
+-->>-->>
+I need to deserialize a bunch of different types with Serde (although I'm open to alternatives). The API I use adds a lot of intermediate wrappers, and its responses look roughly like this:   
+
+   {
+    data: {
+        actualData: {
+            someField: ...,
+            anotherField: ...
+        }
+    }
+}
+
+{
+    differentlyNamedData: {
+        yetAnotherWrapper: {
+            thirdLevelWrapper: {
+                finally: ...,
+                something: ...,
+                useful: ...
+            }
+        }
+    }
+}
+   
+
+   What I basically want to do is this:   
+
+   #[derive(Deserialize)]
+struct A {
+    #[serde(rename(deserialize = "data.actualData.someField"))]
+    someField: ...,
+    ...same for other fields...
+}
+   
+
+   But, of course, this is not valid syntax for    rename   .   
+
+   The goal here is to iterate quickly and use Serde to derive all deserialization routines, so I really would like to avoid writing them manually or introducing all these wrappers on the type level and coming up with names for them.   
+
+   Is this possible to do with Serde, or is writing manual    Deserialize    impls for every such type (there are lots of them!) my only option here?   
+
+   Thanks!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1flwxet/does_anyone_use_rust_for_leetcode/
+-->>-->>
+I generally read a book about the language, and get hang of it by doing a leetcode problem daily, learnt the golang similar way, and my work uses golang extensively. Trying to do the same with rust, is it a good idea?    
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1flid4l/minecraft_real_life_city_generator_written_in/
+-->>-->>
+Hi there! I spent the last month porting my open source project from Python to Rust. I've working with Rust once before, but this really helped me to get deeper into the language.   
+
+   Arnis is an open source project with the aim to generate any location from the real world in Minecraft. This includes streets, buildings, parks and so much more.   
+
+   I'd love to have some feedback on the code quality and especially would really like to see the project grow!    https://github.com/louis-e/arnis   
+
+   https://preview.redd.it/vxfribvd70qd1.png?width=1316&format=png&auto=webp&s=0906aa2f24b1e6ad31893f4970d15e1a3b4ad926   
+
+======>
+https://github.com/SpecificProtagonist/frightful_hobgoblin
+-->>-->>
+Repository files navigation README License Frightful Hobgoblin Winning entry for the 2024 Generative Design in Minecraft competition. The aim of GDMC is to take an existing Minecraft map and generate a settlement within it, aiming at adaptability, functionality, evocative narrative and aesthetics. While most generators generate a static instance of a village, this one runs a simulation of the village getting constructed and replays it in Minecraft. Running the replay only requires Minecraft and no mods or external programs. It also aims to be reasonably fast by working with the world directly instead of over an http interface and by using a fast language instead of a interpreted, highly dynamic one. This code wasn't made with the intent to be useful for anyone else! There is little separation between framework and generator, no documentation/no comments, no focus on maintainability or best practices. Perhaps most importantly the internal representation of blocks only covers what I've needed myself. The simulation works via an ECS. This means that objects such as villagers or trees are composed of components such as Position or Tree , which only carry data, and are queried by systems which implement behavior. Blocks and some ancillary data are stored in raster format. For buildings to be constructed, villagers need to transport goods to the construction site and then place the blocks. Goods are visible both in storage and in transport. Overall the aim is to achieve a Wuselfaktor similar to the first Settlers games. Each simulation tick corresponds to one game tick. Each tick, the changes to the world get written out as Minecraft commands to run during replay. As this results in hundreds of thousands of commands, getting Minecraft to run them is tricky: Placing them in mcfunction files crashes MC even if they are never executed, as they are eagerly parsed. Instead they are stored in command storage (in nbt), which get loaded via the /data command and executed via macros. Replays can be paused or fast-forwarded via a command. The simulation is pseudorandom but deterministic (useful for debugging). Performance-wise I haven't made many optimizations yet, but it world loading is parallelized and nbt encoding/gzip compression is offloaded to worker threads. Running To run the generator, install Rust , switch to the nightly toolchain (e.g. rustup default nightly ) and run cargo run -- . Running without any further arguments will tell you what configuration to provide. You can also build without running: cargo build --release . Open the world in Minecraft. Each replay only runs while you're in the build area, letting you visit multiple settlements in turn. You can speed up the replay with the following command: scoreboard players set sim speed < speed > Or skip ahead a number of ticks (each tick is 0.05s): scoreboard players set sim warp < ticks_to_warp > Replace <speed> and <ticks_to_warp> with positive integers. Warping ahead too far at once can cause glitches in the form of missing blocks.
+======>
+https://old.reddit.com/r/rust/comments/1fm62lv/for_the_first_time_ever_rust_helps_me_with_my/
+-->>-->>
+Today, GitHub sent me an email to set up 2FA (two-factor authentication). After completing it, they gave me backup codes, suggesting I print them out or write them down and then delete the text file.   
+
+   While writing the codes down, I realized they were hexadecimal numbers. That got me thinking: “Why not convert these to decimal too?” At first, I considered using an online converter, but with 32 codes, it would've taken ages. Then it hit me: "I know Rust—why not write a quick script to handle this?"   
+
+   Here’s the small Rust code I wrote:   
+
+   use std::fs;
+
+const PATH: &str = "test.txt";
+
+fn main() {
+    let text = fs::read_to_string(PATH).unwrap();
+
+    let mut code_vec: Vec<&str> = Vec::new();
+
+    text.lines().for_each(|line| {
+        line.split('-').for_each(|code| code_vec.push(code))
+    });
+
+    let mut num_code: Vec<u32> = Vec::new();
+
+    for code in code_vec {
+        num_code.push(u32::from_str_radix(code, 16).unwrap());
+    }
+
+    println!("{:?}", num_code);
+}
+   
+
+   In no time, I had a list of decimal numbers! It may seem small, but for me, it was a huge win because it was the first time I used programming to solve a personal issue.   
+
+   This made me appreciate Rust (or any programming language) even more—sometimes, the smallest programs can save a ton of time and effort.   
+
+   So, if you're learning a language, keep going. You'll be surprised how it can help in unexpected ways!   
+
+   Have a great day.   
+
+   Happy Rust Journey!🦀   
+
+   https://preview.redd.it/ipjwn0e3p6qd1.png?width=857&format=png&auto=webp&s=ef8de64c11e287b6a2590fcc5609bf2b4e0ff55a   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fm22bg/just_released_fjall_20_an_embeddable_keyvalue/
+-->>-->>
+Fjall is an embeddable LSM-based forbid-unsafe Rust key-value storage engine.   
+
+   This is a pretty    huge    update to the underlying    LSM-tree implementation   , laying the groundwork for future 2.x releases to come.   
+
+   The major feature is (optional) key-value separation, powered by another newly released crate,    value-log   , inspired by RocksDB’s BlobDB and Titan. Key-value separation is intended for large value use cases, and allows for adjustable online garbage collection, resulting in low write amplification.   
+
+   Here’s the full blog post:    https://fjall-rs.github.io/post/announcing-fjall-2   
+
+   Repo:    https://github.com/fjall-rs/fjall   
+
+   Discord:    https://discord.gg/HvYGp4NFFk   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1flwlwl/meet_my_open_source_project_dockyarda_docker/
+-->>-->>
+I created this out of personal itch I had. A few years ago, I needed a GUI to manage Docker containers on my Linux machine, but none of the options worked for me. The official Docker desktop wasn't supported on Linux at the time, and the alternatives I found from open-source communities just didn’t feel right.That’s when the idea for Dockyard was born.   
+
+   I wanted a tool that put Linux support first, with a simple design and easy-to-use interface. So, I finally took the leap and built Dockyard—an open-source Docker desktop client that brings all the functionality I needed, while keeping things lightweight and intuitive.   
+
+   It is built using Rust & Tauri framework. It currently supports Linux & macOs. You can download it from the Github release page.   
+
+   Check it out and don't forget to give it ⭐ if you liked the project:    https://github.com/ropali/dockyard   
+
+   Your feedback is appreciated.   
+
+   https://preview.redd.it/iciqy9fiu3qd1.png?width=640&format=png&auto=webp&s=d7256471b3a51debe7ee322e3edde97d7da0f6fa   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fm3697/what_do_atomic_operations_accomplish/
+-->>-->>
+I've been trying to learn rust and have been struggling to understand what Arcs accomplish. I know that it means atomically reference counted variables, but what is the difference between reference counted and atomically reference counted.    
+
+   The reading I've done says it's "all at once" and not split between many operations. But what does that accomplish in this context?    
+   
+
+======>
+https://blog.antoyo.xyz/development-rustc_codegen_gcc
+-->>-->>
+Development of rustc_codegen_gcc 17 Sep 2024 It’s been a while since I wrote my last progress report about rustc_codegen_gcc (if you don’t know what this project is about, please look at the description in the last project report ).
+We’ve been having some trouble making big progress lately, so I wanted to take a break from the usual article format that only
+showed what progress has been made and instead write something more technical so you see what’s making it hard for us
+to focus on making rustc_codegen_gcc ready to use. Sync with upstream Rust In today’s article, I wanted to talk about what we need to do to sync with the Rust compiler.
+Like what happened at the beginning of the summer ,
+we’re still having issues with making the sync with the Rust compiler. What is a sync? So, what’s a sync with the Rust compiler?
+Before I explain what it is, I’ll explain how the GCC codegen works: it is a shared library that is loaded by the rust compiler.
+It implements a bunch of traits from the rustc_codegen_ssa crate:
+the functions in them specify how the specific backend generates code for a specific operation, for instance how to add 2 integers. rustc_codegen_gcc pins a specific nightly version of the Rust compiler so that it continues to work even if the API changes on the rustc side.
+So when I say I "sync with the Rust compiler", I mean that I increment this nightly version to one that is closer to today and pull the changes from the Rust repo: rustc_codegen_gcc indeed lives in a separate repo and the Rust repo includes the project via a git subtree .
+I can also sync back the changes from the subtree into the Rust repo (it’s much easier to sync this way).
+We need to do this to stay up-to-date with the most recent changes of the Rust compiler and get the new features implemented. What makes it hard to do a sync? In this blog post, I’ll only talk about why the current sync is hard to do.
+I might write other blog posts in the future about other issues with the sync and the different aspects of the development of rustc_codegen_gcc if there’s an interest. In the CI of the GCC codegen repo, we run many tests to make sure the codegen keeps working.
+However, most of the time when we do a sync, some of these tests will fail, so we need to investigate why and the reason of those failures can take a long time to understand and to fix.
+As mentioned in the last progress report, we even disabled some tests to be able to finish the sync and move on: none of those tests were re-enabled yet since we’re busy trying to do this sync. What do we need to do to sync with the Rust compiler? The first thing that we usually need to do is to update the patches we have.
+Most of them are related to testing: some will disable a few tests, others will allow us to run the tests of some sysroot crate more easily.
+It is fortunately easy to update these patches. As mentioned previously, a sync will often break things.
+In this case, we had the following errors when compiling a program using the standard library: /usr/bin/ld: /home/runner/work/rustc_codegen_gcc/rustc_codegen_gcc/build/build_sysroot/sysroot/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd.rlib ( std.std.c6df57227ece985b-cgu.11.rcgu.o ) : ( .data.rel._rust_extern_with_linkage_pidfd_spawnp+0x0 ) :
+undefined reference to ` pidfd_spawnp ' /usr/bin/ld: /home/runner/work/rustc_codegen_gcc/rustc_codegen_gcc/build/build_sysroot/sysroot/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd.rlib(std.std.c6df57227ece985b-cgu.11.rcgu.o):(.data.rel._rust_extern_with_linkage_pidfd_getpid+0x0): undefined reference to `pidfd_getpid' This required a bit of investigation to figure out why this was happening.
+We found out that we needed to add the support for the weak variable attribute in order to fix this particular issue and to make some progress on the sync.
+This required adding support for it in libgccjit which is a bit of work. The next thing that was a problem for this sync is that there were many AVX-512 intrinsics that were added.
+Why is this a problem for us? It’s because they do not map 1-to-1 between GCC and LLVM.
+As such, we need to maintain a mapping between them:
+not only their name is different, but sometimes, their number of arguments or their order is different.
+So we end up with code like this to rearrange the arguments.
+We also sometimes need to adjust the return value as can be seen below in this file. The process to create this mapping is cumbersome: We compile stdarch (which takes close to 1 minute to complete with the GCC codegen on my PC). We look at the error telling us which intrinsic is missing. We add the mapping for this intrinsic. We go back to step 1. Since in the current sync (which updates from Rust nightly-2024-07-02 to nightly-2024-08-11 ) there were more than 100 new intrinsics , this process can take time. To help go a bit faster, I modified a bit the code so that it doesn’t panic on the first missing intrinsic, but it will rarely show more than 5 missing intrinsics at a time since it will eventually fail with a type mismatch error in GCC at some point when I do that. To help us with this process, we created a script that will try to auto-generate this mapping: it generates this file .
+However, since it uses files from LLVM, it’s not perfect: it’s missing many intrinsics and, sometimes, the name of the GCC builtins is wrong.
+This also doesn’t help when the arguments need to be rearranged. And that’s mostly where we’re at for the current sync: we’re close to being done with it (more than a month after we started).
+There are still errors when running the stdarch tests, though.
+One of them is actually a bug in GCC since it generates invalid assembly when using the Intel syntax : we now get this error: /tmp/libgccjit-4MRR1f/fake.s: Assembler messages:
+/tmp/libgccjit-4MRR1f/fake.s:171999: Error: operand size mismatch for ` vfpclasssd ' /tmp/libgccjit-4MRR1f/fake.s:172085: Error: operand size mismatch for `vfpclassss' This is not the first time I see this since the Intel syntax is much less tested in GCC than the AT&T syntax: in fact, I already fixed a similar issue in the past .
+Since I’m less familiar with the backend part of GCC, it’s going to take some time before I find how to fix this bug. We also have another error that we need to fix: libgccjit.so: crates/core_arch/src/x86/avx512ifma.rs:136:5: error: :
+‘__builtin_ia32_vpmadd52huq256_mask’ needs isa option -mavx512ifma -mavx512vl This seems to suggest that we do something wrong with enabling target features at the function level: I haven’t started investigating this issue yet, though, so I might be wrong. Prioritization All of that made me think perhaps it would help quite a bit to shift our priorities.
+For instance, focusing on the latest AVX-512 intrinsics could perhaps be delayed so that the sync can be made faster and more easily.
+Doing so would allow us to work on other, more important, features.
+I’d still like to keep running the stdarch tests in our CI, though, so that what we have continues to work:
+I’ll try to find a way to make sure the tests compile even without the missing intrinsics and to ignore the tests in this case.
+Doing so could also create relatively simple tasks for new potential contributors: they could add a few missing intrinsics every now and then, a few at a time. As I continue to do this exercise of explaining the work we do on rustc_codegen_gcc , I might think about other prioritization issues we might have. Conclusion As you can see, we’re struggling to keep up with the changes in rustc. For the current sync, the issue mostly was trying to stay up-to-date to support the newest AVX-512 intrinsics. Doing so, we found a bug in the GCC backend which we’ll need to fix to complete this sync. I also proposed a solution to help us go faster with these sync by prioritizing more important work. When we’ll have more tests running in the CI of the Rust repo, it will help us with these sync because we’ll be able to fix one issue at a time without having to investigate much about what’s the cause of the issue.
+Some of these issues might even be fixed by the contributor making the PR if it’s easy. I might write more blog posts like this in the future, so stay tuned!
