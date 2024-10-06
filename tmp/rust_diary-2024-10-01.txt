@@ -1,0 +1,421 @@
+https://rinja.readthedocs.io/en/stable/
+-->>-->>
+Rinja Rinja implements a template rendering engine based on Jinja .
+It generates Rust code from your templates at compile time
+based on a user-defined struct to hold the template's context.
+See below for an example. All feedback welcome! Feel free to file bugs, requests for documentation and
+any other feedback to the issue tracker . Have a look at our Rinja Playground ,
+if you want to try out rinja's code generation online. Feature highlights Construct templates using a familiar, easy-to-use syntax Benefit from the safety provided by Rust's type system Template code is compiled into your crate for optimal performance Optional built-in support for Actix, Axum, Rocket, and warp web frameworks Debugging features to assist you in template development Templates must be valid UTF-8 and produce UTF-8 when rendered Works on stable Rust Supported in templates Template inheritance Loops, if/else statements and include support Macro support Variables (no mutability allowed) Some built-in filters, and the ability to use your own Whitespace suppressing with '-' markers Opt-out HTML escaping Syntax customization
+======>
+https://github.com/torymur/sqlite-repr
+-->>-->>
+Repository files navigation README MIT license SQLite3 Representation SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine. SQLite is the most used database engine in the world, built into all mobile phones and most computers and comes bundled inside countless other applications that people use every day. The SQLite file format is stable, cross-platform and backwards compatible, the developers pledge to keep it that way through the year 2050. All that makes it interesting to peek into their on-disk database file format to understand it for software development objective and troubleshooting reasons, as well as to study format of SQLite databases for academic purposes or regular self-education. Visual Available at https://torymur.github.io/sqlite-repr/ Map 🗺️ Parser Table Interior Btree page Table Leaf Btree page Index Interior Btree page Index Leaf Btree page Freelist pages Overflow pages Spilled record values Spilled record headers (rare) Pointer map pages Lock-byte page Freeblock & Fragmented bytes UI Hybrid, Hex, Text field repr Preloaded example databases, details Page View Tree View Reserved space Add yours Console
+======>
+https://dystroy.org/bacon/
+-->>-->>
+Overview Installation Usage Configuration Global Preferences Project Settings bacon is a background rust code checker. It's designed for minimal interaction so that you can just let it run, alongside your editor, and be notified of warnings, errors, or test failures in your Rust code. It conveys the information you need even in a small terminal so that you can keep more screen estate for your other tasks. It shows you errors before warnings, and the first errors before the last ones, so you don't have to scroll up to find what's relevant. You don't have to remember commands: the essential ones are listed on bottom and the few other ones are shown on a hit on the h key. Installation Run cargo install --locked bacon Usage Launch bacon in a terminal you'll keep visible bacon This launches the default job, usually based on cargo check :
+Bacon will watch the source directories and shows you the errors and warnings found by the cargo command. You may decide to launch and watch tests by either hitting the t key, or by launching bacon with bacon test While in bacon, you can see Clippy warnings by hitting the c key. And you get back to your previous job with esc You may also open the cargo doc in your browser with the d key. You can configure and launch the jobs of your choice: tests, specific target compilations, examples, etc. and look at the results while you code. Run bacon --help to see all launch arguments, and read the cookbook . Configuration See config for details, but here's the crust: Global Preferences The prefs.toml file lets you define key bindings, or always start in summary mode or with lines wrapped. To create a default preferences file, use bacon --prefs . Shortcut: $EDITOR $( bacon --prefs) Project Settings You'll define in the bacon.toml file the jobs you need, perhaps an example to check, a run with special parameters, or the settings of clippy, as well as shortcuts to run those jobs. Create a bacon.toml file by running bacon -- init This file already contains some standard jobs. Add your own, for example [jobs.check-win] command = [ "cargo" , "check" , "--target" , "x86_64-pc-windows-gnu" , "--color" , "always" ]
+======>
+https://kty.dev/blog/2024-09-30-use-kube-rs
+-->>-->>
+CTRL K System On This Page TL;DR Resource CRUD Dynamic API Reacting to Changes Managing Memory CRD Generation and Management What’s Next? Question? Give us feedback → Edit this page Scroll to top Blog Write Your Next Kubernetes Controller in Rust Write Your Next Kubernetes Controller in Rust September 29, 2024 by Thomas Rampelberg Whenever it is time to write something that interacts directly with Kubernetes,
+I have always recommended using golang. Between client-go , controller-runtime and kubebuilder , other
+languages just haven’t been mature enough to build something comprehensive. When
+using their bindings, I’d find some functionality that was missing or
+documentation that was lacking which would end up being a blocker. When it came time to get started with kty , I wanted to give the rust
+ecosystem a try. Rust has a mature ecosystem around the pieces that weren’t
+Kubernetes specific - ssh via russh and TUI functionality via ratatui . That said, interacting with your cluster is the whole point
+of kty. Would kube-rs be enough, or would I need to use golang purely
+because I had to interact with the Kubernetes API? TL;DR If you’re interested in interacting with Kubernetes outside of the golang
+ecosystem, kube-rs is fantastic. It has a great API, lots of examples and
+supports everything that I would have wanted. The best parts of client-go,
+controller-runtime and kubebuilder are all rolled into one, letting you build on
+top of the rich Rust ecosystem. I’ve enjoyed building complex interactions between Kubernetes and kty . My
+recommendation has shifted from golang to rust for building applications that
+need to interact with and be aware of Kubernetes. Keep reading to understand a
+little bit more about the functionality I believe is required and the
+differences between the languages. Resource CRUD Perhaps the most important part of interacting with Kubernetes is the ability to
+actually, you know, create, read, update and delete resources. Without that,
+what’s the point? Most folks get started by working directly with client-go . The API there has
+always felt a little clunky to me. Because of how it is generated combined with
+golang’s type system, I always ended up with something that looks a lot like linkerd’s API client . There’s nothing wrong with this, it
+is just so verbose. Isn’t there a better way? controller-runtime is
+great! Don’t dismiss it if you’re not explicitly building a controller. It is a
+better API to work with and you can do everything you need to. Unlike client-go , there’s no need to convert between a type and a specific library
+path ( Pod -> client.CoreV1().Pods("namespace").Get() ). The kube-rs client iterates on the controller-runtime API and makes it a
+little bit more rust-like. Here’s an example of how you’d use each of these side
+by side: pod := & corev1 . Pod {} if err := c. Get (context. Background (), client . ObjectKey { Namespace: "namespace" , Name: "name" , }, pod); err != nil { return err } let pod = Api :: < Pod > :: namespaced (client, "namespace" ) . get ( "name" ) .await? ; For those who aren’t super familiar with rust, the ? operator is a nifty way
+to allow for error propagation. The .get() method returns a Result<Pod> .
+This is an enum which is either Ok(pod) or Err(error) . ? unpacks the value
+an immediately returns if there’s an error. You can reduce all the if err != nil boilerplate! Now, getting resources is great, but that’s something most clients can do. kty needs to do some more esoteric things like stream logs or run commands inside a
+container. That’s where I’ve become frustrated in the past with other languages,
+but kube-rs can do it all. If you don’t believe me, check out the
+comprehensive set of examples that show how you can exercise
+the API. Getting a log stream is just as easy as getting a pod: let logs = Api :: < Pod > :: namespaced (client, "namespace" ) . log_stream ( "my-container" , & LogStreamOptions :: default ()) .await? ; Functionality like this has been built on top of Rust’s trait system. Unlike golang’s interfaces, traits can be defined on any type. This
+provides a whole set of added functionality that is common across
+all resources. My favorite part is that you can write your own. In kty we have
+some generic ones to output some YAML: pub trait Yaml < K > where K : Resource + Serialize , { fn to_yaml ( & self ) -> Result < String >; } impl < K > Yaml < K > for K where K : Resource + Serialize , { fn to_yaml ( & self ) -> Result < String > { serde_yaml :: to_string ( & self ) . map_err ( Into :: into) } } There are also resource specific ones that we’re using to easily format a pod
+object for display: pub trait PodExt { fn age ( & self ) -> TimeDelta ; fn ready ( & self ) -> String ; fn restarts ( & self ) -> String ; fn status ( & self ) -> Phase ; fn containers ( & self , filter : Option < String >) -> Vec < Container >; fn ip ( & self ) -> Option < IpAddr >; } Dynamic API My favorite part of kube-rs is the dynamic API. Sometimes you don’t know what
+the type will be. For example, imagine that you’re recursing through the OwnerReferences of a resource. Those can be anything, but you need to fetch
+the reference to see if it has any parents. With the dynamic API and its
+associated client, you can fetch any resource into a serde_json::Value and
+then get what you need out of it. These can be parsed into specific types
+if/when it is needed. This functionality makes it possible for kty to draw the
+graph of a resource. The code to fetch generic resources (or DynamicObject ) isn’t much different
+than doing it for a specific resource (or Pod ). From an implementation
+perspective, specific resources simply have the required configuration already
+associated with themselves. let resource = Api :: namespaced_with (client, "namespace" , ApiResource :: from_gvk ( & group_version_kind)) . get ( "foo" ) ? ; Reacting to Changes The backbone of any controller is the ability to watch resources and then react
+based on that. From the golang world, informers solve this need.
+They effectively give you a local cache of resources that updates in real time.
+Controllers need this so that they can implement the loop of a resource changing
+and then updating state to match that. For kty , we needed something to keep a list of pods (and other resources)
+updated in real time. The alternative would be to use polling, which would put
+undue load on the API server and result in updates taking awhile to show up in
+the UI. It definitely helps that maintaining the local cache and its updates
+outside of the main loop makes doing rendering/state management easier. kube-rs solves the same problem with its reflectors . I
+appreciate how each piece builds on top of the previous one. None of this is
+particularly different from the golang world, but it has been implemented with a
+clean API and really is required to build a controller. A client lets you interact with the API. A watcher provides a stream of events for some resources. A reflectors takes a watcher and uses that to populate a store. That’s the
+cache containing an up-to-date copy of the resources. A controller is a reflector that will run a handler whenever something
+changes. Here’s an example of how these layer together. A deployment client is created
+and a watcher is attached to that client. The writer returned from the store is
+attached to the watcher and that whole thing is thrown into a background task. let api : Api < Deployment > = Api :: all (client); let (reader, writer) = reflector :: store (); let watch = reflector (writer, watcher (api, Default :: default ())) . default_backoff () . touched_objects () . for_each ( | r | { future :: ready ( match r { Ok (o) => debug! ( "Saw {} in {}" , o . name_any (), o . namespace () . unwrap ()), Err (e) => warn! ( "watcher error: {e}" ), }) }); tokio :: spawn (watch); Managing Memory On larger clusters, or for controllers that are complex, memory usage becomes a
+problem. For controllers I’ve written in the past, they’ll always start out with
+a 1Gi memory limit. That quickly gets raised a couple times as the pod gets OOM
+killed. There’s a convenient optimization guide that talks about
+ways to manage your memory usage. I always appreciate when a library talks about
+some of the tradeoffs you’ll run into when implementing something yourself. It
+helps me understand the system better, hopefully resulting in increased
+reliability. CRD Generation and Management The last piece of the controller puzzle is the ability to create your own
+resource definition. After all, we’re trying to add functionality to the cluster
+that requires some kind of configuration or state. This is where rust really
+starts shines. Resources in Kubernetes rely heavily on generated code. Of the ~2100 files in client-go , ~1700 of them were generated with a *-gen tool such as client-gen . That’s 80% of the repo! It is great that the raw
+resource definitions can be generated from a schema, but this usually results in
+a complex build and development process. Of course, when working with the core
+resources, this isn’t a problem. It becomes something to be managed once you
+want your own resoruce definition. The tool that does this generation is controller-gen . It looks
+for specially formatted comments that have been added to structs. These dictate
+how client code is generated and it looks something like: // +kubebuilder:object:root=true // +kubebuilder:subresource:status type Foo struct { metav1 . TypeMeta `json:",inline"` metav1 . ObjectMeta `json:"metadata,omitempty"` } Rust has a built-in macro system that does the generation for you. When
+combined with traits, you get something that only generates what’s needed and
+leaves the rest as shared code. Macros are integrated directly in the compiler,
+any problems immediately show up in your editor and you can reduce the debugging
+cycle of “edit” -> “generate” -> “compile” -> “test”. For kube-rs , it’ll take
+a spec and generate the rest for you: #[derive( CustomResource , Clone , Debug , Serialize , Deserialize , JsonSchema )] #[kube( group = "example.com" , version = "v1alpha1" , kind = "Foo" , namespaced, )] pub struct FooSpec {} Of course, you can only use this from inside of rust. If you want to use your
+resource in a different language, you can still do the generation step. It is
+now a release process instead of a local build step. Perhaps my favorite part, you can even generate the CRD directly from rust!
+There’s a CustomResourceExt trait which provides .crd() . You can take that
+and either use it from within your controller. We do this at startup in kty to
+ensure the definition is correct for the server. We also use serde to
+serialize to yaml and provide an install command for easily adding kty to
+your cluster. What’s Next? When writing controllers in golang, it is recommended to use kubebuilder .
+This is create-react-app for Kubernetes. I’ve always felt like everything
+provided was a little too heavy weight. I would opt into the required tools, controller-runtime , controller-gen and try to avoid the rest. With kube-rs , I don’t actually need any generation tools. Being able to
+write it all from “scratch” is a great feeling. I can reason about how the
+system works a little bit better and have direct control over what’s happening.
+Check out one of the examples all in less than 100 lines of rust. Kubernetes needs more controllers! Being able to react to what’s happening in
+the larger cluster is a powerful tool. Next time you’re thinking of doing
+something, whether it is a kubectl plugin or a full blown
+controller, take rust for a spin. It’ll be worth it! Last updated on October 1, 2024
+======>
+https://old.reddit.com/r/rust/comments/1ft4fhy/so_what_do_you_use_for_rust_development/
+-->>-->>
+I've heard a lot of people propose their wildly different setups for development in any language; I've heard of someone who used VSCode for browsing projects, and Vim for actual development of files. Then you have the extensive Emacs community, which is a recursive can of worms in it of itself.   
+
+   I personally just use a terminal editor with TMux and Neovim with some nice quality of life configuration.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fttfte/does_anyone_know_the_latest_way_to_use_rust_lldb/
+-->>-->>
+To be honest, while writing Rust code, I feel that Rust still has a long way to go in terms of debugging.    
+
+   e.g.  in terms of variable display for enum and for EcoString.    
+
+   Can someone please tell me about the best way for using LLDB to debug Rust?    
+
+   I already know about another approach, dbg!, but I really don't want to see a large number of dbg! in my code repo :(   
+   
+
+======>
+https://voelklmichael.github.io/Blog/2024/10/01/serde-trait-part1.html
+-->>-->>
+error[E0038]: the trait ` Trait ` cannot be made into an object -- > blog/src/main.rs:9:12
+    |
+9   | let t: &dyn Trait = &s ; |            ^^^^^^^^^^ ` Trait ` cannot be made into an object
+    |
+======>
+https://old.reddit.com/user/thecouponnerd/comments/1fkmds4/im_a_blogger_who_talks_to_people_about_their/
+-->>-->>
+1. Overpaying when you shop online   
+
+   Big stores like Amazon know that no one has time to price shop through dozens of sites, so there’s often no incentive for them to offer bargain prices.   
+
+   I typically hate browser extensions with a fiery passion, but Capital One Shopping has always worked well for me and I'd recommend trying it (   link here   ).   
+
+   When you shop online (on Amazon or elsewhere) it will automatically compare prices for you, and auto-apply coupon codes when possible.   
+
+   2. Not using an adblocker   
+
+   If you haven't tried an ad blocker yet you are 100% missing out. A good ad blocking app will:   
+
+   
+   Block virtually all banner ads, pop-ups etc. before they load   
+   Make pages load ~2x faster on average (often by a lot more)   
+   Block pre-roll video ads   
+   Block trackers and tracking cookies.   
+   
+
+   I've tested a bunch, I usually get the best results from    Total Adblock   , but truthfully most ad blockers are really solid.   
+
+   Cost: Typically $2/month or so for premium ad blockers. There are good free options too but imo they usually don't block YT ads as well.   
+
+   3. Not getting paid for your opinions   
+
+   I'd normally ignore any site that says they’ll pay you to fill out surveys, but there are a few that are legit.   
+
+   I use Branded Surveys (   link here   ). It's an app that will pay you to fill out surveys. They typically pay more than other survey sites but nothing crazy. Expect maybe $20-$40/month max.   
+
+   You basically just get paid to give your opinions on different products/services, etc. Good for when you’re watching TV.   
+
+   Hope that helps.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ftp198/mongodb_rust_driver_feedback/
+-->>-->>
+Hi Everyone,    
+
+   I was curious what your experience has been using the MongoDB Rust driver. Are there are any particular areas that you'd like to see improvements in? Anything that you think has been super helpful and shouldn't change? I'm the PM for the Rust driver and would appreciate any feedback that can help us shape the roadmap for the future. Thanks!    
+   
+
+======>
+https://www.iroh.computer/blog/iroh-0-26-0-Say-Hello-to-Your-Neighbors
+-->>-->>
+Blog Index iroh 0.26.0 - Say Hello to Your Neighbors October 1, 2024 by ramfox Welcome to a new release of iroh, a library for building on direct connections between devices, putting more control in the hands of your users. If you’ve been following along on our updates some of the changes in this release won’t come as a surprise. If not, take a look at our last blog post Smaller is Better . To pull the most pertinent quote: “ We're doubling down on iroh's networking stack as 'what iroh is' and describing everything else as a custom protocol.” The post goes into more detail about those changes and the reasoning behind it. The first code changes that support our revised view on “what iroh is”  show up in this release: docs are now disabled by default. And since the scope of iroh is smaller, centering around creating direct connections, we are also starting the journey to help users manage and understand the remote nodes at the other ends of those connections better. Now, a RemoteInfo gives you information about where each address of the remote was discovered, whether because you the user gave that address to us, iroh discovered the address using our discovery system, that remote actually called you first, etc. Specifically, you can use these Source s to learn which nodes may actually be in your local network, similar to airdrop or mDNS. Docs are disabled by default Docs are now considered a protocol on top of iroh, rather than a core part of iroh itself, and so, are disabled by default. Don’t worry though, enabling docs is simple. Here are examples from the languages we support: // Rust let node = Node :: memory () . enable_docs () . spawn () .await? ; Copy Copied! // JavaScript const node = await Iroh .memory ({ enableDocs : true }) Copy Copied! # Python options = NodeOptions () options . enable_docs = True node = await Iroh . memory_with_options (options) Copy Copied! // Kotlin val options = NodeOptions () options.enableDocs = true val node = Iroh .memoryWithOptions(options) Copy Copied! Sources for addresses Each DirectAddrInfo (which contains information about a particular direct address for a remote node) has a field sources: HashMap<Source, Duration> , where Source is how we learned about this address and Duration is how long ago we learned about it. We only keep the most recent duration for a Source , so you could have learned about this address via discovery one hour ago and rediscovered it one minute ago, and we would only show you the more recent duration of one minute. Also, you can have learned about a particular address multiple ways, which is why we keep a HashMap of Source s, and not one single Source . The RemoteInfo::sources method will merge and deduplicate all of the Source s of each DirectAddrInfo on the RemoteInfo into one Vec<(Source, Duration)> , to give you ALL of the different ways that this remote as been discovered. We can use that to filter for remotes that have been discovered in particular ways during a particular time period. The use case that was most requested by users was a way to understand which remote nodes were discovered “locally.” In other words, which nodes were discovered using local swarm discovery, our adjusted version of mDNS. The following is an example that shows how you can get a list of RemoteInfo s that have been discovered locally in the past 10 minutes: // grab the discovery name use iroh_net :: discovery :: local_swarm_discovery :: NAME as SWARM_DISCOVERY_NAME; // get an iterator of all the remote nodes this endpoint knows about let remotes = ep . remote_info_iter (); // duration of 10 minutes let limit = Duration :: from_secs ( 600 ); // Filter that list down to the nodes that set `Source::Discovery` with // the right service name println! ( "found:" ); for remote in remotes { for (source, last_seen) in remote . sources () { if let Source :: Discovery { name } = source { if name == SWARM_DISCOVERY_NAME && * last_seen <= limit { println! ( "\t{:?}" , remote . node_id); } } } } Copy Copied! Breaking Changes Protocol None 🙂 API iroh changed client::Blobs::read_at and read_at_to_bytes now take ReadAtLen instead of Option<usize> by default node::Node::memory & persistent have docs disabled removed node::Builder::disable_docs added node::Builder::enable_docs iroh-net struct DirectAddrInfo now has field sources , which is a HashMap of endpoint::Source to Duration . The Source is how we heard about the remote, and the Duration is how long ago we heard about it. We keep only the shortest Duration . iroh-blobs changed util::local_pool::LocalPool will now install the tracing subscriber of the thread creating the pool, into each thread managed by the pool.  Practically this should not break any code already managing their tracing subscribers either manually inside tasks or by setting a global subscriber before creating the pool.  But if you really liked the behaviour of swallowing the logs on doing this it's a breaking change But wait, there's more! Many bugs were squashed, and smaller features were added. For all those details, check out the full changelog: https://github.com/n0-computer/iroh/releases/tag/v0.26.0 . If you want to know what is coming up, check out the 0.27.0 , and if you have any wishes, let us know about the issues ! If you need help using iroh or just want to chat, please join us on discord ! And to keep up with all things iroh, check out our Twitter . Iroh is a dial-any-device networking library that just works. Compose from an ecosystem of ready-made protocols to get the features you need, or go fully custom on a clean abstraction over dumb pipes. Iroh is open source, and already running in production on hundreds of thousands of devices. To get started, take a look at our docs , dive directly into the code , or chat with us in our discord channel .
+======>
+https://old.reddit.com/r/rust/comments/1ftkig8/is_there_a_way_to_enforce_prohibiting_usage_of/
+-->>-->>
+Hi, I don't know much about rust but I do have interest in its error handling aspect.   
+
+   I'm curious whether there is a way to enforce prohibiting usage of writing panicking code like `panic`, `unwrap` or `expect`, and preferably allow panicking only in a single place of the program? The idea is to enforce proper or certain error propagation practices.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ftx5iv/new_fastest_jinja_template_engine_in_rust/
+-->>-->>
+From the benchmarks available in the    minijinja    repository, seems like    rinja    is currently the fastest jinja template engine!   
+
+   You can see the numbers    here   .   
+
+   To be noted: the only other comparable    jinja    template engine in rust is    askama    because the parsing is done at compile, so only remains the rendering part, hence why both    askama    and    rinja    are so fast compared to the others.   
+
+   If you want more information about    rinja   , don't hesitate to take a look at    our book    or at this    blog post   .   
+   
+
+======>
+https://medium.com/@wolferxy/rust-adventure-to-develop-a-game-boy-emulator-part-3-cpu-instructions-d6d1d727026f
+-->>-->>
+Rust adventure to develop a Game Boy emulator — Part 3: CPU Instructions WolfieXY · Follow 9 min read · 5 hours ago Listen Share My dear Rusty Wolfie 🐺! Last time we worked on Game Boy CPU registers using declarative macros to avoid repetitive code. Today I’ll give you some extra utility functions for registers and a quick look at flags. Then we’ll analyze how a Machine Instruction appears in my source code. 😊 Little Registers review Before continuing it’s better to review our Registers structure: pub struct Registers { a: u8 , b: u8 , c: u8 , d: u8 , e: u8 , f: u8 , h: u8 , l: u8 , sp: u16 , pc: u16 , } impl Registers { pub fn new () -> Registers { Registers { a: 0 , b: 0 , c: 0 , d: 0 , e: 0 , f: 0 , h: 0 , l: 0 , sp: 0 , pc: 0 , } } get_set!(a, get_a, set_a, u8 ); get_set!(b, get_b, set_b, u8 ); get_set!(c, get_c, set_c, u8 ); get_set!(d, get_d, set_d, u8 ); get_set!(e, get_e, set_e, u8 ); get_set!(h, get_h, set_h, u8 ); get_set!(l, get_l, set_l, u8 ); get_set!(sp, get_sp, set_sp, u16 ); get_set!(pc, get_pc, set_pc, u16 ); get_set_dual!(b, c, get_bc, set_bc); get_set_dual!(d, e, get_de, set_de); get_set_dual!(h, l, get_hl, set_hl); pub fn get_f (& self ) -> u8 { self .f } pub fn set_f (& mut self , val: u8 ) { self .f = val & 0xF0 } pub fn get_af (& self ) -> u16 { ( self .a as u16 ) << 8 | self .f as u16 } pub fn set_af (& mut self , val: u16 ) { self .a = (val >> 8 ) as u8 ; self .f = (val & 0x00F0 ) as u8 ; } } Thanks to this structure, as you can notice, in the last chapter I introduced you to the “Declarative Macros” in Rust which I used to avoid code repetition to declare behaviors of registers: get_set and get_set_dual are our introduced macro for our purpose. macro_rules! get_set { ($reg:ident, $get_name:ident, $set_name:ident, $size:ty) => { pub fn $ get_name (& self ) -> $size { self .$reg } pub fn $ set_name (& mut self , val: $size) { self .$reg = val; } }; } macro_rules! get_set_dual { ($reg1:ident, $reg2:ident, $get_name:ident, $set_name:ident) => { pub fn $ get_name (& self ) -> u16 { ( self .$reg1 as u16 ) << 8 | self .$reg2 as u16 } pub fn $ set_name (& mut self , val: u16 ) { self .$reg1 = (val >> 8 ) as u8 ; self .$reg2 = val as u8 ; } }; } Well, this is what we wrote for the Game Boy emulator, what’s next? Extra functions for our Registers An important function we can implement in our structure is a get-&-increment of our PC register as we often need this default behavior for the register! Read the instruction, increment the PC register, read the new instruction, re-increment the PC register, and so on… impl Structure { // ... pub fn get_and_inc_pc (& mut self ) -> u16 { let ret_pc = self .pc; self .pc += 1 ; ret_pc } pub fn inc_pc (& mut self ) -> u16 { self .pc += 1 ; self .pc } // ... } Two simple functions that can reduce some code in the future. get_and_inc_pc to get the actual value in the PC register to return and then increment it by one, while inc_pc just increment the PC register by one and return the new value: these two avoid common operations that without them require a read function and a set function calls to accomplish the same operation. The Flags With registers, I hinted at the special flag register, a special one that can’t be freely set, but follows special rules where bits are set following special rules: Zero (Z): The zero flag. Represented by the higher bit of the F register, this is often set (with set we mean set bit to 1) by arithmetic operations when the result is equal to zero (0). Negative (N): The second highest bit of the F register is set when the last operation was a subtraction. Carry (C): The carry flag, the 6th bit of the F register byte, is set during arithmetic operations when an overflow, or underflow, is detected. Half-Carry (H): The half-carry flag, the little brother of the Carry flag, is represented by the 5th bit of the flag register. You must know that the Game Boy processor's ALU (Arithmetic Logic Unit) is a 4-bit unit, the half size of a full byte, often called “ nibble ”. The Half-Carry flag is set when there is an overflow on the lower nibble, for example 0x0F + 0x01 = 0x10 and there has been an overflow from the lower nibble. On 16-bit operations, the Half-Carry flag is set when there is an overflow from the lower nibble of the higher byte (overflow from bit 11) of the 16-bit value. For example, in the case of 0x0F00 + 0x0100 = 0x1000 , the Half-Carry flag is set, whereas in 0x000F + 0x0001 = 0x0010 , the H flag is reset. Flags as enum To represent flag bits I opted for the enum, a keyword that specifies a new type that can assume only a limited number of values. #[derive(Debug, Clone, Copy)] #[repr(u8)] pub enum FlagBits { Z = 0b1000_0000 , N = 0b0100_0000 , H = 0b0010_0000 , C = 0b0001_0000 , } Where to start… well, I’ll start by telling you to not worry too much about what lines starting with the hashtag (#) are. You just need to know that they are called “attributes” and are metadata to allow the compiler to add functionalities to what follows the attributes lines. the derive line tells the compiler to add a default function for what you specified (for debugging, cloning, and copying of the type) and maybe we’ll speak more deeply about that derive in the future. The repr line tells Mr. Compiler which data type to use to represent our FlagBits enum type, as an 8-bit unsigned integer u8 in this case. The new FlagBits type can only be one of the four values specified, named by the flag symbol it represents. Each possible flag value is represented by a u8 value representing the bit position in the F flag register. Even enums have feelings… and functions Oh yes! Do you remember how we give functions to a custom structure type you defined? With the impl keyword, you can also provide functions to your custom enum types! This gives us a very elastic system in Rust and we explore which functions are implemented in FlagBits type when I’ll introduce you to the world of Traits . The Instruction item I’d like to think of an instruction as an item that is identified by its opcode with some attributes to simplify debugging like name and which flags it modifies. Still, the main things an instruction must have are the number of cycles it needs to be executed and the functions to operate on the machine it is called by. #[derive(Debug, Clone)] pub struct Instruction { pub opcode: u8 , pub name: & 'static str , pub cycles: u8 , pub size: u8 , pub flags: & 'static [FlagBits], pub execute: fn (&Instruction, & mut CPU) -> u64 , // Return number on M-Cycles needed to execute } Is this a beautiful state-of-the-art structure to define instructions? Maybe (mostly sure) not, but I remember this is a project to learn something new like Rust and hardware emulation. Let’s talk about the attributes with a default impl Debug and Clone functions: opcode: As the name says is the 8-bit number representation of the instruction. This is also the identifier of the instruction, the same way any atomic number identifies a specific chemical element. name: This is a string that can easily identify the instruction by humans, otherwise known as “Assembly” code. It is useful for debugging to know which instruction we’re using. cycles: Number of M-cycles needed to execute the instruction. size: Size in bytes of the instruction. It’s important as some instructions work with immediate values, occupying more than one byte. flags: List of which flags the instruction modified during execution. Useful for debugging. execute: The (my) ugly core function to execute the instruction. Every instruction will have its own function to execute correctly. As you can see, the function must take a Instruction reference (it will be always itself) and a mutable CPU reference, as it will read and edit things through it; then the function should return the number of cycles it needs to be completed (this can be different in some operations like the code branching ones depending on conditions). Here we are, the elephant in the room, the lifetime in rust specified on string and list references. “ What’s that strange thing on reference, &’static ? ”. The lifetime is the main concept in Rust which makes it more secure by default. This is not the place where I’ll teach you all of this, but there is something I can tell you about it. Most of the time, Rust infers by itself the correct lifetime of items, the items’ life span they need to remain alive, avoiding dangling pointers and their unpredictable and insecure behaviors. I use the static lifetime as I’m informing the compiler that my Instruction the structure will have two static references, one the a string for the name and one to an array to know which flags the instruction edit. With the term static we refer to items kept alive for the entire lifetime of the program, from the start to the end. These types of data are often stored in a special section of the program’s memory as this should be accessible at any time and any place by the software. I set the two attributes as static elements as I’ll build a constant instructions array, always accessible at any time to retrieve instructions by opcode, following the table view of the Game Boy CPU opcodes table you can find on pandocs. The Instructions table const fn create_opcodes () -> [ Option <& 'static Instruction>; 256 ] { // This will create table of main instructions } const fn create_opcodes () -> [ Option <& 'static Instruction>; 256 ] { // This will create table of "CB" subset instructions } // Declaring constant, public, always accessible instructions tables pub const OPCODES: [ Option <& 'static Instruction>; 256 ] = create_opcodes (); pub const OPCODES_CB: [ Option <& 'static Instruction>; 256 ] = create_cb_opcodes (); Oh-oh-oh, what are these good boys? They’re const boys! While const values are easy to understand because basically they are like variables but can’t change their value ( const = constant), const functions can appear a bit strange at first look. Constant functions are functions (you didn’t say, ehm?) that can be evaluated at compile time, and use directly their result as any constant value. This can help you to define constant values that need some calculus to be defined, in our Emulator, to create and define the opcodes tables constants. Why two instruction tables? Simply because Game Boy’s CPU can execute two distinct sets of instructions. The main one is always used, except in one case: when the opcode read by the CPU is equivalent to 0xCB , it knows it must take and read the next opcode with the secondary instructions set. You can think 0xCB opcode as the gateway for the extended instruction set! The CB instructions subset mainly contains bit-to-bit operations, like OR, AND, XOR, Shift, … Do you remember the decode function’s header of the CPU? impl CPU { pub fn decode (opcode: u8 , cb_opcode: bool ) -> Instruction { // To implement } } If you were careful, you noticed that the opcodes table content type and return type of the decode function doesn’t coincide. This is a problem, let’s correct it: impl CPU { pub fn decode (opcode: u8 , cb_opcode: bool ) -> Option <& 'static instructions::Instruction> { // To implement } } I think you need some explanation because the Option type is a special useful built-in enum type (you thought enums were just for kids?): an Option<T> define a value that can be of T type or None (the null , empty value of Rust). It’s like a present box that can be empty or contain an item of a specific type, you take it, say thanks and you’ll know if you’ll be happy or not only after opening it… I asked myself why I’m thinking about Schrödinger’s cat🧐. Decode functions should return an Option of static references to instructions because not all opcode bytes represent valid executable instructions for the Game Boy processor. If our emulator encounters an invalid opcode, it will interpret it as None . On a real Game Boy, encountering an invalid opcode typically causes the system to freeze due to invalid electrical behavior. It’s everything for today! Let’s keep it simple and reflect on what you learned here. You’ve new enum types, the built-in Option<T> type to work with possible void values, the structure of our Instruction structure. Next time we’ll start implementing some of the main set instructions and implementing all of them, one by one, will be a long job! I suggest you make a preview check of which will be our CPU instructions on pandocs!
+======>
+https://old.reddit.com/r/rust/comments/1ftua0w/visual_representation_of_ondisk_sqlite_file_format/
+-->>-->>
+Hi Everyone!    
+
+   Just wanted to share one project I've been working on recently: peeking into SQLite on-disk database file format and visualizing it. It was kind of 'research' spawn off, when a deeper understanding of internals was required, which was taken too far to became a fully-fledged UI application.   
+
+   I had a great time making it, it's built with Rust & Dioxus (I can't praise it enough), Tailwind & Daisy.   
+
+   Visual:    https://torymur.github.io/sqlite-repr/   
+
+   Repo:    https://github.com/torymur/sqlite-repr   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ftc7cj/cargo_watch_is_on_life_support/
+-->>-->>
+(Reposted from the    readme   .)   
+
+   [Really, this has been long in coming. I only got spurred on writing it from an earlier reddit post.]   
+
+   
+   Cargo Watch is on life support.   
+
+   I (@passcod) currently have very little time to dedicate to unpaid OSS. There is a significant amount of work I deem required to get Watchexec (the library) to a good-enough state to bring its improvements to Cargo Watch, and that has been the case for years without a realistic end in sight. I have dwindling motivation in the face of having spent 10 years on or around this project and its dependencies (it was a long while ago, but once upon a time the Notify library was spun off from Cargo Watch!), when at the very start, this tool was only made to clear a quick hurdle that I'd encountered while trying to code    other, probably more interesting, yet now long-forgotten    Rust adventures.   
+
+   However, not all is lost, dear users. For almost the entire life of the project, I have had a thought: that someone with more resources, skill, time, and/or the benefit of hindsight would come around and make something    better   . Granted, I thought this would happen to Notify. But Notify has persisted, has been passed on to live a long life, and instead the contender is    Bacon   .   
+
+   I have had no involvement in Bacon. Yet it is everything I have wanted to achieve in Cargo Watch. Indeed some five years ago I started development on a Cargo Watch replacement I called "Overwatch", which would have a TUI, a tasks file, a rich pager, and more long-desired features. That never eventuated, though a lot of the low-level improvements that I wrote in preparation for Overwatch "made it" into Notify version 5 and the Watchexec library version 2. Bacon today is what I wanted Overwatch to be.   
+
+   Let's face it: Cargo Watch has gone through too many incremental changes, with too little overarching design. It sports no less than four different syntaxes to run commands. Its lackluster filtering options can be obnoxious to use. Pager support is non-existent, sometimes requiring arcane invocations to get right. It can conflict with Rust Analyzer (which didn't exist 10 years ago!), though that has improved a lot over the years.   
+
+   It's time to let it go.   
+Use    Bacon   .   
+Remember Cargo Watch.   
+
+   (Addendum: Cargo Watch    still works   . It will not go away. Someone motivated enough could bring it back to active support, if they so desired. Ask!)   
+   
+
+   Post-scriptum: if you didn't know about cargo watch, welcome! I hadn't been great at promoting it in the past, so always got surprised and pleased when someone discovered it organically. I think two of my happiest surprise moments with the project were when it was mentioned by Amos (fasterthanlime) once, and when I discovered it in an official resource. But seriously: use bacon (or watchexec) instead.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ftswk6/write_your_next_kubernetes_controller_in_rust/
+-->>-->>
+I've written quite a few controllers and CLIs for Kubernetes in golang. Every time in the past when I've tried doing something similar in another language (javascript, python, java), I've ended up giving up and going back to golang.   
+
+   This time, I took the opportunity to give rust a try and it was a fantastic experience.    kube-rs    is great! If you're interested in reading a little bit more, check out my    post   .   
+   
+
+======>
+https://blog.rust-lang.org/inside-rust/2024/10/01/this-development-cycle-in-cargo-1.82.html
+-->>-->>
+Inside Rust Blog Rust Install Learn Tools Governance Community 🖌 Light Dark This Development-cycle in Cargo: 1.82 Oct. 1, 2024 · Ed Page
+     on behalf of The Cargo Team This Development-cycle in Cargo: 1.82 This is a summary of what has been happening around Cargo development for the merge window for Rust 1.82. Plugin of the cycle Implementation cargo info Shell completions MSRV-aware Cargo cargo publish --workspace cargo::error build script directive cargo update --precise <prerelease> Snapshot testing Design discussions time Build probes Detecting unused dependencies --all-targets and doctests target-dir and artifact-dir cargo update --save Misc Focus areas without progress Plugin of the cycle Cargo can't be everything to everyone,
+if for no other reason than the compatibility guarantees it must uphold.
+Plugins play an important part of the Cargo ecosystem and we want to celebrate them. Our plugin for this cycle is cargo-show-asm which allows you to see what your Rust code compiles to, including assembly, WASM, LLVM-IR, or MIR. Thanks to epage for the suggestion! Please submit your suggestions for the next post. Implementation cargo info Update from 1.81 FCP has closed and cargo info has been merged into Cargo ( #14141 )!
+During the discussion, a bug was uncovered which led to us removing the reporting of owners for now ( #14418 ). Thanks Rustin170506 for driving this to stabilization! Shell completions This summer we have shannmu contributing to Cargo as part of Google Summer of Code with the goal of reducing shell completion brittleness while making them more powerful by moving the implementations into Rust ( #6645 ).
+So far, the work has mostly focused extending the unstable support for Rust-native completions in clap_complete to provide a foundation that is at parity with Cargo's hand written completions, hopefully.
+See clap_complete::env for the user-facing side of this feature and clap#3166 for development progress. Recently, shannmu has been experimenting with applying this to Cargo in a private fork and has started the first step to integrating this into mainline Cargo in #14493 . MSRV-aware Cargo Update from 1.80 Without a "perfect" solution in sight, we went ahead and adjusted the config from our placeholders [resolver] something-like-precedence = "something-like-rust-version" to [resolver] incompatible-rust-version = "fallback" ( #14296 ) With that in place and not aware of any other blockers,
+we put out a new round of call-for-testing .
+We're grateful for the feedback we've received! A particularly confusing aspect of the fallback strategy is that Cargo may select a dependency that is either Too new for your package.rust-version because no MSRV-compatible version was available and so Cargo did a fallback to an MSRV-incompatible one Older than is needed by your package if your version requirement is too liberal and your package doesn't set package.rust-version but something else in your workspace does After several tweaks to Cargo's locking output ( #14401 #14440 . #14445 . #14457 . #14459 . #14461 . #14471 .
+), Cargo now report to users when it selected a dependency version that is incompatible with the MSRV of workspace members that transitively depend on it when a newer version of a package is available that is compatible with the MSRV of workspace members that transitively depend on it The testing feedback was more than fallback behavior being confusing but that it can fail to provide the benefits of an MSRV-aware resolver when in a workspace with multiple MSRVs ( #14414 ).
+The ideal state would be that when resolving a dependency, Cargo only consider the MSRVs of the workspace members that transitively depend on it.
+The problem is that Cargo doesn't know every path to a dependency until the resolve is done.
+Cargo selects a version of a dependency when it first comes across it and then only tries another version if the selected version is rejected by another path to it.
+If we deny d dependency versions with an incompatible MSRV, with enough work we could hit the ideal case.
+The problem is how much work this would take and that there are times packages intentionally select MSRV-incompatible dependencies (e.g. features with a different MSRV, not caring about MSRV for dev-dependencies, etc).
+Our fallback strategy requires that Cargo pick a "good enough" version when it come across a dependency version because another path to it cannot reject it and cause a new version to be selected.
+Currently, the "good enough" version is the lowest of all package.rust-version s in a workspace.
+For any package in a workspace with a higher MSRV, this puts users in the situation of either intentionally holding back their dependency versions to make up for Cargo's shortcomings or they lose out on an MSRV-aware resolver. So far, the only solution we've come up with for this is to double-down on this strategy: track all workspace member MSRVs for all dependencies, prioritizing packages by the number of MSRVs they are compatible with.
+Cargo should then only pick an MSRV-incompatible version if the version requirement is too high.
+That makes maintenance easier at the cost of older-than-necessary versions being selected sometimes. With this proposed solution, we're most concerned about a new to intermediate user who maintains a workspace being asked to set or lower the MSRV for one of their packages, them complying, and then not knowing that dependencies are being held back
+(if the user previously didn't set an MSRV on any package then they would already be in this situation regardless of this proposed change).
+Letting users know that there are updates they can manually apply was the driving reason for those locking message changes earlier.
+The question is whether those messages are good enough and can be made better within their allotted space. cargo publish --workspace Update from 1.81 After some prep work ( #14340 , #14408 , #14488 , #14496 ,
+), jneem posted #14433 to add support for publishing multiple packages at once. As an example of the cost of unstable features, #14433 was initially blocked on
+a missing feature from open-namespaces .
+An open-namespaces test verifies a certain case with cargo publish but could no longer do so without Package Id Spec support because cargo publish now needed that to work for every package.
+This was addressed in #14467 . cargo::error build script directive Previously in #10159 , cargo::error=<msg> build script directive was proposed.
+The Cargo team met and hashed out the details and said it was good to move forward which torhovland did in #14435 . The proposed semantics are that any message sent via cargo::error would be shown as an error and cause the build script to error, effectively providing a built-in means of error recovery.
+This is in contrast to cargo::warning which will only be shown for local packages. The point under debate with the original requester is whether emitting a cargo:: directive should cause the build script to error.
+The original intention was to use this to clean up the output from pkg_config but the caller needs to decide whether something is an error or not. cargo update --precise <prerelease> Update from 1.80 In addition to a bug fix ( #14412 ), linyihai worked on hashing out more of the version requirement matching rules for pre-releases in #14305 .
+Check out that PR for a detailed description of the proposed matching rules. Snapshot testing Update from 1.81 We finished mass-migrating some straggler test modules thanks to epage in #14410 eth3lbert in #14242 For individual tests, one thing holding back the migration was how json comparisons were handled. Cargo's programmatic API generally uses jsonlines but that doesn't work so well for humans reading and editing the content.
+Switching to snapbox adds an extra complexity because it highlights a failure by diffing the expected and actual test results and
+diffing works best with line-oriented content. {"executable":"[ROOT]/foo/target/debug/007bar[EXE]","features":[],"filenames":"{...}","fresh":false,"manifest_path":"[ROOT]/foo/Cargo.toml","package_id":"path+[ROOTURL]/foo#0.0.1","profile":"{...}","reason":"compiler-artifact","target":"{...}"}
+{"reason":"build-finished","success":true} The old cargo-test-support API worked around this by always rendering jsonlines elements as pretty printed json with blink lines between each element and the assertions only printed the first field that was different. { "reason" : "compiler-artifact" , "package_id" : "path+file:///[..]/foo#0.0.1" , "manifest_path" : "[CWD]/Cargo.toml" , "target" : "{...}" , "profile" : "{...}" , "features" : [], "filenames" : "{...}" , "executable" : "[ROOT]/foo/target/debug/007bar[EXE]" , "fresh" : false }
+
+{ "reason" : "build-finished" , "success" : true } That format doesn't work for snapbox because its intended to work with in-memory or filesystem snapshots and the snapshots are meant to be usable as real data.
+It would run counter to snapbox's model to implicitly store data in a format contrary to the declared format.
+We solved this in snapbox#348 by allow making it explicit, by allowing the the test author to declare the format of the expected data and what it will be compared to. This allowed us to replace .with_stdout_data(str![[ r#"
+{"executable":"[ROOT]/foo/target/debug/007bar[EXE]","features":[],"filenames":"{...}","fresh":false,"manifest_path":"[ROOT]/foo/Cargo.toml","package_id":"path+[ROOTURL]/foo#0.0.1","profile":"{...}","reason":"compiler-artifact","target":"{...}"}
+{"reason":"build-finished","success":true}
+
+"# ]].json_lines()) with .with_stdout_data(
+            str![[ r#"
+[
+  {
+    "executable": "[ROOT]/foo/target/debug/007bar[EXE]",
+    "features": [],
+    "filenames": "{...}",
+    "fresh": false,
+    "manifest_path": "[ROOT]/foo/Cargo.toml",
+    "package_id": "path+[ROOTURL]/foo#0.0.1",
+    "profile": "{...}",
+    "reason": "compiler-artifact",
+    "target": "{...}"
+  },
+  {
+    "reason": "build-finished",
+    "success": true
+  }
+]
+"# ]]
+            .is_json()
+            .against_jsonlines(),
+        ) which is both easier to read and gives more insightful diffs.
+This unblocked converting most of our tests using jsonlines which epage did in #14293 . Some other tests using jsonlines were blocked on the fairly primitive handling of redacted content in snapbox.
+Snapbox allow to place wildcards in the expected results to both narrow the focus on the content the test author cares about and to remove content that is run or machine dependent.
+This was fixed in snapbox#358 and more tests were migrated in #14402 . With the right combinations of flags, a cargo run may produce invalid jsonlines due to mixing in human output. cargo-test-support hacked around this by ignoring any lines that didn't start with { .
+In the end, we found only one test relied on this behavior and we found we could test the same functionality a different way, so epage did so in #14297 . Design discussions time In 1.80, there was a type inference regression that affected the time package
+( rust#127343 ).
+For more context, see Original change that added the impl that caused issues with inference Discussions of regression Mitigation to be temporarily added to rustc Discussion on how this was handled Statements from the libs teams regarding their positions Discussion on brainstorming solutions In particular, the Cargo team discussed #14452 which would implicitly patch existing versions of time to work with newer Rust toolchains.  To quote from our reply on that PR: We understand that the time issue has caused a lot of unexpected churn and like you are interested in finding ways of improving things now and in the future. To that end, we devoted most of @rust-lang/cargo's meeting to discuss this topic. We considered the possibility of patching the specific ranges of versions of the time package, by various means. We're concerned about trying to ship a feature like this in a hurry, and potentially unexpected fallout of it, now and in the future: Cargo crossing the deontological line of patching users' sources and not building exactly the original sources. Having the user be surprised by this patching (e.g. because they were expecting the failure and were testing the failure). Having to take this patching into account for future features like caching and verification. Given that, we would prefer to not move forward with a short-term fix for this issue with the time package. We are however considering solutions that could help in the future. We have opened #14458 to explore those ideas. In particular, we would like to continue with more incremental work that has already begun, such as: Yank reasons which is currently a Project Goal, and has the potential to eventually ease towards a mutable database that could possibly support registry patches. Experiments with patches . That work halted due to concerns over resolver interactions. Resolver interaction was a major component behind that change, but a situation like this with time shows that perhaps a solution that does not support Cargo.toml changes would be useful. Providing an interface between rustc and cargo so that either side can better support reporting diagnostics related to situations like this. ( Add a new --orchestrator-id flag to rustc compiler-team#635 is tangentially related to this.) A mitigation is being added to rustc via rust-lang/rust#129343 . We acknowledge that likely does not go far enough for many since it only provides a diagnostic and not a fix. Other teams, including libs-api, lang, compiler, and release, are also working on improvements to try to better handle or prevent situations like this. Build probes Some packages call rustc inside of build.rs to compile code to see if it works as expected.
+Packages can use this to tell if a feature is supported on the current toolchain and whether it still works as expected when the feature is unstable. On Zulip , mrkajetanp was looking for input on fixing a couple of issues where a build.rs doesn't know how to call rustc like Cargo does
+( #11244 , #7501 ).
+As a team, we discussed the status of build probes inside of Cargo. For stable features, cfg(accessible) and cfg(version) would provide a better experience. cfg(version) is blocked on cfg(accessible) and cfg(accessible) has been scoped down to avoid design problems and just needs someone to champion it on the path to being stabilized.
+It will still take a while before more foundational packages would likely bump their MSRV to be able to use these new features.
+Our hope is that with the MSRV-aware resolver improving the experience for people with low MSRVs,
+maintainers of foundational packages would be willing to bump their MSRVs to leverage new features like these.
+If providing bug fixes to old MSRVs is a concern,
+they could bump their minor version when bumping MSRV,
+giving them a hole in their version range to patch old MSRVs.
+This is an extra support burden but for most foundational packages,
+it is unlikely they'd need to use this escape hatch. This still leaves nightly features.
+Nightly features are designed to be opt-in and it seems inappropriate for a dependency to opt people into a nightly feature without their consent.
+This is particularly problematic when latent bugs in build probes accidentally enable a nightly feature when it isn't compatible,
+breaking people.
+We'd encourage these packages to instead put nightly features behind a feature flag or a --cfg .
+In the future, maybe global features can improve the experience for this. As we didn't feel there was enough of a use case for build probes after this discussion,
+we closed both issues. Detecting unused dependencies Rustc's unused_crate_dependencies lint has had limited benefit because Cargo tracks dependencies at the package level while Rustc warns about them at the build-target level.
+If you have a dependency that is only used in some build-targets,
+the others will warn about it being unused
+( rust#95513 , rust#57274 ).
+As a team, we discussed how Cargo could work with Rustc to make this lint more useful. Rustc has the ability to "silently" emit the lint in json
+( compiler-team#674 )
+so that Cargo can aggregate the results and report the lint to the user.
+Cargo still won't have enough information if you build cargo check --bin foo as all build targets need to run.
+To handle this, we planned for Cargo to not emit the lint unless all relevant build-targets are built. build.rs is always built, so Cargo can always emit for build-dependencies .
+If all bin and lib build-targets are built, then Cargo can emit for normal dependencies. That just leaves dev-dependencies as there currently isn't any way to build bench , test , example , and doc tests all at once as --all-targets excludes doc tests. Once we figure out --all-targets and doc tests, we can upstream cargo-udeps into Cargo . --all-targets and doc tests So as a team, we also discussed #6424: "Cargo check does not check doctests
+" which is similar to #6669: cargo test --all-targets does not run doc tests .
+We got to this situation because Cargo operates under different modes and --all-targets activates one mode (compilation) while --doc operates under a different mode (documentation).
+However, users are unlikely to think in terms of modes and treating them all as "build targets" is likely a more understandable choice. The question then is whether we can change the meaning of --all-targets at this point.
+We've found many people are using --all-targets , assuming it includes doctests, and are surprised when they find out otherwise and have many broken doctests.
+We can infer from this that there are many more people who don't know and changing the meaning would break them.
+While it would improve the quality of their code,
+forcing them to deal with it on our schedule,
+rather than theirs,
+can be unpleasant.
+To not block on the naming discussion,
+we could always have an unstable name like --all-targets-and-doctests . To move this forward, we'd likely need to start by adding the --doc flag from cargo test to cargo check , cargo build , cargo clippy , and cargo fix .
+As we are working to add --doc to these commands, we can then add --all-targets-and-doctests to combine --doc with --all-targets . target-dir and artifact-dir RFC #3371 makes the target-dir config field and --target-dir flag templated so users can easily move all target-dir s out of their source directories while keeping them separate.
+Cargo also has a long outstanding unstable feature to specify where the write build artifacts to with --artifact-dir , formerly --out-dir ( #6790 ). kornelski shared a counter-proposal in #14125 :
+instead of moving final build artifacts out of target-dir , into artifact-dir ,
+move all intermediate build artifacts out of target-dir into an internal-only location that is re-organized for sharing cross-workspaces.
+The re-organization and sharing of intermediate build artifacts doesn't have to be handled as part of this and is being tracked in #5931 . As a team we discussed these two plans: Approach 1 (RFC #3371): target-dir is for intermediate artifacts, artifact dir is for final artifacts Make target-dir movable (RFC #3371) Stabilize --artifact-dir (#6790) Allow templating in artifact dir and have it responsible writing the runnable binary, etc Change the target-dir default to point to central base path, like cargo script, leaving artifact-dir writing to a path inside target/ Approach 2 (#14125): target-dir is for final artifacts, private/unspecified dir is for intermediate artifacts Define a new intermediate artifact dir in a central base path, like what cargo script does Slowly migrate intermediates out of target/ to this new directory Reject --artifact-dir (#6790), saying --target-dir solves that need #14125's approach does simplify the problem a lot but loses one of the benefits of --artifact-dir : users being able to specify a predictable path,
+rather than having to track a location inside.
+Users will also likely want to define the location for intermediate build artifacts,
+even once Cargo has a separate CARGO_CACHE_HOME ( #1734 )
+as build artifacts can be significantly larger than other caches
+or may want to optimize for other properties like file IO speed. We came back with our own
+counter-proposal that combines the two.
+At a high level, it is: Move intermediate artifacts out to build-dir which is only controlled by config and is templated like RFC #3371 Move final artifacts out to artifact-dir which is controlled by both config and CLI and is also templated. After a period of time, phase out --target-dir (hide it in help output) See our post for more details. cargo update --save and -Zminimal-versions With cargo update --breaking making progress
+(last talked about in 1.81 ),
+we discussed again the idea of cargo update --save ( #10498 )
+which was deferred out of from our previous discussions . We didn't make too much progress on this
+(mostly reviewing past ideas )
+until we moved onto the topic of stabilizing -Zminimal-versions ( #5657 ). -Zminimal-versions is primarily targeted at verifying the lower bound of your own version requirements.
+Stabilization has been at an impasse because of the difficulty of working with transitive dependencies that don't verify lower bounds.
+However, stabilization tends to imply an "endorsement" and through community pressure could lead to positive change in this direction,
+much like our former policy to not commit Cargo.lock applied community pressure for maintaining SemVer. If instead, everyone was on latest versions with cargo update --save ,
+this would no longer be a problem.
+Or in essence, "drag manifest forward rather than dragging lockfile backwards".
+An MSRV-aware resolver would help prevent dragging manifests and lockfiles too far forward.
+Having opt-in workflows, like cargo update --save , requires manual intervention to ensure they are followed, including still needing to test to make sure the version requirements were dragged forward
+( cargo update --save --locked wouldn't work because that will cause a new update)
+and need to apply to any command that can change Cargo.lock , including cargo check .
+Users might benefit from others following this workflow as some popular dependencies with bad transitive dependencies might be fixed by other dependencies that pull it in but that will be a piecemeal solution.
+Instead, if we migrated the community into a workflow where Cargo.toml version req lower bounds are set to versions in Cargo.lock by default,
+version reqs would "just work".
+However, there is value in libraries allowing the minimal-most version of a dependency as possible ( #14372 ).
+This gives application authors the flexibility to hold back versions to workaround bugs or control the cadence of dependency updates so their are fewer dependency versions to audit. We are continuing this discussion on Internals . Misc Work is progressing on cargo install --dry-run in #14280 Ifropc added initial support for --lockfile-path in #14326 (tracking issue: #14421 ) dpaoliello added initial support for path-bases ( #14360 ) along with cargo add support ( #14427 ) (tracking issue: #14355 ) arlosi started another attempt on a way to turn warnings into errors in #14388 (issue: #8424 ) Daily reports by Eh2406 on the progress of the Rust implementation of the PugGrub version solving algorithm Focus areas without progress These are areas of interest for Cargo team members with no reportable progress for this development-cycle. Ready-to-develop: Open namespaces Merge cargo upgrade into cargo update Needs design and/or experimentation: Per-user artifact cache Dependency resolution hooks A way to report why crates were rebuilt Planning: Disabling of default features RFC #3416: features metadata RFC #3487: visibility (visibility) RFC #3486: deprecation Unstable features OS-native config/cache directories (ie XDG support) Phase 1 Pre-RFC Pre-RFC: Global, mutually exclusive features Cargo script ( RFC #3502 , RFC #3503 ) How you can help If you have ideas for improving cargo,
+we recommend first checking our backlog and then exploring the idea on Internals . If there is a particular issue that you are wanting resolved that wasn't discussed here,
+some steps you can take to help move it along include: Summarizing the existing conversation (example: Better support for docker layer caching , Change in Cargo.lock policy , MSRV-aware resolver ) Document prior art from other ecosystems so we can build on the work others have done and make something familiar to users, where it makes sense Document related problems and solutions within Cargo so we see if we are solving to the right layer of abstraction Building on those posts, propose a solution that takes into account the above information and cargo's compatibility requirements ( example ) We are available to help mentor people for S-accepted issues on zulip and you can talk to us in real-time during Contributor Office Hours .
+If you are looking to help with one of the bigger projects mentioned here and are just starting out, fixing some issues will help familiarize yourself with the process and expectations,
+making things go more smoothly.
+If you'd like to tackle something without a mentor ,
+the expectations will be higher on what you'll need to do on your own. Get help! Documentation Contact the Rust Team Terms and policies Code of Conduct Licenses Logo Policy and Media Guide Security Disclosures All Policies Social RSS Main Blog "Inside Rust" Blog Maintained by the Rust Team. See a typo? Send a fix here !
+======>
+https://thehackernews.com/2024/09/googles-shift-to-rust-programming-cuts.html?m=1
+-->>-->>
+ Sep 25, 2024  Ravie Lakshmanan Secure Coding / Mobile Security Google has revealed that its transition to memory-safe languages such as Rust as part of its secure-by-design approach has led to the percentage of memory-safe vulnerabilities discovered in Android dropping from 76% to 24% over a period of six years. The tech giant said focusing on Safe Coding for new features not only reduces the overall security risk of a codebase, but also makes the switch more "scalable and cost-effective." Eventually, this leads to a drop in memory safety vulnerabilities as new memory unsafe development slows down after a certain period of time, and new memory safe development takes over, Google's Jeff Vander Stoep and Alex Rebert said in a post shared with The Hacker News. Perhaps even more interestingly, the number of memory safety vulnerabilities tends to register a drop notwithstanding an increase in the quantity of new memory unsafe code. The paradox is explained by the fact that vulnerabilities decay exponentially, with a study finding that a high number of vulnerabilities often reside in new or recently modified code. "The problem is overwhelmingly with new code, necessitating a fundamental change in how we develop code," Vander Stoep and Rebert noted. "Code matures and gets safer with time, exponentially, making the returns on investments like rewrites diminish over time as code gets older." Google, which formally announced its plans to support the Rust programming language in Android way back in April 2021, said it began prioritizing transitioning new development to memory-safe languages around 2019. As a result, the number of memory safety vulnerabilities discovered in the operating system has declined from 223 in 2019 to less than 50 in 2024. It also goes without saying that much of the decrease in such flaws is down to advancements in the ways devised to combat them, moving from reactive patching to proactive mitigating to proactive vulnerability discovery using tools like Clang sanitizers . The tech giant further noted that memory safety strategies should evolve even more to prioritize "high-assurance prevention" by incorporating secure-by-design principles that enshrine security into the very foundations. "Instead of focusing on the interventions applied (mitigations, fuzzing), or attempting to use past performance to predict future security, Safe Coding allows us to make strong assertions about the code's properties and what can or cannot happen based on those properties," Vander Stoep and Rebert said. That's not all. Google said it is also focusing on offering interoperability between Rust, C++, and Kotlin, instead of code rewrites, as a "practical and incremental approach" to embracing memory-safe languages and ultimately eliminating entire vulnerability classes. "Adopting Safe Coding in new code offers a paradigm shift, allowing us to leverage the inherent decay of vulnerabilities to our advantage, even in large existing systems," it said. "The concept is simple: once we turn off the tap of new vulnerabilities, they decrease exponentially, making all of our code safer, increasing the effectiveness of security design, and alleviating the scalability challenges associated with existing memory safety strategies such that they can be applied more effectively in a targeted manner." The development comes as Google touted increased collaboration with Arm's product security and graphics processing unit (GPU) engineering teams to flag multiple shortcomings and elevate the overall security of the GPU software/firmware stack across the Android ecosystem. This includes the discovery of two memory issues in Pixel's customization of driver code ( CVE-2023-48409 and CVE-2023-48421 ) and another in Arm Valhall GPU firmware and 5th Gen GPU architecture firmware ( CVE-2024-0153 ). "Proactive testing is good hygiene as it can lead to the detection and resolution of new vulnerabilities before they're exploited," Google and Arm said . Found this article interesting?  Follow us on Twitter  and LinkedIn to read more exclusive content we post. var share_url = encodeURIComponent('https://thehackernews.com/2024/09/googles-shift-to-rust-programming-cuts.html');
+var share_title = document.getElementsByTagName("title")[0].innerHTML;
+share_title = encodeURIComponent(share_title); SHARE      Tweet  Share  Share  Share   Share on Facebook  Share on Twitter  Share on Linkedin  Share on Reddit  Share on Hacker News  Share on Email  Share on WhatsApp Share on Facebook Messenger  Share on Telegram SHARE  Android cybersecurity mobile security Rust Programming secure coding software development technology Vulnerability

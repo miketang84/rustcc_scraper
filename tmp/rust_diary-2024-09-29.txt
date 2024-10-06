@@ -1,0 +1,3347 @@
+https://docs.rs/ureq/3.0.0-rc1/ureq/transport/index.html
+-->>-->>
+ureq Module transport Copy item path Settings Help Summary source Expand description HTTP/1.1 data transport. NOTE: Transport is deep configuration of ureq and is not required for regular use. ureq provides a pluggable transport layer making it possible to write bespoke
+transports using the HTTP/1.1 protocol from point A to B. The Agent::with_parts() constructor takes an implementation
+of the Connector trait which is used for all connections made using that
+agent. The DefaultConnector covers the regular needs for HTTP/1.1: TCP Sockets SOCKS-proxy sockets HTTPS/TLS using rustls (feature flag rustls ) HTTPS/TLS using native-tls (feature flag native-tls + config ) The Connector trait anticipates a chain of connectors that each decide
+whether to help perform the connection or not. It is for instance possible to make a
+connector handling other schemes than http / https without affecting “regular” connections
+using these schemes. See ChainedConnector for a helper connector that aids setting
+up a chain of concrete connectors. Modules § time Internal time wrappers Structs § Chained Connector Helper for a chain of connectors. Connect Proxy Connector Connector for CONNECT proxy settings. Connection Details The parameters needed to create a Transport . Default Connector Default connector providing TCP sockets, TLS and SOCKS proxy. Lazy Buffers Default buffer implementation. Next Timeout A pair of Duration and Timeout . Socks Connector Connector for SOCKS proxies. TcpConnector Connector for regular TCP sockets. Transport Adapter Helper to turn a Transport into a std::io Read and Write . Traits § Buffers Abstraction over input/output buffers. Connector Trait for components providing some aspect of connecting. Transport Transport of HTTP/1.1 as created by a Connector . Functions § set_ handler Helper for _test feature tests.
+=====>
+https://github.com/FlixCoder/rust_serialization_benchmark/tree/add-brief
+-->>-->>
+Repository files navigation README Rust serialization benchmark The goal of these benchmarks is to provide thorough and complete benchmarks for various rust
+serialization frameworks. These benchmarks are a work in progress These benchmarks are still being developed and pull requests to improve benchmarks are welcome. Interactive site Calculate the number of messages per second that can be sent/received with various rust serialization frameworks and compression libraries. Documentation Format All tests benchmark the following properties (time or size): Serialize : serialize data into a buffer Deserialize : deserializes a buffer into a normal rust object Size : the size of the buffer when serialized Zlib : the size of the buffer after zlib compression Zstd : the size of the buffer after zstd compression Zstd Time : the time taken to compress the serialized buffer with zstd Zero-copy deserialization libraries have an additional set of benchmarks: Access : accesses a buffer as structured data Read : runs through a buffer and reads fields out of it Update : updates a buffer as structured data Some benchmark results may be italicized and followed by an asterisk. Mouse over these for more details on what situation was benchmarked. Other footnotes are located at the bottom. Last updated: 2024-9-17 2:50:58 Runtime info rustc version rustc 1.83.0-nightly (c52c23b6f 2024-09-16)
+binary: rustc
+commit-hash: c52c23b6f44cd19718721a5e3b2eeb169e9c96ff
+commit-date: 2024-09-16
+host: x86_64-unknown-linux-gnu
+release: 1.83.0-nightly
+LLVM version: 19.1.0 CPU info Architecture:                       x86_64
+CPU op-mode(s):                     32-bit, 64-bit
+Address sizes:                      48 bits physical, 48 bits virtual
+Byte Order:                         Little Endian
+CPU(s):                             4
+On-line CPU(s) list:                0-3
+Vendor ID:                          AuthenticAMD
+Model name:                         AMD EPYC 7763 64-Core Processor
+CPU family:                         25
+Model:                              1
+Thread(s) per core:                 2
+Core(s) per socket:                 2
+Socket(s):                          1
+Stepping:                           1
+BogoMIPS:                           4890.85
+Flags:                              fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext invpcid_single vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm
+Virtualization:                     AMD-V
+Hypervisor vendor:                  Microsoft
+Virtualization type:                full
+L1d cache:                          64 KiB (2 instances)
+L1i cache:                          64 KiB (2 instances)
+L2 cache:                           1 MiB (2 instances)
+L3 cache:                           32 MiB (1 instance)
+NUMA node(s):                       1
+NUMA node0 CPU(s):                  0-3
+Vulnerability Gather data sampling: Not affected
+Vulnerability Itlb multihit:        Not affected
+Vulnerability L1tf:                 Not affected
+Vulnerability Mds:                  Not affected
+Vulnerability Meltdown:             Not affected
+Vulnerability Mmio stale data:      Not affected
+Vulnerability Retbleed:             Not affected
+Vulnerability Spec rstack overflow: Vulnerable: Safe RET, no microcode
+Vulnerability Spec store bypass:    Vulnerable
+Vulnerability Spectre v1:           Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:           Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                Not affected
+Vulnerability Tsx async abort:      Not affected log This data set is composed of HTTP request logs that are small and contain many strings. Raw data For operations, time per iteration; for size, bytes. Lower is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 696.30 µs* 627.02 µs* 3.2225 ms 874632 355446 311723 5.9176 ms bincode 2.0.0-rc 327.62 µs 2.7430 ms 741295 303944 257153 3.9956 ms bincode 1.3.3 522.15 µs 2.3722 ms 1045784 373127 311761 4.9219 ms bitcode 0.6.3 146.14 µs 1.4838 ms 703710 288826 229755 2.4565 ms borsh 1.5.1 545.86 µs 2.1871 ms 885780 362204 286514 4.5638 ms capnp 0.19.7 478.98 µs † 1443216 513986 428649 6.8509 ms cbor4ii 0.3.3 595.77 µs 5.2779 ms 1407835 403440 324081 4.9208 ms ciborium 0.2.2 4.3400 ms 12.113 ms 1407835 403440 324081 4.8952 ms databuf 0.5.0 255.15 µs 2.0632 ms 765778 311715 264630 4.1894 ms dlhn 0.1.7 711.81 µs 2.8752 ms 724953 301446 253629 3.8404 ms flatbuffers 24.3.25 1.0259 ms † 1276368 468539 388832 5.5752 ms msgpacker 0.4.3 943.65 µs 2.7212 ms 764996 315291 264898 4.2210 ms nachricht-serde 0.4.0 5.8087 ms 4.5676 ms 818669 332556 285514 4.6654 ms nanoserde 0.1.37 261.02 µs 2.0712 ms 1045784 373127 311761 4.5550 ms parity-scale-codec 3.6.12 657.11 µs 2.2587 ms 765778 311743 264518 3.9943 ms postcard 1.0.10 398.35 µs 2.1727 ms 724953 302399 253747 3.6706 ms pot 3.0.1 2.3759 ms 6.8393 ms 971922 372513 304122 5.0875 ms prost 0.13.2 951.17 µs* 2.5158 ms* 3.3263 ms 884628 363130 315494 4.9086 ms rkyv 0.8.5 243.10 µs 1.5883 ms* 2.1743 ms* 1011488 393526 326517 5.3054 ms rmp-serde 1.3.0 1.3409 ms 3.1621 ms 784997 325384 278219 4.2725 ms ron 0.8.1 11.389 ms 14.878 ms 1607459 449158 349713 5.7919 ms savefile 0.17.7 189.56 µs 2.8373 ms 1045800 373140 311777 4.5761 ms serde_bare 0.5.0 694.93 µs 2.1020 ms 765778 311715 264630 3.8792 ms serde_cbor 0.11.2 1.9622 ms 4.9327 ms 1407835 403440 324081 4.8214 ms serde_json 1.0.128 3.8112 ms 5.5805 ms 1827461 470560 361090 5.6848 ms simd-json 0.13.10 2.1634 ms 4.6308 ms 1827461 470560 361090 5.6499 ms speedy 0.8.7 204.20 µs 1.7854 ms 885780 362204 286514 4.2299 ms wiring 0.2.2 190.75 µs 1.9875 ms 1045784 337930 276188 3.9679 ms Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 72.554 ns* 167.55 µs* ‡ flatbuffers 24.3.25 2.4730 ns* 1.9811 ms* 51.742 µs* 2.0308 ms* ‡ rkyv 0.8.5 1.2369 ns* 591.11 µs* 10.332 µs* 601.85 µs* 7.7403 µs* Comparison Relative to best. Higher is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 20.99%* 23.31%* 46.04% 80.46% 81.26% 73.70% 41.51% bincode 2.0.0-rc 44.61% 54.09% 94.93% 95.03% 89.35% 61.48% bincode 1.3.3 27.99% 62.55% 67.29% 77.41% 73.70% 49.91% bitcode 0.6.3 100.00% 100.00% 100.00% 100.00% 100.00% 100.00% borsh 1.5.1 26.77% 67.84% 79.45% 79.74% 80.19% 53.83% capnp 0.19.7 30.51% † 48.76% 56.19% 53.60% 35.86% cbor4ii 0.3.3 24.53% 28.11% 49.99% 71.59% 70.89% 49.92% ciborium 0.2.2 3.37% 12.25% 49.99% 71.59% 70.89% 50.18% databuf 0.5.0 57.28% 71.92% 91.89% 92.66% 86.82% 58.64% dlhn 0.1.7 20.53% 51.61% 97.07% 95.81% 90.59% 63.96% flatbuffers 24.3.25 14.25% † 55.13% 61.64% 59.09% 44.06% msgpacker 0.4.3 15.49% 54.53% 91.99% 91.61% 86.73% 58.20% nachricht-serde 0.4.0 2.52% 32.49% 85.96% 86.85% 80.47% 52.65% nanoserde 0.1.37 55.99% 71.64% 67.29% 77.41% 73.70% 53.93% parity-scale-codec 3.6.12 22.24% 65.69% 91.89% 92.65% 86.86% 61.50% postcard 1.0.10 36.69% 68.29% 97.07% 95.51% 90.54% 66.92% pot 3.0.1 6.15% 21.70% 72.40% 77.53% 75.55% 48.29% prost 0.13.2 15.36%* 5.81%* 44.61% 79.55% 79.54% 72.82% 50.04% rkyv 0.8.5 60.12% 93.42%* 68.24%* 69.57% 73.39% 70.37% 46.30% rmp-serde 1.3.0 10.90% 46.92% 89.64% 88.76% 82.58% 57.50% ron 0.8.1 1.28% 9.97% 43.78% 64.30% 65.70% 42.41% savefile 0.17.7 77.09% 52.30% 67.29% 77.40% 73.69% 53.68% serde_bare 0.5.0 21.03% 70.59% 91.89% 92.66% 86.82% 63.32% serde_cbor 0.11.2 7.45% 30.08% 49.99% 71.59% 70.89% 50.95% serde_json 1.0.128 3.83% 26.59% 38.51% 61.38% 63.63% 43.21% simd-json 0.13.10 6.76% 32.04% 38.51% 61.38% 63.63% 43.48% speedy 0.8.7 71.57% 83.11% 79.45% 79.74% 80.19% 58.07% wiring 0.2.2 76.61% 74.66% 67.29% 85.47% 83.19% 61.91% Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 1.70%* 6.17%* ‡ flatbuffers 24.3.25 50.02%* 0.00%* 19.97%* 0.51%* ‡ rkyv 0.8.5 100.00%* 0.00%* 100.00%* 1.72%* 100.00%* mesh This data set is a single mesh. The mesh contains an array of triangles, each of which has three vertices and a normal vector. Raw data For operations, time per iteration; for size, bytes. Lower is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 6.6861 ms* 8.7410 ms* 9.1053 ms 8625005 6443961 6231572 70.340 ms bincode 2.0.0-rc 2.3960 ms 1.0187 ms 6000005 5378497 5345897 7.4417 ms bincode 1.3.3 5.1944 ms 4.8484 ms 6000008 5378500 5345890 7.6828 ms bitcode 0.6.3 1.4137 ms 810.24 µs 6000006 5182295 4923880 12.973 ms borsh 1.5.1 6.0069 ms 4.2985 ms 6000004 5378496 5345889 7.4086 ms capnp 0.19.7 5.8357 ms † 14000088 7130367 6051062 81.231 ms cbor4ii 0.3.3 9.8444 ms 47.813 ms 13125016 7524114 6757967 92.802 ms ciborium 0.2.2 66.080 ms 117.85 ms 13122324 7524660 6759658 93.222 ms databuf 0.5.0 2.3956 ms 5.3056 ms 6000003 5378495 5345900 7.4623 ms dlhn 0.1.7 5.8545 ms 8.6152 ms 6000003 5378495 5345900 7.5253 ms flatbuffers 24.3.25 875.69 µs † 6000024 5378434 5345910 7.4619 ms msgpacker 0.4.3 2.0967 ms 4.9552 ms 7500005 6058442 6014337 9.5418 ms nachricht-serde 0.4.0 129.35 ms 30.905 ms 8125037 6493484 6386940 68.601 ms nanoserde 0.1.37 1.4626 ms 1.1056 ms 6000008 5378500 5345890 7.4216 ms parity-scale-codec 3.6.12 4.7459 ms 4.0426 ms 6000004 5378496 5345889 7.5883 ms postcard 1.0.10 489.15 µs 1.3439 ms 6000003 5378495 5345900 7.4920 ms pot 3.0.1 40.466 ms 73.252 ms 10122342 6814618 6852251 84.290 ms prost 0.13.2 7.7218 ms* 8.5504 ms* 12.166 ms 8750000 6665735 6421871 70.330 ms rkyv 0.8.5 258.31 µs 197.34 µs* 197.43 µs* 6000008 5378500 5345892 7.5712 ms rmp-serde 1.3.0 15.256 ms 18.012 ms 8125006 6494876 6391037 67.462 ms ron 0.8.1 168.81 ms 226.14 ms 22192885 8970395 8138755 149.77 ms savefile 0.17.7 258.63 µs 258.66 µs 6000024 5378513 5345893 7.4224 ms serde_bare 0.5.0 6.4722 ms 4.0653 ms 6000003 5378495 5345900 7.4078 ms serde_cbor 0.11.2 33.845 ms 46.538 ms 13122324 7524660 6759658 92.784 ms serde_json 1.0.128 86.365 ms 87.482 ms 26192883 9566084 8586741 154.09 ms simd-json 0.13.10 52.315 ms 72.231 ms 26192883 9566084 8586741 154.05 ms speedy 0.8.7 258.56 µs 258.73 µs 6000004 5378496 5345889 7.5257 ms wiring 0.2.2 197.53 µs 352.47 µs 6000008 5378952 5345894 7.6508 ms Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 105.40 ns* 2.2050 ms* ‡ flatbuffers 24.3.25 2.4743 ns* 39.646 ns* 54.208 µs* 77.487 µs* ‡ rkyv 0.8.5 1.2367 ns* 4.6464 ns* 48.411 µs* 38.742 µs* 99.753 µs* Comparison Relative to best. Higher is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 2.95%* 2.26%* 2.17% 69.57% 80.42% 79.02% 10.53% bincode 2.0.0-rc 8.24% 19.37% 100.00% 96.35% 92.11% 99.54% bincode 1.3.3 3.80% 4.07% 100.00% 96.35% 92.11% 96.42% bitcode 0.6.3 13.97% 24.36% 100.00% 100.00% 100.00% 57.10% borsh 1.5.1 3.29% 4.59% 100.00% 96.35% 92.11% 99.99% capnp 0.19.7 3.38% † 42.86% 72.68% 81.37% 9.12% cbor4ii 0.3.3 2.01% 0.41% 45.71% 68.88% 72.86% 7.98% ciborium 0.2.2 0.30% 0.17% 45.72% 68.87% 72.84% 7.95% databuf 0.5.0 8.25% 3.72% 100.00% 96.35% 92.11% 99.27% dlhn 0.1.7 3.37% 2.29% 100.00% 96.35% 92.11% 98.44% flatbuffers 24.3.25 22.56% † 100.00% 96.35% 92.11% 99.27% msgpacker 0.4.3 9.42% 3.98% 80.00% 85.54% 81.87% 77.64% nachricht-serde 0.4.0 0.15% 0.64% 73.85% 79.81% 77.09% 10.80% nanoserde 0.1.37 13.51% 17.85% 100.00% 96.35% 92.11% 99.81% parity-scale-codec 3.6.12 4.16% 4.88% 100.00% 96.35% 92.11% 97.62% postcard 1.0.10 40.38% 14.68% 100.00% 96.35% 92.11% 98.88% pot 3.0.1 0.49% 0.27% 59.27% 76.05% 71.86% 8.79% prost 0.13.2 2.56%* 2.31%* 1.62% 68.57% 77.75% 76.67% 10.53% rkyv 0.8.5 76.47% 100.00%* 99.95%* 100.00% 96.35% 92.11% 97.84% rmp-serde 1.3.0 1.29% 1.10% 73.85% 79.79% 77.04% 10.98% ron 0.8.1 0.12% 0.09% 27.04% 57.77% 60.50% 4.95% savefile 0.17.7 76.38% 76.29% 100.00% 96.35% 92.11% 99.80% serde_bare 0.5.0 3.05% 4.85% 100.00% 96.35% 92.11% 100.00% serde_cbor 0.11.2 0.58% 0.42% 45.72% 68.87% 72.84% 7.98% serde_json 1.0.128 0.23% 0.23% 22.91% 54.17% 57.34% 4.81% simd-json 0.13.10 0.38% 0.27% 22.91% 54.17% 57.34% 4.81% speedy 0.8.7 76.40% 76.27% 100.00% 96.35% 92.11% 98.43% wiring 0.2.2 100.00% 55.99% 100.00% 96.34% 92.11% 96.82% Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 1.17%* 1.76%* ‡ flatbuffers 24.3.25 49.98%* 3.12%* 71.47%* 50.00%* ‡ rkyv 0.8.5 100.00%* 26.62%* 80.03%* 100.00%* 100.00%* minecraft_savedata This data set is composed of Minecraft player saves that contain highly structured data. Raw data For operations, time per iteration; for size, bytes. Lower is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 926.62 µs* 840.37 µs* 3.1952 ms 489348 281173 249546 3.0782 ms bincode 2.0.0-rc 303.41 µs 2.1171 ms 367413 221291 206273 2.4782 ms bincode 1.3.3 596.82 µs 1.8650 ms 569975 240525 232423 2.9188 ms bitcode 0.6.3 133.89 µs 1.2710 ms 327688 200947 182736 749.67 µs borsh 1.5.1 518.11 µs 1.8416 ms 446595 234236 210008 2.4672 ms capnp 0.19.7 476.19 µs † 803896 335606 280851 3.9121 ms cbor4ii 0.3.3 786.05 µs 4.6978 ms 1109831 344745 274514 3.8789 ms ciborium 0.2.2 3.8069 ms 10.319 ms 1109821 344751 274526 3.8492 ms databuf 0.5.0 302.01 µs 1.7295 ms 356311 213062 198488 2.3832 ms dlhn 0.1.7 769.97 µs 2.6426 ms 366496 220600 205683 2.4684 ms flatbuffers 24.3.25 3.2657 ms † 844168 345696 294015 3.8239 ms msgpacker 0.4.3 705.01 µs 2.8260 ms 391251 236877 220476 2.6182 ms nachricht-serde 0.4.0 5.4630 ms 3.8996 ms 449745 252432 231110 2.7578 ms nanoserde 0.1.37 261.40 µs 1.9023 ms 567975 239930 232419 2.8706 ms parity-scale-codec 3.6.12 614.86 µs 2.0959 ms 356311 212976 198524 2.3974 ms postcard 1.0.10 446.84 µs 2.0228 ms 367489 221913 207344 2.4842 ms pot 3.0.1 2.3896 ms 6.2034 ms 599125 299158 247693 3.1954 ms prost 0.13.2 1.2594 ms* 2.9066 ms* 3.4984 ms 596811 305319 269310 3.4975 ms rkyv 0.8.5 346.04 µs 1.5295 ms* 2.0385 ms* 603776 254776 220087 2.7585 ms rmp-serde 1.3.0 1.4175 ms 3.0097 ms 424533 245214 226188 2.7246 ms ron 0.8.1 7.1574 ms 16.991 ms 1465223 434935 343338 5.9812 ms savefile 0.17.7 205.85 µs 1.8438 ms 566991 239361 232013 2.8602 ms serde_bare 0.5.0 712.59 µs 2.3776 ms 356311 213062 198488 2.4120 ms serde_cbor 0.11.2 1.8081 ms 4.7379 ms 1109821 344751 274526 3.8515 ms serde_json 1.0.128 3.6719 ms 6.4289 ms 1623191 466527 359623 6.0749 ms simd-json 0.13.10 2.2279 ms 4.5460 ms 1623191 466527 359623 6.0855 ms speedy 0.8.7 278.90 µs 1.5939 ms 449595 234970 210361 2.5436 ms wiring 0.2.2 222.12 µs 1.8121 ms 566975 247810 225259 2.9275 ms Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 72.463 ns* 424.88 ns* ‡ flatbuffers 24.3.25 2.4781 ns* 2.1849 ms* 1.3575 µs* 2.2118 ms* ‡ rkyv 0.8.5 1.2371 ns* 500.73 µs* 163.21 ns* 500.39 µs* 775.85 ns* Comparison Relative to best. Higher is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 14.45%* 15.93%* 39.78% 66.96% 71.47% 73.23% 24.35% bincode 2.0.0-rc 44.13% 60.03% 89.19% 90.81% 88.59% 30.25% bincode 1.3.3 22.43% 68.15% 57.49% 83.55% 78.62% 25.68% bitcode 0.6.3 100.00% 100.00% 100.00% 100.00% 100.00% 100.00% borsh 1.5.1 25.84% 69.02% 73.37% 85.79% 87.01% 30.39% capnp 0.19.7 28.12% † 40.76% 59.88% 65.07% 19.16% cbor4ii 0.3.3 17.03% 27.06% 29.53% 58.29% 66.57% 19.33% ciborium 0.2.2 3.52% 12.32% 29.53% 58.29% 66.56% 19.48% databuf 0.5.0 44.33% 73.49% 91.97% 94.31% 92.06% 31.46% dlhn 0.1.7 17.39% 48.10% 89.41% 91.09% 88.84% 30.37% flatbuffers 24.3.25 4.10% † 38.82% 58.13% 62.15% 19.60% msgpacker 0.4.3 18.99% 44.98% 83.75% 84.83% 82.88% 28.63% nachricht-serde 0.4.0 2.45% 32.59% 72.86% 79.60% 79.07% 27.18% nanoserde 0.1.37 51.22% 66.81% 57.69% 83.75% 78.62% 26.12% parity-scale-codec 3.6.12 21.78% 60.64% 91.97% 94.35% 92.05% 31.27% postcard 1.0.10 29.96% 62.83% 89.17% 90.55% 88.13% 30.18% pot 3.0.1 5.60% 20.49% 54.69% 67.17% 73.78% 23.46% prost 0.13.2 10.63%* 4.61%* 36.33% 54.91% 65.82% 67.85% 21.43% rkyv 0.8.5 38.69% 83.10%* 62.35%* 54.27% 78.87% 83.03% 27.18% rmp-serde 1.3.0 9.45% 42.23% 77.19% 81.95% 80.79% 27.52% ron 0.8.1 1.87% 7.48% 22.36% 46.20% 53.22% 12.53% savefile 0.17.7 65.04% 68.93% 57.79% 83.95% 78.76% 26.21% serde_bare 0.5.0 18.79% 53.46% 91.97% 94.31% 92.06% 31.08% serde_cbor 0.11.2 7.41% 26.83% 29.53% 58.29% 66.56% 19.46% serde_json 1.0.128 3.65% 19.77% 20.19% 43.07% 50.81% 12.34% simd-json 0.13.10 6.01% 27.96% 20.19% 43.07% 50.81% 12.32% speedy 0.8.7 48.01% 79.74% 72.89% 85.52% 86.87% 29.47% wiring 0.2.2 60.28% 70.14% 57.80% 81.09% 81.12% 25.61% Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 1.71%* 38.41%* ‡ flatbuffers 24.3.25 49.92%* 0.00%* 12.02%* 0.01%* ‡ rkyv 0.8.5 100.00%* 0.00%* 100.00%* 0.03%* 100.00%* mk48 This data set is composed of mk48.io game updates that contain data with many exploitable patterns and invariants. Raw data For operations, time per iteration; for size, bytes. Lower is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 4.6437 ms* 2.4776 ms* 8.5670 ms 1664428 1264167 1216472 10.967 ms bincode 2.0.0-rc 1.1938 ms 4.0660 ms 1372381 1091486 1037296 8.9313 ms bincode 1.3.3 3.5734 ms 4.2899 ms 1811011 1115281 1025627 9.8752 ms bitcode 0.6.3 709.45 µs 2.3099 ms 948499 857321 837658 3.0476 ms borsh 1.5.1 2.8702 ms 2.8592 ms 1486162 1082357 1013550 9.4805 ms capnp 0.19.7 2.3754 ms † 2664040 1511895 1212087 13.837 ms cbor4ii 0.3.3 3.2689 ms 17.251 ms 5878791 1655835 1431390 20.705 ms ciborium 0.2.2 22.529 ms 56.529 ms 5878653 1655791 1431560 21.485 ms databuf 0.5.0 1.2579 ms 4.0254 ms 1288257 1037579 984337 8.4869 ms dlhn 0.1.7 4.7265 ms 7.7631 ms 1279599 1052061 1021161 8.1670 ms flatbuffers 24.3.25 5.3193 ms † 2273740 1408408 1235566 12.655 ms msgpacker 0.4.3 1.6126 ms 6.2763 ms 1424043 1128758 1110156 9.1673 ms nachricht-serde 0.4.0 30.081 ms 17.321 ms 1728519 1247642 1233323 12.463 ms nanoserde 0.1.37 1.2712 ms 2.8730 ms 1770477 1108304 1029947 9.9180 ms parity-scale-codec 3.6.12 2.9800 ms 3.7833 ms 1288257 1039269 986510 8.4109 ms postcard 1.0.10 2.0733 ms 4.1699 ms 1279599 1058243 1016738 8.3081 ms pot 3.0.1 13.843 ms 31.587 ms 2544810 1447453 1268390 15.334 ms prost 0.13.2 5.2988 ms* 9.1610 ms* 8.4523 ms 1818378 1307777 1266311 11.539 ms rkyv 0.8.5 904.02 µs 2.1523 ms* 2.5731 ms* 2029080 1351984 1183990 12.349 ms rmp-serde 1.3.0 9.9240 ms 11.401 ms 1703813 1231892 1200208 11.004 ms ron 0.8.1 36.830 ms 87.014 ms 8476284 2181196 1783971 33.706 ms savefile 0.17.7 800.62 µs 2.9594 ms 1750226 1101682 1027828 9.7791 ms serde_bare 0.5.0 4.7583 ms 4.9962 ms 1288257 1037597 984356 8.5924 ms serde_cbor 0.11.2 9.4197 ms 20.736 ms 5878653 1655791 1431560 20.822 ms serde_json 1.0.128 20.031 ms 29.215 ms 9175594 2334253 1800713 34.056 ms simd-json 0.13.10 11.410 ms 26.500 ms 9175594 2334253 1800713 35.277 ms speedy 0.8.7 708.74 µs 2.4172 ms 1546963 1093532 1013443 9.5776 ms wiring 0.2.2 691.52 µs 2.7131 ms 1750210 1129857 1058906 10.159 ms Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 72.523 ns* 709.61 ns* ‡ flatbuffers 24.3.25 2.4749 ns* 5.0178 ms* 2.6273 µs* 5.0853 ms* ‡ rkyv 0.8.5 1.2372 ns* 425.37 µs* 424.35 ns* 429.22 µs* 234.83 ns* Comparison Relative to best. Higher is better. Serialize / deserialize speed and size Crate Serialize Deserialize Size Zlib Zstd Zstd Time bilrost 0.1010.0 14.89%* 27.91%* 25.12% 56.99% 67.82% 68.86% 27.79% bincode 2.0.0-rc 57.93% 52.93% 69.11% 78.55% 80.75% 34.12% bincode 1.3.3 19.35% 50.17% 52.37% 76.87% 81.67% 30.86% bitcode 0.6.3 97.47% 93.18% 100.00% 100.00% 100.00% 100.00% borsh 1.5.1 24.09% 75.28% 63.82% 79.21% 82.65% 32.15% capnp 0.19.7 29.11% † 35.60% 56.71% 69.11% 22.03% cbor4ii 0.3.3 21.15% 12.48% 16.13% 51.78% 58.52% 14.72% ciborium 0.2.2 3.07% 3.81% 16.13% 51.78% 58.51% 14.18% databuf 0.5.0 54.97% 53.47% 73.63% 82.63% 85.10% 35.91% dlhn 0.1.7 14.63% 27.72% 74.12% 81.49% 82.03% 37.32% flatbuffers 24.3.25 13.00% † 41.72% 60.87% 67.80% 24.08% msgpacker 0.4.3 42.88% 34.29% 66.61% 75.95% 75.45% 33.24% nachricht-serde 0.4.0 2.30% 12.43% 54.87% 68.72% 67.92% 24.45% nanoserde 0.1.37 54.40% 74.91% 53.57% 77.35% 81.33% 30.73% parity-scale-codec 3.6.12 23.21% 56.89% 73.63% 82.49% 84.91% 36.23% postcard 1.0.10 33.35% 51.62% 74.12% 81.01% 82.39% 36.68% pot 3.0.1 5.00% 6.81% 37.27% 59.23% 66.04% 19.88% prost 0.13.2 13.05%* 7.55%* 25.46% 52.16% 65.56% 66.15% 26.41% rkyv 0.8.5 76.49% 100.00%* 83.65%* 46.75% 63.41% 70.75% 24.68% rmp-serde 1.3.0 6.97% 18.88% 55.67% 69.59% 69.79% 27.70% ron 0.8.1 1.88% 2.47% 11.19% 39.31% 46.95% 9.04% savefile 0.17.7 86.37% 72.73% 54.19% 77.82% 81.50% 31.16% serde_bare 0.5.0 14.53% 43.08% 73.63% 82.63% 85.10% 35.47% serde_cbor 0.11.2 7.34% 10.38% 16.13% 51.78% 58.51% 14.64% serde_json 1.0.128 3.45% 7.37% 10.34% 36.73% 46.52% 8.95% simd-json 0.13.10 6.06% 8.12% 10.34% 36.73% 46.52% 8.64% speedy 0.8.7 97.57% 89.04% 61.31% 78.40% 82.65% 31.82% wiring 0.2.2 100.00% 79.33% 54.19% 75.88% 79.11% 30.00% Zero-copy deserialization speed Crate Access Read Update capnp 0.19.7 1.71%* 59.80%* ‡ flatbuffers 24.3.25 49.99%* 0.00%* 16.15%* 0.01%* ‡ rkyv 0.8.5 100.00%* 0.00%* 100.00%* 0.10%* 100.00%* Footnotes: * mouse over for situational details † do not provide deserialization capabilities, but the user can write their own ‡ do not support buffer mutation ( capnp and flatbuffers may but not for rust)
+======>
+https://docs.rs/pot/
+-->>-->>
+Is self-describing. Is safe to run in production. Is compact. While still being self-describing, Pot’s main space-saving feature
+is not repeating symbols/identifiers more than one time while serializing.
+When serializing arrays of structures, this can make a major difference. The logs.rs example demonstrates this: $ cargo test --example logs -- average_sizes --nocapture
+Generating 1000 LogArchives with 100 entries.
++-----------------+-----------+-----------------+
+| Format          | Bytes     | Self-Describing |
++-----------------+-----------+-----------------+
+| pot             | 2,627,586 | yes             |
++-----------------+-----------+-----------------+
+| cbor            | 3,072,369 | yes             |
++-----------------+-----------+-----------------+
+| msgpack(named)  | 3,059,915 | yes             |
++-----------------+-----------+-----------------+
+| msgpack         | 2,559,907 | no              |
++-----------------+-----------+-----------------+
+| bincode(varint) | 2,506,844 | no              |
++-----------------+-----------+-----------------+
+| bincode         | 2,755,137 | no              |
++-----------------+-----------+-----------------+
+======>
+https://docs.rs/postcard/
+-->>-->>
+? Settings Crate postcard Copy item path source · [ − ] Expand description § Postcard Postcard is a #![no_std] focused serializer and deserializer for Serde. Postcard aims to be convenient for developers in constrained environments, while
+allowing for flexibility to customize behavior as needed. § Design Goals Design primarily for #![no_std] usage, in embedded or other constrained contexts Support a maximal set of serde features, so postcard can be used as a drop in replacement Avoid special differences in code between communication code written for a microcontroller or a desktop/server PC Be resource efficient - memory usage, code size, developer time, and CPU time; in that order Allow library users to customize the serialization and deserialization  behavior to fit their bespoke needs § Format Stability As of v1.0.0, postcard has a documented and stable wire format. More information about this
+wire format can be found in the spec/ folder of the Postcard repository, or viewed online
+at https://postcard.jamesmunns.com . Work towards the Postcard Specification and portions of the Postcard 1.0 Release
+were sponsored by Mozilla Corporation. § Variable Length Data All signed and unsigned integers larger than eight bits are encoded using a Varint .
+This includes the length of array slices, as well as the discriminant of enums . For more information, see the Varint chapter of the wire specification. § Example - Serialization/Deserialization Postcard can serialize and deserialize messages similar to other serde formats. Using the default heapless feature to serialize to a heapless::Vec<u8> : use core::ops::Deref; use serde::{Serialize, Deserialize}; use postcard::{from_bytes, to_vec}; use heapless::Vec; #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)] struct RefStruct< 'a > {
+    bytes: & 'a [u8],
+    str_s: & 'a str,
+} let message = "hElLo" ; let bytes = [ 0x01 , 0x10 , 0x02 , 0x20 ]; let output: Vec<u8, 11 > = to_vec( & RefStruct {
+    bytes: & bytes,
+    str_s: message,
+}).unwrap(); assert_eq! ( & [ 0x04 , 0x01 , 0x10 , 0x02 , 0x20 , 0x05 , b'h' , b'E' , b'l' , b'L' , b'o' ,],
+    output.deref()
+); let out: RefStruct = from_bytes(output.deref()).unwrap(); assert_eq! (
+    out,
+    RefStruct {
+        bytes: & bytes,
+        str_s: message,
+    }
+); Or the optional alloc feature to serialize to an alloc::vec::Vec<u8> : use core::ops::Deref; use serde::{Serialize, Deserialize}; use postcard::{from_bytes, to_allocvec}; extern crate alloc; use alloc::vec::Vec; #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)] struct RefStruct< 'a > {
+    bytes: & 'a [u8],
+    str_s: & 'a str,
+} let message = "hElLo" ; let bytes = [ 0x01 , 0x10 , 0x02 , 0x20 ]; let output: Vec<u8> = to_allocvec( & RefStruct {
+    bytes: & bytes,
+    str_s: message,
+}).unwrap(); assert_eq! ( & [ 0x04 , 0x01 , 0x10 , 0x02 , 0x20 , 0x05 , b'h' , b'E' , b'l' , b'L' , b'o' ,],
+    output.deref()
+); let out: RefStruct = from_bytes(output.deref()).unwrap(); assert_eq! (
+    out,
+    RefStruct {
+        bytes: & bytes,
+        str_s: message,
+    }
+); § Flavors postcard supports a system called Flavors , which are used to modify the way
+postcard serializes or processes serialized data. These flavors act as “plugins” or “middlewares”
+during the serialization or deserialization process, and can be combined to obtain complex protocol formats. See the documentation of the ser_flavors or de_flavors modules for more information on usage. § Setup - Cargo.toml Don’t forget to add the no-std subset of serde along with postcard to the [dependencies] section of your Cargo.toml ! [dependencies]
+postcard = "1.0.0"
+
+# By default, `serde` has the `std` feature enabled, which makes it unsuitable for embedded targets
+# disabling default-features fixes this
+serde = { version = "1.0.*", default-features = false } § License Licensed under either of Apache License, Version 2.0 ( LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0 ) MIT license ( LICENSE-MIT or http://opensource.org/licenses/MIT ) at your option. § Contribution Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions. Modules § accumulator An accumulator used to collect chunked COBS data and deserialize it. de_ flavors Deserialization Flavors experimental Experimental Postcard Features fixint Fixed Size Integers ser_ flavors Serialization Flavors Structs § Deserializer A serde compatible deserializer, generic over “Flavors” of deserializing plugins. Serializer A serde compatible serializer, generic over “Flavors” of serializing plugins. Enums § Error This is the error type used by Postcard Functions § from_ bytes Deserialize a message of type T from a byte slice. The unused portion (if any)
+of the byte slice is not returned. from_ bytes_ cobs Deserialize a message of type T from a cobs-encoded byte slice. The
+unused portion (if any) of the byte slice is not returned.
+The used portion of the input slice is modified during deserialization (even if an error is returned).
+Therefore, if this is not desired, pass a clone of the original slice. from_ bytes_ crc32 Conveniently deserialize a message of type T from a byte slice with a Crc. The unused portion (if any)
+of the byte slice is not returned. from_ eio Deserialize a message of type T from a embedded_io :: Read . from_io Deserialize a message of type T from a std::io::Read . serialize_ with_ flavor serialize_with_flavor() has three generic parameters, T, F, O . take_ from_ bytes Deserialize a message of type T from a byte slice. The unused portion (if any)
+of the byte slice is returned for further usage take_ from_ bytes_ cobs Deserialize a message of type T from a cobs-encoded byte slice. The
+unused portion (if any) of the byte slice is returned for further usage.
+The used portion of the input slice is modified during deserialization (even if an error is returned).
+Therefore, if this is not desired, pass a clone of the original slice. take_ from_ bytes_ crc32 Conveniently deserialize a message of type T from a byte slice with a Crc. The unused portion (if any)
+of the byte slice is returned for further usage to_ allocvec Serialize a T to an alloc::vec::Vec<u8> . to_ allocvec_ cobs Serialize and COBS encode a T to an alloc::vec::Vec<u8> . to_ allocvec_ crc32 Conveniently serialize a T to a heapless::Vec<u8> , with the Vec containing
+data followed by a 32-bit  CRC. The CRC bytes are included in the output Vec . to_eio Serialize a T to an embedded_io Write , to_ extend Serialize a T to a core::iter::Extend , to_io Serialize a T to a std::io::Write , to_ slice Serialize a T to the given slice, with the resulting slice containing
+data in a serialized format. to_ slice_ cobs Serialize a T to the given slice, with the resulting slice containing
+data in a serialized then COBS encoded format. The terminating sentinel 0x00 byte is included in the output buffer. to_ slice_ crc32 Conveniently serialize a T to the given slice, with the resulting slice containing
+data followed by a 32-bit CRC. The CRC bytes are included in the output buffer. to_ stdvec Serialize a T to a std::vec::Vec<u8> . to_ stdvec_ cobs Serialize and COBS encode a T to a std::vec::Vec<u8> . to_ stdvec_ crc32 Conveniently serialize a T to a heapless::Vec<u8> , with the Vec containing
+data followed by a 32-bit  CRC. The CRC bytes are included in the output Vec . to_vec Serialize a T to a heapless::Vec<u8> , with the Vec containing
+data in a serialized format. to_ vec_ cobs Serialize a T to a heapless::Vec<u8> , with the Vec containing
+data in a serialized then COBS encoded format. The terminating sentinel 0x00 byte is included in the output Vec . to_ vec_ crc32 Conveniently serialize a T to a heapless::Vec<u8> , with the Vec containing
+data followed by a 32-bit  CRC. The CRC bytes are included in the output Vec . Type Aliases § Result This is the Result type used by Postcard.
+======>
+https://github.com/FlixCoder/serde-brief/blob/main/docs/format-specification.md
+-->>-->>
+Serde-Brief Binary Format The format is close to JSON, modified to be better, binary and fit to serde's data model . Stability The format is not considered stable as of yet. Self-Describing Format The format includes information on the structure of the data. Advantages over non-self-describing formats: There is no need for a schema to parse any given data. Easy to provide backwards/forwards compatibility of data formats, as it is possible to add new fields. Type compatibility can be checked. Disadvantages over non-self-describing formats: Larger binary representation. Additional parsing / overhead. Defined Types Every value in Serde-Brief is prepended with a byte detailing its type.
+The Serde-Brief format currently contains these types: Type Description Byte value Null No value. 0 BooleanFalse Boolean with value false . 1 BooleanTrue Boolean with value true . 2 UnsignedInt Unsigned integer. The following bytes are the value in "VarInt" encoding (see below). 3 SignedInt Signed integer. The following bytes are the value in "VarInt" encoding (see below). 4 Float16 Float with 16-bit precision (not yet used/supported). 5 Float32 Float with 32-bit precision. The next 4 bytes are the value (little-endian). 6 Float64 Float with 64-bit precision. The next 8 bytes are the value (little-endian). 7 Float128 Float with 128-bit precision (not yet used/supported). 8 Bytes Raw bytes. The following bytes are the length of the byte sequence (must fit into usize ). After that come the raw bytes of the given length. 10 String UTF-8 string. The following bytes are the length of the byte sequence (must fit into usize ). After that come the string's raw bytes of the given length. 11 SeqStart A sequence of any number of values of any type. There is no specified length. The following bytes are the sequence's values. The end of the sequence is recognized by the SeqEnd type. 15 SeqEnd The end of a sequence. 16 MapStart A map of any number of key-value pairs of any types. There is no specified length. The following bytes are the map's keys and values. The end of the sequence is recognized by the SeqEnd type. 17 MapEnd The end of a map. 18 Examples [0] : null value [1] : false [2] : true [3, 0] : 0 [4, 1] : -1 [10, 0] : byte sequence of length 0 [10, 1, 5] : byte sequence of length 1 containing a byte with value 5 [15, 16] : empty sequence [15, 0, 1, 16] : sequence with 2 values: null and false [17, 18] : empty map [17, 3, 0, 2, 18] : map with 1 key-value pair: 0 -> true VarInt Encoding All integers are encoded in this format. It allows to use the same format for all integer numbers, regardless of size. It also saves space for small integers. The format is identical to postcard's VarInt encoding . Also see Wikipedia's article on VLQ . For every byte, the most significant bit determines whether this is the last byte of the number. For example, 0x83 / 0b1000_0011 will result in another byte being read for the current number. 0x73 / 0b0111_0011 will be considered the last byte.
+Every byte's lower 7 bits are used to store the actual value. Unsigned integers are encoded least-significant-bits first. For example, 0x017F / 0b0000_0001_0111_1111 will be encoded like this: 0xFF / 0b1111_1111 , 0x02 / 0b0000_0010 . Further explanation : The least significant 7 bits are 111_1111 . Since we need another byte to store the number's rest of the bits, the 8th bit will be 1 , too. Therefore, out first bit is 0xFF . The next 7 bytes of our number are 000_0010 . We don't need any more bytes after this one, as the value needs less than 14 bits, therefore the 8th bit is 0 . The encoded byte is 0x02 . Signed integers would blow up this encoding, since -1 is 0xFFFF_FFFF_FFFF_FFFF in two's-complement in a u64 . Therefore, signed integers are ZigZag -encoded first. The sign ends up in the lowest bit in the first byte. -1 would be encoded as 0b0000_0001 . 1 is encoded as 0b0000_0010 . Maximum Length There is no length limit on the number's encoding in the format itself. In practice however, serde supports up to 128 bits and the deserialization will fail on any numbers larger than the expected type. So reading a u8 will fail when there is more than 2 bytes or more than 8 value-bits. A 128 bit value will never exceed 19 bytes.
+Other parsers would, in theory, be allowed to encode arbitrarily large numbers in any amount of bytes. Canonicalization The encoding allows values to pad numbers with any number of 0s, e.g. a chain of 0x80 bytes. The number 0 could be represented as 0x80 , 0x80 , 0x80 , 0x00 . Four bytes, despite being value 0 . The serializer will always output numbers with the lowest number of bytes. However, the deserializer will accept representations with additional padding up to the maximum number of bits of the expected type. Architecture-Specific Sizes The isize and usize types are as wide as pointers on the specific system. This means, the maximum/minimum number can differ across systems. The VarInt encoding works the same way, so different systems can communicate without any issues, as long as the value fits into the smallest of the system's architecture. Parsing will fail on the smaller architecture otherwise. Sequences and Maps Sequences/arrays and maps do not specify their length, so any number of values can follow. Their end is denoted by a value of a special end type. Values can have any type, so even maps can consist of arbitrarily complex keys and values. The key itself could be a structure 2 layers deep. The type of every value can differ. Mapping of Rust Types to Encoded Data The encoding/serialization and decoding/deserialization happens via serde , so it follows the serde data model . Please familiarize yourself with its concept to fully understand the following. In any case, the following describes how Rust types are mapped to Serde-Brief format types. There are two modes of the format. The first and default encodes structs as maps with keys being strings of the fields' names. The second encodes structs as maps with keys being unsigned integers, where the value denotes the index/position in the struct. Similarly, the same happens for enums. Variants are encoded either as string or as unsigned integer denoting their index (NOT discriminant). Note that (at least currently) the deserializer can parse data regardless of which encoding was used, unless it relies on features that do not work with index representation mode (e.g. internally tagged enums). The serializer however needs to know which format it needs to serialize to. Advantages of the default (string representation) : Compatibility and robustness: adding or re-ordering fields works without issues. Support of #[serde(rename)] , internally tagged enums and any other serde feature. The index representation does NOT support renaming fields. It also cannot deserialize internally tagged enums. This is due to the way serde handles internally tagged enums. Externally or adjacently tagged enums DO work, as well as untagged enums. Please note however, that untagged enum variants can more easily be differentiated with named fields. External parties can understand the data more easily with named fields. Advantages of the index representation : Smaller footprint: strings need more space in the encoding. Serde Datatypes in Serde-Brief (String Representation) The list of serde's types can be found here , along with how Rust types are mapped to serde's types. Serde Type Brief Type Description bool BooleanFalse or BooleanTrue Value is saved within the type. No additional value. u8, u16, u32, u64, u128 UnsignedInt VarInt encoded. i8, i16, i32, i64, i128 SignedInt ZigZag encoded and then VarInt encoded. f32 Float32 4 bytes containing the raw value (little-endian). f64 Float64 8 bytes containing the raw value (little-endian). char String UTF-8 encoded and serialized as string. string String First, the length (bytes, not chars) in VarInt encoding is given (unsigned). Then the raw bytes follow. The bytes must be a UTF-8 encoded string. byte array Bytes First, the length in VarInt encoding is given (unsigned). Then the raw bytes follow. sequence SeqStart .. SeqEnd SeqStart is the type for starting a sequence. Any number of values follow. A SeqEnd at the correct position will end the sequence. map MapStart .. MapEnd MapStart is the type for starting a map. Any number of key-value pairs follow. The keys and values are not separated, they are differentiated by position. A MapEnd at the correct position will end the map. option Null or any other type. None becomes the Null type. Any other value is directly encoded as its type. Note that Option<()> will always be Null and decoded as None . tuple SeqStart .. SeqEnd Encoded as sequence. Information that the length is fixed is unused and not saved. unit Null Always Null . unit struct Null Struct names are not used. There is no value, similar to the unit type. newtype struct Any Structs names are not used. Newtype structs (only one field) are encoded as their inner value (transparent encoding). tuple struct SeqStart .. SeqEnd Struct names are not used. Therefore encoded just as a tuple (so as a sequence). struct MapStart .. MapEnd Struct names are not used. Encoded as a map with keys being the field names and values being their encoded values. unit variant String Enum names are not used. Variants without data are just the variant name as string. newtype variant MapStart, String, Any, MapEnd Enum names are not used. Variants with values are a map with a single key-value pair. The key is the variant name as string. The value is the encoded value. tuple variant MapStart, String, SeqStart .. SeqEnd, MapEnd Enum names are not used. Variants with values are a map with a single key-value pair. The key is the variant name as string. The value is a sequence of the encoded values. struct variant MapStart, String, MapStart .. MapEnd, MapEnd Enum names are not used. Variants with values are a map with a single key-value pair. The key is the variant name as string. The value is a map of the field names to their values. Serde Datatypes in Serde-Brief (Index Representation) The list of serde's types can be found here , along with how Rust types are mapped to serde's types. The index representation does not work with internally tagged enums ( #[serde(tag = "t")] ). Externally or adjacently tagged enums do work (nothing or #[serde(tag = "type", content = "c")] ). Serde Type Brief Type Description bool BooleanFalse or BooleanTrue Value is saved within the type. No additional value. u8, u16, u32, u64, u128 UnsignedInt VarInt encoded. i8, i16, i32, i64, i128 SignedInt ZigZag encoded and then VarInt encoded. f32 Float32 4 bytes containing the raw value (little-endian). f64 Float64 8 bytes containing the raw value (little-endian). char String UTF-8 encoded and serialized as string. string String First, the length (bytes, not chars) in VarInt encoding is given (unsigned). Then the raw bytes follow. The bytes must be a UTF-8 encoded string. byte array Bytes First, the length in VarInt encoding is given (unsigned). Then the raw bytes follow. sequence SeqStart .. SeqEnd SeqStart is the type for starting a sequence. Any number of values follow. A SeqEnd at the correct position will end the sequence. map MapStart .. MapEnd MapStart is the type for starting a map. Any number of key-value pairs follow. The keys and values are not separated, they are differentiated by position. A MapEnd at the correct position will end the map. option Null or any other type. None becomes the Null type. Any other value is directly encoded as its type. Note that Option<()> will always be Null and decoded as None . tuple SeqStart .. SeqEnd Encoded as sequence. Information that the length is fixed is unused and not saved. unit Null Always Null . unit struct Null Struct names are not used. There is no value, similar to the unit type. newtype struct Any Structs names are not used. Newtype structs (only one field) are encoded as their inner value (transparent encoding). tuple struct SeqStart .. SeqEnd Struct names are not used. Therefore encoded just as a tuple (so as a sequence). struct MapStart .. MapEnd Struct names are not used. Encoded as a map with keys being the field indices ( u32 ) and values being their encoded values. unit variant UnsignedInt Enum names are not used. Variants without data are just the variant index as unsigned integer ( u32 ). newtype variant MapStart, UnsignedInt, Any, MapEnd Enum names are not used. Variants with values are a map with a single key-value pair. The key is the variant index as unsigned integer ( u32 ). The value is the encoded value. tuple variant MapStart, UnsignedInt, SeqStart .. SeqEnd, MapEnd Enum names are not used. Variants with values are a map with a single key-value pair. The key is the variant index as unsigned integer ( u32 ). The value is a sequence of the encoded values. struct variant MapStart, UnsignedInt, MapStart .. MapEnd, MapEnd Enum names are not used. Variants with values are a map with a single key-value pair. The key is the variant index as unsigned integer ( u32 ). The value is a map of the field indices ( u32 ) to their values.
+======>
+https://old.reddit.com/r/rust/comments/1frgkum/ureq_3x_release_candidate_1/
+-->>-->>
+ureq is a lightweight, sync, HTTP/1.1 library. 3.x is rewritten from the ground up in a Sans-IO pattern with heavy use of    type state variables   . The library is now split in a protocol crate (   hoot   ) and the client (ureq). I have just pushed the    3.x release candidate 1    to crates.io.   
+
+   Some highlights:   
+
+   
+   API based on the    HTTP crate   
+   Bring your own transport    (and bespoke    resolvers   ).   
+   ![forbid(unsafe_code)]   
+   Less allocations   
+   
+
+   Happy to answer any questions.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1frpa6a/releasing_serdebrief_a_selfdescribing_binary/
+-->>-->>
+Serde-Brief    (German for letter) is a crate for encoding and decoding data into a binary format that is self-descriptive and    serde   -compatible.   
+
+   Design Goals / Features   
+
+   Not necessarily in order of importance:   
+
+   
+   Convenient to use for developers: Integrates into the Rust ecosystem via    serde   , supporting all of its features in its derived implementations (e.g. renaming, flattening, ..).   
+   Compatibility: Easy to add or re-order fields/variants without breakage. Detects wrong data types.   
+   #![no_std]    and std compatible.   
+   Resource efficient: High performance, low memory usage.   
+   Interoperability: Different architectures can communicate flawlessly.   
+   Well-tested: Ensure safety (currently, there is no use of    unsafe   ).   
+   
+
+   Binary Format   
+
+   The format is    specified here   .   
+
+   Comparisons   
+
+   How does Serde-Brief compare to ..?   
+
+   Postcard   
+
+   Postcard is NOT a self-describing format. It's encoding solely consists of the raw data and the deserializer needs to have the same information on the data schema. This makes it more difficult to change the data format, e.g. add new fields.   
+
+   Postcard is producing way smaller encoded data due to the missing schema information and field names. It is also faster.   
+
+   Serde-Brief supports decoding unknown data and parsing it into the requested structures regardless of additional fields or different orders.   
+
+   Pot   
+
+   Pot is a self-describing format as well. It's encoding is more space-efficient due to reducing repeated type/schema definitions. This comes at the cost of serialization/deserialization speed.   
+
+   It is also not no-std compatible.   
+
+   Serde-Brief is faster most of the times, but less space-efficient.   
+
+   Serde_json   
+
+   JSON is a self-describing format as well. However, it is text based and therefore requires string escaping. Bytes cannot be efficiently represented. However, JSON is widely adopted, as you already know :D   
+
+   In Serde-Brief, map keys can not only be strings. Unlike in JSON, keys can be nested data, so something like    HashMap<MyKeyStruct, MyValueStruct>    can be serialized and deserialized without issues.   
+
+   Serde-Brief is both more space-efficient and faster.   
+
+   Example Serialization/Deserialization   
+
+   ```rust
+    use heapless::Vec;
+    use serde::{Serialize, Deserialize};   
+
+   #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+struct MyBorrowedData<'a> {
+    name: &'a str,
+    age: u8,
+}
+
+let data = MyBorrowedData { name: "Holla", age: 21 };
+let mut output: Vec<u8, 22> = serde_brief::to_heapless_vec(&data).unwrap();
+
+assert_eq!(output, [
+    17,
+    11, 4, b'n', b'a', b'm', b'e', 11, 5, b'H', b'o', b'l', b'l', b'a',
+    11, 3, b'a', b'g', b'e', 3, 21,
+    18
+]);
+
+let parsed: MyBorrowedData = serde_brief::from_slice(&output).unwrap();
+assert_eq!(parsed, data);
+   
+
+   ```   
+
+   Benchmarks   
+
+   For now, see    here   .   
+
+   The serialization/deserialization is reasonably fast. Between postcard and serde_json mostly. The data-size is also between postcard and JSON.   
+
+   I expect there is a lot improvements possible, it is still way slower than postcard sadly.   
+
+   TLDR   
+
+   New self-describing serde library with binary representation.   
+
+   I hope it can be of use for people :)   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fs1y8h/learning_about_iterators_map_filter_collect_etc/
+-->>-->>
+I'll just start with an example that I would've been completely unable to come up with without using Co-pilot... I'm putting the example because I don't really know the terms for this stuff that I wanna learn more about.   
+
+       let split: Vec<String> = svd.split("<peripheral>")
+                                        .map(|s| s.replace("<peripherals>","")
+                                                  .replace("</peripherals>","")
+                                                  .replace("</peripheral>",""))
+                                        .map(|s| s.trim().to_string())
+                                        .collect();
+   
+
+   I'm a beginner to Rust overall and this is the part which I love the most because things like this if written in a more imperative(?) way easily becomes a huge mess of loops and if and incomprehensible but I just find myself randomly replacing the functions until it seems to work because I don't really understand it.   
+
+   It took me several days to understand how to get the trim to work the way I wanted.   
+
+   Is there any good material on this topic? I don't even know what it's called, is it functional programming? The material doesn't really have to be about Rust because my issue isn't really with anything Rust specific.      
+
+   (My only experience of something similar is during a 7.5 credit Java course during first semester of university when I tried doing streams a little bit)   
+
+   EDIT: Judging from multiple replies it seems to be functional programming I'm having issues with so any tips on resources on the topic would be very much appreciated!   
+   
+
+======>
+https://github.com/alttch/submap
+-->>-->>
+Repository files navigation README Apache-2.0 license submap B-tree map for pub/sub services. Subscription map Usage use submap :: SubMap ; type Client = String ; let mut smap : SubMap < Client > = SubMap :: new ( ) ; where "Client" is a pub/sub client type, which is usually either a channel or a
+structure which contains a channel or locked socket or anything else, required
+to work with the client. The client type MUST provide traits Ord, Eq and Clone. All clients must be registered in the map, before they can
+subscribe/unsubscribe. Use "register_client" function for this. When "unregister_client" is called, it also automatically unsubscribes the
+client from all the subscribed topics. Separators and wildcards SubMap supports the following masks: this/is/a/topic - single topic subscription this/?/a/topic - all topics which match the pattern (2nd chunk - any value) this/is/* - all subtopics of "this/is" * - all topics Service symbols can be changed. E.g. let us create a subscription map with
+MQTT-style wildcards (+ for ? and # for *) but with the dot as the subtopic
+separator: use submap :: SubMap ; type Client = String ; let mut smap : SubMap < Client > = SubMap :: new ( ) . separator ( '.' ) . match_any ( "+" ) . wildcard ( "#" ) ; Note that "/topic/x", "topic/x" and "topic//x" are 3 different topics. If
+any kind of normalization is required, it should be done manually, before
+calling SubMap functions. Formulas SubMap also supports formulas, which are used both to subscribe to a topic by
+formula or to get a list of clients which match one. Formulas are non-standard pub/sub functionality and are useful when a client
+want to subscribe to topics which have got e.g. some importance level. Instead
+of subscribing to all level topics, a client can subscribe to one topic with a
+formula: use submap :: SubMap ; type Client = String ; let mut smap : SubMap < Client > = SubMap :: new ( ) . separator ( '/' ) . match_any ( "+" ) . wildcard ( "#" ) . formula_prefix ( '!' ) ; let client1 = "client1" . to_owned ( ) ; smap . register_client ( & client1 ) ; smap . subscribe ( "some/!ge(2)/topic" , & client1 ) ; assert_eq ! ( smap.get_subscribers ( "some/1/topic" ) .len ( ) , 0 ) ; assert_eq ! ( smap.get_subscribers ( "some/2/topic" ) .len ( ) , 1 ) ; assert_eq ! ( smap.get_subscribers ( "some/3/topic" ) .len ( ) , 1 ) ; See more: [ mkmf::Formula ]. Broadcast map use submap :: BroadcastMap ; type Client = String ; let mut bmap : BroadcastMap < Client > = BroadcastMap :: new ( ) ; Does the opposite job - clients are registered with regular names, while
+"get_clients_by_mask" function returns clients, which match the mask. Note: the default separator is dot. ACL map let mut acl_map = submap :: AclMap :: new ( ) ; SubMap-based high-speed access control lists checker. Uses SubMap algorithm
+with a single unit "client" to verify various access control lists. Crate features indexmap switches the engine to indexmap (the default is based on std::collections::BTreeMap/BTreeSet ), requires Hash trait implemented for map
+clients. The current engine can be obtained from use submap :: types :: ENGINE ; dbg ! ( ENGINE ) ; // std-btree or indexmap Cargo crate https://crates.io/crates/submap
+======>
+https://www.theembeddedrustacean.com/p/the-embedded-rustacean-issue-29
+-->>-->>
+The Embedded Rustacean Issue #29 p span[style*="font-size"] { line-height: 1.6; } Sponsored by p span[style*="font-size"] { line-height: 1.6; } Hello and welcome to the Embedded Rustacean! This newsletter is a bi-monthly curation of resources and a summary of everything happening around embedded Rust 🦀. This newsletter was started because of the belief in Rust as a programming language with all the traits 🧬 (pun intended) that prime it to become the future of software in embedded systems. We’re another issue closer to that vision. p span[style*="font-size"] { line-height: 1.6; } Want something mentioned? Tag @theembeddedrust on Twitter/X or email us. p span[style*="font-size"] { line-height: 1.6; } Are you getting started with embedded Rust ? Check out Simplified Embedded Rust also click here for a suggested step-by-step guide. p span[style*="font-size"] { line-height: 1.6; } Want to get involved or think about contributing? Click here for a contribution guide. p span[style*="font-size"] { line-height: 1.6; } Prefer an RSS feed? 📡 Click here for access. p span[style*="font-size"] { line-height: 1.6; } For sponsorship and advertising opportunities 🤝 Click here or email us . p span[style*="font-size"] { line-height: 1.6; } Get a free graphical overview of the embedded Rust ecosystem here . p span[style*="font-size"] { line-height: 1.6; } Like newsletters? Here are some other awesome (and completely free!) newsletters our readers also enjoy. Explore Subscriber Count 🧮: 3,157 Rustaceans 🦀 🚨 p span[style*="font-size"] { line-height: 1.6; } Issue Highlights p span[style*="font-size"] { line-height: 1.6; } 💻 NXP's New Series of MCUs 🦀 Hopter is a new Rust-based Embedded OS 🔓️ Vehicle Web Portal Vulnerability Exposed ➗ ChatGPT on a TI Calculator 🚨 RP2350 Erratum Updated 📶 WiFi HaLow Delivers Throughput at 16km 🐧 Torvalds Weighs in on Rust vs C Debate ⏱️ Real-time Linux makes it to the Kernel 🛰 K2 Space Explains Rust in Space Efforts 📀 New Version of “Data with Rust” is Live 🚗 Tesla Open Sources Ethernet Transport Protocol 💬 p span[style*="font-size"] { line-height: 1.6; } Quote of the Issue Simple things should be simple and complex things should be possible. Alan Kay 📰 p span[style*="font-size"] { line-height: 1.6; } News & Article Roundup p span[style*="font-size"] { line-height: 1.6; } A curation of embedded Rust-related news, articles, and posts Embedded Rust News 📰 Hopter, a new Rust-based Embedded OS ⭐️ Rust News 🗞️🦀 September Project Goals Update New version of “Data with Rust” book is now Live ⭐️ WebAssembly targets: change in default target-features Torvalds weighs in on 'nasty' Rust vs C for Linux debate ⭐️ Slint 1.8 Released with New Property Changed Callbacks, Timer, and Swipe Gesture Announcing Stable V8 Bindings for Rust New Rust RFC Proposes Adding Support for Trusted Publishing to Crates.io A shell written in Rust Our First (Serious) Rust Project: TensorZero – open-source data & learning flywheel for LLMs General Embedded News/Trends 📈 Millions of Vehicles Could Be Hacked and Tracked Thanks to a Simple Website Bug ⭐️ Wi-Fi HaLow delivers throughput at 16km range ⭐️ Tesla Transport Protocol over Ethernet (TTPoE) is now open-sourced ⭐️ Boost Your Pico Projects with the new Pico VS Code Extension Microsoft leverages PlatformIO for its course "IoT for Beginners" 20 years later, real-time Linux makes it to the kernel - really ⭐️ Infineon Announces Semiconductor Breakthrough ZF and Infineon develop AI algorithms to optimize software and control units for driving dynamics as part of the EEmotion project NXP’s Launches Trimension SR250 Combining UWB Radar and Secure Ranging NXP Unveils the i.MX RT700 Microcontroller, Promises Near-Two Hundred Times the Edge AI Performance NXP Semiconductors To Invest $1 Billion In India, Double R&D Efforts Renesas Expands its R-Car Family of SoCs for Entry-level ADAS Applications A tiny new open-source AI model performs as well as powerful big ones Arduino releases a power management library for Arduino Pro modules to optimize power consumption You can now work in collaboration in Arduino Cloud STMicroelectronics delivers industry’s first FIPS 140-3 certified TPMs for computer, server, and embedded systems Secret calculator hack brings ChatGPT to the TI-84, enabling easy cheating ⭐️ Raspberry Pi RP2350-E9 Erratum Redefined as Input Mode Leakage Current Ubuntu 24.10 Making Preparations For The Raspberry Pi Compute Module 5 Avnet Spins Out New Brand, Tria Lauterbach adds debug and trace support for Renesas 32-bit-RISC-V microcontrollers Piasecki Aircraft Achieves Historic Milestone With First Flight of Aerial Reconfigurable Embedded System (ARES) Tilt-Duct VTOL Vehicle Comparisons with other Languages 🔍️ Rust stole C++'s best features Comparing C, Go, and Rust for Simple I/O Performance C++ vs. Rust: A Comparative Guide to Syntax, Variables, and Control Flow Rust vs Node.js vs Go: Performance Comparison for Backend Development Rust vs JavaScript: Achieving 66% Faster Performance with WebAssembly Rust Turbocharges JavaScript: A New Era of Speed and Efficiency Hardware 🛠️ RetroThing Is an Espressif ESP32-Powered Smart Clock with Vintage Aesthetics NXP's i.MX RT1011 Crossover Microcontroller on a Sub-$15 Gumstick-Style Dev Board IceNav Turns an Espressif ESP32 Into a Graphical, Offline, OpenStreetMap GPS Low-cost Raspberry Pi 5 HAT+ combines M.2 socket for NVMe SSD and PoE power input ArmSoM-CM5: Compatible Alternative to Raspberry Pi CM4 Cytron IRIV IO Controller – A Raspberry Pi RP2350-based industrial I/O controller OMGS3 is the Smallest Espressif ESP32-S3 Development Board Yet ESP32-C6 WiFi 6 and Bluetooth 5.0 USB-C development board integrates 1.47-inch TFT LCD Display Teledatics HaloMax Wi-Fi HaLow 📚️ p span[style*="font-size"] { line-height: 1.6; } Educational Resources p span[style*="font-size"] { line-height: 1.6; } A curation of embedded & Rust educational resources and tutorials Tutorials & Walkthroughs 📫 Committing to Rust in the Kernel Migrating Trained PyTorch Model to Rust Building a Neural Network from Scratch in Rust Mix in Rust with C++ Insights, Tools, & Case Studies 📑 K2 Space is Building their Stack in Rust ⭐️ From Sales to Embedded Systems: My Journey CHERIoT: A Study in CHERI Eliminating Memory Safety Vulnerabilities at the Source Rust interop in practice: speaking Python and Javascript Reviewing AIMA (featuring Rust) #3: Informed Search Was Rust in the Linux Kernel a Mistake? Building RustyNum: a NumPy Alternative with Rust and Python The Joy of the Unknown: Exploring Audio Streams with Rust and Circular Buffers One Year of Rust in Production Understanding Rust Macros: A Comprehensive Guide for Developers How to Learn Rust in 2024: A Complete Beginner’s Guide to Mastering Rust Programming How software-defined SoCs and open-source tools are shaping embedded systems Tool Containerization Best Practices For Embedded Software Development Edge AI: The Future of Artificial Intelligence in embedded systems Open Source security camera on Raspberry Pi Raspberry Pi 5 Overclocking to Beat Geekbench Record Neural Networks Integer Computation: Quantizing Convolutional Neural Networks of Inference and Training for Object Detection in Embedded Systems Understanding the Background Working Process of Rust intel/simulator-bindings: Rust Bindings and tools for the Intel Simics Simulator Are Embedded Manufacturers Ready for IoT Security Compliance Demands General Embedded 📟️ GitHub Actions for STM32CubeIDE ESP32 I2C Slave Issues Cooperative distributed model predictive control for embedded systems: Experiments with hovercraft formations Radio Cloning With Arduino Getting started with how to use C++ for embedded systems in financial services A beginner's guide to the STM32 Java and Pi4J with the Raspberry Pi Compute Module 4 Pioneering RISC-V and Defining Software-Defined Vehicles Connecting an Arduino MKR WiFi 1010 to AWS IoT Core Understanding Yocto Project Layers: A Modular Approach to Embedded Systems Development AI/ML at the Edge for 32-bit Microprocessors, Using Edge Impulse ⭐️ p span[style*="font-size"] { line-height: 1.6; } Noteworthy Mentions p span[style*="font-size"] { line-height: 1.6; } Useful resources worth mentioning Noteworthy Course 🧑‍🏫 p span[style*="font-size"] { line-height: 1.6; } 🏫 Advanced Embedded Linux Development Specialization Noteworthy Book 📚️ p span[style*="font-size"] { line-height: 1.6; } 📕 Design an RP2040 board with KiCad Noteworthy Newsletter 📰 p span[style*="font-size"] { line-height: 1.6; } 📰 Aimply Briefs - News that doesn’t waste your time 📢 p span[style*="font-size"] { line-height: 1.6; } Updates, Events, & Announcements p span[style*="font-size"] { line-height: 1.6; } Updates & announcements from the community Notable Device and/or Framework Crate Updates 🚨 embedded-nal-async v0.8.0 embedded-nal v0.9.0 edge-net v0.8.1 zerocopy v0.7.35 portable-atomic v1.8.0 esp32-nimble v0.8.0 lilos v1.3.0 nostd_async v0.7.2 semihosting v0.1.15 postcard-bindgen v0.3.4 Upcoming Events & Deadlines 🎭 EuroRust - October 10th & 11th, 2024 , Vienna, Austria, and Online RustLab 2024 - November 9th-11th, 2024, Florence, Italy Open Hardware Summit - Call For Proposals Open - May 30 & 31st, 2025, Edinburgh, Scotland Rust Forge - Call For Sponsors Open - August 2025, Wellington, New Zealand RustWeek by RustNL - May 13-17, 2025, Utrect, The Netherlands Rust Nation UK 2025 - CfP Open - February 19 & 20 2025, London, UK 💼 p span[style*="font-size"] { line-height: 1.6; } Jobs & Adoption p span[style*="font-size"] { line-height: 1.6; } Keeping track of companies involved with embedded Rust The Embedded Rust Adoption Tracker 🧭 p span[style*="font-size"] { line-height: 1.6; } The number of entities that believe in a future involving Rust in embedded is continuously growing. Any new additions will be mentioned here. Meanwhile, click here to access the full list of entities known to adopt/use embedded Rust. Jobs Postings 🏭 p span[style*="font-size"] { line-height: 1.6; } Contrary to common belief, many embedded job posts nowadays prefer some knowledge of Rust. Additionally, there is a good amount that requires Rust. The list captures some of the interesting opportunities out there but is not comprehensive by any means. Listings that appear in the newsletter will remain as long as they’re posted/open online. p span[style*="font-size"] { line-height: 1.6; } Want to share a job post? Click Here to Email a Listing p span[style*="font-size"] { line-height: 1.6; } Europe Based Jobs 🌍️ 🦀 Research Scientist – Embedded Software - Rockwell Automation, Prague, Czech Republic 🦀 Research assistant: WiMi Embedded Rust Development for Cybersecurity in Low-Power Distributed System Software - Freie Universitat, Berlin, Germany 🦀 Software Engineer - AdaCore, Paris, France or Bristol, UK 🦀 Software developer TCP/IP in Rust - Vector Informatik, Stuttgart, Germany 🦀 Rust Engineering Lead - Linux and Open Source - Canonical, Global, Hybrid 🦀 Embedded Linux Software Engineer - Canonical, Global, Hybrid 🦀 Doctoral Thesis: Functional Software Generation - Infineon, Munich, Germany 🦀 Embedded Linux Software Engineer - ZF, Plzeň, CZ 🦀 Research Scientist – Applied Security for Industrial Systems - ABB, Baden-Wurttemberg, Germany 🦀 Zephyr Embedded Software Engineer - UL Solutions, Erlangen, Germany 🦀 IoT DevOps Engineer/Full Stack Developer - Liebherr, Ulm, Germany 🦀 Software Architect for Embedded Systems - Siemens, Portugal p span[style*="font-size"] { line-height: 1.6; } North America Based Jobs 🌎️ 🦀 Embedded Software Engineer, Rust - Anduril, Costa Mesa, CA 🦀 Rust Software Engineer - K2 Space, Los Angeles, CA 🦀 Rust Engineering Lead - Linux and Open Source - Canonical, Global, Hybrid 🦀 Embedded Linux Software Engineer - Canonical, Global, Hybrid 🦀 Various Rust-Oriented Positions - MIT Lincoln Laboratory, Lexington, MA 🦀 Robotics Software Engineer (Rust) - Pictorus, Oakland, CA 🔃 p span[style*="font-size"] { line-height: 1.6; } Reader Feedback p span[style*="font-size"] { line-height: 1.6; } Help us know how we are doing Which Newsletter Section is Your Favorite? News & Article Roundup 📰 Educational Resources 📚 Updates, Events, & Announcements 🔈 Noteworthy Mentions ⭐️ Jobs & Adoption 💼 Login or Subscribe to participate in polls. p span[style*="font-size"] { line-height: 1.6; } Have More Detailed Feedback? Click Here to Email Us p span[style*="font-size"] { line-height: 1.6; } That’s a wrap! p span[style*="font-size"] { line-height: 1.6; } Rust Regards and Binary Blessings, 🦀 p span[style*="font-size"] { line-height: 1.6; } - Omar p span[style*="font-size"] { line-height: 1.6; } Want a byte-sized version of Hacker News? p span[style*="font-size"] { line-height: 1.6; } Try TLDR’s free daily newsletter. p span[style*="font-size"] { line-height: 1.6; } TLDR covers the most interesting tech, science, and coding news in just 5 minutes. p span[style*="font-size"] { line-height: 1.6; } No sports, politics, or weather. p span[style*="font-size"] { line-height: 1.6; } Subscribe for free!
+======>
+https://traxys.me/sheshat_pantheon_3.html
+-->>-->>
+Checks is_opt_end to check for -- . is_long to check if the current value is a long argument. is_short to check if the current value is a short argument. Parsers as_long , returning the argument name & optionally the value if the string contained a = . as_short , returning a ShortArgument .
+======>
+https://ekxide.io/blog/iceoryx2-0-4-release/
+-->>-->>
+Announcing iceoryx2 v0.4.0 Christian Eltzschig - 
+  
+    28/09/2024 iceoryx2 rust cpp c What Is iceoryx2 iceoryx2 is a service-based inter-process communication (IPC) library designed
+to make communication between processes as fast as possible - like Unix domain
+sockets or message queues, but orders of magnitude faster and easier to use.
+It also comes with advanced features such as circular buffers, history, event
+notifications, publish-subscribe messaging, and a decentralized architecture
+with no need for a broker. Release v0.4.0 With today's iceoryx2 v0.4.0 release ,
+we've achieved many of our milestones and are now close to feature parity with
+its predecessor, the trusty old iceoryx . Discuss on Reddit Discuss on Hacker News Project on GitHub Project on crates.io If you're wondering why you should choose iceoryx2 over iceoryx, here are some
+of its next-gen features: No more need for a central daemon like RouDi. It's up to 10 times faster thanks to a new, more efficient architecture. More dynamic than ever—no more compile-time memory pool configuration. Advanced Quality of Service (QoS) settings. Extremely modular: every aspect of iceoryx2 can be customized, allowing future
+support for GPUs, FPGAs, and more. Completely decentralized and even more robust. A restructured API and resource management system that enables a zero-trust policy for true zero-copy communication in the future. Language bindings for C and C++ with CMake and Bazel support
+right out of the box. Python and other languages are coming soon. Upcoming gateways to enable network communication via protocols like zenoh , DDS , MQTT , and more. With this new release, we're faster than ever. On some platforms, latency is even under 100ns ! Be sure to check out our iceoryx2 benchmarks and try them out on your platform. Highlights Here are some of the feature highlights in v0.4.0: C and C++ language bindings : We've added a range of new examples to help you get started with the supported languages. Plus, there's a shiny new website: https://iceoryx2.readthedocs.io ,
+where we're building a detailed introduction to inter-process
+communication, true zero-copy, and iceoryx2. Whether you're just getting
+started or looking to fine-tune every feature to your needs, it's all in
+one place. New build systems : C and C++ bindings come with support for: Bazel & CMake colcon : We're working on iceoryx2_rmw , which will be unveiled at ROSCon 2024 during Mathias'
+talk: "iceoryx2: A Journey to Becoming a First-Class RMW Alternative." iceoryx2 nodes : Nodes are the central entity handling all process-local
+resources, such as ports, and are key to monitoring other processes and
+nodes. If a process crashes, the others will clean up resources as soon as
+the issue is detected. Command-line debugging and introspection : Meet iox2 .
+If you want to see which services or nodes are running—or if you're curious
+about the details of a service or process—this is your go-to tool. Runtime-sized services : We've overcome the compile-time memory
+configuration limitation of iceoryx1. If you want to send a dynamic-sized
+typed array (like a Rust slice), you can set up the service and publisher
+with a runtime worst-case size. If that's insufficient, you can create a
+new publisher with a larger array size. Advanced service and port configurations : For specialized use cases,
+like SIMD or FPGA, you can define custom alignments for your service's
+payload. User-defined service attributes : You can now set custom key-value pairs
+to tag services with additional properties. Check out the iceoryx2 Deep Dive - Service Attributes for more details. iceoryx2 Domains : Separate multiple processes into domains, ensuring
+they don't interfere with one another. Custom User Header : There's an interface for defining a custom header
+that is sent with every sample. 32-bit support : iceoryx2 now runs on 32-bit machines, and long-term, we
+aim to support mixed-mode zero-copy communication between 32-bit and
+64-bit processes. Placement new for iceoryx2-bb-containers : Since iceoryx2 can handle
+gigabytes of data, we provide a mechanism to loan memory and perform
+in-place initialization—something akin to C++'s placement new. Sneak Peak: Mission Control Our upcoming Mission Control Center will provide deep introspection and
+debugging for your iceoryx2 system. You’ll be able to monitor the CPU, memory,
+and I/O load of every process. You can also view the frequency and content of
+message samples, inspect individual nodes with their running services, and
+visualize how nodes and services are connected—all in real time. Stay tuned for its release at the end of this year! What’s Next? Check out our Roadmap . In the next release, we plan to focus on: Finalizing the C/C++ language bindings : Most of the Rust functionality
+works, but features like dynamic slice support and service attributes are
+still in progress. Event multiplexing : We’re extending Node::wait() for more streamlined
+event handling. This will come with advanced integrated events, such as push notifications
+for system events like process crashes or service changes. Expect detailed examples and documentation. Services with dynamic payloads : You won’t need to define a fixed payload
+size for services with slices anymore. We’ll introduce an allocation
+algorithm that acquires more shared memory as needed, and it’ll be
+customizable. Health monitoring : With iceoryx2 nodes, we can detect dead nodes and
+clean up their resources. The next step is to actively notify processes
+when a sender or receiver dies. Expanded documentation : Inter-process communication can be complex, so
+we’re working on extending the docs to provide a gentle introduction,
+explain iceoryx2's features in detail, and offer a step-by-step tutorial on
+making the most of it. Impressum – Legal Notice 2024 © ekxide IO GmbH | Based on the zolastrap theme for Zola
+======>
+https://old.reddit.com/r/rust/comments/1fs12l9/what_do_you_rustaceans_think_of_dafny_language/
+-->>-->>
+I stepped by this language and since Rust makes a lot emphasis on memory safety and lack of undefined behavior, I would like to know your opinions on the features of Dafny language, which is a language that goes a step beyond in correctness via proofs:    https://dafny.org/   
+
+   What do you think of it?   
+   
+
+======>
+https://store.steampowered.com/app/2198150/Tiny_Glade/
+-->>-->>
+About This Game Tiny Glade is a relaxing free-form building game. Tap into the joy of making something pretty with no management, no combat, or wrong answers - just kick back, doodle some castles, and turn forgotten meadows into lovable dioramas. Explore gridless building chemistry , and watch the game carefully assemble every brick, pebble and plank, adapting to your whim. Draw a path through a building? A door pops up! Raise the building? Columns and beams line up to support it. There are no wrong answers or failure states. You can change your mind at any time, and whatever you make will look cozy out of the box. Let yourself unwind to the chill vibes , and escape into a world that feels alive. Ivy envelops your buildings, sheep waddle through your paths, and fireflies light up the night.
+======>
+https://github.com/RReverser/serdebug
+-->>-->>
+Repository files navigation README MIT license serdebug This is a drop-in replacement for #[derive(Debug)] that uses serde::Serialize under the hood to provide advanced control over output serialisation. Usage By default, the generated code will produce exactly same output as #[derive(Debug)] for compatibility. However, this might be not very interesting, so let's add some serde attributes to see how we can control debug representation: use serde :: Serialize ; use serdebug :: SerDebug ; pub struct CustomType ( u32 ) ; # [ derive ( Serialize , SerDebug ) ] pub enum MyEnum { // renaming items works as expected # [ serde ( rename = "AAAAAAA!!!" ) ] A , B ( u32 ) , C { flag : bool } , } # [ derive ( Serialize , SerDebug ) ] // so does bulk rename on containers # [ serde ( rename_all = "PascalCase" ) ] pub struct MyStruct { number : u32 , my_enum : Vec < MyEnum > , // we might want to hide some items from the output # [ serde ( skip_serializing ) ] hidden : bool , // or override serialisation for otherwise verbose wrappers or // third-party types that don't implement `Debug` and/or `Serialize` # [ serde ( serialize_with = "custom_serialize" ) ] custom_type : CustomType , } fn custom_serialize < S : serde :: Serializer > ( value : & CustomType , ser : S ) -> Result < S :: Ok , S :: Error > { use serde :: Serialize ; value . 0 . serialize ( ser ) } fn main ( ) { let s = MyStruct { number : 42 , my_enum : vec ! [ MyEnum :: A , MyEnum :: B ( 10 ) , MyEnum :: C { flag: true } ] , hidden : true , custom_type : CustomType ( 20 ) , } ; assert_eq ! ( format! ( "{:#?}" , s ) , " MyStruct { Number: 42, MyEnum: [ AAAAAAA!!!, B( 10, ), C { flag: true, }, ], CustomType: 20, } " .trim ( ) ) ; }
+======>
+https://www.segger.com/news/pr-240927-ozone-support-rust/
+-->>-->>
+2024 | Sep. 27 Ozone,
+			
+	
+		
+				Press Releases,
+			
+	
+		
+				Press Releases 2024 Author: Segger News Desk <img src="https://c.a.segger.com/fileadmin/_processed_/5/0/csm_Ozone-Rust-support_02_5f209a3e14.jpg" title="News graphic: Rust support for Ozone" alt="News graphic including Rust logo on the left, Ozone icon on the right and, in the center, monitor showing code used with Ozone" itemprop="image" /> SEGGER’s Ozone debugger now supports Rust Ozone , SEGGER’s full-featured graphical debugger and performance analyzer, now supports the Rust programming language. Ozone’s Rust support provides all important features such as source and assembly debugging, system state inspection including memory view, call stack, and backtrace, as well as data analysis for the Rust programming language. “At SEGGER, we see Rust becoming a more and more popular programming language,” says Rolf Segger, Founder of SEGGER. “Rust is fast, memory-efficient and safe. With first-class tool support, it has the potential to overtake C and C++. And my favorite feature when using Ozone also works: Interleaving source code with disassembly for selected lines. This is not only great when debugging and optimizing, but also for understanding the code generated by the compiler." Ozone is designed specifically for embedded applications and is well known for its speed and ease of use, especially with SEGGER’s J-Link and J-Trace family of debug and trace probes . More than a simple debugger, Ozone’s various features, including instruction tracing using J-Trace, live code profiling and code coverage analysis, make it a powerful tool for getting full system insight, verification, finding inefficiencies and for tracking down bugs. Ozone’s user interface is designed to be used intuitively and is fully configurable. All windows can be moved, re-sized, and docked to fit the needs of any developer. The software is available cross-platform, on Windows, Mac and Linux, Arm and Intel hosts. For more information, see the Ozone page on www.segger.com or visit rust-lang.org . share tweet Related Files English PDF version 183 KB 2024-09-27:
+
+
+
+
+
+SEGGER’s Ozone debugger now supports Rust 2024-09-26:
+
+
+
+
+
+SEGGER expands J-Link support for Microchip PIC32MK series 2024-09-12:
+
+
+
+
+
+SEGGER introduces simple two-click setup for Flasher in-circuit programmers 2024-09-11:
+
+
+
+
+
+SEGGER releases embOS simulation for Linux 2024-09-06:
+
+
+
+
+
+SEGGER's experts offer new SEGGER Design Service to create cost-effective, high-performance embedded systems 2024-08-30:
+
+
+
+
+
+SEGGER adds scope-like data visualization to SystemView 2024-08-20:
+
+
+
+
+
+Going solar: our new building's sustainable facade 2024-08-14:
+
+
+
+
+
+SEGGER further expands Flasher device support for Microchip’s PIC24 family 2024-08-08:
+
+
+
+
+
+SEGGER’s Flasher PRO enables reliable OTP programming for NXP's PF8101/PF8201 PMIC 2024-07-18:
+
+
+
+
+
+SEGGER extends support for Microchip ATXMega and PIC18 device families 2024-07-03:
+
+
+
+
+
+SEGGER has extended the support for the Microchip ATXMega device family 2024-06-25:
+
+
+
+
+
+SEGGER introduces the Context Statistics Window for SystemView 2024-06-12:
+
+
+
+
+
+SEGGER introduces Device Provisioner for target device configuration 2024-05-27:
+
+
+
+
+
+Inside SEGGER: What inspires us – our new corporate video 2024-05-24:
+
+
+
+
+
+SEGGER appoints Hendrik Sawukajtis as joint Managing Director 2024-05-21:
+
+
+
+
+
+SEGGER expands support for Espressif devices with Flasher in-circuit programmers 2024-05-17:
+
+
+
+
+  [BLOG]
+  
+
+ChatGPT’s take on SEGGER J-Links: An insightful “conversation” 2024-05-08:
+
+
+
+
+
+Hilscher's netX Studio CDT integrates full J-Link support 2024-05-02:
+
+
+
+
+
+Renesas launches integrated code generator support for new 32-bit RISC-V MCU with SEGGER Embedded Studio 2024-04-24:
+
+
+
+
+
+SEGGER introduces Flasher Hub-4 for compact, cost-efficient, high-volume production programming 2024-04-23:
+
+
+
+
+
+SEGGER introduces Extended Coverage for J-Trace, J-Link, and Flasher devices 2024-04-18:
+
+
+
+
+
+Review – SEGGER at embedded world 2024 2024-03-26:
+
+
+
+
+
+SEGGER introduces memory bitmaps for efficient image rendering 2024-03-26:
+
+
+  [CASESTUDIES]
+  
+
+
+
+BYK-Gardner’s spectro2guide powered by SEGGER tools 2024-03-19:
+
+
+
+
+
+STM32CubeProgrammer and STM32CubeMonitor now support SEGGER's J-Link debug probes 2024-03-15:
+
+
+
+
+
+SEGGER's Flasher production tools expand support for Microchip AVR Dx families 2024-03-11:
+
+
+
+
+
+SEGGER and ARTERY partner to fully support the AT32 series MCU 2024-03-08:
+
+
+
+
+
+SEGGER expands Flasher device support for Microchip PIC24 and dsPIC33 families 2024-03-07:
+
+
+
+
+
+SEGGER and GigaDevice partner to provide emWin GUI software 2024-03-06:
+
+
+
+
+
+SEGGER’s J-Link debug probes support Renesas RZ/V2H MPU 2024-02-27:
+
+
+
+
+
+SEGGER delivers Ozone for Windows on Arm 2024-02-05:
+
+
+
+
+
+SEGGER introduces Renesas M16C Family 10-Pin Adapter 2024-02-01:
+
+
+
+
+
+SEGGER adds J-Link support for Cortex-M52 2024-01-25:
+
+
+
+
+
+SEGGER introduces Arduino MKR Adapter for seamless J-Link connectivity 2024-01-22:
+
+
+
+
+
+SEGGER adds SVG support to emWin embedded graphic library 2024-01-16:
+
+
+
+
+
+Window cache boosts performance of SEGGER’s emWin graphic library 2024-01-12:
+
+
+
+
+
+SEGGER introduces MIPI-60 Adapter 2024-01-12:
+
+
+  [CASESTUDIES]
+  
+
+
+
+Secure and easy home access solutions from ekey using SEGGER tools 2024-01-10:
+
+
+
+
+
+SEGGER’s new Embedded Studio: One IDE for both Arm and RISC-V 2024-01-05:
+
+
+
+
+
+SEGGER simplifies rapid production programming of SD cards and eMMC 2023-12-21:
+
+
+
+
+
+SEGGER and CVA Innovation partner to fully support the CVM01xx series MCU 2023-12-19:
+
+
+
+
+
+SEGGER’s emUSB-C PD turns the cable connection into smart tech 2023-12-15:
+
+
+
+
+
+SEGGER introduces Relay Adapter 2023-12-14:
+
+
+
+
+
+SEGGER introduces multi-architecture streaming trace probe – J-Trace PRO 2023-12-13:
+
+
+
+
+
+GigaDevice partners with SEGGER on Embedded Studio for RISC-V 2023-12-12:
+
+
+
+
+
+SEGGER adds class-leading Arm Helium enhancements to JPEG decode for the Renesas RA8D1 MCU 2023-11-28:
+
+
+
+
+  [BLOG]
+  
+
+J-Link PRO PoE powers the SEGGER test farm 2023-11-27:
+
+
+
+
+
+SEGGER emWin supports Arduino 2023-11-23:
+
+
+
+
+  [BLOG]
+  
+
+Debugging with external memory: J-Link adds dual memory maps 2023-11-13:
+
+
+
+
+
+SEGGER’s STM32-SFI Flasher Commander secures firmware right up to the target 2023-11-09:
+
+
+
+
+
+SEGGER officially supports debugging in Visual Studio Code 2023-10-31:
+
+
+
+
+
+SEGGER adds J-Link debugger support for first commercially available Cortex-M85 device 2023-10-27:
+
+
+
+
+  [BLOG]
+  
+
+Automated testing made easy with emSim 2023-10-26:
+
+
+
+
+
+SEGGER Flasher Secure with TELP secures programming end to end 2023-10-17:
+
+
+
+
+
+Flasher Hub-12 - Introduction 2023-10-04:
+
+
+
+
+
+SEGGER introduces J-Link PRO PoE designed for test farms 2023-09-27:
+
+
+
+
+
+SEGGER’s emWeb via USB: An easy way to connect a headless device 2023-09-26:
+
+
+
+
+  [BLOG]
+  
+
+CPU Design at SEGGER 2023-09-07:
+
+
+
+
+
+SEGGER Embedded Studio projects provided by Toshiba Electronics Europe GmbH ("Toshiba"), ready-to-run 2023-08-28:
+
+
+  [CASESTUDIES]
+  
+
+
+
+QESTIT uses SEGGER’s Flasher Hub & Compact to fix production challenges 2023-08-28:
+
+
+
+
+
+SEGGER emUSB-Host  — Video class 2023-08-23:
+
+
+
+
+  [BLOG]
+  
+
+A whole new way to interact with headless devices 2023-08-23:
+
+
+
+
+
+Anyone can now add new devices to SEGGER Flashers: Introducing Flasher DSK 2023-08-08:
+
+
+
+
+
+SEGGER releases the Flasher Hub-12 high-speed ISP gang-programmer with integrated USB connectivity 2023-08-03:
+
+
+
+
+
+SEGGER Embedded Studio now available free of charge to SemiDrive customers 2023-06-15:
+
+
+
+
+
+SEGGER adds Stack Overflow Prevention (STOP) technology to Embedded Studio for ARM 2023-05-25:
+
+
+
+
+
+SEGGER adds ARM64 simulator to Embedded Studio for ARM 2023-05-15:
+
+
+
+
+
+SEGGER adds 64-bit support to Embedded Studio for ARM cores 2023-05-12:
+
+
+
+
+
+SEGGER and Nuvoton extend emWin GUI software partnership 2023-05-09:
+
+
+
+
+
+SEGGER makes it easy to build large-scale, energy-efficient test farms 2023-04-21:
+
+
+
+
+
+SEGGER’s SystemView adds heap monitoring 2023-04-17:
+
+
+
+
+
+SEGGER announces support for ST’s STM32C0 MCU series 2023-04-12:
+
+
+
+
+
+SEGGER announces J-Link support for the TDK-Micronas HVC 5x SoC series 2023-04-03:
+
+
+
+
+
+SEGGER offers enhanced Flasher support for AT90 2023-03-28:
+
+
+
+
+
+SEGGER offers enhanced Flasher PRO support for Renesas MCUs 2023-03-24:
+
+
+
+
+
+SEGGER’s Ozone now available for macOS on the M1/M2 (Arm core) by popular demand 2023-03-14:
+
+
+
+
+
+SEGGER now supports ST’s new STM32H5 MCU series 2023-03-08:
+
+
+
+
+
+The complete SEGGER ecosystem fully supports ST’s new MPUs 2023-03-02:
+
+
+
+
+
+SEGGER J-Link and Flasher fully support Nations Technologies’ N32 series MCU 2023-02-28:
+
+
+
+
+
+SEGGER introduces emUSB-Host video support 2023-01-17:
+
+
+
+
+
+SEGGER announces improved Flasher support for PIC12 & PIC16 2023-01-17:
+
+
+
+
+
+SEGGER emWin AppWizard — Image Object 2022-12-14:
+
+
+
+
+
+SEGGER J-Link software update saves enough to power 50 German homes 2022-12-05:
+
+
+
+
+
+SEGGER introduces VNC over USB 2022-11-30:
+
+
+
+
+
+ Introducing the SEGGER Educational Partnership Program 2022-11-23:
+
+
+
+
+
+SEGGER announces improved Flasher support for PIC18 & PIC24 2022-11-22:
+
+
+
+
+
+SEGGER Embedded Studio Version 7 includes source code of libraries 2022-11-22:
+
+
+
+
+
+SEGGER emWin AppWizard — Keyboard Object 2022-11-03:
+
+
+  [CASESTUDIES]
+  
+
+
+
+Case Study: Who is SEGGER’s most demanding customer? 2022-10-24:
+
+
+
+
+
+SEGGER introduces streaming trace probe for SiFive RISC-V cores 2022-10-11:
+
+
+
+
+
+SEGGER emWin AppWizard — Multiedit Object 2022-10-07:
+
+
+
+
+  [BLOG]
+  
+
+Dividing efficiently across different hardware 2022-10-07:
+
+
+
+
+  [BLOG]
+  
+
+Size matters – Comparing tool chains and CPUs 2022-10-04:
+
+
+
+
+
+SEGGER and Cadence team up to add native J-Link support for Cadence Tensilica cores 2022-10-04:
+
+
+
+
+
+SEGGER emWin AppWizard — Edit Object 2022-09-27:
+
+
+
+
+
+SEGGER licenses C++ runtime library to SiFive for code size and performance efficiency 2022-09-19:
+
+
+
+
+
+SEGGER emWin AppWizard — QR Codes 2022-09-09:
+
+
+
+
+
+SEGGER makes it easy to add support for new devices to J-Link and Flasher 2022-09-06:
+
+
+
+
+
+SEGGER and Geehy partner to fully support the APM32 series MCU 2022-08-28:
+
+
+
+
+  [BLOG]
+  
+
+C++ pitfalls – Memory allocation from interrupts 2022-08-25:
+
+
+
+
+
+SEGGER’s open BigFAT specification breaks FAT's 4GB per file barrier 2022-08-25:
+
+
+
+
+
+SEGGER emWin AppWizard — Animations Part 2 2022-08-25:
+
+
+
+
+
+SEGGER emWin AppWizard — Animations Part 1 2022-08-12:
+
+
+
+
+
+SEGGER emWin AppWizard — Screen Transitions 2022-08-03:
+
+
+
+
+
+SEGGER emWin AppWizard — Wheel Object 2022-07-01:
+
+
+
+
+
+SEGGER’s product line fully supports Arm Cortex-M85 2022-06-21:
+
+
+
+
+
+SEGGER announces Flasher support for Infineon TriCore™ AURIX 2022-06-01:
+
+
+
+
+
+SEGGER introduces emCompress-PRO software 2022-05-25:
+
+
+
+
+  [BLOG]
+  
+
+Securing embedded systems with digital signatures: The basics 2022-05-17:
+
+
+
+
+
+SEGGER emWin AppWizard — VS Simulation 2022-05-17:
+
+
+
+
+
+SEGGER Flasher — J-Flash 2022-05-04:
+
+
+
+
+
+SEGGER emUSB-Host— Getting started 2022-05-02:
+
+
+
+
+
+SEGGER emUSB-Device — Getting started 2022-04-22:
+
+
+
+
+
+SEGGER emNet — Getting started 2022-04-21:
+
+
+
+
+
+SEGGER makes cutting-edge C++ library available for licensing 2022-04-14:
+
+
+
+
+
+SEGGER and Renesas deliver Device Lifecycle Management (DLM)  for RA MCUs 2022-04-07:
+
+
+
+
+
+Nuclei Studio IDE now with SEGGER’s emRun runtime library for RISC-V 2022-03-30:
+
+
+
+
+
+SEGGER Embedded Studio for ARM now with hard real-time C++ support 2022-03-23:
+
+
+
+
+  [BLOG]
+  
+
+C++ real-time allocation — a chess engine 2022-03-22:
+
+
+
+
+
+SEGGER J-Link — How to use J-Link Configurator 2022-03-22:
+
+
+
+
+
+SEGGER J-Link — How to use J-Link Commander 2022-03-16:
+
+
+
+
+
+SEGGER releases new Embedded Studio for RISC-V with hard real-time C++ support 2022-03-14:
+
+
+
+
+
+SEGGER announces that Renesas has licensed emWin for all RX microcontrollers 2022-03-10:
+
+
+
+
+
+SEGGER collaborates with HPMicro making Embedded Studio for RISC-V available at no cost 2022-03-04:
+
+
+
+
+
+SEGGER emWin AppWizard — The Gauge Object 2022-02-25:
+
+
+
+
+  [BLOG]
+  
+
+Hacking emSecure? 2022-02-22:
+
+
+  [CASESTUDIES]
+  
+
+
+
+Solaride’s solar-powered car – nothing is impossible 2022-02-22:
+
+
+
+
+
+SEGGER emWin AppWizard — How to use BSPs 2022-02-16:
+
+
+
+
+
+SEGGER emWin AppWizard — The Switch Object 2022-02-15:
+
+
+
+
+
+SEGGER emWin AppWizard — The Slider Object 2022-02-10:
+
+
+
+
+
+SEGGER emWin AppWizard — Project examples 2022-02-02:
+
+
+
+
+
+SEGGER emWin AppWizard — The Rotary Object 2022-01-17:
+
+
+
+
+
+SEGGER J-Link — Performance analysis on RISC-V 2022-01-17:
+
+
+
+
+
+SEGGER emWin AppWizard — The Button Object 2021-12-14:
+
+
+
+
+
+SEGGER J-Link software now available for Microsoft Windows on Arm 2021-12-07:
+
+
+
+
+
+SEGGER adds 64-bit RISC-V support to Embedded Studio 2021-12-02:
+
+
+
+
+  [BLOG]
+  
+
+Algorithms for division – Part 4 – Using Newton’s method 2021-11-29:
+
+
+
+
+  [BLOG]
+  
+
+Algorithms for division – Part 3 – Using multiplication 2021-11-24:
+
+
+
+
+
+SEGGER introduces customization options for popular service programmer 2021-11-17:
+
+
+
+
+  [BLOG]
+  
+
+Saving power in embedded systems – Reducing idle CPU speed 2021-11-12:
+
+
+
+
+
+SEGGER is carbon neutral! 2021-11-10:
+
+
+
+
+
+SEGGER's embOS-Ultra now available for RISC-V 2021-10-28:
+
+
+
+
+
+RTOS revolution: SEGGER embOS-Ultra enhances application performance with Cycle-resolution Timing 2021-10-18:
+
+
+
+
+
+SEGGER Compiler and Linker now available for licensing by toolchain providers 2021-10-17:
+
+
+
+
+  [BLOG]
+  
+
+Algorithms for division – Part 2 – classics 2021-10-11:
+
+
+
+
+  [BLOG]
+  
+
+Algorithms for division – Part 1 2021-10-06:
+
+
+
+
+
+SEGGER joins world-wide organization of PROFIBUS users 2021-09-29:
+
+
+
+
+
+SEGGER’s J-Link now compatible with and available through Arduino 2021-09-24:
+
+
+
+
+
+SEGGER announces that Renesas has extended its emWin license to include all RA microcontrollers 2021-09-06:
+
+
+
+
+  [BLOG]
+  
+
+emWeb: User interface in the web browser 2021-08-30:
+
+
+
+
+
+Haawking licenses SEGGER’s emRun for RISC-V 2021-08-16:
+
+
+
+
+
+eSOL licences SEGGER emCompress for accelerating automotive firmware updates 2021-08-09:
+
+
+
+
+
+SEGGER Flasher Hub – High speed ISP gang-programming for mass production 2021-07-30:
+
+
+
+
+
+SEGGER's Linux Studio makes top rated development environment available to Linux developers 2021-07-22:
+
+
+
+
+
+SEGGER’s RTOS embOS receives STMicroelectronics’ quality label “MadeForSTM32 v2" 2021-07-12:
+
+
+
+
+
+SEGGER and Analog Devices collaboration delivers communication solution for industrial Ethernet-APL 2021-06-23:
+
+
+
+
+
+SEGGER emPower OS enables on-going production during chip shortages 2021-06-21:
+
+
+
+
+
+SEGGER and Codasip announce cooperation on RISC-V 2021-06-17:
+
+
+
+
+  [BLOG]
+  
+
+Risks are often underestimated — It is not only the chip crisis that threatens embedded manufacturers 2021-06-09:
+
+
+  [CASESTUDIES]
+  
+
+
+
+Forze Hydrogen Racing — Pole position thanks to SEGGER 2021-06-01:
+
+
+  [CASESTUDIES]
+  
+
+
+
+Size matters — Using emCompress to accelerate firmware updates via CAN bus 2021-05-26:
+
+
+
+
+
+SEGGER’s emRun runtime library licensed by SiFive for superior code size and performance improvements 2021-05-14:
+
+
+
+
+
+SEGGER introduces Flasher PRO XL — The almost-anything-programmer with extra-large memory 2021-04-28:
+
+
+
+
+
+Microchip licenses SEGGER’s emFloat floating-point library for the XC32 V4.0 compiler toolchain 2021-04-20:
+
+
+  [CASESTUDIES]
+  
+
+
+
+SEGGER’s Flasher PRO increases production reliability for VIESSMANN 2021-04-12:
+
+
+
+
+
+SEGGER J-Link now supports CMSIS-DAP — One probe fits all 2021-03-30:
+
+
+
+
+
+SEGGER Embedded Studio available for the Renesas RE Family of MCUs 2021-03-29:
+
+
+
+
+
+New Eval Software Support for NXP's i.MX RT1170 EVK 2021-03-26:
+
+
+
+
+
+Cypress Extends Licensing of SEGGER's Embedded File System emFile to Include PSoC 6 2021-03-16:
+
+
+
+
+
+emVDSP vs CMSIS-DSP - Find Out What's Going on at SEGGER 2021-03-11:
+
+
+
+
+
+SEGGER J-Link, Flasher, and Embedded Studio Now Support Raspberry Pi RP2040 2021-03-08:
+
+
+
+
+
+SEGGER’s Embedded Studio Achieves Top Rating in German Elektronik Magazine 2021-03-02:
+
+
+
+
+
+Working at SEGGER Microcontroller: The question of “why?” 2021-02-26:
+
+
+
+
+
+Frank Riemenschneider joins SEGGER as Marketing and PR Manager 2021-02-17:
+
+
+
+
+
+SEGGER Introduces Flasher Compact - The Credit-Card-Size Almost-Anything-Programmer 2021-02-11:
+
+
+
+
+
+Apple M1-Optimized Build of SEGGER Embedded Studio Now Available 2021-02-11:
+
+
+
+
+
+SEGGER Embedded Studio on Apple M1 and Intel i7 2021-02-04:
+
+
+
+
+
+SEGGER Ecosystem Available for the Renesas RE Family MCUs 2021-01-26:
+
+
+
+
+
+SEGGER Flasher PRO - Programming QSPI Flash at Maximum Speed 2021-01-21:
+
+
+
+
+  [BLOG]
+  
+
+Correlating and visualizing data sampling, current consumption, and program execution via Ozone’s Timeline Window 2021-01-19:
+
+
+
+
+
+SEGGER Flasher PRO - The in-circuit programmer for MCUs / SoCs and SPI Flash devices 2021-01-08:
+
+
+
+
+
+SEGGER introduces new Open Flashloader for direct programming of any RISC-V system 2020-12-23:
+
+
+
+
+
+SEGGER's J-Link OB plays crucial role in new BBC ‘HiFive Inventor’ educational kit 2020-12-17:
+
+
+
+
+
+SEGGER's complete J-Link software now available for Linux on ARM 2020-12-15:
+
+
+
+
+
+SEGGER Flasher PRO - Programming QSPI Flashes at Maximum Speed 2020-12-14:
+
+
+
+
+  [BLOG]
+  
+
+Code Size: Squeezing more with linker outlining 2020-12-09:
+
+
+
+
+
+J-Link remote debugging accelerated by SEGGER’s new server network 2020-12-03:
+
+
+
+
+  [BLOG]
+  
+
+ Code size: Closing the gap between RISC-V and Arm for embedded applications 2020-11-26:
+
+
+
+
+
+SEGGER Embedded Studio – New linker significantly shrinks RISC-V applications 2020-11-25:
+
+
+
+
+
+SEGGER opens China office 2020-11-25:
+
+
+
+
+
+AppWizard wins SEGGER the "Innovator of the Year" award in the category Development Software 2020-11-24:
+
+
+
+
+
+SEGGER’s SystemView now available under Friendly Licensing 2020-11-17:
+
+
+
+
+
+SEGGER’s embOS RTOS turns 64-bit SoCs into single chip computers 2020-09-30:
+
+
+
+
+
+J-Link WiFi - SEGGER's Debug Probe with Wi-Fi interface 2020-09-17:
+
+
+
+
+
+RISC-V embedded variant RV32E now fully supported by SEGGER's Floating-Point library 2020-09-11:
+
+
+
+
+
+J-Link supports Western Digital's SweRV_EH1 Core 2020-09-08:
+
+
+
+
+
+SEGGER J-Link adds support for Raspberry Pi as host 2020-09-03:
+
+
+
+
+
+SEGGER embOS RTOS BSP now available for NXP i.MX RT500 2020-08-31:
+
+
+
+
+
+SEGGER Embedded Studio V5 2020-08-24:
+
+
+
+
+  [BLOG]
+  
+
+Every byte counts – Floating-point in less than 1 KB 2020-08-22:
+
+
+
+
+
+Introduction to Cortex M Faults ... and how SEGGER's Ozone Debugger can help 2020-08-22:
+
+
+
+
+
+Analyzing Cortex-M Faults using SEGGER’s Ozone Debugger 2020-08-20:
+
+
+
+
+
+Instruction Tracing and Live Code Coverage / Code Profiling on the NXP i.MX RT600 2020-08-12:
+
+
+
+
+  [BLOG]
+  
+
+Every byte counts – Smallest “Hello world” 2020-08-10:
+
+
+
+
+  [BLOG]
+  
+
+Integrity checks with the new SEGGER Linker 2020-08-07:
+
+
+
+
+
+SEGGER Embedded Studio V5 minimizes code size 2020-08-07:
+
+
+
+
+  [BLOG]
+  
+
+Every Byte counts – The 100-Byte Blinky Challenge 2020-06-24:
+
+
+
+
+  [BLOG]
+  
+
+Debugging the dual-core NXP i.MX RT600 with the one and only SEGGER J-Link 2020-04-09:
+
+
+
+
+
+Cross-platform freedom: SEGGER's J-Flash now available for macOS & Linux 2020-04-03:
+
+
+
+
+  [BLOG]
+  
+
+How to do Gauges in AppWizard – Part I 2020-04-02:
+
+
+
+
+
+New version 4.52 of SEGGER Embedded Studio available 2020-03-30:
+
+
+
+
+
+Getting to know the Flasher ATE 2020-03-26:
+
+
+
+
+
+SEGGER announces comprehensive support for SiFive Insight debug/trace platform 2020-03-23:
+
+
+
+
+
+Debug from home: SEGGER’s J-Link Remote Server adds encryption 2020-03-22:
+
+
+
+
+  [BLOG]
+  
+
+SEGGER in times of the coronavirus / COVID-19 2020-03-13:
+
+
+
+
+
+SEGGER announces support for Nuclei RISC-V Processors 2020-03-09:
+
+
+
+
+
+No more guessing ... SEGGER's Ozone & J-Link analyze hard faults on Cortex-M for you! 2020-03-02:
+
+
+
+
+
+SEGGER AppWizard Enabling Advanced GUI Design in Next Generation Embedded Applications 2020-02-20:
+
+
+
+
+
+Clang on steroids! SEGGER releases optimized Compiler for ARM 2020-02-04:
+
+
+
+
+
+SEGGER releases Floating-Point Library for RISC-V 2019-12-18:
+
+
+
+
+
+SEGGER's SystemView adds data acquisition via UART and TCP/IP 2019-12-13:
+
+
+
+
+
+SEGGER’s Ozone debugger adds support for custom instructions 2019-11-22:
+
+
+
+
+  [BLOG]
+  
+
+Floating-point face-off, part 3: How we do it 2019-11-07:
+
+
+
+
+  [BLOG]
+  
+
+Floating-point face-off, part 2: Comparing performance 2019-11-04:
+
+
+
+
+
+Dialog Semiconductor makes SEGGER's professional GUI emWin freely available 2019-10-28:
+
+
+
+
+
+SEGGER introduces J-Link WiFi, a new member of the J-Link family of debug probes 2019-10-23:
+
+
+
+
+
+SEGGER Embedded Studio now supports DAP-Link 2019-10-16:
+
+
+
+
+
+SEGGER SystemView for RISC-V now available 2019-09-19:
+
+
+
+
+  [BLOG]
+  
+
+The Good, The Best, and The Only 2019-09-18:
+
+
+
+
+
+SEGGER Makes its Entire Ecosystem of Tools Available for AndesCores 2019-09-06:
+
+
+
+
+
+Debug build too big? Embedded Studio’s new semihosting moves workload to the debugger and reduces program size. 2019-09-02:
+
+
+
+
+
+Save Time, Ensure Quality 2019-08-28:
+
+
+
+
+
+Full Support for First Flash-Based RISC-V Microcontroller 2019-08-23:
+
+
+
+
+
+VNC Connection Between Embedded Devices 2019-08-16:
+
+
+
+
+
+SEGGER Embedded Studio adds support for 3rd party debug probes via GDB protocol 2019-08-08:
+
+
+
+
+
+Enhance Your Device with Video Capabilities 2019-08-05:
+
+
+
+
+  [BLOG]
+  
+
+Floating-point face-off 2019-07-11:
+
+
+
+
+
+J-Trace & J-Link Support for Hilscher NetX90 2019-06-27:
+
+
+
+
+
+SEGGER Adds Video to emUSB-Device 2019-06-13:
+
+
+
+
+
+Live MQTT IoT "Weather Network" is growing 2019-06-11:
+
+
+
+
+
+SEGGER adds audio to emUSB-Host 2019-05-24:
+
+
+
+
+  [BLOG]
+  
+
+What's cooking: IoT Station#1 Launched (using emMQTT) 2019-05-22:
+
+
+
+
+
+emNet—The new name for embOS/IP, SEGGER's proven network software 2019-05-17:
+
+
+
+
+  [BLOG]
+  
+
+Using AppWizard to Create Interesting Buttons 2019-05-16:
+
+
+
+
+  [BLOG]
+  
+
+Turning an FPGA Into a Powerful Microcontroller. No External Memory Required. 2019-05-11:
+
+
+
+
+
+Flasher Portable PLUS Now Supports Up to 16 Programming Configurations 2019-05-03:
+
+
+
+
+  [BLOG]
+  
+
+Creating a Cool Knob Using the SEGGER AppWizard 2019-04-29:
+
+
+
+
+
+Real-time Compression on Any Embedded System 2019-04-18:
+
+
+
+
+
+SEGGER introduces RAID5 to Embedded Systems 2019-04-01:
+
+
+
+
+
+J-Link Remote Server - Debug From Anywhere in the World 2019-03-20:
+
+
+
+
+
+Audio Demo for the emPower-USB-Host Board 2019-03-15:
+
+
+
+
+
+PoS Terminal Demo with PC Keyboard or Barcode Scanner 2019-02-25:
+
+
+
+
+
+SEGGER adds Secure Remote Access to J-Link 2019-02-01:
+
+
+
+
+
+emCompress-ToGo – New software brings compression to even the smallest Embedded Computer System 2019-01-09:
+
+
+
+
+
+New superfast RTT puts SystemView on steroids! 2019-01-08:
+
+
+
+
+
+MIDI class support for SEGGER USB host software emUSB-Host 2018-12-13:
+
+
+
+
+
+Coming soon: USB MIDI support 2018-12-05:
+
+
+
+
+
+emPower-USB-Host video with NFC reader 2018-12-04:
+
+
+
+
+
+New microcontroller-based dual USB platform 2018-11-28:
+
+
+
+
+
+J-Link: New beta software package adds support for cJTAG with RISC-V based systems 2018-11-22:
+
+
+
+
+
+*** Buyout licensing for Embedded Studio *** 2018-11-06:
+
+
+
+
+
+Meet SEGGER in Silicon Valley 2018-11-05:
+
+
+
+
+
+New evaluation package for the Nucleo STM32F767 2018-11-02:
+
+
+
+
+
+Instruction Tracing & Live Code Coverage/Profiling on SAME70 2018-10-23:
+
+
+
+
+
+*** Embedded Studio 4.10 for ARM released *** Putting  the executable on a diet *** 2018-10-22:
+
+
+
+
+
+Flasher support AVR and PIC16/PIC18 microcontrollers 2018-10-19:
+
+
+
+
+
+SEGGER introduces the Fast Interoperable Network Discovery (FIND) protocol for embedded devices 2018-10-17:
+
+
+
+
+
+STM32Cube MCU Package Eclipse projects and Embedded Studio 2018-10-11:
+
+
+
+
+
+Embedded Studio: New beta reduces program size by up to 12% 2018-10-02:
+
+
+
+
+
+New emPower Eval Software includes IoT Toolkit 2018-09-30:
+
+
+
+
+  [BLOG]
+  
+
+New office, more plans! 2018-09-21:
+
+
+
+
+
+Watch how to evaluate SEGGER software and tools on the STM32F746G Discovery board 2018-09-11:
+
+
+
+
+
+New embOS port for NXP S12Z 2018-09-04:
+
+
+
+
+
+SEGGER moves into new company building in Monheim am Rhein 2018-08-21:
+
+
+
+
+
+SEGGER's grand opening and summer party 2018-08-15:
+
+
+
+
+
+New evaluation package for the Nucleo STM32H743 2018-08-01:
+
+
+
+
+
+New emUSB-Device driver for Nordic Semi nRF52 devices 2018-07-23:
+
+
+
+
+
+SEGGER introduces emPack, the complete operating system for all 8- /16-/32-Bit IoT and non-IoT systems 2018-07-20:
+
+
+
+
+
+New Housing for J-Link Compact 2018-07-16:
+
+
+
+
+
+Nuvoton Technology and SEGGER collaborate to provide customers with embedded emWin GUI software 2018-07-14:
+
+
+
+
+
+SEGGER announces emLib-C, an optimized C runtime library for Arm processors 2018-07-12:
+
+
+
+
+
+J-Trace PRO: New trace reference board STM32H7 2018-07-12:
+
+
+
+
+
+J-Trace PRO: New trace reference board iMX RT1050 2018-07-09:
+
+
+
+
+
+SEGGER supports new Microchip SAML11 with embOS RTOS and advanced development tools 2018-07-02:
+
+
+
+
+
+J-Link now speaks cJTAG 2018-06-26:
+
+
+
+
+
+IoT Toolkit - Library Collection for Embedded Systems 2018-06-14:
+
+
+
+
+
+J-Link 64-bit support 2018-06-11:
+
+
+
+
+
+SEGGER connects Embedded Systems to LAN or Cloud through USB Host Interface 2018-06-09:
+
+
+
+
+  [BLOG]
+  
+
+New blog entry: Quality at SEGGER 2018-06-06:
+
+
+
+
+
+SEGGER expands Embedded Studio PRO by Adding IoT and Security Components 2018-05-28:
+
+
+
+
+
+emUSB-Device Audio 2018-05-07:
+
+
+
+
+
+SEGGER introduces IoT Toolkit to access cloud based services 2018-05-04:
+
+
+
+
+
+IP over USB using an iPad 2018-04-17:
+
+
+
+
+
+SEGGER Introduces Audio Class for USB Devices 2018-03-21:
+
+
+
+
+  [BLOG]
+  
+
+New blog entry: J-Run: Automating performance tests on real hardware 2018-02-23:
+
+
+
+
+
+SEGGER introduces new "ToGo" Compression Software 2018-02-21:
+
+
+
+
+  [BLOG]
+  
+
+New blog entry: Current state of the trace market 2018-02-07:
+
+
+
+
+
+SEGGER announces embOS-Safe, the SIL 3 certified RTOS for safety-critical applications 2018-02-01:
+
+
+
+
+
+SEGGER breaks ground on new corporate headquarters 2018-01-26:
+
+
+
+
+
+SEGGER opens new office in Silicon Valley 2017-12-28:
+
+
+
+
+  [BLOG]
+  
+
+SMCS: an efficient compression algorithm for microcontrollers 2017-12-22:
+
+
+
+
+
+SEGGER introduces emWeb, the portable web server 2017-12-08:
+
+
+
+
+
+SEGGER presents RTOS, stacks, middleware for RISC-V 2017-12-01:
+
+
+
+
+
+SEGGER Embedded Studio and J-Link support Amazon FreeRTOS 2017-11-23:
+
+
+
+
+
+SEGGER Embedded Studio supports RISC-V architecture 2017-11-22:
+
+
+
+
+
+Renesas Electronics and SEGGER Collaborate  to Support Customers with emWin GUI for RX65N/RX651 MCUs 2017-11-20:
+
+
+
+
+  [BLOG]
+  
+
+The SEGGER linker and SOMNIUM assets 2017-11-13:
+
+
+
+
+
+J-Trace PRO Cortex: USB 3.0 SuperSpeed streaming trace on Cortex-A, Cortex-R and Cortex-M 2017-11-02:
+
+
+
+
+
+SEGGER announces Flasher ATE High Speed Gang Programming Solution 2017-10-27:
+
+
+
+
+  [BLOG]
+  
+
+New blog entry: emNet with built-in UDP flood protection 2017-10-23:
+
+
+
+
+
+SEGGER Embedded Studio IDE now free for Nordic SDK users 2017-10-20:
+
+
+
+
+
+New SEGGER ELFLib assists development of monitoring and verification tools 2017-09-21:
+
+
+
+
+  [BLOG]
+  
+
+New blog entry: The SEGGER Linker – Replacing the GNU linker 2017-09-19:
+
+
+
+
+
+SEGGER Adds Support for SiFive's Coreplex IP to Its Industry Leading J-Link Debug Probe 2017-08-24:
+
+
+
+
+
+SEGGER's Embedded FTP Server Now Available in a Free PC Tool 2017-08-16:
+
+
+
+
+
+Precise clock synchronization with new PTP module (IEEE1588) 2017-08-02:
+
+
+
+
+
+IP-over-USB technology enables easy web browser access for USB devices 2017-07-25:
+
+
+
+
+
+Flash Programming in Mass Production for Renesas RL78 2017-07-03:
+
+
+
+
+
+SEGGER Microcontroller adds support to emWin library for Epson Simple LCD Controllers 2017-06-15:
+
+
+
+
+
+SEGGER introduces compact version of J-Link for verification and test beds 2017-06-06:
+
+
+
+
+
+SEGGER introduces J-Link EDU Mini – a low cost J-Link for Education 2017-05-04:
+
+
+
+
+
+SEGGER introduces PRO version of the system analysis tool SystemView 2017-05-03:
+
+
+
+
+
+SEGGER introduces Enterprise License for Embedded Studio 2017-05-02:
+
+
+
+
+  [BLOG]
+  
+
+New blog entry: Performance tuning our software 2017-04-24:
+
+
+
+
+
+Free command line tool SMTP client available for download 2017-04-24:
+
+
+
+
+
+SEGGER releases cryptographic library emCrypt 2017-04-06:
+
+
+
+
+
+New embOS version for IAR EWARM released 2017-03-23:
+
+
+
+
+
+Handheld Programmer for In-Field-Services 2017-03-14:
+
+
+
+
+
+First In-Circuit-Programmer for Secure Off-Site Production 2017-02-01:
+
+
+
+
+
+SEGGER enables low cost, high capacity NAND Flashes for Embedded Systems 2017-01-12:
+
+
+
+
+
+Secure data exchange for embedded IoT devices using Dropbox 2016-12-21:
+
+
+
+
+
+Internet of Things communication made easy using MQTT 2016-12-15:
+
+
+
+
+
+SEGGER Training Classes: Introduction to Software Development for ARM Cortex-M Microcontrollers 2016-12-09:
+
+
+
+
+
+SEGGER attain record cryptography performance with NXP Kinetis MCUs 2016-11-17:
+
+
+
+
+
+SEGGER introduces WiFi Quick Start 2016-11-10:
+
+
+
+
+
+Fast in-circuit-programmer for Infineon XMC1000 family of microcontrollers 2016-11-04:
+
+
+
+
+
+SEGGER presents new embOS port for Renesas’ automotive RH850 microcontrollers 2016-10-05:
+
+
+
+
+
+J-Trace PRO: Ready to trace and profile in just 15 minutes 2016-09-20:
+
+
+
+
+  [BLOG]
+  
+
+Comparing Performance on Windows, Linux and OS X 2016-09-15:
+
+
+
+
+
+Market-Leading J-Trace PRO Now Enables Live Profiling & Code Coverage 2016-09-14:
+
+
+
+
+  [BLOG]
+  
+
+Embedded Studio for Windows: 64-bits vs. 32-bits 2016-09-14:
+
+
+
+
+  [BLOG]
+  
+
+Welcome to our new blog: blog.segger.com 2016-08-29:
+
+
+
+
+
+Embedded Studio - GCC, LLVM, IAR and Keil under one roof 2016-08-25:
+
+
+
+
+
+New embOS release V4.24 available for Renesas RX 2016-08-18:
+
+
+
+
+
+SEGGER's J-Link Firmware upgrade for BBC micro:bit 2016-08-11:
+
+
+
+
+
+SEGGER Introduces Customizable Flash Loaders for J-Link, J-Trace and Flasher 2016-07-19:
+
+
+
+
+
+Facilitating RX Microcontroller-Based Application Development 2016-07-12:
+
+
+
+
+
+SEGGER Announces High Performance Secure Shell Solution Targeted at Microcontroller-Based Systems 2016-07-07:
+
+
+
+
+
+J-Link flash programming support added for Zilog ZNEO32! family 2016-07-06:
+
+
+
+
+
+New embOS release V4.24 available for Cortex-M and Segger Embedded Studio with improved VFP support and new board support packages 2016-06-23:
+
+
+
+
+
+New video on YouTube: Get an easy start with the free SystemView Real Time Analysis tool 2016-06-21:
+
+
+
+
+
+SEGGER’s Advanced Debug Technology Now with Drag-&-Drop Programming for OpenSDA 2016-06-14:
+
+
+
+
+
+We have added a new distribution partner for Switzerland: Redacom AG 2016-06-01:
+
+
+
+
+
+New embOS release V4.22 available for Cortex-M and IAR with improved VFP support 2016-05-30:
+
+
+
+
+
+New embOS simulation release V4.22 available with embOSView support 2016-05-23:
+
+
+
+
+
+SEGGER introducing emWin 5.34: New API calls to generate and display QR-Codes on your embedded system screen. 2016-05-19:
+
+
+
+
+
+SEGGER introduces emUSB-Device add-on which enables Internet connectivity and virtual networking 2016-05-03:
+
+
+
+
+
+SEGGER Introduces Fail-Safe Solution for Next Generation Embedded Systems 2016-04-29:
+
+
+
+
+
+Find out how easy it is to start your #Embedded Studio evaluation. No code size limit, no time limit. 2016-04-27:
+
+
+
+
+
+SEGGER's Advanced Debug Technology Made Available for STM32 Nucleo & Discovery MCU Boards 2016-03-29:
+
+
+
+
+
+embOS for MicroEJ: Opening embedded systems to Java programming 2016-03-11:
+
+
+
+
+
+New embOS release V4.16 available for Renesas RL78 and IAR EWRL78 2016-03-10:
+
+
+
+
+
+New embOS release V4.16 available for Renesas RX and Renesas CCRX compiler/e2Studio 2016-03-10:
+
+
+
+
+
+Protect Embedded System Data with emFile RAID 1 2016-03-01:
+
+
+
+
+
+ J-Link support added for NXP's new LPC5411x family of devices 2016-02-24:
+
+
+
+
+
+Bringing J-Link to Atmel Xplained evaluation kits 2016-02-23:
+
+
+
+
+
+SEGGER J-Trace PRO Solution Sets New Benchmark in Tracing 2016-02-12:
+
+
+
+
+
+New J-Link Xilinx Adapter available 2016-02-08:
+
+
+
+
+
+Thanks to the Jury of the Embedded World: SystemView is nominated for embedded Award! 2016-02-04:
+
+
+
+
+
+Easily add virtual Ethernet ports to single port MCUs with emNet 2016-01-14:
+
+
+
+
+
+Updated eval software for Renesas RSKRX64M and RSKRX71M 2016-01-12:
+
+
+
+
+
+SEGGER Unveils Embedded Studio PRO Development Platform 2016-01-07:
+
+
+
+
+
+Updated eval software for Infineon's XMC4500 Relax Kit 2015-12-16:
+
+
+
+
+
+New J-Link Target Supply Adapter provides adjustable supply voltage. 2015-12-14:
+
+
+
+
+
+The latest version of embOS Cortex-M SES V4.14 comes with SystemView support in every start project 2015-12-10:
+
+
+
+
+
+New Eval Software for Infineon's XMC4500 Relax Kit 2015-11-26:
+
+
+
+
+
+embOSView supports communication via J-Link for Renesas RX CPUs 2015-11-25:
+
+
+
+
+
+New eval software of SEGGER Embedded Studio for Atmel SAMR21 Xplained Pro including embOS and emNet 2015-11-23:
+
+
+
+
+
+SEGGER demonstrator board empowers embedded software evaluation 2015-11-06:
+
+
+
+
+
+SystemView: Maximum insight with free real-time analysis tool 2015-10-20:
+
+
+
+
+
+J-Link keeps important functions alive while debugging Cortex-M devices 2015-10-13:
+
+
+
+
+
+Cutting-edge alternative algorithm for SEGGER's digital signature suite 2015-09-29:
+
+
+
+
+
+Ready for IoT: New version of SEGGER’s IPv6 TCP/IP stack 2015-09-16:
+
+
+
+
+
+Protect personal documents with SEGGER’s free Sign & Verify 2015-09-01:
+
+
+
+
+
+SEGGER releases compression system tailored for embedded devices 2015-08-25:
+
+
+
+
+
+Google recommends the J-Link 2015-08-11:
+
+
+
+
+
+SEGGER introduces reentrant CRC library 2015-07-16:
+
+
+
+
+
+emFile: new feature enables use of large NAND flashes for microcontrollers 2015-07-15:
+
+
+
+
+
+SEGGER Microcontrollers with largest ever Distributor Meeting 2015-06-23:
+
+
+
+
+
+emSSL V2 – The SSL/TLS solution for single-chip systems 2015-06-09:
+
+
+
+
+
+Program any SPI Flash via J-Link and Flasher – regardless of CPU model 2015-06-05:
+
+
+
+
+
+J-Link support added to IAR and KEIL 8051 toolchains 2015-05-28:
+
+
+
+
+
+SEGGER introduces USB Isolator optimized for its J-Link and Flasher 2015-05-12:
+
+
+
+
+
+Powerful J-Link Debugger software now included with advanced J-Link models 2015-04-16:
+
+
+
+
+
+SEGGER’s new SmartMSD makes USB file transfer easy 2015-02-23:
+
+
+
+
+
+SEGGER adds security feature to Flasher: Authorized Flashing 2015-02-11:
+
+
+
+
+
+Renesas Corporation awards SEGGER Global Platinum Partner Status 2015-01-07:
+
+
+
+
+
+SEGGER releases emSSL, an SSL/TLS solution targeted at embedded devices 2014-11-24:
+
+
+
+
+
+SEGGER’s J-Link OB and new Drag & Drop programming feature 2014-11-20:
+
+
+
+
+
+J-Link support for Silicon Labs 8051 devices 2014-11-06:
+
+
+
+
+
+SEGGER introduces Flasher PRO 2014-10-08:
+
+
+
+
+
+SEGGER announces microsecond accurate system time for embOS 2014-09-24:
+
+
+
+
+
+SEGGER announces support for ARM® Cortex®-M7 2014-08-21:
+
+
+
+
+
+Adding Tickless Support to its embOS Real Time Operating System SEGGER Reduces Microcontroller Power Consumption 2014-08-21:
+
+
+
+
+
+SEGGER emSecure puts an end to cloning embedded devices 2014-08-18:
+
+
+
+
+
+SEGGER announces a beta release of their new J-Link Debugger 2014-08-12:
+
+
+
+
+
+SEGGER brings the Internet Services to USB devices 2014-07-30:
+
+
+
+
+
+World’s first real time terminal with SEGGER J-Link 2014-07-29:
+
+
+
+
+
+SEGGER introduces J-Scope, data visualization for J-Link 2014-03-25:
+
+
+
+
+
+SEGGER J-Link - Entering the Microchip PIC32 microcontroller world 2014-03-13:
+
+
+
+
+
+SEGGER J-Link now supports ARM DS-5 Development Studio 2014-02-24:
+
+
+
+
+
+SEGGER introduces emModbus, connecting industrial devices 2014-02-24:
+
+
+
+
+
+SEGGER makes Processor Trace Debugging affordable 2014-01-24:
+
+
+
+
+
+SEGGER J-Link OB now available for 10 Euro cents 2013-09-19:
+
+
+
+
+
+New In-Field Flash Programmer Flasher Portable 2013-08-02:
+
+
+
+
+
+SEGGER J-Link adds full support for Renesas’ FINE Interface 2013-07-26:
+
+
+
+
+
+Pick your Tool-Chain – SEGGER offers Compiler Porting Service 2013-07-10:
+
+
+
+
+
+Instruction Tracing with SEGGER J-Link/J-Trace and Atollic TrueStudio 2013-07-04:
+
+
+
+
+
+New Media Transfer Protocol Component for SEGGER emUSB-Device stack 2013-06-17:
+
+
+
+
+
+SEGGER J-Link supports Cortex-M0+ based Atmel SAM D2 2013-06-13:
+
+
+
+
+
+SEGGER J-Link – First Debug Probe supporting Infineon’s Single Pin Debug Interface 2013-06-11:
+
+
+
+
+
+SEGGER J-Link Debug Probe is now supported by iSYSTEM winIDEA IDE 2013-04-03:
+
+
+
+
+
+New emLib Middleware Component for Encryption 2013-03-12:
+
+
+
+
+
+J-Link Flash Download Technology breaks Speed Record 2012-12-21:
+
+
+
+
+
+J-Link is Fastest in Flash Programming 2012-11-19:
+
+
+
+
+
+All new J-Link 2013 Models: The best JTAG/SWD Emulator just got better 2012-11-07:
+
+
+
+
+
+New Software Enhanced J-Link Plus 2012-10-23:
+
+
+
+
+
+Free Remote Debugging Tool for J-Link 2012-08-31:
+
+
+
+
+
+SEGGER Offers New SQLite Interface for emFile 2012-08-31:
+
+
+
+
+
+Encryption Now Available for the SEGGER emFile File System 2012-06-08:
+
+
+
+
+
+Free SWO Monitor for J-Link 2012-04-30:
+
+
+
+
+
+The ultimate debug solution: J-Link Ultra+ 2012-03-20:
+
+
+
+
+
+J-Link Unlimited Flash Breakpoints Now Free for Evaluation 2011-12-07:
+
+
+
+
+
+SEGGER embedded software supports Energy Micro’s Cortex-M3 Gecko microcontrollers 2011-10-05:
+
+
+
+
+
+SEGGER’s Professional Embedded Graphics Package Now Freely Available To NXP Customers 2011-09-26:
+
+
+
+
+
+SEGGER Discontinues IAR Branded J-Links 2011-09-15:
+
+
+
+
+
+SEGGER J-Link GDB-Server: FREE 2011-08-29:
+
+
+
+
+
+SEGGER introduces new “NAND-Flash EVAL” and Test Board 2011-08-08:
+
+
+
+
+
+New SEGGER emWin GUIBuilder allows easy user interface creation 2011-06-09:
+
+
+
+
+
+SEGGER announces new RTOS embOS port for Renesas RL78 2011-05-30:
+
+
+
+
+
+SEGGER now ships in-circuit-programmers Flasher RX for Renesas Electronics’ RX 32-Bit MCUs 2010-10-11:
+
+
+
+
+
+SEGGER's entire portfolio now available for Renesas Electronics’ RX 32-Bit MCUs 2010-10-08:
+
+
+
+
+
+J-Link is the fastest emulator for Renesas Electronics’ RX core 2010-08-18:
+
+
+
+
+
+J-Link purchase helps Pakistani Flood victims 2010-07-06:
+
+
+
+
+
+SEGGER’s embOSView now uses the J-Link debug interface for Cortex-M-targets 2010-05-05:
+
+
+
+
+
+New and Ultra Fast SEGGER J-Link Ultra is now available 2010-03-12:
+
+
+
+
+
+SEGGER adds J-Link support for new Renesas RX 32-bit MCU 2010-01-25:
+
+
+
+
+
+New SEGGER J-Link EDU is available now for Educational and Non-Commercial Use 2009-12-18:
+
+
+
+
+
+Flasher STM8: SEGGER releases production flash programmer for STM8 Microcontrollers 2009-12-11:
+
+
+
+
+
+A Programmer's Gift: J-Link Flash Breakpoints are available for free for use with NXP LPC family of ARM microcontrollers 2009-11-06:
+
+
+
+
+
+SEGGER announces RTOS embOS for Renesas RX 32-bit MCU 2009-09-17:
+
+
+
+
+
+SEGGER makes J-Link flash download available for free 2009-08-06:
+
+
+
+
+
+SEGGER supports Freescale’s Controller Continuum with RTOS Release for HCS08 and ColdFire V1 Microcontrollers 2009-07-23:
+
+
+
+
+
+SEGGER announces RTOS embOS for Cortex-A8 2009-07-15:
+
+
+
+
+
+SEGGER tools fully support Atmel's Cortex-M3™ based AT91SAM3U-EK 2009-06-22:
+
+
+
+
+
+SEGGER tools fully support ST's Cortex-M3™ based STM32 Connectivity Line 2009-06-12:
+
+
+
+
+
+SEGGER releases 'emUSB-Host' USB host stack for embedded systems 2009-06-02:
+
+
+
+
+
+Ivo Geilenbruegge is managing director of SEGGER 2009-05-18:
+
+
+
+
+
+SEGGER tools fully support NXP’s Cortex-M3™ based LPC176x series 2008-12-11:
+
+
+
+
+
+SEGGER announces a new member of the J-Link product line - J-Link ARM Pro 2008-10-20:
+
+
+
+
+
+embOS ARM supports kernel monitoring via J-Link and DCC 2008-09-10:
+
+
+
+
+
+SEGGER releases task sensitive embOS plug-in for ARM cores and IAR tool chain 2008-06-20:
+
+
+
+
+
+SEGGER introduces embOS/IP Web and FTP server 2008-06-06:
+
+
+
+
+
+SEGGER introduces journaling add-on for its emFile file system 2008-05-30:
+
+
+
+
+
+SEGGER J-Link supports Freescale ColdFire™ architecture 2008-05-23:
+
+
+
+
+
+SEGGER makes J-Link USB Protocol Specification available to the open source community 2008-05-19:
+
+
+
+
+
+SEGGER introduces Serial Wire Viewer (SWV) support for J-link 2008-04-08:
+
+
+
+
+
+embOS supports ARM VFP and other CPU extensions 2008-03-19:
+
+
+
+
+
+embOS real-time operating system for 16FX microcontroller series 2008-02-19:
+
+
+
+
+
+Atmel and SEGGER Announce Real Time OS Support to AVR32 Architecture 2008-02-11:
+
+
+
+
+
+SEGGER J-Link for non-commercial use at 98 Euros 2008-01-18:
+
+
+
+
+
+SEGGER introduces JTAG isolator for J-Link 2008-01-04:
+
+
+
+
+
+SEGGER embOS supports Renesas SH2A architecture

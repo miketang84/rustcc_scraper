@@ -12,10 +12,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let api_key =
         std::env::var("ANTHROPIC_API_KEY").expect("ANTHROPIC_API_KEY must be set in .env file");
 
-    // read data
-    let today = Local::now().date_naive();
-    // Format the date in the form "YYYY-MM-DD"
-    let formatted_date = today.format("%Y-%m-%d").to_string();
+    let formatted_date = if let Some(date) = std::env::args().nth(1) {
+        println!("date: {date}");
+        date
+    } else {
+        // write to tmp file
+        let today = Local::now().date_naive();
+        // Format the date in the form "YYYY-MM-DD"
+        let formatted_date = today.format("%Y-%m-%d").to_string();
+        formatted_date
+    };
 
     let filename = format!("tmp/rust_diary-{formatted_date}.txt");
     let mut file = File::open(&filename)?;

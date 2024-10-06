@@ -43,6 +43,17 @@ fn extract_content(html: &str) -> String {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
 
+    let formatted_date = if let Some(date) = std::env::args().nth(1) {
+        println!("date: {date}");
+        date
+    } else {
+        // write to tmp file
+        let today = Local::now().date_naive();
+        // Format the date in the form "YYYY-MM-DD"
+        let formatted_date = today.format("%Y-%m-%d").to_string();
+        formatted_date
+    };
+
     // Set up the WebDriver client
     let c = ClientBuilder::native()
         .connect("http://localhost:4444")
@@ -99,13 +110,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             } else {
                 // outsite url
                 let url = href;
-                c.goto(&url).await?;
-                if let Ok(body) = c.find(Locator::Css("body")).await {
-                    let html = body.html(false).await?;
-                    let extracted_text = extract_content(&html);
-                    // let extracted_text = sanitize_html(&html);
-                    // println!("extracted text: {}", extracted_text);
-                    target_texts.push((url, extracted_text));
+                if let Ok(_) = c.goto(&url).await {
+                    if let Ok(body) = c.find(Locator::Css("body")).await {
+                        let html = body.html(false).await?;
+                        let extracted_text = extract_content(&html);
+                        // let extracted_text = sanitize_html(&html);
+                        // println!("extracted text: {}", extracted_text);
+                        target_texts.push((url, extracted_text));
+                    }
                 }
             }
         }
@@ -129,11 +141,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Close the browser
     c.close().await?;
-
-    // write to tmp file
-    let today = Local::now().date_naive();
-    // Format the date in the form "YYYY-MM-DD"
-    let formatted_date = today.format("%Y-%m-%d").to_string();
 
     let filename = format!("tmp/rust_diary-{formatted_date}.txt");
     // write to file
