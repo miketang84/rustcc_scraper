@@ -7,13 +7,14 @@ mod claude;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    env_logger::init();
     dotenv().ok();
 
     let api_key =
         std::env::var("ANTHROPIC_API_KEY").expect("ANTHROPIC_API_KEY must be set in .env file");
 
     let formatted_date = if let Some(date) = std::env::args().nth(1) {
-        println!("date: {date}");
+        log::info!("date: {date}");
         date
     } else {
         // write to tmp file
@@ -32,13 +33,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     file.read_to_string(&mut tmpl_contents)?;
     let target_texts: Vec<&str> = tmpl_contents.split("======>").collect();
 
-    println!("========");
-    println!("target texts len: {}", target_texts.len());
+    log::info!("========");
+    log::info!("target texts len: {}", target_texts.len());
     let mut outputs: Vec<(String, String)> = vec![];
     // call claude API to summarize these contents
     for mut text in target_texts {
-        println!("\n============>>>");
-        println!("\n{:?}", text);
+        log::info!("\n============>>>");
+        log::info!("\n{:?}", text);
         let url_content = text.split("-->>-->>").collect::<Vec<&str>>();
         let url = &url_content[0];
         // let content = &url_content[1];
@@ -48,7 +49,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         if text.len() >= 300 {
             let summarization = claude::call_claude_to_summarize(&api_key, &text).await?;
-            println!("\nUrl: {}\nOutput: {}", url, summarization);
+            log::info!("\nUrl: {}\nOutput: {}", url, summarization);
             outputs.push((url.to_string(), summarization));
         }
     }

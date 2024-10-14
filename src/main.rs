@@ -41,10 +41,11 @@ fn extract_content(html: &str) -> String {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    env_logger::init();
     dotenv().ok();
 
     let formatted_date = if let Some(date) = std::env::args().nth(1) {
-        println!("date: {date}");
+        log::info!("date: {date}");
         date
     } else {
         // write to tmp file
@@ -69,14 +70,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for post in &posts[2..(ITEM_LEN + 2)] {
         let title = post.text().await?;
         let href = post.attr("href").await?.expect("should be a url");
-        println!("=> {}, {}", title, href);
+        log::info!("=> {}, {}", title, href);
         // let html = post.html(false).await?;
         // println!("Post html: {:?}", html);
         // println!("--------------------------------");
         post_results.push((title, href));
     }
 
-    println!("Post Results: {:?}", post_results.len());
+    log::info!("Post Results: {:?}", post_results.len());
 
     let mut target_texts: Vec<(String, String)> = vec![];
     let mut jump_links: Vec<String> = vec![];
@@ -97,7 +98,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let links_in_content = first_content.find_all(Locator::Css("a")).await?;
                 for link in links_in_content {
                     let mut url = link.attr("href").await?.expect("should be a url");
-                    println!("link in reddit post: {}", url);
+                    log::info!("link in reddit post: {}", url);
                     if url.starts_with("/") {
                         url = format!("{OLD_REDDIT}{url}")
                     }
@@ -123,11 +124,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    println!("========");
-    println!("jump links len: {}", jump_links.len());
+    log::info!("========");
+    log::info!("jump links len: {}", jump_links.len());
     // fetch succeding links
     for link in jump_links {
-        println!("link: {}", link);
+        log::info!("link: {}", link);
         if let Ok(_) = c.goto(&link).await {
             if let Ok(body) = c.find(Locator::Css("body")).await {
                 let html = body.html(false).await?;
@@ -158,6 +159,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Optionally, flush the file to ensure all data is written
     file.flush()?;
+
+    log::info!("Task finished");
 
     Ok(())
 }

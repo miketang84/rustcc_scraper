@@ -1,0 +1,487 @@
+https://github.com/sunfishcode/eyra
+-->>-->>
+Repository files navigation README Code of conduct Apache-2.0 license Apache-2.0 license MIT license Eyra Rust programs written entirely in Rust Eyra is a package that supports building Rust programs implemented entirely
+in Rust. It uses Origin for program and thread startup and shutdown, and c-gull for
+ABI-compatible libc function implementations. It currently works on
+Nightly Rust on Linux on x86-64, x86, aarch64, and riscv64. Quick start Running a Rust program under Eyra needs two steps. First, a Cargo.toml
+dependency, which we can add with: cargo add eyra --rename=std And, a build.rs file to add -nostartfiles to the link flags to disable the
+host startup code, so that Eyra can provide its own. build.rs: fn main ( ) { println ! ( "cargo:rustc-link-arg=-nostartfiles" ) ; } With that, cargo build , cargo run , cargo test (with Nightly) and so on
+will work normally with any *-unknown-linux-gnu* target. Under the covers, it's using Origin to start and stop the program, c-ward to handle libc calls from std , and rustix to do the printing, so it's
+completely implemented in Rust. Examples For an example of the above steps, check out this hello world example . Other examples include enabling LTO , using min-sized-rust technique to produce small binaries , and adding Eyra as an optional dependency . building a program completely from source . Why? Why use Eyra? It fixes Rust's set_var unsoundness issue . The environment-variable
+implementation leaks memory internally (it is optional, but enabled by
+default), so setenv etc. are thread-safe. Whole-program LTO , including the libc. This sometimes produces smaller
+static binaries, and sometimes produces faster code (though on the other
+hand, sometimes it doesn't, though on the first hand, there are still
+low-hanging fruit, so consider trying it and filing issues). For even more code-size reductions, see the techniques in the hello-world-small example . Support for compiling programs with alternate calling conventions, using Eyra and -Zbuild-std to build a program completely from source . Fully static linking that supports the platform NSS/DNS config. "Is such
+a thing even possible?", "Yes it is." Or, bring your own reason! Be creative and do your own thing, and tell us
+about it! Why not use Eyra? It's not as mature as the major libc implementations. It's not as complete as the major libc implementations. It can run most Rust
+code, and some popular C libraries, but still lacks a lot of things used by
+typical C code. It currently depends on Rust Nightly and only runs on Linux, and currently
+only on x86-64, x86, aarch64, and riscv64. It can't currently run under Miri because Miri doesn't currently recognize
+syscalls made from assembly code. That said, Eyra does strive to adhere to
+strict provenance and to avoid undefined behavior throughout, so if Miri
+were to gain support for such syscalls, Eyra should be well-positioned. No support for dynamic linking. It might seem like "memory safety" might be a reason to use Eyra, and Eyra does
+have a lot of code written in safe Rust, so it does benefit some from Rust's
+memory safety. However, Eyra also has a lot of unsafe code (it's unavoidable
+for implementing a libc). Until this code has been more throughly proven, it's
+not realistic to consider it more safe than mature C code. Fully static linking Eyra executables don't depend on any dynamic libraries, however by default they
+do still depend on a dynamic linker (eg. "/lib64/ld-linux-x86-64.so.2"). For fully static linking, there are currently two options: Build with RUSTFLAGS=-C target-feature=+crt-static -C relocation-model=static . This
+disables Position-Independent Executable (PIE) mode, which is
+straightforward, however it loses the security benefits of
+Address-Space Layout Randomization (ASLR). Build with RUSTFLAGS=-C target-feature=+crt-static and enable the experimental-relocate feature. This allows PIE mode and ASLR to work,
+however it does so by enabling an experimental implementation of
+relocations. This code seems to be working in practice so far, however it
+involves Rust code patching itself as it runs, which is outside of any Rust
+semantics. Optional logging Eyra has a log feature to enable Rust log tracing of program and thread
+startup and shutdown, and an env_logger feature to install env_logger as the logger, which can be enabled in Cargo.toml: [ dependencies ] std = { package = " eyra " , version = " <current-version> " , features = [ " log " , " env_logger " ] } With this, and setting the RUST_LOG environment variable to "trace", the
+hello world program output like this: [TRACE origin::program] Program started [TRACE origin::thread] Main Thread[51383] initialized [TRACE origin::program] Calling `.init_array`-registered function `0x55e86306bb80(1, 0x7ffd0f76aad8, 0x7ffd0f76aae8)` [TRACE origin::program] Calling `origin_main(1, 0x7ffd0f76aad8, 0x7ffd0f76aae8)` Hello, world! [TRACE origin::program] `origin_main` returned `0` [TRACE origin::thread] Thread[51383] calling `at_thread_exit`-registered function [TRACE origin::thread] Thread[51383] calling `at_thread_exit`-registered function [TRACE origin::program] Program exiting with status `0` Compatibility with -Zbuild-std Eyra works with -Zbuild-std , however the --rename=std trick used above
+doesn't work, so it's necessary to instead use this cargo add invocation: cargo add eyra and to also add this line to the program's main.rs file: extern crate eyra ; to ensure that the Eyra libraries are linked in. Reducing code size Eyra can be used with the techniques in min-sized-rust to produce very
+small statically-linked binaries. Check out the hello-world-small example . Relationship to Mustang Eyra is similar to Mustang and uses the same underlying code, but instead
+of using a custom target and -Z build-std, Eyra just needs users to add -nostartfiles to their link line, such as via build.rs in the example. Like Mustang, Eyra currently runs on Nightly Rust on Linux on x86-64, x86,
+aarch64, and riscv64. It aims to support all Linux versions supported by Rust , though at this time it's only tested on relatively recent
+versions. It's complete enough to run: ripgrep coreutils ,
+including the "unix" feature set async-std tokio bat , including git
+support with libgit2 cargo-watch nushell , with a
+few workarounds Compiling C programs Eyra can also be compiled into a libc.a that can be used to compile C
+programs; see the eyra-c repository. Design philosophy Eyra and the libraries it uses have some design goals. Normal Rust, all the way down Sometimes in libc implementation code, there's a temptation to say "it's ok
+if some things are technically Undefined Behavior, because this is Low Level
+Code and We Know What We're Doing". Origin, c-scape, c-gull, rustix, and the others strive to resist this
+temptation, and follow the Rust rules, including strict provenance, I/O safety,
+and all the rest, all the way down to the syscalls. It's just normal Rust code, as far down as we can go in userspace, and when we
+eventually do have to switch to inline asm, we do as little of it as we can. Currently there is only one known place where this goal is not achieved. In a
+"static PIE" executable (eg. built with RUSTFLAGS="-C target-feature=+crt-static" ), the dynamic linker isn't used,
+so the executable has to handle all its relocations itself. However, that
+means storing to memory locations that wouldn't otherwise be considered
+mutable. Origin's code for doing this is currently disabled by default, and
+can be enabled with the "experimental-relocate" cargo feature. C compatibility as a layer on top of Rust, not vice versa Eyra is built on a collection of Rust crates with idiomatic Rust APIs, and two
+crates, c-scape and c-gull, which are relatively thin layers on top that
+implement the libc-compatible C ABI. It's sometimes more work to write the code as separate layers like this, but
+it has the advantage of clearly separating out the unsafe associated with
+things like C pointers and strings in libc APIs from the essential unsafe needed to implement things like system calls, thread primitives, and other
+features. And it means that Rust programs that don't want to go through the C
+compatibility layer can use the underlying crates directly.
+======>
+https://blogaro.com.br
+-->>-->>
+Blogaro! Quem sou eu? Um desenvolvedor de software gerando bugs e corrigindo depois, há 24 anos! Some stats Número de posts: 89 Número de dias desde que eu criei esse blog: 3025 Posts deste blog (em português) | Meu outro blog (inglês)
+======>
+https://thiagocafe.com
+-->>-->>
+Why should you care? You actually shouldn't, but as you read the content, you know that I have being developing software
+                    for 24 years now and I am not as naive as someone who just started, but not old enough
+                    to think everything different than what I know is wrong
+
+======>
+https://github.com/zipxing/rust_pixel
+-->>-->>
+Repository files navigation README Apache-2.0 license Change Log | Coding | FAQ | TODO RustPixel is a 2D game engine & rapid prototyping tools , supporting both text and graphical rendering modes. It is suitable for creating 2D pixel-style games and developing terminal applications . It can be compiled into FFI for front-end and back-end use, and into WASM for web projects. Text Mode: Built with crossterm , runs in the terminal, and uses ASCII & Unicode Emoji for drawing. Graphical Mode (SDL2 & WEB): Built with glow & sdl2 , using PETSCII & custom graphical symbols for rendering. Here is a petscii art painting browser made with rust_pixel . Special thanks to x.com/PETSCIIWORLD for the character painting and the transition shader provided by gltransition . Click here for online demo 。 petview.mp4 Features Game loops & Model/Render design pattern (game.rs) Event/Timer messaging mechanism (event.rs) Support text render mode (crossterm) (adapter.rs, cross.rs) Unified OpenGL drawing mode supports sdl and wasm (glow & sdl2) (adapter.rs, sdl.rs, web.rs) 3 core OpenGl shaders for sdl2 & web graphical mode: (gl/) gl instance rendering shader for draw mainbuffer (render_symbols.rs) gl transition shader for transition effect (render_transition.rs) gl general 2d shader for draw render texture (render_general2d.rs) Some common game algorithms (algorithm.rs, algorithm/, util.rs, util/) audio & log support (audio.rs, log.rs) Demo games: tetris, tower, poker... (games/) Demo terminal ui app: palette... (apps/) Examples of wrapping core algorithms into FFI and WASM (games/poker/ffi, games/poker/wasm) Installation Guide The main steps of the installation process are as follows: Install DroidSansMono Nerd Font & setup terminal Install dependent libraries and softwares Install Rust and Wasm-pack The detailed steps for each operating system: MacOS | Linux | Windows Next, you should clone RustPixel and deploy cargo-pixel tool: git clone https://github.com/zipxing/rust_pixel
+cd rust_pixel
+cargo install --path tools/cargo-pixel --root ~/.cargo Usage Instructions cd rust_pixel
+cargo pixel run snake term            #Run the snake game in terminal mode
+cargo pixel r snake t                 #Run the snake game in terminal mode - shorthand
+cargo pixel r tetris s                #Run the Tetris game in SDL window mode
+cargo pixel r tower w                 #Run tower in web,visit http://localhost:8080/ in your browser
+cargo pixel r tower w --webport 8081  #Change web server port
+cargo pixel r tower w -r              #Run with release mode You can also use cargo pixel to create your own game or app: cargo pixel c games mygame           #Create mygame in ./games using games/template as a template
+cargo pixel c apps myapp             #Create myapp in ./apps using games/template as a template Creat a standalone app in some directory: cargo pixel c .. myapp --standalone  #Create a standalone crate in ../myapp 
+cd ../myapp 
+cargo pixel r myapp t
+cargo pixel r myapp s RustPixel also includes several tools: palette : A terminal-ui tool to generate, analyze, convert and manipulate colors. cargo pixel r palette t -r tedit : Used to edit character art assets, example: #term mode
+cargo pixel r tedit term assets/screen-shot/tedit.txt
+
+#graphical mode
+cargo pixel r tedit sdl assets/screen-shot/tedit.pix tpetii : Used to convert regular images into PETSCII character art, example: cargo pixel r tpetii t assets/a.png -r > assets/a.pix
+cargo pixel r tedit s assets/a.pix cargo pixel r tpetii t assets/lion.png 40 40 -r > assets/lion.pix
+cargo pixel r tedit s assets/lion.pix Script to automatically convert gif images into PETSCII animations (.ssf) cargo pixel cg assets/sdq/fire.gif assets/sdq/fire.ssf 40 25 Demo games snake: A snake game with a cool PETSCII animations #graphical mode
+cargo pixel r snake s -r #term mode
+cargo pixel r snake t -r #web mode
+cargo pixel r snake w -r
+#and visit http://localhost:8080/ in your browser tetris: A Tetris game where you can play against AI #term mode
+cargo pixel r tetris t -r #graphical mode
+cargo pixel r tetris s -r #web mode
+cargo pixel r tetris w -r
+#and visit http://localhost:8080/ in your browser poker: Includes the core algorithms for Texas Hold'em and Gin Rummy cargo pixel r poker t -r
+cargo pixel r gin_rummy t -r The poker/ffi directory demo how to wrap Rust algorithms into CFFI for use with other languages, showcasing C++ and Python calling poker_ffi cd games/poker/ffi
+make run The poker/wasm directory demo how to wrap Rust algorithms into wasm for JS calling cd games/poker/wasm
+make run tower: A tower defense game prototype demonstrating the use of objpool and pixel_sprite for pixel-perfect sprite movement #graphical mode
+cargo pixel r tower s -r
+
+#web mode
+cargo pixel r tower w -r
+#and visit http://localhost:8080/ in your browser and so on ... ...
+
+
+======>
+https://old.reddit.com/r/rust/comments/1fxpuvl/add_windows_thumbbar_buttons_to_rust_app/
+-->>-->>
+Hi, I'm working on a Tauri podcast client app and I would like to add media control buttons to thumbnail preview on windows taskbar. This is for example the Spotify thumbnail:   
+
+   https://preview.redd.it/z1g90k7427td1.png?width=285&format=png&auto=webp&s=6b33407cb12eaf9b450606358dfdc2c6381ad03b   
+
+   Since Tauri api seems to not support natively those buttons, how can I add it using Rust? I taked a look at windows crate, but since I'm very new to Rust, it's pretty difficult to me to understand that library.   
+
+   Do you know any "easy" way to do this? Thanks!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxyjzs/writing_inference_code_in_rust_often_involves/
+-->>-->>
+doing inference with phi3 vision in Rust is still such a hassle. The code you have to write... ugh!   
+
+   fn merge_text_and_image_embeddings(
+    inputs_embeds: &Array3<f32>,
+    attention_mask: &Array2<i64>,
+    visual_features: &Array3<f32>,
+    image_token_position: usize,
+) -> (Array3<f32>, Array2<i64>) {
+    let mut combined_embeds = Array3::zeros((1, inputs_embeds.shape()[1] + visual_features.shape()[1], inputs_embeds.shape()[2]));
+    // Copy text embeddings up to the <|image_1|> token
+    combined_embeds
+        .slice_mut(s![.., ..image_token_position, ..])
+        .assign(&inputs_embeds.slice(s![.., ..image_token_position, ..]));
+    // Insert visual features
+    combined_embeds
+        .slice_mut(s![.., image_token_position..(image_token_position + visual_features.shape()[1]), ..])
+        .assign(&visual_features);
+    // Copy the remaining text embeddings
+    combined_embeds
+        .slice_mut(s![.., (image_token_position + visual_features.shape()[1]).., ..])
+        .assign(&inputs_embeds.slice(s![.., image_token_position.., ..]));
+    // Update attention_mask
+    let mut new_attention_mask = Array2::ones((1, attention_mask.shape()[1] + visual_features.shape()[1]));
+    new_attention_mask
+        .slice_mut(s![.., ..image_token_position])
+        .assign(&attention_mask.slice(s![.., ..image_token_position]));
+    new_attention_mask
+        .slice_mut(s![.., (image_token_position + visual_features.shape()[1])..])
+        .assign(&attention_mask.slice(s![.., image_token_position..]));
+    (combined_embeds, new_attention_mask)
+}
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxz7ix/leptoslike_syntax_for_dioxus/
+-->>-->>
+I’ve been looking into Rust for web dev and Leptos and Dioxus are 2 libraries that stood out to me. I like Leptos’s HTML-like macro syntax better than Dioxus’s DSL, so is there an existing library that has support for Leptos’s syntax for Dioxus? Dioxus appears to be better supported than Leptos (seems to have better documentation + natuve app capability??) so that’s why I’m wanting to use Dioxus rather than “just use Leptos”   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fx9ock/why_wouldnt_the_binary_size_increase_when_a/
+-->>-->>
+TL;DR:    I rubber duckied this while writing it up and it appears to be just a coincidence.   
+
+   I'm submitting the post anyway in case the insights might benefit anyone that lands here :)   
+
+   
+
+   This produces a 13,464 bytes executable (   while with    cargo-zigbuild    it's a 3,200 bytes executable   )
+- It seems that rust isn't able to do some dead code elimination with musl/libc like Zig was doing?
+- The    -Z    args that follow the    cargo +nightly build    don't affect the size in any way either, just longer build times in this case (   same observation with    cargo +nightly zigbuild   ).
+- Without the    -C link-arg=-lc    it'll fail to compile:
+  - Even though nightly is used to build std which should handle the    panic()    need for    core   ?
+  - Zig however compiles fine without the added link arg, so it must be doing something differently on it's side?   
+
+   Reproduction   
+
+   ```rust   
+
+   ![no_std]   
+
+   ![no_main]   
+
+   [no_mangle]   
+
+   pub extern "C" fn main(_argc: i32, _argv: *const *const u8) -> i32 {
+    0
+}   
+
+   [panic_handler]   
+
+   fn panic(_info: &core::panic::PanicInfo) -> ! { loop {} }
+```   
+
+   ```toml
+[package]
+name = "example"
+version = "0.1.0"
+edition = "2021"   
+
+   [profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
+strip = true
+panic = "abort"
+```   
+
+   bash
+RUSTFLAGS="-C link-arg=-lc -Z location-detail=none -C relocation-model=static -C target-feature=+crt-static" \
+  cargo +nightly build \
+    -Z build-std=std,panic_abort \
+    -Z build-std-features=panic_immediate_abort \
+    --target x86_64-unknown-linux-musl --release
+   
+
+   Reproduction environment used if anyone is interested (   Nightly is presently    1.83.0   ):   
+
+   ```console   
+
+   Docker with Fedora 41 for the base reproduction environment:   
+
+   $ docker run --rm -it --workdir /example fedora:41   
+
+   Prep environment (zig optional):   
+
+   $ dnf install -y gcc rustup nano zig
+$ rustup-init -y --profile minimal --default-toolchain nightly --target x86_64-unknown-linux-gnu x86_64-unknown-linux-musl --component rust-src
+$ . "$HOME/.cargo/env" && cargo install cargo-zigbuild   
+
+   From here add the    Cargo.toml    +    src/main.rs    shared at the top of this post,   
+
+   then run the build command.   
+
+   $ cargo init
+```   
+
+   Minor change for    main()    with no impact on size   
+
+   A bizarre observation for me though was if I swap out the    main()    method for:   
+
+   ```rust   
+
+   [no_mangle]   
+
+   pub extern "C" fn main() -> isize {
+    const HELLO: &'static str = "Hello, world!\n";
+    unsafe { write(1, HELLO.as_ptr() as *const i8, HELLO.len()) };
+    0
+}   
+
+   extern "C" {
+    fn write(fd: i32, buf: *const i8, count: usize) -> isize;
+}
+```   
+
+   This still builds to the    exact same size of 13,464 bytes   , even though when it runs it'll now output a string:   
+
+   ```bash   
+
+   rm -rf target    was used before building again:   
+
+   du --bytes target/x86_64-unknown-linux-musl/release/example
+13464   target/x86_64-unknown-linux-musl/release/example   
+
+   Without the implicit    --apparent-size    from    --bytes    (same for both builds):   
+
+   du --block-size=1 target/x86_64-unknown-linux-musl/release/example
+16384   target/x86_64-unknown-linux-musl/release/example   
+
+   For the build with Zig, it increases by 168 bytes:   
+
+   du --bytes target/x86_64-unknown-linux-musl/release/example
+3368
+```   
+
+   strings    output   
+
+   Yet if I run    strings    on it, only this 2nd variation differs by the "Hello, world!" line? Something seems off?   
+
+   ```bash
+strings target/x86_64-unknown-linux-musl/release/example   
+
+   %w      H
+D$PH
+H9D$xu
+AUATI
+AUHc
+ATUH
+H+C(H
+H+{(
+Z[]A\A]
+tdu"H
+Hello, world!
+/dev/null
+GCC: (GNU) 9.4.0
+rustc version 1.83.0-nightly (14f303bc1 2024-10-04)
+.shstrtab
+.note.gnu.build-id
+.init
+.text
+.fini
+.rodata
+.eh_frame_hdr
+.eh_frame
+.init_array
+.fini_array
+.got
+.data
+.bss
+.comment
+```   
+
+   For Zig builds the hello world string output:   
+
+   ```bash
+strings target/x86_64-unknown-linux-musl/release/example   
+
+   Hello, world!
+/dev/null
+AVSH
+%w      I
+D$PH
+\$ H
+CXH;C`u
+AVSP
+AWAVSH
+[A   A_   
+AWAVATSPH
+AWAVATSPH
+I+G(I
+[A\A   A_   
+AVSPH
+AVSPH   
+
+   
+   v$H
+Linker: LLD 18.1.7
+rustc version 1.83.0-nightly (14f303bc1 2024-10-04)
+clang version 18.1.7 (Fedora 18.1.7-6.fc42)
+.note.gnu.build-id
+.rodata
+.text
+.init
+.fini
+.got
+.relro_padding
+.data
+.bss
+.comment
+.shstrtab
+```   
+   
+
+   The original    main.rs    only differs by not having the hello world line + has    L+5=%    instead (   after the 2nd    AWAVATSPH    line   ).   
+
+   Conclusion   
+
+   Perhaps it's just a weird coincidence with whatever the compiler is doing that both versions without Zig involved result in 13,464 bytes?   
+
+   The original without "hello world" string builds for the    -gnu    target as static with    Eyra    at 5,592 bytes for comparison (   5,712 bytes with "hello world" variant   ).
+- Zig cannot be compared as it does not support static linking gnu targets (   similar to how musl targets are not supported for dynamic linking   ).
+- Without eyra, static glibc has a 224 bytes difference (   4,760 vs 4,984   ).
+  - So the observation only seems to apply to musl?
+  - However this segfaults when run, and the    -C link-arg=-lc    causes glibc to be linked dynamically unlike with musl (   or eyra, where it's irrelevant   ). Potentially similar to Zig when providing static    libc.a    (   which prevents the dynamic linking, but Zig still configures the ELF with an interpreter   ).
+  -    UPDATE:    Instead of    -C link-arg=-lc   , for the Fedora 41 reproduction environment adding the    glibc-static    package and instead adding    -C link-arg=/usr/lib64/libc.a -C link-arg=/usr/lib/gcc/x86_64-redhat-linux/14/libgcc_eh.a    to the    RUSTFLAGS    like I had for attempting static build with Zig in the past does work. This results in a    692,976 bytes executable that works   , which is likely similar to the musl bloat concern in that Rust is unable to optimize away what isn't used?   
+
+   UPDATE2:   
+- The musl builds change from 13,464 bytes down to 3,770 bytes and 3,952 bytes when changing the linker to LLD with    -C link-arg=-fuse-ld=lld   . So I guess confirms the size was more of a coincidence.
+- The static glibc build didn't seem to benefit much from that switch, decreased by roughly 1KB.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxnohe/texted_databaseless_blogging_platform/
+-->>-->>
+https://crates.io/crates/texted   
+
+   Texted is a database-less blogging platform where you can write your posts using markdown or HTML.   
+
+   (I am running my 2 blogs in texted now -    https://thiagocafe.com    and    https://blogaro.com.br   
+
+   Why?   
+
+   Many times, I had content in different formats or platforms and it was not simple to recover or render/read. From issues with MS Word documents depending on a closed source paid application to read, google docs and wordpress posts that were hard to export, I was tired of the mess. To make things worse, sometimes, a bad change in those documents (sometimes by mistake) made them irrecoverable.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxkrnr/unable_to_attend_eurorust_selling_a_ticket/
+-->>-->>
+Hello, I'm sad to say that I won't be able to attend EuroRust in Vienna this year due to an immediate family situation. If anyone would like to go and still needs a ticket, I'm selling mine at cost for €520. This is a last-minute bird private ticket, meaning not paid for by a company, and no opportunity to put in a VAT ID. Let me know if you're interested!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxc651/rust_pixel_updated_to_v051/
+-->>-->>
+https://github.com/zipxing/rust_pixel   
+
+   RustPixel is a    2D game engine    &    rapid prototyping tools   , supporting both    text    and    graphical    rendering modes.   
+It is suitable for creating    2D pixel-style games    and developing    terminal applications   .   
+It can be compiled into    FFI    for front-end and back-end use, and into    WASM    for web projects.   
+
+   
+   Text Mode: Built with    crossterm   , runs in the terminal, and uses    ASCII & Unicode Emoji    for drawing.   
+   Graphical Mode (SDL2 & WEB): Built with    glow    &    sdl2   , using    PETSCII & custom graphical symbols    for rendering.   
+   
+
+   https://i.redd.it/ms8yrft5n3td1.gif   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxxvzz/screen_recording_with_ffmpeg/
+-->>-->>
+hi! I'm trying to do screen recording with    ffmpeg_next    but I can't find the bindings for it. I've found    format::format::list    but that's locked behind a non existent feature, and the source code is blank for it.   
+
+   is there any way to do screen capture thru ffmpeg_next/find the gdigrab device in rust?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxtrvk/best_ui_framework/
+-->>-->>
+What is the best UI framework for Rust now with cool widgets customization and just  multifunctional ?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxguu0/hypors_statistical_hypothesis_testing_for_polars/
+-->>-->>
+Hey guys,   
+
+   Created this Rust library `HypoRS` to enable Hypothesis testing for Polars Series objects:    https://crates.io/crates/hypors/   
+
+   It covers several parametric tests (Z, Student T, Proportion, ANOVA, Chi Square), the Mann Whitney, and their variants.    
+
+   There are facilities to configure between alpha values, tails and power (for sample size calculation).   
+
+   It should be pretty holistic, but any issues/contributions are welcome.     
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxz8aq/successfully_loaded_wasm_in_android_webview/
+-->>-->>
+I managed to successfully load a WASM file in an Android WebView instance and build an APK, also integrating the OpenAI REST API. If anyone is interested in how I did it, I can release the code. Let me know!   
+
+   https://preview.redd.it/btw8pbroe9td1.png?width=1008&format=png&auto=webp&s=c34d3b157630027ba24dee6185d0dc6cc2f5e957   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1fxpoq0/best_way_to_peg_the_cpu_at_100/
+-->>-->>
+I just need a very simple way to peg the CPU and all cores at 100%.  This is required to simulate extreme CPU load while running some other programs.   
+
+   This is what I've come up with   
+
+   [dependencies]
+num_cpus = "1.16.0"
+
+fn main() -> ! {
+    for _ in 0..num_cpus::get() {
+        std::thread::spawn(|| {
+            let mut x: f64 = 0.0;
+            loop {
+                // Perform some simple floating-point computation
+                x = (x + 1.0).sin();
+            }
+        });
+    }
+    loop {}
+}
+   
+
+   I added some f64 calculations since llvm seems to optimize-away just plain loop {}   
+
+   Is there a better way?  Maybe something that also tests registers, cache, etc?  Basically, I want my CPU to be fully saturated so that I can test various latencies with some other programs that I am writing running at the same time.   
+   
+
+======>
+https://matklad.github.io/2024/10/06/ousterhouts-dichotomy.html
+-->>-->>
+On Ousterhout ’ s Dichotomy Oct 6, 2024 Why are there so many programming languages? One of the driving reasons for this is that some languages tend to produce fast code, but are a bit of a pain to use (C++), while others are a breeze to write, but run somewhat slow (Python). Depending on the ratio of CPUs to programmers, one or the other might be relatively more important. But can ’ t we just, like, implement a universal language that is convenient but slowish by default, but allows an expert programmer to drop to a lower, more performant but harder register? I think there were many attempts at this, and they didn ’ t quite work out. The natural way to go about this is to start from the high-level side. Build a high-level featureful language with large runtime, and then provide granular opt outs of specific runtime facilities. Two great examples here are C# and D. And the most famous example of this paradigm is Python, with “ rewrite slow parts in C ” mantra. It seems to me that such an approach can indeed solve the “ easy to use ” part of the dichotomy, but doesn ’ t quite work as promised for “ runs fast ” one. And here ’ s the reason. For performance, what matters is not so much the code that ’ s executed, but rather the layout of objects in memory. And the high-level dialect locks-in pointer-heavy GC object model! Even if you write your code in assembly, the performance ceiling will be determined by all those pointers GC needs. To actually get full “ low-level ” performance, you need to effectively “ mirror ” the data across the dialects across a quasi-FFI boundary. And that ’ s what kills “ write most of the code in Python, rewrite hot spots in C ” approach — the overhead for transitioning between the native C data structures and the Python ones tends to eat any performance benefits that C brings to the table. There are some very real, very important exceptions, where it is possible to batch sufficiently large packages of work to minimize the overhead: http://venge.net/graydon/talks/VectorizedInterpretersTalk-2023-05-12.pdf . But it seems that the average case looks more like this: https://code.visualstudio.com/blogs/2018/03/23/text-buffer-reimplementation . And this brings me to Rust. It feels like it accidentally blundered into the space of universal languages through the floor. There are no heavy runtime-features to opt out of in Rust. The object model is universal throughout the language. There isn ’ t a value-semantics/reference-semantics dichotomy, references are first-class values. And yet: There ’ s memory safety, which removes most of the fun aspects of low-level programming. The language didn ’ t sleep on basic PL niceties like sum-types, generics and “ everything-is-expression ” . And a healthy minority of rubyists in the community worked tirelessly to ensure that systems programmers can have nice things . As a result, there is a certain spectrum of Rust: Sloppy Rust, which allocates and clones left-and-right. Normal Rust, which opportunistically uses pretzels and avoids gratuitous allocations but otherwise doesn ’ t try to optimize anything specifically. DoD Rust, which thinks a bit about cache-lines, packs things into arenas, uses indexes instead of pointers with an occasional SoA and SIMD. Crazy here-be-dragons Rust with untagged unions, unsafe, inline assembly and other wizardry. While the bottom end here sits pretty comfortably next to C, the upper tip doesn ’ t quite reach the usability level of Python. But this is mostly compensated through these three effects: Unified object model ensures that there ’ s no performance tax and little ceremony when going up and, down performance sloppiness spectrum. Unsafe abstractions not only allow an expert programmer to write optimal code, but, crucially, they allow wrapping it into misuse-resistance interface, which a non-expert programmer can easily use from a high-level Rust dialect. Performance option is quite an unfair advantage. When you start writing something, you don ’ t necessary know how fast the thing would have to be. It often depends on the uncertain future. But, if you can sacrifice just a tiny bit of developer experience to get an insurance that, if push comes to shove, you could incrementally arrive at the optimal performance without whole-system rewrites, that is often a hard-to-refuse offer.
