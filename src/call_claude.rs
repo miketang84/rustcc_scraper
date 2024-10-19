@@ -44,8 +44,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let url = &url_content[0];
         // let content = &url_content[1];
 
-        if text.len() > 10000 {
-            text = &text[..10000]
+        if text.len() > 5000 {
+            text = &text[..5000]
         }
         if text.len() >= 300 {
             let summarization = claude::call_claude_to_summarize(&api_key, &text).await?;

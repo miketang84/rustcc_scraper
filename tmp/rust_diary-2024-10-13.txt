@@ -1,0 +1,535 @@
+https://github.com/cptrodgers/aj
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license aj Aj is a simple, customize-able, and feature-rich background job processing library for Rust, backed by Actix (Actor Model). Usage use std :: time :: Duration ; use aj :: { export :: core :: actix_rt :: time :: sleep , main , AJ , } ; use aj :: job ; # [ job ] fn hello ( number : i32 , number2 : i32 ) { println ! ( "Hello {} {number2}" , number ) ; } # [ job ] async fn async_hello ( number : i32 , number2 : i32 ) { // We support async fn as well println ! ( "Hello {} {number2}" , number ) ; } # [ main ] async fn main ( ) { // Start AJ engine AJ :: quick_start ( ) ; // Wait the job is registered in AJ let _ = hello :: run ( 1 , 2 ) . await ; // Or fire and forget it let _ = async_hello :: just_run ( 3 , 4 ) ; // Sleep 1 ms to view the result from job sleep ( Duration :: from_secs ( 1 ) ) . await ; } More examples Features Job Types : Instant Jobs Scheduled Jobs, Cron Jobs Manage Job : Update Jobs Cancel Jobs Get Job Information Retry Manual Retry Maximum Retries Retry Strategy: Interval Strategy Exponential Strategy Custom Strategy: Control when the job retries by adjusting the should_retry logic. Backend (Broker + Storage) Backend Trait: AJ can work with any database or storage that implements the Backend trait. In memory Example Native Support: In-memory Redis Processing Speed Customization Job Scan Period (tick) Number of Jobs can run at same time DAG DAG (Directed Acyclic Graph) Distributed Distributed Mode Dashboard & Other Monitorting APIs LICENSE Licensed under either of Apache License, Version
+2.0 or MIT license at your option. Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in aj by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
+======>
+https://internals.rust-lang.org/t/exploring-interior-mutability-auto-traits-and-side-effects/13431
+-->>-->>
+github.com/rust-lang/rfcs Comment by cramertj to RFC: add the Freeze trait to libcore/libstd rust-lang:master ← mtak-:freeze The lang team discussed this in our most recent meeting and has a handful of tho … ughts. For one, we agreed that the name `Freeze` isn't super clear, and for how rare it would be to name, we'd prefer something more descriptive like `NoInteriorMutability`.
+
+However, our most significant concern was around backwards compatibility. This RFC proposes to expose a new auto trait which makes it backwards-incompatible to add a field with interior mutability to an existing type which previously had no interior mutability. This proposal would require library authors who may want to add interior mutability in the future to mark their types with `PhantomData<UnsafeCell<()>>`. The RFC further addresses this restriction in two places:
+
+Under ["drawbacks"](https://github.com/mtak-/rfcs/blob/freeze/text/0000-freeze.md#drawbacks):
+> Crate owners have to now commit to an interior mutability story, or risk breaking changes in the future."
+
+Under ["rationale and alternatives"](https://github.com/mtak-/rfcs/blob/freeze/text/0000-freeze.md#rationale-and-alternatives):
+> Crate owners who incidentally have Freeze types in their API, and wish to add in interior mutability at a later date, can do so by simply adding any pointer based indirection (e.g. Box) to any parts of their type which may be modified through an immutable reference to avoid breaking changes. Moreover, adding interior mutability is often already a breaking change. UnsafeCell<T> is not Sync nor RefUnwindSafe, and is invariant over T.
+
+The team felt hesitant about the idea of adding yet another backwards compatibility footgun to library authors. Adding new types with interior mutability to a structure is a common operation, and requiring library authors to stick `UnsafeCell<PhantomData<()>>` everywhere or add runtime penalties via `Box` feels more burdensome than is justified in order to unblock the relatively more niche use-case this RFC enables.
+
+Personally, I think the best way forward here would be to start with an external crate which offers such a trait, implements it for common types, an unsafe wrapper type, and perhaps includes a `derive` macro. This is less ergonomic and possibly more error-prone than the auto-trait solution proposed by this RFC, but I believe it is the correct trade-off in this case. With that in mind:
+
+@rfcbot fcp close
+
+======>
+https://jsonresume.org/
+-->>-->>
+JSON Resume The open source initiative to create a JSON-based standard for resumes. For developers, by developers. Read more What is this? JSON Resume is a standard created to empower developers. Get started Themes Browse our gallery of resume themes made by the community. View themes Open Source Every part of JSON Resume is open source on GitHub. View on GitHub JSON Resume The open source initiative to create a JSON-based standard for resumes. For developers, by developers. Read more
+======>
+https://github.com/unexcellent/rsume
+-->>-->>
+Repository files navigation README Apache-2.0 license rsume A tool for effortlessly generating resumes. Elevator Pitch The hiring process as a software developer can be super tedious. You never hear back from the majority of companies you have applied to and if they reach out, you have to jump through a lot of hoops to land the job. Since it is recommended to customize your resume for every single application, it may mean that you have to create dozens of resume before finally getting hired. Who has time for that? This tool is here to simplify the process by generating a high-quality resume with minimal work required. Getting started Currently, the only supported method for installing this program is by downloading or cloning this repo and building the binary yourself using cargo or rustc . An instance of Google Chrome or Chromedriver is required for executing the program. Usage rsume should be used from the command line like this: rsume /path/to/resume_data.yaml /target/path.pdf --template " coruscant " --language " english " The --template and --language options are optional. The resume data should follow the JSONResume schema and can either be stored as a .json or .yaml file. Look at examples/kirk_resume_en.yaml . Known Issues Currently, only a single template is available. In the future more template are planned. If the content of the resume is short enough that only one page is filled, an empty second page is generated regardless Page breaks in the coruscant template may separate the section title (like "Education") from the first entry
+
+
+======>
+https://github.com/mozilla/cargo-vet/pull/633
+-->>-->>
+New issue Have a question about this project? Sign up for a free GitHub account to open an issue and contact its maintainers and the community. Sign up for GitHub By clicking “Sign up for GitHub”, you agree to our terms of service and privacy statement . We’ll occasionally send you account related emails. Already on GitHub? Sign in to your account Jump to bottom Remember user --mode choices, and support diff.rs for inspect #633 Merged mystor merged 2 commits into mozilla : main from mystor : mode_defaults Sep 18, 2024 Merged Remember user --mode choices, and support diff.rs for inspect #633 mystor merged 2 commits into mozilla : main from mystor : mode_defaults Sep 18, 2024 +90 −29 Conversation 2 Commits 2 Checks 13 Files changed 5 Conversation This file contains bidirectional Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters. Learn more about bidirectional Unicode characters Show hidden characters Copy link Collaborator mystor commented Sep 18, 2024 This change adds support to remember user's --mode choices, so that they do not need to be used every time. In addition, it adds a basic support for diff.rs to inspect (by loading a diff from a version to itself) such that this mode memory can be shared between diff and inspect. If xfbs/diff.rs#24 is merged, we should change the diff.rs inspect behaviour to use the new browse endpoints instead. Finally, this patch changes the default mode from sourcegraph to diff.rs. As noted in #611 , sourcegraph has been quite unreliable lately, and diff.rs is likely to provide a better experience until that is resolved. Sorry, something went wrong. All reactions Remember user --mode choices, and support diff.rs for inspect … 6378b3c This change adds support to remember user's --mode choices, so that they
+do not need to be used every time. In addition, it adds a basic support
+for diff.rs to inspect (by loading a diff from a version to itself) such
+that this mode memory can be shared between diff and inspect.
+
+If xfbs/diff.rs#24 is merged, we should change the diff.rs inspect
+behaviour to use the new browse endpoints instead.
+
+Finally, this patch changes the default mode from sourcegraph to
+diff.rs. As noted in mozilla#611 , sourcegraph has been quite unreliable lately,
+and diff.rs is likely to provide a better experience until that is
+resolved. mystor requested a review
+  from afranchuk September 18, 2024 19:20 afranchuk approved these changes Sep 18, 2024 View reviewed changes src/storage.rs Outdated Show resolved Hide resolved Centralize mode selection logic 1ee622e Hide details View details mystor merged commit 57a7c61 into mozilla : main Sep 18, 2024 13 checks passed mystor deleted the mode_defaults branch September 18, 2024 20:16 Sign up for free to join this conversation on GitHub .
+    Already have an account? Sign in to comment Reviewers afranchuk afranchuk approved these changes Assignees No one assigned Labels None yet Projects None yet Milestone No milestone Development Successfully merging this pull request may close these issues. 2 participants Add this suggestion to a batch that can be applied as a single commit. This suggestion is invalid because no changes were made to the code. Suggestions cannot be applied while the pull request is closed. Suggestions cannot be applied while viewing a subset of changes. Only one suggestion per line can be applied in a batch. Add this suggestion to a batch that can be applied as a single commit. Applying suggestions on deleted lines is not supported. You must change the existing code in this line in order to create a valid suggestion. Outdated suggestions cannot be applied. This suggestion has been applied or marked resolved. Suggestions cannot be applied from pending reviews. Suggestions cannot be applied on multi-line comments. Suggestions cannot be applied while the pull request is queued to merge. Suggestion cannot be applied right now. Please check back later.
+
+======>
+https://old.reddit.com/r/rust/comments/1g2xffv/issues_compiling_libesedbsys_in_rust_on_windows/
+-->>-->>
+Hello everyone! I’ve run into an issue while trying to build my Rust project using the libesedb-sys crate. After adding the dependency via cargo add libesedb-sys and attempting to compile, I get errors related to missing function declarations for memory management functions like memory_allocate, memory_set, and memory_free.   
+
+   Here’s part of the error output:   
+
+   error: implicit declaration of function 'memory_allocate'
+error: implicit declaration of function 'memory_free'
+   
+
+   It seems that the necessary header files containing these functions are either missing or not included. I’m building the project on Windows, but I can’t run ./configure or make commands in PowerShell, as they aren’t recognized.   
+
+   I’m using a development environment on Windows and I’m not sure how to properly set up the build for such C libraries. Could anyone guide me on how to configure libesedb-sys for Windows? Should I use Cygwin or MinGW? Any additional steps I need to take to get this working?   
+
+   Thanks in advance for any help!Hello everyone! I’ve run into an issue while trying to build my Rust   
+project using the libesedb-sys crate. After adding the dependency via   
+cargo add libesedb-sys and attempting to compile, I get errors related   
+to missing function declarations for memory management functions like   
+memory_allocate, memory_set, and memory_free.   
+Here’s part of the error output:   
+error: implicit declaration of function 'memory_allocate'   
+error: implicit declaration of function 'memory_free'     
+
+   It seems that the necessary header files containing these functions   
+are either missing or not included. I’m building the project on Windows,   
+ but I can’t run ./configure or make commands in PowerShell, as they   
+aren’t recognized.   
+
+   I’m using a development environment on Windows and I’m not sure how   
+to properly set up the build for such C libraries. Could anyone guide me   
+ on how to configure libesedb-sys for Windows? Should I use Cygwin or   
+MinGW? Any additional steps I need to take to get this working?   
+
+   Thanks in advance for any help!   
+   
+
+======>
+https://github.com/zed-industries/zed/pull/19104
+-->>-->>
+New issue Have a question about this project? Sign up for a free GitHub account to open an issue and contact its maintainers and the community. Sign up for GitHub By clicking “Sign up for GitHub”, you agree to our terms of service and privacy statement . We’ll occasionally send you account related emails. Already on GitHub? Sign in to your account Jump to bottom Switch from OpenSSL to Rustls #19104 Merged mikayla-maki merged 2 commits into main from use-rustls Oct 12, 2024 Merged Switch from OpenSSL to Rustls #19104 mikayla-maki merged 2 commits into main from use-rustls Oct 12, 2024 +118 −106 Conversation 0 Commits 2 Checks 8 Files changed 8 Conversation This file contains bidirectional Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters. Learn more about bidirectional Unicode characters Show hidden characters Copy link Contributor mikayla-maki commented Oct 12, 2024 This PR also includes a downgrade of our async_tungstenite version to 0.24 Release Notes: N/A Sorry, something went wrong. 5 treeshateorcs, reo101, ghishadow, gabelluardo, and ctz reacted with thumbs up emoji 4 jdrouet, reo101, ghishadow, and williamdes reacted with heart emoji All reactions 5 reactions 4 reactions Downgrade our async_tungstenite dependency, switch from OpenSSL to ru… … Verified Verified This commit was signed with the committer’s verified signature . mikayla-maki Mikayla Maki SSH Key Fingerprint: 9cSSVhAVKQ42FmAp0ggpS01PJIObEtsOpDIPu//2KgM Learn about vigilant mode Loading Loading status checks… eef1e4f …stls cla-bot bot added
+  the cla-signed The user has signed the Contributor License Agreement label Oct 12, 2024 remove comment Verified Verified This commit was signed with the committer’s verified signature . mikayla-maki Mikayla Maki SSH Key Fingerprint: 9cSSVhAVKQ42FmAp0ggpS01PJIObEtsOpDIPu//2KgM Learn about vigilant mode Loading Loading status checks… 9b327d5 Hide details View details mikayla-maki merged commit c85a3cc into main Oct 12, 2024 9 checks passed mikayla-maki deleted the use-rustls branch October 12, 2024 01:18 notpeter mentioned this pull request Oct 13, 2024 Bump dependencies for RISC-V support #18891 Open 1 task Sign up for free to join this conversation on GitHub .
+    Already have an account? Sign in to comment Reviewers No reviews Assignees No one assigned Labels cla-signed The user has signed the Contributor License Agreement Projects None yet Milestone No milestone Development Successfully merging this pull request may close these issues. None yet 1 participant Add this suggestion to a batch that can be applied as a single commit. This suggestion is invalid because no changes were made to the code. Suggestions cannot be applied while the pull request is closed. Suggestions cannot be applied while viewing a subset of changes. Only one suggestion per line can be applied in a batch. Add this suggestion to a batch that can be applied as a single commit. Applying suggestions on deleted lines is not supported. You must change the existing code in this line in order to create a valid suggestion. Outdated suggestions cannot be applied. This suggestion has been applied or marked resolved. Suggestions cannot be applied from pending reviews. Suggestions cannot be applied on multi-line comments. Suggestions cannot be applied while the pull request is queued to merge. Suggestion cannot be applied right now. Please check back later.
+======>
+https://old.reddit.com/r/rust/comments/1g2lpmd/aj_simple_customizeable_and_featurerich/
+-->>-->>
+Hey Rustacean, yet another Rust background job!   
+
+   I just published the aj 0.6.2 crate:    https://github.com/cptrodgers/aj   , licensed under MIT (of course).   
+
+   The library focuses on a super simple interface but is highly customizable and supports many features like    retry, pre/post execution, scheduling, cron, update, cancel, etc.   
+
+   You can write a simple job using the macro.   
+
+   use std::time::Duration;
+
+use aj::job;
+use aj::{export::core::actix_rt::time::sleep, main, AJ};
+
+#[job]
+fn hello(name: String) {
+    println!("Hello {name}");
+}
+
+#[job]
+async fn async_hello(name: String) {
+    // We support async fn as well
+    println!("Hello async, {name}");
+}
+
+#[main]
+async fn main() {
+    // Start AJ engine
+    AJ::quick_start();
+
+    // Wait the job is registered in AJ
+    let _ = hello::run("Rodgers".into()).await;
+
+    // Or fire and forget it
+    let _ = async_hello::just_run("AJ".into());
+
+    // Sleep 1 ms to view the result from job
+    sleep(Duration::from_secs(1)).await;
+}
+   
+
+   or use struct for complicated use cases   
+
+   // 
+
+#[derive(BackgroundJob, Serialize, Deserialize, Debug, Clone)]
+pub struct AJob;
+
+#[async_trait]
+impl Executable for Print {
+    type Output = Result<(), String>;
+
+    async fn execute(&self, _context: &JobContext) -> Self::Output {
+        println!("Hello {}", self.number);
+        Err("I'm failing".into())
+    }
+
+    // Determine where your job is failed.
+    // For example, check job output is return Err type
+    async fn is_failed_output(&self, job_output: Self::Output) -> bool {
+        job_output.is_err()
+    }
+}
+
+#[main]
+async fn main() {
+    AJ::quick_start();
+
+    let max_retries = 3;
+    // Retry 3 times -> Maximum do the job 4 times.
+    let job = Print { number: 1 }
+        .job_builder()
+        .retry(Retry::new_interval_retry(
+            Some(max_retries),
+            aj_core::chrono::Duration::seconds(1),
+        ))
+        .build()
+        .unwrap();
+    let _ = job.run().await;
+
+    sleep(Duration::from_secs(5)).await;
+}https://github.com/cptrodgers/aj/blob/master/aj/examples/cancel_job.rs
+   
+
+   I need your help to improve the library. Currently, I'm focusing on writing more tests, examples, and improving the macro for easier use. Feel free to check out the repo and let me know your thoughts!   
+
+   Thanks.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g2f2al/why_do_people_do_this_in_phantomdata/
+-->>-->>
+What I would assume is right:
+‘PhantomData<T>’   
+
+   What they do (most common):
+‘PhantomData<fn() -> T> ‘   
+
+   Or (less common):
+‘PhantomData<fn(T)>’   
+
+   First two apply to multiple generics, but the third option doesn’t have to be a tuple since it’s a function   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g368lo/about_tauri_and_workspace_problem/
+-->>-->>
+Hello everyone,   
+
+   I’m currently facing an issue. I have two projects that use Tauri, and they both need to share a lot of our local Rust code. So, I created a root directory, integrated both projects as submodules, and created a shared Rust library in this directory. The structure is as follows:   
+
+   members = ["share_lib", "project1/src-tauri", "project2/src-tauri"]
+
+root_dir/
+    ├── Cargo.toml
+    ├── shared_lib/
+    │   ├── Cargo.toml
+    │   └── src/
+    ├── project1/
+    │   ├── src-tauri/
+    │   │   ├── Cargo.toml
+    │   │   └── src/
+    │   ├── src/ (front code)
+    │   ├── (other Tauri config)
+    │   └── package.json
+    └── project2/
+        ├── src-tauri/
+        │   ├── Cargo.toml
+        │   └── src/
+        ├── src/ (front code)
+        ├── (other Tauri config)
+        └── package.json
+   
+
+   I’m not sure if this pattern and structure are reasonable. I’d like to know some best practices. Also, currently, I can run and debug within the individual project directories without any issues, but I’m uncertain about the best way to directly run and debug a project from the root directory. Any advice would be greatly appreciated!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g2pali/idea_taintedcell_yet_another_safe_zerocost/
+-->>-->>
+Hey folks,   
+
+   I've thought a bit about zero-cost cells in the last couple of days and came across this idea:   
+
+   https://play.rust-lang.org/?version=nightly&mode=debug&edition=2021&gist=436e4495922ac2839bd12f162baaaeb2   
+
+   It's widely similar to phlopsis idea (here    https://internals.rust-lang.org/t/exploring-interior-mutability-auto-traits-and-side-effects/13431    ), but to me it seems like it would solve the "static" problem using the LocalToken.   
+
+   It would be wonderful if any unsafe wizards could tell me where this API is still unsafe, or why it isn't useful in practice.   
+
+   I know that it's kinda annoying that you have to pass this LocalToken around forever, but I still see some cool use-cases like caches, interners etc.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g3692u/does_this_optimization_make_any_sense_is_it_a/
+-->>-->>
+Hi, I'm building a PHP interpreter in Rust. I still have a lot to implement, but while coding, I had an idea and I'm unsure if it exists in this kind of scenario. I’d love to hear your opinions.   
+
+   After generating the entire AST (Abstract Syntax Tree), I was thinking about adding an additional step before executing the instructions. This step would involve iterating over the AST to generate an optimized version. Here are a couple of optimizations I had in mind:   
+
+   
+   If the system detects that a variable is used only once, it could suggest avoiding cloning the value, and instead, directly move it to where it’s needed.   
+   If a function is called more than once, it could suggest that after the first call, the function’s body (i.e., the statements generated by the AST) be copied for reuse.   
+   
+
+   These are just some ideas. Do they make sense? Is it a good approach? I'm fairly new to interpreter development, so I would appreciate your feedback. :)   
+   
+
+======>
+https://deno.com/blog/v2.0
+-->>-->>
+Announcing Deno 2 October 9, 2024 Ryan Dahl Bert Belder Bartek Iwańczuk Andy Jiang Product Update Watch our video announcement. Announcing Deno 2 The web is humanity’s largest software platform — building for it means
+potentially reaching over 5 billion people .
+But as web development has accelerated in recent years ,
+it has also become increasingly and unmanageably complex. Before writing a
+single line of code, developers must deal with tedious configuration and wading
+through unnecessary boilerplate, when they would rather focus on shipping
+product and delivering value to users. Yet
+despite these complexities ,
+JavaScript, the language of the web,
+has remained the most popular language for the past decade ,
+with TypeScript quickly emerging as number three. This is a testament to
+JavaScript’s ubiquity and usefulness for web development — and a sign that
+JavaScript is not going anywhere. In an effort to simplify web programming, we created Deno: a modern, all-in-one,
+zero-config toolchain for JavaScript and TypeScript development. Native TypeScript support Built on web standards : Promises, fetch, and ES Modules Batteries included : builtin formatter, linter, type checker, test
+framework, compile to executable, and more Secure by default ,
+just like browsers Today, hundreds of thousands of developers love using Deno,
+with repository becoming one of the highest starred Rust project on GitHub second
+only to the Rust language itself. While we’ve accomplished a ton in Deno 1, the next major version is focused on
+using Deno at scale . This means seamless interoperability with legacy
+JavaScript infrastructure and support for a wider range of projects and
+development teams. All without sacrificing the simplicity, security, and
+“batteries included” nature that Deno users love. Today, we’re thrilled to announce Deno 2 , which includes: Backwards compatibility with Node.js and npm, allowing you to run existing
+Node applications seamlessly Native support for package.json and node_modules Package management with new deno install , deno add , and deno remove commands A stabilized standard library Support for private npm registries Workspaces and monorepo support Long Term Support (LTS) releases JSR: a modern registry for sharing JavaScript libraries across runtimes We are also continually improving many existing Deno features: deno fmt can now format HTML, CSS, and YAML deno lint now has Node specific rules and quick fixes deno test now supports running tests written using node:test deno task can now run package.json scripts deno doc ’s HTML output has improved design and better search deno compile now supports code signing and icons on Windows deno serve can run HTTP servers across multiple cores, in parallel deno init can scaffold now scaffold libraries or servers deno jupyter now supports outputting images, graphs, and HTML deno bench supports critical sections for more precise measurements deno coverage can now output reports in HTML Backwards-compatible, forward-thinking Deno 2 is backwards compatible with Node and npm. This allows you to not only
+run Deno in your current Node projects, but also incrementally adopt pieces of
+Deno’s all-in-one toolchain. For instance, you can use deno install after you
+clone a Node project to install your dependencies at lightning speed or run deno fmt to format your code without needing Prettier. Deno 2’s compatibility with Node and npm is robust. Deno 2 understands package.json , the node_modules folder, and even npm workspaces, allowing
+you to run Deno in any Node project using ESM. And if there are minor syntax
+adjustments needed, you can fix them with deno lint --fix . Don’t like the clutter of package.json and the node_modules directory, but
+still need to use that npm package? You can directly import npm packages using npm: specifiers. Without package.json and the node_modules folder, Deno
+will install your package in the global cache. This allows you to write programs
+with npm dependencies in a single file —
+no dependency manifest, configuration files, or node_modules needed. import chalk from "npm:chalk@5.3.0" ; console . log ( chalk . blue ( "Hello, world!" ) ) ; // Hello, world! (in blue) For larger projects, a dependency manifest makes it simple to manage your
+dependencies. Placing an npm: specifier into an import map in a deno.json file allows importing the bare name of the package: // deno.json { "imports" : { "chalk" : "npm:chalk@5.3.0" } } import chalk from "chalk" ; console . log ( chalk . blue ( "Hello, world!" ) ) ; // Hello, world! (in blue) With the ability to import npm packages via the npm: specifier, you can access
+over 2 million npm modules in Deno. This even includes complex packages such as gRPC , ssh2, Prisma, temporal.io,
+duckdb, polars. Deno even supports advanced features like Node-API native
+addons. Finally, you can use Deno 2 with your favorite JavaScript framework. Deno 2
+supports Next.js, Astro, Remix, Angular, SvelteKit, QwikCity and many other
+frameworks. Running create-next-app with Deno. Deno is now a package manager with deno install Not only does Deno 2 support package.json and the node_modules folder, it
+also comes with three important subcommands that allow you to easily install and
+manage your dependencies. deno install installs your dependencies at lightning speed. If you have a package.json it will create a node_modules folder in the blink of an eye. If
+you don’t use package.json , it will cache all of your dependencies to the
+global cache. deno install is 15% faster than npm with a cold cache, and 90% faster with a
+hot cache. We’re already exceptionally fast here, but expect more improvements,
+especially in cold cache scenarios, in the coming weeks. deno add and deno remove can be used to add and remove packages to/from your package.json or deno.json . If you’ve used npm install or npm remove before, these will feel very familiar. JavaScript Registry Earlier this year we introduced a modern, open sourced JavaScript registry called JSR . It supports TypeScript natively (you can publish modules as TypeScript source
+code), handles the module loading intricacies multiple runtimes and
+environments, only allows ESM, auto-generates documentation from JSDoc-style comments ,
+and can be used with npm- and npx-like systems (yes, JSR turns TypeScript into .js and .d.ts files, as well). Because you upload TypeScript to JSR, it has an outstanding understanding of the
+code that is being published. This allows us to deliver a seamless developer
+experience for both publishing and consuming modules. If you are interested in
+the details, you can read our post on how we architected JSR . Here is a side-by-side video of publishing a package to npm vs. to JSR. The Standard Library is now stable While there are over 2 million modules available on npm, the process of
+searching, evaluating, and using a new module can be time consuming. That’s why
+we’ve been building the Deno Standard Library for over 4 years. The Standard Library consists of dozens of heavily audited utility modules
+covering everything from data manipulation, web-related logic,
+JavaScript-specific functionalities, and more . It is available on JSR , and can be used by other runtimes and
+environments. To give you a sense of what kinds of modules are available in the Deno Standard
+Library, here is a partial list of the Standard Library modules and their
+equivalent in npm: Deno Standard Library module npm package @std/testing jest @std/expect chai @std/cli minimist @std/collections lodash @std/fmt chalk @std/net get-port @std/encoding rfc4648 For a complete list of available packages visit https://jsr.io/@std . Private npm registries Private npm registries in Deno 2 work the same way they do in Node and npm, with an .npmrc file : // .npmrc @mycompany : registry = http : / / mycompany.com:8111 / //mycompany.com:8111/:_auth=secretToken Deno will pick up this .npmrc file automatically, and will let you pull
+private packages with no additional configuration. Workspaces and monorepos Deno 2 also supports workspaces, which is a robust solution to manage
+monorepos. Simply use the workspace attribute in your deno.json to list
+the member directories: // deno.json { "workspace" : [ "./add" , "./subtract" ] } These members can have separate dependencies, linter and formatter
+configuration, and more. Not only does Deno support workspaces for Deno packages, it also understands npm workspaces . This means
+that you can create a hybrid Deno-npm monorepo
+( see this example ),
+with workspace members that either have a package.json or deno.json: This sample monorepo contains a mix of npm members and Deno members. You can also publish workspace members to JSR by running deno publish . For an
+example, refer to the Deno Standard Library .
+No need to manually figure out in what order you need to publish your packages -
+just run deno publish , and it will do it all for you. LTS Often, development teams in larger organizations need to carefully audit new
+releases before using them in production. With Deno’s weekly bug-fix releases,
+and 6 weekly minor releases this can become time-consuming. To make it easier
+for these teams, we’re introducing a Long Term Support (LTS) release
+channel . Starting with Deno 2.1, the LTS channel will receive critical bug fixes
+back-ported for six months, ensuring a stable and reliable base for production
+use. After six months, a new LTS branch will be created based on the latest
+stable version. All LTS releases are freely available and MIT licensed, making
+them accessible to any team that needs a more stable and secure environment. Starting with Deno 2.1, we’ll introduce a LTS branch that we’ll maintain and
+backport critical bug fixes to for six months. Finally, for teams needing advanced support, we’ve introduced the Deno for Enterprise program . It offers priority
+support, direct access to our engineers, guaranteed response times, and priority
+for your feature requests. We’ve partnered with companies like Netlify, Slack,
+and Deco.cx to help their engineers move faster and deliver
+more value to their users. Deno is fast! We’ve put tremendous effort into making Deno fast across a wide range of
+real-world scenarios. Our focus is on delivering performance improvements that
+truly matter in everyday JavaScript and TypeScript development—whether it’s
+startup time, handling complex requests, or overall efficiency. While benchmarks can never tell the full story, they can provide insight into
+where a runtime excels. Here are some benchmarks that showcase Deno’s strengths,
+demonstrating its ability to deliver top-notch performance for both developers
+and production environments. Please refer to the links beneath each chart for further detail and reproducible
+steps. Correction: The first HTTP benchmark shown above was conducted using Deno 1.45, not Deno 2.0. In reality, Deno 2.0 is
+about 20% slower than indicated here. This difference is due to our recent disabling of V8 pointer compression to address cases where users exceeded the 4GB heap limit. We plan to re-enable
+pointer compression soon, as it’s the ideal default for most users, and
+introduce a deno64 build for those needing larger heaps. FAQs If Deno is fully backward compatible with Node, why should I use Deno instead of Node? While Deno can run Node programs, it’s designed to push JavaScript and
+TypeScript forward. Deno offers features that Node lacks, such as native
+TypeScript support, web-standard APIs, a complete toolchain for JavaScript
+development, and a secure-by-default execution model—all in a single executable
+with no external dependencies. Using Deno over Node can save you time on setup
+and configuration, letting you start coding and delivering value faster. Will Deno’s opt-in permission system be in effect when running Node programs? Yes, Deno’s secure-by-default execution model applies when running Node programs
+or importing npm modules, ensuring the same level of security. Why the new logo? What happened to the cute dinosaur mascot? Since the beginning, the cute sauropod in the rain has been Deno’s face. Its
+quirky charm has always been a hallmark of Deno, but the design was never
+consistent—there were at least two “official” versions and countless variations.
+With Deno 2.0, we decided it was time for a refresh. We wanted to keep the essence of the original character that Deno users love
+while giving it a more refined look to match Deno’s professional and
+production-grade nature. During the redesign, we realized that the rainy
+background, while nostalgic, didn’t scale well and often went unnoticed. It was
+too busy, especially at small sizes, so we had to let it go. After many iterations, we found that simplifying the design to its core elements
+struck the right balance—simple and friendly, yet serious and reliable—just like
+Deno. (Don’t worry, the cute dino is still here!) Deno began with an ambitious vision to modernize JavaScript. But with all the work spent on backward compatibility, what’s left of Deno’s original vision? Rewriting the entire JavaScript ecosystem isn’t practical. As Deno has scaled
+beyond small programs, we’ve recognized that supporting Node and npm
+compatibility is essential—especially for tools like gRPC and AWS SDKs, which
+are impractical to rewrite from scratch. But Deno’s goal is not to become a Node clone in Rust or a drop-in replacement.
+Our aim is to level up JavaScript, moving beyond 2010-era CommonJS and narrowing
+the gap between server-side and browser environments in a way that developers
+can adopt practically. We refuse to accept that JavaScript must remain a tangle
+of mismatched tooling and endless layers of transpilation, unable to evolve. Deno’s original vision remains central to everything we do. This includes native
+TypeScript support, built-in web standards like Promises, top-level await, Wasm,
+fetch, and ES Modules, and a batteries-included toolchain—all packaged in a
+single, dependency-free executable. And, of course, it is secure by default,
+just like the web. Supporting npm is just one step toward making Deno more versatile. Our mission
+is to provide a modern, streamlined toolchain that enhances the JavaScript
+experience—not just to support legacy code. While we’ve adjusted our approach,
+our vision remains the same: to simplify and empower web development. I loved Deno because it didn’t need any config files, but with the new package manager additions, is Deno 2 becoming more like Node, where you need a package.json to add dependencies? Not at all. You can still run single-file programs or scripts without any config
+or dependency manifest—nothing has changed there. The new package management
+commands ( deno install , deno add , and deno remove ) are optional tools
+designed to simplify managing dependencies, whether you use a deno.json or package.json file. They’re especially useful for larger, more complex projects
+but won’t get in the way if you prefer the simplicity of no configuration. One of our core goals is that Deno scales down to simple, single-file programs
+that can import any package without additional ceremony. For example, in
+contexts like Jupyter notebooks or quick scripts, you can easily do: import * as Plot from "npm:@observablehq/plot" ; At the same time, Deno scales up to handle large projects with multiple files or
+even multiple packages, such as in monorepos. This flexibility ensures that Deno
+is just as effective for small scripts as it is for large, production-grade
+applications. I have a Fresh project. Are there breaking changes if I upgrade to Deno 2? Nope! Your Fresh project should work out of the box
+with Deno 2—no changes needed. When should I expect Deno 2 to land on Deno Deploy? Any moment now! What’s next Deno 2 takes all of the features developers love about Deno 1.x — zero-config,
+all-in-one toolchain for JavaScript and TypeScript development, web standard API
+support, secure by default — and makes it fully backwards compatible with Node
+and npm (in ESM). This makes not only running Deno in any Node project simple,
+but also allows incremental adoption of Deno (e.g. running deno fmt or deno lint ) possible in larger, more complex projects. Along with improved
+package management, JSR, and a slew of features for more advanced development
+teams, Deno is ready to simplify and accelerate your development today. However, given Deno’s vast capabilities, we weren’t able to cover everything in
+a single blog post and video. There are many exciting features and use cases
+with Deno that we didn’t touch upon. For instance, being able to use deno compile to turn a JavaScript game into a desktop executable with cross compilation (yes, Windows) support. Or Deno’s Jupyter notebook support that allows you to explore and visualize data in TypeScript and @observable/plot . Or generating documentation
+or a static documentation site from your JSDoc comments and source code with deno doc . We invite you to try Deno 2 today and experience the future of JavaScript and
+TypeScript development. Get started with Deno 2 now: Getting Started with Deno (docs) 1.x ⇒ 2 Migration Guide Deno Tutorial Series Watch the Deno 2 Announcement Keynote Join our community and let’s shape the future of JavaScript together!
+======>
+https://old.reddit.com/r/rust/comments/1g2uvvl/generating_templated_resumes_in_rust/
+-->>-->>
+Hi everyone, I got fed up from having to reedit my resume for every single job application, so I created a tool in rust - called    rsume    - for generating stylish resumes from data in the    JSONResume    format.   
+
+   I first started the project in Python since reliability and performance were not concerns and I thought the larger Python user base might encourage contributions. However, I got so fed up by the bad data parsing and HTML to PDF conversion that I switched to Rust.   
+
+   It is one of my first major-ish Rust project, so any feedback or contributions would be greatly appreciated. Currently only one design exists but more are planned in the future.   
+
+   Example:   
+
+   https://preview.redd.it/pbd1hjth6kud1.png?width=1310&format=png&auto=webp&s=82b39b53bc95c0f151e771f40c3b0cc9002339ab   
+   
+
+======>
+https://felix-knorr.net/posts/2024-10-13-replacing-nginx-with-axum.html
+-->>-->>
+Replacing nginx with axum Rust 2024-10-13 For the last seven years, I've been reaching for nginx when I wanted to host
+something that was facing the public internet. Mostly as a reverse-proxy, but
+also for static sites. My webservers tend to accumulate features over time (like
+all software, I guess) and after a while, I have multiple services running under
+different subdomains, some being protected using basic auth, and of course TLS in front of
+everything. Roughly a year ago, I replaced my private server's nginx setup
+with a handwritten one using axum. Axum is a Rust library to write web
+services, and I'm maintaining one at $work that is using it. I'm a big fan of
+axum, because it makes it incredibly easy to create webservices. Nginx is not
+super hard to configure, but it's also not easy. With these two evaluations in my
+head, it seemed like a good idea to replace nginx with a server using axum. This way, I would only need to do a basic server setup (sshd config, fail2ban,
+etc.), copy the server binary onto the server, place a single service file, and
+call it a day. Axum 101 Obviously, this whole endeavour is based on the fact that I'm much more
+comfortable with axum than I am with nginx. If you don't know axum, you would
+probably not agree with me. So let me give you a quick tour. Axum is a library to write web services that expose an http api. A hello world 
+in axum looks like this: use axum ::{ routing :: get , Router , }; #[tokio::main] async fn main () { // build our application with a single route let app = Router :: new (). route ( "/" , get ( || async { "Hello, World!" })); // run our app with hyper, listening globally on port 3000 let listener = tokio :: net :: TcpListener :: bind ( "0.0.0.0:3000" ). await . unwrap (); axum :: serve ( listener , app ). await . unwrap (); } This example and all other examples in this section were taken from axum's doc page . Most axum apps have the same
+structure: you create a Router , add handlers to it via the route() method,
+create a TcpListener , and serve the Router via that listener. What makes axum so powerful, is how you create those handlers. You can set the
+http method via a simple function call ( get in the example). Here is an example
+that creates multiple handlers: use axum ::{ Router , routing :: get }; // our router let app = Router :: new () . route ( "/" , get ( root )) f // /foo has a get and a post handler . route ( "/foo" , get ( get_foo ). post ( post_foo )) . route ( "/foo/bar" , get ( foo_bar )); // which calls one of these handlers async fn root () {} async fn get_foo () {} async fn post_foo () {} async fn foo_bar () {} And it's also very easy to extract data from a request, for example: use axum ::{ extract ::{ Path , Query }, routing :: get , Router , }; use uuid :: Uuid ; use serde :: Deserialize ; let app = Router :: new (). route ( "/users/:id/things" , get ( get_user_things )); // a function that is used as query, can take arguments that implement axums // FromRequest or FromRequestParts traits. Those are called extractors. // Axum provides many pre made extractors for example Path, Query and Json async fn get_user_things ( Path ( user_id ): Path < Uuid > , pagination : Option < Query < Pagination >> , ) { let Query ( pagination ) = pagination . unwrap_or_default (); // ... } // An instance of this type will be created by the Query extractor #[derive(Deserialize)] struct Pagination { page : usize , per_page : usize , } impl Default for Pagination { fn default () -> Self { Self { page : 1 , per_page : 30 } } } If you used code like this on a server, and someone sends a get request to http://your.server.org/user/10/things?page=2&per_page=50 , axum will extract
+the user id and the query fields for you. You don't need more info that this to understand 80% of all axum code I've 
+ever written. But there is one other thing to be aware of, when you use
+axum: it is based on tower . At the heart
+of tower is the Service trait. A service is anything that gets data from the
+internet and returns some data. In the case of Axum that means receiving Http
+requests, and returning Http responses. The handlers from the examples above
+are services, but the router is too. Tower allows you to layer services, which
+is where the name comes from, I assume. If you just use a single handler, the situation looks like this: But if you use a second
+service, as a layer for the first one, the situation looks like this: A layer can also decide not to call the next layer, and immediately return.
+In axum, you can add layers via the layer() method, that most types have.
+For a deep dive into this, I'd recommend taking a look axum's middleware documentation ,
+and at the tower-guides .
+But that should not be necessary to understand the remainder of this article. There is a crate tower-http ,
+that already provides lots of useful layers for http servers. A simple static site I hope, you now have a rough idea of how axum works, so let's get back to 
+the main topic of this article.
+The code you need to host a simple static site with axum looks like this: use axum :: Router ; use tower_http :: services :: ServeDir ; #[tokio::main] async fn main () { let app = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir" )); let listener = tokio :: net :: TcpListener :: bind ( "0.0.0.0:3000" ). await . unwrap (); axum :: serve ( listener , app ). await . unwrap (); } This is only slightly more text than an equivalent nginx config has. Besides axum,
+this also uses tower-http and tokio . That's already three libraries, and it's about to 
+become a few more. I know this is a trigger for some people, but these libraries
+are what allows us to host a static site with three lines of code (use statements and
+the main definition don't count, at least in my eyes). Two static sites with different subdomains The next level of complexity is two static sites that run on different subdomains.
+The following example is a webserver that hosts two different static sites.
+One at site1.my.domain and one at site2.my.domain . Because we might want
+to test the webserver locally (btw, also something that's hard to do with nginx), we
+add a commandline parameter --production , and only host on the two domains above if
+it was provided. Otherwise, we host at site1.localhost:3000 and site2.localhost:3000 . use axum ::{ body :: Body , extract :: Host , handler :: HandlerWithoutStateExt , http ::{ Request , StatusCode }, response :: IntoResponse , Router , }; use tower :: ServiceExt ; use tower_http :: services :: ServeDir ; #[tokio::main] async fn main () { let site1_svc = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir" )); let site2_svc = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir2" )); let debug_mode = ! std :: env :: args (). any ( | x | x == "--production" ); let ( name_site1 , name_site2 ) = if debug_mode { ( "site1.localhost:3000" . to_string (), "site2.localhost:3000" . to_string (), ) } else { ( "site1.my.domain" . to_string (), "site2.my.domain" . to_string (), ) }; // define a handler that routes to our services depending on the hostnames let host_name_router = move | Host ( hostname ): Host , request : Request < Body >| async move { if hostname == name_site1 { site1_svc . oneshot ( request ). await } else if hostname == name_site2 { site2_svc . oneshot ( request ). await } else { Ok ( StatusCode :: NOT_FOUND . into_response ()) } }; // hand everything off to axum let app = Router :: new (). route_service ( "/" , host_name_router . into_service ()); let listener = tokio :: net :: TcpListener :: bind ( "0.0.0.0:3000" ). await . unwrap (); axum :: serve ( listener , app ). await . unwrap (); } The arg parse code would probably be replaced by a crate like clap in a more complex
+program. The most important new bit here, is this part: // define a handler that routes to our services depending on the hostnames let host_name_router = move | Host ( hostname ): Host , request : Request < Body >| async move { if hostname == name_site1 { site1_svc . oneshot ( request ). await } else if hostname == name_site2 { site2_svc . oneshot ( request ). await } else { Ok ( StatusCode :: NOT_FOUND . into_response ()) } }; We define a handler that does the routing and forwards everything to the appropriate 
+service using the oneshot method. If no host name matches, we just return 
+an appropriate status code. Let's put this into its own function though, because the ultimate goal is to
+have a very clear main function. This way, when we come back to the server
+six months later and have forgotten nearly everything about it, we are able to
+modify it easily. pub fn mk_hostname_router ( map : HashMap < String , Router > , ) -> BoxCloneService < Request < Body > , Response < Body > , Infallible > { BoxCloneService :: new ( ( move | Host ( hostname ): Host , request : Request < Body >| async move { for ( name , router ) in map { if hostname == name { return router . oneshot ( request ). await ; } } Ok ( StatusCode :: NOT_FOUND . into_response ()) }) . into_service (), ) } The Service trait is a bit unwieldy. It's much easier to return a BoxService or a BoxCloneService depending
+on whether it needs to be clonable. So now, the main looks like this: #[tokio::main] async fn main () { let site1_svc = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir" )); let site2_svc = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir2" )); let debug_mode = ! std :: env :: args (). any ( | x | x == "--production" ); let ( name_site1 , name_site2 ) = if debug_mode { ( "site1.localhost:3000" . to_string (), "site2.localhost:3000" . to_string (), ) } else { ( "site1.my.domain" . to_string (), "site2.my.domain" . to_string (), ) }; // define a handler that routes to our services depending on the hostnames let hostname_router = mk_hostname_router ([( name_site1 , site1_svc ), ( name_site2 , site2_svc )]. into ()); // hand everything off to axum let app = Router :: new (). route_service ( "/" , host_name_router . into_service ()); let listener = tokio :: net :: TcpListener :: bind ( "0.0.0.0:3000" ). await . unwrap (); axum :: serve ( listener , app ). await . unwrap (); } Reverse Proxy Another common task many people use nginx for is reverse proxying. So let's see
+how we can build a reverse proxy service. We basically need a handler that's
+applied to every request, and makes a request itself, just to another server. pub async fn reverse_proxy_http_handler ( port : u16 , State ( client ): State < Client > , mut req : Request , ) -> Result < Response , StatusCode > { // extract the query let path = req . uri (). path (); let path_query = req . uri () . path_and_query () . map ( | v | v . as_str ()) . unwrap_or ( path ); // construct the new uri query from the port and the query let uri = format! ( "http://127.0.0.1:{port}{path_query}" ); // inject the new uri into the request * req . uri_mut () = Uri :: try_from ( uri ). unwrap (); // hand off the request Ok ( client . request ( req ) . await . map_err ( | _ | StatusCode :: BAD_REQUEST ) ? . into_response ()) } This function needs an http client, which we use hyper for. It will be provided
+via the Router::with_state() method. Some reverse proxies would also require us
+to tinker with the host names to work correctly (e.g. Syncthing), while other services
+would prefer to get the request as it was originally, so you might want to adjust this
+function a little, depending on your needs. Let's look at how we use this handler: let rev_proxy_svc = Router :: new (). nest_service ( "/" , ( | state , req | reverse_proxy_http_handler ( 3001 , state , req )). with_state ( client ), ); The client is passed via with_state() , so it's not recreated on every call. Additionally,
+using with_state() turns the closure into a Service . You might want to take
+a look at axum's reverse proxy example Some Auth We probably want some protection for a service when it's publicly exposed 
+to the internet, so let's add that: let rev_proxy_svc = Router :: new () . route_service ( "/" , ( | state , req | reverse_proxy_http_handler ( 3001 , state , req )). with_state ( client ), ) . layer ( ValidateRequestHeaderLayer :: basic ( "user" , "super safe pw" )); This will use basic auth, and make the browser ask for a password nicely.
+This uses tower_http::validate_request::ValidateRequestHeaderLayer::basic and requires that we add
+the password in plaintext. If you are uncomfortable with this, which
+you should be in most scenarios, then you can also use the custom method to define a function that compares the hash of the provided values to a stored hash. SSL-Certs Using basic auth is only reasonable when the connection is encrypted, so let's
+set up TLS. Luckily, there is rustls_acme , 
+which handles everything regarding the certificate automatically.
+Setting it up is a little more complicated than the other things we've done so
+far. pub async fn serve_with_tsl ( app : Router , domains : impl IntoIterator < Item = impl AsRef < str >> , email_for_lets_encrypt : & str , cert_cache_dir : impl Into < PathBuf > , ) -> Result < () > { let ccache : PathBuf = cert_cache_dir . into (); if ! ccache . exists () { fs :: create_dir_all ( & ccache ). context ( "Creating Cache Dir" ) ? ; } let mut state = AcmeConfig :: new ( domains ) . contact ([ format! ( "mailto:{email_for_lets_encrypt}" )]) . cache ( DirCache :: new ( ccache )) . directory_lets_encrypt ( true ) . state (); let acceptor = state . axum_acceptor ( state . default_rustls_config ()); tokio :: spawn ( async move { loop { match state . next (). await . unwrap () { Ok ( ok ) => log :: info ! ( "event: {ok:?}" ), Err ( err ) => log :: error ! ( "error: {err}" ), } } }); let addr = SocketAddr :: from (([ 0 , 0 , 0 , 0 ], 443 )); let tls_server = axum_server :: bind ( addr ) . acceptor ( acceptor ) . serve ( app . into_make_service ()); let redirect_server = mk_redirect_server (); Ok ( tokio :: try_join ! ( tls_server , redirect_server ). map ( | _ | ()) ? ) } This will also require the crates axum_server , anyhow , tokio_stream and log .
+This code was based on this example .
+Of course, you could rewrite this a little to get rid of the usage of anyhow and log . They
+are not required for this task, but I just like to use them. This function first makes sure, that the directory, where AcmeConfig will
+store the cached certificates, exists. Then it creates an AcmeConfig instance, which will handle TLS and decrypt all data before axum processes it,
+and then uses a low-level axum api to create a server that uses the state object. If you look closely, you will notice the function mk_redirect_server() . We use it
+to also accept unencrypted requests, and forward them to the encrypted API: async fn mk_redirect_server () -> std :: io :: Result < () > { fn make_https ( host : String , uri : Uri ) -> Result < Uri , Box < dyn std :: error :: Error >> { let mut parts = uri . into_parts (); parts . scheme = Some ( axum :: http :: uri :: Scheme :: HTTPS ); if parts . path_and_query . is_none () { parts . path_and_query = Some ( "/" . parse (). unwrap ()); } parts . authority = Some ( host . parse () ? ); let new_uri = Uri :: from_parts ( parts ) ? ; Ok ( new_uri ) } let redirect = move | Host ( host ): Host , uri : Uri | async move { match make_https ( host , uri ) { Ok ( uri ) => Ok ( Redirect :: permanent ( & uri . to_string ())), Err ( e ) => { Err ( StatusCode :: BAD_REQUEST ) } } }; // Change to match where your app is hosted let addr = SocketAddr :: from (([ 0 , 0 , 0 , 0 ], 80 )); let listener = tokio :: net :: TcpListener :: bind ( addr ). await . unwrap (); axum :: serve ( listener , redirect . into_make_service ()). await } also, to have a smoother main, we add this function: pub async fn server_locally ( app : Router , port : u16 ) -> Result < () > { let addr = SocketAddr :: from (([ 127 , 0 , 0 , 1 ], port )); let listener = tokio :: net :: TcpListener :: bind ( & addr ) . await . context ( "Creating listener" ) ? ; Ok ( axum :: serve ( listener , app ). await ? ) } and then use everything together in the main: // ... let app = Router :: new (). nest_service ( "/" , host_name_router . into_service ()); if debug_mode { server_locally ( app , 3000 ). await . context ( "Serving locally" ) ? ; } else { serve_with_tls ( app , [ "site1.my.domain" , "site2.my.domain" , "ext.my.domain" ], "your.mail@something.org" , "/path/to/cache" , ) . await . context ( "Serving with TLS" ) ? ; } Ok (()) By now there is some code in here that is not incredibly straight forward, 
+but if you just look at the main: async fn main () -> Result < () > { let site1_svc = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir" )); let site2_svc = Router :: new (). nest_service ( "/" , ServeDir :: new ( "/tmp/serve_dir2" )); let debug_mode = ! std :: env :: args (). any ( | x | x == "--production" ); let ( name_site1 , name_site2 , external_app ) = if debug_mode { ( "site1.localhost:3000" . to_string (), "site2.localhost:3000" . to_string (), "ext.localhost:3000" . to_string (), ) } else { ( "site1.my.domain" . to_string (), "site2.my.domain" . to_string (), "app.my.domain" . to_string (), ) }; let client : Client = hyper_util :: client :: legacy :: Client :: < (), () > :: builder ( TokioExecutor :: new ()) . build ( HttpConnector :: new ()); let rev_proxy_svc = Router :: new () . nest_service ( "/" , ( | state , req | reverse_proxy_http_handler ( 3001 , state , req )). with_state ( client ), ) . layer ( ValidateRequestHeaderLayer :: basic ( "user" , "super safe pw" )); let hostname_router = mk_hostname_router ( [ ( name_site1 , site1_svc ), ( name_site2 , site2_svc ), ( external_app , rev_proxy_svc ), ] . into (), ); let app = Router :: new (). nest_service ( "/" , hostname_router ); if debug_mode { server_locally ( app , 3000 ). await . context ( "Serving locally" ) ? ; } else { serve_with_tls ( app , [ "site1.my.domain" , "site2.my.domain" , "ext.my.domain" ], "your.mail@something.org" , "/path/to/cache" , ) . await . context ( "Serving with TLS" ) ? ; } Ok (()) } It is very easy to immediately grasp what this server does. You can take a look at the complete example on github The good, the bad and the ugly I've been running this for a year now and created two more very similar servers
+since then. I'm very happy with the setup. It's easy to deploy (if you compile it against musl),
+it's easy to maintain, and it works well. It is not actually objectively easier than running nginx, but if you are a software developer
+you might be part of the group that prefers this solution. One of the biggest advantages
+is that you have the full power of Rust at your fingertips and are not suddenly limited by 
+nginx. One downside is that this is slower than nginx and if you expect high loads, you
+will need to tune this, which is its own field of expertise. Another downside is
+that just because you can do everything, it's not neccesarily easy. For example,
+I also had websocket reverse proxying integrated. This is needed to play
+Pathfinder 2e via FoundryVTT , and for 6 months it
+worked. Then a FoundryVTT update came along and suddenly it stopped working. I
+still didn't have the time to fix this or to diagnose the problem. I just re-enabled
+nginx, just for FoundryVTT. However, if you have a problem that is easier solved by using nginx, there is
+nothing stopping you from using nginx for that. You can still use this approach
+for the rest. To me, this is still a better solution than using nginx for
+everything.
+======>
+https://old.reddit.com/r/rust/comments/1g2rdrk/help_wanted_for_diffrs_and_new_design/
+-->>-->>
+Hello Rustaceans,   
+
+   I'm working on    diff.rs   , which you can use to view a diff between crate versions released on    crates.io    (   example   ). The idea is that the files released to    crates.io    might not match what is in the repository, so using this lets you see what is actually compiled. It's implemented fully in Rust and runs in your browser. I recently was able to do some more work on it and I think I improved the design somewhat.   
+
+   cargo-vet    already has    support    for using    diff.rs    to view crate sources thanks to @mystor.   
+
+   I could use some help in implementing new features and fixing some bugs. If you are adventorous and not afraid of doing frontend things in Rust, then feel free to check out the the    open issues    and see if you can tackle something. I'm always happy for contributions and you will be listed on    diff.rs/about    as a contributor!   
+
+   I tried to outline the issues in such a way that there is some context. If you have any ideas (or use-cases) that are not in the current open issues, I'm happy to accept those too (as long as I can maintain it).   
+
+   Cheers!   
+   
+
+======>
+https://users.rust-lang.org/t/why-tonic-not-good-in-beckmark-of-multi-core/70025/6
+-->>-->>
+alice Regular Jan 2022 I'm going to assume that the way you came across initially is a language barrier problem, and I will try to answer more directly. In general, Tonic is able to run independently on several threads without there being any extra performance cost compared to single-threaded. One of the things that's hurting Rust's performance in that particular benchmark is that the accept loop is running directly inside a call to block_on . This can be a performance problem because a tokio::spawn task will never run on the same thread as a block_on task, which means that all connections must be transferred to another Tokio thread before they can be processed. Moving the accept loop into a spawned task can help because then it is possible for tasks to be executed without having to move them to another thread. 4

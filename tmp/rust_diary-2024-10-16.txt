@@ -1,0 +1,138 @@
+https://github.com/LeanderBB/you-have-mail
+-->>-->>
+Repository files navigation README AGPL-3.0 license You Have Mail Small application to notify you when you receive an email in your email account. This may be useful for cases where
+you only wish to be notified when your email account has a new message and the default notification mechanism
+does not work (e.g: Android without Google Play Services) or do not wish to have the web interface/email client open at
+all times. If you want these features in CLI package, please see You Have Mail CLI . Supported Backends The application structure has been made backend agnostics, so it should be possible to add different providers in the
+future. Currently, the following email providers are supported: Proton Mail - This backend only reports new messages in the INBOX mailbox Structure This repository is split into the following projects: you-have-mail-mobile : Shared code for mobile bindings you-have-mail-android : Android Application Download Please only download the latest stable releases from: Github: Releases F-Droid: Link Donations If you wish to donate to this project, consider donating to the GrapheneOS project instead :).
+======>
+https://jimfawcett.github.io/Post_CommCompare.html
+-->>-->>
+C++ Communicator Message-Passing Library (MPL) provides message-passing communication between a TCPConnector
+                  and TCPResponder. It uses TCPClientSocket and TCPServerSocket classes to establish synchronous bilateral
+                  connections between instances of TCPConnector and ClientHandler. Fig. 2 illustrates a typical set of sessions between 16 TCPConnector clients and their server-side
+                  ClientHandlers.  Clients send 1000 4K messages concurrently with the other clients. Each client has a sending thread and a receiving thread, so the client does not wait for a reply
+                before sending its next message. Rust Communicator RustComm is a facility for sending messages between a Connector and Listener. It uses the std::net::TcpStream and
+                  std::net::TcpListener types to establish communication between Connector and Listener::Process components. Listener::Process plays the same role as the MPL ClientHandler, handling message transactions between
+                  the Listener and its associated Connector. For each incoming connection the Listener dispatches a threadpool thread to execute Listener::Process
+                  code for the associated Connector. Fig 2. illustrates communication sessions for 16 clients and their associated Listener::Process components.
+                As with MPL, clients send 1000 4K messages while other clients are also sending. Each client has a sending and a receiving thread, so the client does not wait for a reply before sending the
+                next message.
+======>
+https://stackoverflow.blog/2024/10/08/think-you-don-t-need-observability-think-again/?cb=1
+-->>-->>
+Cookie Settings When you visit any of our websites, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and manage your preferences. Please note, blocking some types of cookies may impact your experience of the site and the services we are able to offer. Accept all cookies Manage Consent Preferences Strictly Necessary Cookies Always Active These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information. Functional Cookies Functional Cookies These cookies enable the website to provide enhanced functionality and personalisation. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly. Targeting Cookies Targeting Cookies These cookies are used to make advertising messages more relevant to you and may be set through our site by us or by our advertising partners. They may be used to build a profile of your interests and show you relevant advertising on our site or on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. Performance Cookies Performance Cookies These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance. Back Button Cookie List Search Icon Filter Icon Clear checkbox label label Apply Cancel Consent Leg.Interest checkbox label label checkbox label label checkbox label label Strictly necessary only Confirm My Choices
+======>
+https://old.reddit.com/r/rust/comments/1g57sup/is_a_rustbased_secure_bluetooth_connection/
+-->>-->>
+Hi everyone, I'm planning to work on a project for an upcoming hackathon, and I'd appreciate your feedback.   
+   
+
+======>
+https://www.polarsignals.com/blog/posts/2024/10/16/custom-labels-for-rust-go-and-cpp
+-->>-->>
+Brennan Vincent October 16, 2024 Correlation Golang Rust Profiling The World So Far An essential feature of Parca (and, by extension, Polar Signals Cloud) is the ability to filter and aggregate profiles by labels : key/value pairs that annotate each stack trace. Labels can be coarse-grained (e.g., the hostname of the node) or fine-grained (e.g., the name of the running thread). For example, we can use the node , comm , and thread_comm labels to generate a profile for all processes running on the node denver , with the metrics graph grouped by process name and the icicle graph grouped by thread name: Not shown: "thread_comm" selected in the "Group" dropdown near the icicle graph. When the process is running in Kubernetes or Docker, the set of available labels is determined by the pod or container metadata and exposed via relabeling . Additionally, some labels are generated by the system and always available if exposed via relabeling, like __meta_thread_comm . However, the available pod metadata labels may not be fine-grained enough to surface all insights a user could want, and the built-in sub-process ones like __meta_thread_comm might not capture anything relevant: for example, in the Go ecosystem, programmers think in terms of goroutines rather than native threads, so the current OpenTelemetry trace ID is much more likely to be relevant than the name or ID of the underlying OS thread. To improve the utility of Parca in these cases, we introduced trace ID labels for Go. But for users who are interested in dimensions other than trace ID, a more general approach was needed. Introducing Custom Labels As a motivating example, consider a database system that computes the result of SQL queries on behalf of users. Postgres is one of example of such a system (along with countless others). An administrator might want to see at a glance how much CPU time is used for each database user, which can, as of the latest version of Polar Signals and parca-agent, be accomplished using custom labels : the code for the database system would need to set the value of the label "username" to the currently connected user while that user's queries are being served. An example of a profile of a running Postgres instance with this change applied: First, we need to group by "username" in the Group dropdown As is apparent from the function names, Alice and Bob are running two different workflows: Bob's involves merge joins and aggregations, whereas Alice's only involves aggregations. Here's another, even more realistic example: a profile of all Go processes, filtered by a particular OpenTelemetry span name: We currently support Rust, Go, and any language that can link against C libraries (for example, C++). In Go, the labels are scoped to the goroutine; in the other languages, they are per-thread. Getting Started For any of the examples below, make sure you are running a recent version of parca-agent (at least v0.34.0) and passing it the command-line flag --collect-custom-labels . Rust Add the custom-labels crate as a dependency for your project: cargo add custom-labels Then use the custom_labels::with_labels function to set the labels while performing some work. The labels will be set for the given thread until the callback passed to with_labels returns. This example program loops forever, setting two labels randomly every ten seconds: use std::time::{Duration, Instant}; use rand::distributions::Alphanumeric; use rand::Rng; fn rand_str() -> String { String::from_utf8( rand::thread_rng() .sample_iter(&Alphanumeric) .take(16) .collect::<Vec<_>>(), ) .unwrap() } fn main() { let mut last_update = Instant::now(); loop { custom_labels::with_labels([("l1", rand_str()), ("l2", rand_str())], || loop { if last_update.elapsed() >= Duration::from_secs(10) { break; } }); last_update = Instant::now(); } } Caveat : Rust custom labels are scoped to the system thread; they have no notion of, for example, the current Tokio task, which might move between threads arbitrarily. In the future, we plan to better support async workflows where the current thread is less meaningful. Go The agent is compatible with Pprof custom labels, so you don't need an external library. Labels are set using pprof.Do from the runtime/pprof package. This example program loops forever, setting two labels randomly every ten seconds: package main import ( "context" "math/rand" "runtime/pprof" "time" ) func randomString ( n int ) string { letters := [ ] rune ( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" ) s := make ( [ ] rune , n ) for i := range s { s [ i ] = letters [ rand . Intn ( len ( letters ) ) ] } return string ( s ) } func main ( ) { for { labels := pprof . Labels ( "l1" , randomString ( 16 ) , "l2" , randomString ( 16 ) ) lastUpdate := time . Now ( ) pprof . Do ( context . TODO ( ) , labels , func ( context . Context ) { for time . Since ( lastUpdate ) < 10 * time . Second { } } ) lastUpdate = time . Now ( ) } } The label values will persist until the end of the callback passed to pprof.Do , and will be inherited by any goroutines transitively spawned by that function. C-family languages (including C++) The custom-labels repository also includes a low-level C library, which can be used without needing to depend on Rust. Clone the repository and build the library using make : CFLAGS = "-O2" make Ensure that the resulting libcustomlabels.so library is linked by your application, and that the header file customlabels.h is available in its include path. The details of how to accomplish that will depend on the build system you use. As in the Go and Rust examples above, this example program loops forever, setting two labels randomly every ten seconds: #include <customlabels.h> #include <stdlib.h> #include <time.h> #define LABEL_LENGTH 16 const char *generate_alphanumeric_string() { static char str[LABEL_LENGTH]; char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; for (int i = 0; i < LABEL_LENGTH; i++) { str[i] = charset[rand() % (sizeof(charset) - 1)]; } return str; } int main() { for (;;) { time_t last_update = time(NULL); // Note that the library copies in the provided // buffer, so we don't have to allocate or free memory for it. // // Also note that the strings don't need to be null-terminated; // their length is communicated to the library by the value of // custom_labels_string_t::len . custom_labels_set( (custom_labels_string_t) {2, (unsigned char *)"l1"}, (custom_labels_string_t) { LABEL_LENGTH, (unsigned char *)generate_alphanumeric_string() } ); custom_labels_set( (custom_labels_string_t) {2, (unsigned char *)"l2"}, (custom_labels_string_t) { LABEL_LENGTH, (unsigned char *)generate_alphanumeric_string() } ); // Spin for 10s while (last_update + 10 > time(NULL)) ; } } As another example, the per-username Postgres profile in the screenshot above was generated by applying this patch to the Postgres source code (and modifying its configure script to link against libcustomlabels.so ): diff --git a/src/backend/tcop/postgres.c b/src/backend/tcop/postgres.c index 8bc6bea113..0e9f6e62ed 100644 --- a/src/backend/tcop/postgres.c +++ b/src/backend/tcop/postgres.c @@ -81,6 +81,8 @@ #include "utils/timestamp.h" #include "utils/varlena.h" +#include <customlabels.h> + /* ---------------- *		global variables * ---------------- @@ -4230,6 +4232,12 @@ PostgresMain(const char *dbname, const char *username) Assert(dbname != NULL); Assert(username != NULL); +	if (username) { +	  custom_labels_string_t key = (custom_labels_string_t){8, "username"}; +	  custom_labels_string_t val = (custom_labels_string_t){strlen(username), username}; +	  custom_labels_set(key, val); +	} + Assert(GetProcessingMode() == InitProcessing); /* Conclusions We hope the custom labels feature is useful, but please note that it's still experimental. Please let us know of any bugs or feature requests by opening an issue . If you'd like a similar feature in a language not mentioned here, don't forget to vote for it here . Happy profiling! Discuss:
+======>
+https://old.reddit.com/r/rust/comments/1g57apb/sqlitewatcher_building_blocks_to_observe_changes/
+-->>-->>
+Hey all,   
+
+   I just wanted to share    sqlite-watcher    with you.   
+
+   It provides building blocks so you can observe table changes in a sqlite database similar to what powers  Core Data (iOS) and Room (Android). They are building blocks since they are not tied to any specific database driver/implementation.    
+
+   Two example integrations (   rusqlite   ,    sqlx   ) have been provided in the repo and other drivers/implementation can be added by implementing the required traits.   
+
+   I wrote this for    my project   , but I think this could be useful for you folks as well :)   
+   
+
+======>
+https://github.com/microsoft/openvmm
+-->>-->>
+Repository files navigation README Code of conduct MIT license Security OpenVMM OpenVMM is a new VMM for Windows and Linux, written in Rust. Developer Guide See the developer guide and in particular the getting started section. The guide is published out of this repo via Markdown files .
+Please keep them up-to-date. Contributing This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com . When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA. This project has adopted the Microsoft Open Source Code of Conduct .
+For more information see the Code of Conduct FAQ or
+contact opencode@microsoft.com with any additional questions or comments. Trademarks This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow Microsoft's Trademark & Brand Guidelines .
+Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
+Any use of third-party trademarks or logos are subject to those third-party's policies.
+======>
+https://old.reddit.com/r/rust/comments/1g4u9qh/rust_search_extension_v20_has_been_released/
+-->>-->>
+Hi, all,     
+
+   This is the 7th year since I began maintaining    Rust Search Extension   , and I'm happy to announce that it has finally reached version 2.0. For those unfamiliar with Rust Search Extension, it's a handy browser extension that helps you instantly search Rust docs and crates from the address bar. If you prefer not to install a browser extension, you can also use the web alternative version at    https://query.rs   .   
+
+   Maintaining Rust Search Extension isn't an easy task, as librustdoc changes the search index format quite frequently. Rust Search Extension needs to maintain compatibility with legacy docs because    docs.rs    never rebuilds old documentation to generate search indices with the latest format. As a result, I've had to maintain a lot of complex code to ensure this compatibility. You can see examples of this in the    core.js file    and the    add-search-index.js file   .   
+
+   I hope you find this extension is useful in your Rust development journey. Happy coding!   
+
+   Change log:    https://github.com/huhu/rust-search-extension/releases/tag/v2.0.0   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g5axtz/compare_rust_and_c_via_message_passing/
+-->>-->>
+TCP communicators written in Rust and C++, use thread pools and message queuing. Execution on Windows and Linux with two different machines and one case using a VM.   
+   https://jimfawcett.github.io/Post_CommCompare.html   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g4tc9h/looking_for_a_maintainer_for_memmap2rs/
+-->>-->>
+As the current    memmap2-rs    maintainer, I'm looking for someone to transfer owenership to since I would no longer be able to work on this project.   
+
+   The project itself is kinda finished. There are ocational PRs, but that's about it. It's not like one have to keep improving it or something.
+In fact, I would like it to stay as is. No new dependencies, no complexity, nothing.   
+
+   Why this even important? Because the crate has 72M downloads I don't want to give it to a random person. We already had xz lib backdoor this year...
+Therefore I'm looking for someone close to the Rust project.   
+
+   Is    rust-lang-nursery    or    rust-bus    are still a thing?   
+
+   Original issue:    https://github.com/RazrFalcon/memmap2-rs/issues/124   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g58r6g/rust_is_evolving_from_systemlevel_language/
+-->>-->>
+Stack Overflow podcast about Rust and webasm UI development.   
+
+   https://stackoverflow.blog/2024/10/08/think-you-don-t-need-observability-think-again/?cb=1   
+   
+
+======>
+https://www.windmill.dev/blog/smtp-server
+-->>-->>
+- Sender: EHLO - Receiver: 250 OK - Sender: MAIL FROM: \<sender@mysenderdomain.com> - Receiver: 250 OK - Sender: RCPT TO: \<receiver@myreceiverdomain.com> - Receiver: 250 OK - Sender: DATA - Receiver: 354 End data with \<CR>\<LF>.\<CR>\<LF> - Sender: Subject: Test email - Sender: Test email content - Sender: . - Receiver: 250 OK - Sender: QUIT - Receiver: 221 Bye
+======>
+https://without.boats/blog/unpin-cell/
+-->>-->>
+UnpinCell October 16, 2024 A variation on my previous design for pinned places has occurred to me that would
+be more consistent with Rust’s existing feature set. The most outlandish aspect of the previous design was the notion of “pinned fields,” which support
+pinned projection. This is quite different from how field projection normally works in Rust: if you
+have a mutable reference to a struct, you can get a mutable reference to its field, period. (I know
+Niko Matsakis has recently explored ideas that would change this; this post won’t go into any deep
+consideration of that proposal). I’ve come up with a design which would have similar properties,
+instead of introducing a kind of field marker. First, pinned references should support projection just like other references. The only reason they
+don’t is the unsoundness around Drop , which I previously discussed in this post . The way
+around this is to say that pinned references support projections so long as the type being projected
+through meets one of the following criteria, each of which on its own is enough to solve the Drop issue: It implements Unpin (and therefore does not have any pinning contract). It does not implement Drop (and therefore cannot have the drop unsoundness). Its destructor uses the fn drop(&pin mut self) signature, as discussed in my previous post. Nearly every type should satisfy 1) or 2), for the rare case where a type that does not implement Unpin needs a destructor (such as some tokio synchronization primitives), if it uses a pinned
+destructor then pin projection is sound. However, you still need some way of support unpinned fields, which are exceptions to the pinning
+contract applied to the object as a whole. To do this, the language would introduce a new “cell”
+type, UnpinCell , which “unpins” whatever object is in it. The API for UnpinCell could look like
+this: pub struct UnpinCell < T > ( T ); impl < T > UnpinCell < T > { pub fn new ( value : T ) -> UnpinCell < T > { UnpinCell ( value ) } pub fn into_inner ( self ) -> T { self . 0 } } // Even if T: !Unpin impl < T > Unpin for UnpinCell < T > { } impl < T > Deref for UnpinCell < T > { type Target = T ; fn deref ( & self ) -> & T { & self . 0 } } impl < T > DerefMut for UnpinCell < T > { fn deref_mut ( & mut self ) -> & mut T { & mut self . 0 } } This incredibly simple API allows mutable access to the value inside of the UnpinCell , even
+through a pinned pointer, even if the value does not implement Unpin . It is sound because UnpinCell creates a barrier through which it is not possible to pin project, so the object inside
+the cell is never witnessed pinned. Revisiting the MaybeDone example from the previous post, it would now look like this: enum MaybeDone < F : Future > { Polling ( F ), Done ( UnpinCell < Option < F :: Output >> ), } impl < F : Future > MaybeDone < F > { fn maybe_poll ( & pin mut self , cx : & mut Context < '_ > ) { if let MaybeDone :: Polling ( fut ) = self { if let Poll :: Ready ( res ) = fut . poll ( cx ) { * self = MaybeDone :: Done ( UnpinCell :: new ( Some ( res ))); } } } fn is_done ( & self ) -> bool { matches! ( self , & MaybeDone :: Done ( _ )) } fn take_output ( & pin mut self ) -> Option < F :: Output > { // res: &pin mut UnpinCell<Option<F::Output>> if let MaybeDone :: Done ( res ) = self { // two deref mut coercions resolve this to Option::take res . take () } else { None } } } (I’ve updated the syntax to use pin instead of pinned , because that’s the syntax the project’s
+pin ergonomics experiment is using.) This combination makes pinned places an even more minor change to the language: pinned references
+act like normal references and to get a field which is an exception, there is a cell-like API for
+“interior unpinnability”, just like “interior mutability.” In my opinion, this is superior to field
+modifiers because it doesn’t introduce any new category of language feature. rust pinning
+======>
+https://steveklabnik.com/writing/when-should-i-use-string-vs-str/
+-->>-->>
+error[E0382]: use of moved value: `owned` --> src/main.rs:21:31 | 18 |     let owned = String::from("A string"); |         ----- move occurs because `owned` has type `String`, which does not implement the `Copy` trait 19 | 20 |     println!("{}", first_word(owned)); |                               ----- value moved here 21 |     println!("{}", first_word(owned)); |                               ^^^^^ value used here after move | note: consider changing this parameter type in function `first_word` to borrow instead if owning the value isn't necessary --> src/main.rs:5:22 | 5  | fn first_word(words: String) -> String { |    ----------        ^^^^^^ this parameter takes ownership of the value |    | |    in this function help: consider cloning the value if the performance cost is acceptable | 20 |     println!("{}", first_word(owned.clone())); |                                    ++++++++ error[E0382]: use of moved value: `owned`
