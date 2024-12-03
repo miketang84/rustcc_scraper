@@ -1,0 +1,489 @@
+https://github.com/furdiburd/rusty-bandwith
+-->>-->>
+Repository files navigation README GPL-3.0 license Rusty bandwidth is a completly rewrtitten version of the bandwidth hero proxy server in rust. This version uses way less system resources when running (in itself just 15M of ram) and should be easier to selfhost due to only needing to run a single executable. By default it uses the port 8080 and 512MB of ram for caching purposes. Both can be changed with launch parameters. Has Avif and WebP mode. I recommend using WebP with the parameter "--webp" due to its faster encoding speed. Hardware encoding is not yet supported
+======>
+https://bandwidth-hero.com/
+-->>-->>
+Data compression browser extension What is Bandwidth Hero? It’s an open-source browser extension which reduces the amount of data consumed when you browse web
+pages by compressing all images on the page. It uses data compression service to convert images to
+low-resolution WebP or JPEG images. How It Works? When active, Bandwidth Hero intercepts all images loading requests It sends each image URL to the data compression service Compression service downloads the original image Once image is downloaded it is then converted to low-resolution WebP /JPEG image. Compression service returns processed image to the browser Privacy Consideration After installing the extension you need to setup data compression service. Please refer to data compression service docs for detailed instructions on how to run your own service. Once you have your own instance running, click “Configure data compression service” button under
+“Compression settings” in the extension popup. Credits daredevil logo by Daniel Pineda from the Noun Project Privacy Policy Terms of Service Made with ❤️ by Anatoliy Yastreb Hosted on GitHub Pages — Theme by orderedlist (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-99823834-1', 'auto');
+    ga('send', 'pageview');
+======>
+https://github.com/ayastreb/bandwidth-hero-proxy
+-->>-->>
+Skip to content {"props":{"docsUrl":"https://docs.github.com/get-started/accessibility/keyboard-shortcuts"}} {"resolvedServerColorMode":"day"} Navigation Menu Toggle navigation Sign in Product GitHub Copilot Write better code with AI Security Find and fix vulnerabilities Actions Automate any workflow Codespaces Instant dev environments Issues Plan and track work Code Review Manage code changes Discussions Collaborate outside of code Code Search Find more, search less Explore All features Documentation GitHub Skills Blog Solutions By company size Enterprises Small and medium teams Startups By use case DevSecOps DevOps CI/CD View all use cases By industry Healthcare Financial services Manufacturing Government View all industries View all solutions Resources Topics AI DevOps Security Software Development View all Explore Learning Pathways White papers, Ebooks, Webinars Customer Stories Partners Open Source GitHub Sponsors Fund open source developers The ReadME Project GitHub community articles Repositories Topics Trending Collections Enterprise Enterprise platform AI-powered developer platform Available add-ons Advanced Security Enterprise-grade security features GitHub Copilot Enterprise-grade AI features Premium Support Enterprise-grade 24/7 support Pricing Search or jump to... Search code, repositories, users, issues, pull requests... Search Clear Search syntax tips Provide feedback We read every piece of feedback, and take your input very seriously. Include my email address so I can be contacted Cancel Submit feedback Saved searches Use saved searches to filter your results more quickly Name Query To see all available qualifiers, see our documentation . Cancel Create saved search Sign in Sign up Reseting focus You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert {{ message }} ayastreb / bandwidth-hero-proxy Public Notifications You must be signed in to change notification settings Fork 157 Star 189 ⚡ Proxy that compresses images to low-resolution bandwidth-hero.com/ License MIT license 189 stars 157 forks Branches Tags Activity Star Notifications You must be signed in to change notification settings Code Issues 18 Pull requests 13 Actions Projects 0 Security Insights Additional navigation options Code Issues Pull requests Actions Projects Security Insights ayastreb/bandwidth-hero-proxy {"props":{"initialPayload":{"allShortcutsEnabled":false,"path":"/","repo":{"id":92270833,"defaultBranch":"master","name":"bandwidth-hero-proxy","ownerLogin":"ayastreb","currentUserCanPush":false,"isFork":false,"isEmpty":false,"createdAt":"2017-05-24T08:48:31.000Z","ownerAvatar":"https://avatars.githubusercontent.com/u/2777667?v=4","public":true,"private":false,"isOrgOwned":false},"currentUser":null,"refInfo":{"name":"master","listCacheKey":"v0:1670688521.377336","canEdit":false,"refType":"branch","currentOid":"ed9074e8954561ddc17430a9e9991c065a878188"},"tree":{"items":[{"name":"src","path":"src","contentType":"directory"},{"name":".gitignore","path":".gitignore","contentType":"file"},{"name":"LICENSE","path":"LICENSE","contentType":"file"},{"name":"Procfile","path":"Procfile","contentType":"file"},{"name":"README.md","path":"README.md","contentType":"file"},{"name":"app.json","path":"app.json","contentType":"file"},{"name":"package-lock.json","path":"package-lock.json","contentType":"file"},{"name":"package.json","path":"package.json","contentType":"file"},{"name":"server.js","path":"server.js","contentType":"file"}],"templateDirectorySuggestionUrl":null,"readme":null,"totalCount":9,"showBranchInfobar":false},"fileTree":null,"fileTreeProcessingTime":null,"foldersToFetch":[],"treeExpanded":false,"symbolsExpanded":false,"isOverview":true,"overview":{"banners":{"shouldRecommendReadme":false,"isPersonalRepo":false,"showUseActionBanner":false,"actionSlug":null,"actionId":null,"showProtectBranchBanner":false,"publishBannersInfo":{"dismissActionNoticePath":"/settings/dismiss-notice/publish_action_from_repo","releasePath":"/ayastreb/bandwidth-hero-proxy/releases/new?marketplace=true","showPublishActionBanner":false},"interactionLimitBanner":null,"showInvitationBanner":false,"inviterName":null,"actionsMigrationBannerInfo":{"releaseTags":[],"showImmutableActionsMigrationBanner":false,"initialMigrationStatus":null}},"codeButton":{"contactPath":"/contact","isEnterprise":false,"local":{"protocolInfo":{"httpAvailable":true,"sshAvailable":null,"httpUrl":"https://github.com/ayastreb/bandwidth-hero-proxy.git","showCloneWarning":null,"sshUrl":null,"sshCertificatesRequired":null,"sshCertificatesAvailable":null,"ghCliUrl":"gh repo clone ayastreb/bandwidth-hero-proxy","defaultProtocol":"http","newSshKeyUrl":"/settings/ssh/new","setProtocolPath":"/users/set_protocol"},"platformInfo":{"cloneUrl":"https://desktop.github.com","showVisualStudioCloneButton":false,"visualStudioCloneUrl":"https://windows.github.com","showXcodeCloneButton":false,"xcodeCloneUrl":"xcode://clone?repo=https%3A%2F%2Fgithub.com%2Fayastreb%2Fbandwidth-hero-proxy","zipballUrl":"/ayastreb/bandwidth-hero-proxy/archive/refs/heads/master.zip"}},"newCodespacePath":"/codespaces/new?hide_repo_select=true\u0026repo=92270833"},"popovers":{"rename":null,"renamedParentRepo":null},"commitCount":"149","overviewFiles":[{"displayName":"README.md","repoName":"bandwidth-hero-proxy","refName":"master","path":"README.md","preferredFileType":"readme","tabName":"README","richText":"\u003carticle class=\"markdown-body entry-content container-lg\" itemprop=\"text\"\u003e\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch1 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eBandwidth Hero Data Compression Service\u003c/h1\u003e\u003ca id=\"user-content-bandwidth-hero-data-compression-service\" class=\"anchor\" aria-label=\"Permalink: Bandwidth Hero Data Compression Service\" href=\"#bandwidth-hero-data-compression-service\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003ca href=\"https://nodesecurity.io/orgs/bandwidth-hero/projects/1f035cf0-00f2-43db-9bc0-8e39adb24642\" rel=\"nofollow\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/57259fb84a7a90a42e033ff2aefa033e9db47d01ea476bdcbacc35d78b23d360/68747470733a2f2f6e6f646573656375726974792e696f2f6f7267732f62616e6477696474682d6865726f2f70726f6a656374732f31663033356366302d303066322d343364622d396263302d3865333961646232343634322f6261646765\" alt=\"NSP Status\" data-canonical-src=\"https://nodesecurity.io/orgs/bandwidth-hero/projects/1f035cf0-00f2-43db-9bc0-8e39adb24642/badge\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eThis data compression service is used by\n\u003ca href=\"https://github.com/ayastreb/bandwidth-hero\"\u003eBandwidth Hero\u003c/a\u003e browser extension. It compresses given\nimage to low-res \u003ca href=\"https://developers.google.com/speed/webp/\" rel=\"nofollow\"\u003eWebP\u003c/a\u003e or JPEG image. Optionally it also\nconverts image to greyscale to save even more data.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eIt downloads original image and transforms it with \u003ca href=\"https://github.com/lovell/sharp\"\u003eSharp\u003c/a\u003e on the\nfly without saving images on disk.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eThis is \u003cstrong\u003eNOT\u003c/strong\u003e an anonymizing proxy — it downloads images on user's behalf, passing cookies\nand user's IP address through to the origin host.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eDeployment\u003c/h2\u003e\u003ca id=\"user-content-deployment\" class=\"anchor\" aria-label=\"Permalink: Deployment\" href=\"#deployment\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eHeroku\u003c/h3\u003e\u003ca id=\"user-content-heroku\" class=\"anchor\" aria-label=\"Permalink: Heroku\" href=\"#heroku\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eYou can deploy this service to Heroku:\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003ca href=\"https://heroku.com/deploy?template=https://github.com/ayastreb/bandwidth-hero-proxy\" rel=\"nofollow\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/dc2056acd0e6ff421bfc2b129417f4f832d626c61d1c083221211d8503a429f7/68747470733a2f2f7777772e6865726f6b7563646e2e636f6d2f6465706c6f792f627574746f6e2e737667\" alt=\"Deploy\" data-canonical-src=\"https://www.herokucdn.com/deploy/button.svg\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003ca href=\"http://www.youtube.com/watch?v=y3tkYEXAics\" rel=\"nofollow\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/57ff79d468e03886a1febb343cb954417337e37ec5c78658dc606de42244f466/687474703a2f2f696d672e796f75747562652e636f6d2f76692f7933746b594558416963732f302e6a7067\" alt=\"Deploy to Heroku guide\" data-canonical-src=\"http://img.youtube.com/vi/y3tkYEXAics/0.jpg\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eSelf-hosted\u003c/h3\u003e\u003ca id=\"user-content-self-hosted\" class=\"anchor\" aria-label=\"Permalink: Self-hosted\" href=\"#self-hosted\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eData compression service is a Node.js app which you can run on any server that supports Node.js.\nCheck out\n\u003ca href=\"https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04\" rel=\"nofollow\"\u003ethis guide\u003c/a\u003e\non how to setup Node.js on Ubuntu.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eDigitalOcean also provides an\n\u003ca href=\"https://www.digitalocean.com/products/one-click-apps/node-js/\" rel=\"nofollow\"\u003eeasy way\u003c/a\u003e to setup a server ready to\nhost Node.js apps.\u003c/p\u003e\n\u003c/article\u003e","loaded":true,"timedOut":false,"errorMessage":null,"headerInfo":{"toc":[{"level":1,"text":"Bandwidth Hero Data Compression Service","anchor":"bandwidth-hero-data-compression-service","htmlText":"Bandwidth Hero Data Compression Service"},{"level":2,"text":"Deployment","anchor":"deployment","htmlText":"Deployment"},{"level":3,"text":"Heroku","anchor":"heroku","htmlText":"Heroku"},{"level":3,"text":"Self-hosted","anchor":"self-hosted","htmlText":"Self-hosted"}],"siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2Fayastreb%2Fbandwidth-hero-proxy"}},{"displayName":"LICENSE","repoName":"bandwidth-hero-proxy","refName":"master","path":"LICENSE","preferredFileType":"license","tabName":"MIT","richText":null,"loaded":false,"timedOut":false,"errorMessage":null,"headerInfo":{"toc":null,"siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2Fayastreb%2Fbandwidth-hero-proxy"}}],"overviewFilesProcessingTime":0}},"appPayload":{"helpUrl":"https://docs.github.com","findFileWorkerPath":"/assets-cdn/worker/find-file-worker-1583894afd38.js","findInFileWorkerPath":"/assets-cdn/worker/find-in-file-worker-f653046cb227.js","githubDevUrl":null,"enabled_features":{"code_nav_ui_events":false,"overview_shared_code_dropdown_button":false,"react_blob_overlay":false,"copilot_conversational_ux_embedding_update":false,"copilot_smell_icebreaker_ux":true,"copilot_workspace":false,"blob_edit_unsaved_changes_storage":false,"accessible_code_button":true,"overview_branch_and_tag_count":true,"overview_spoofed_commit_banner_react":true}}}} master 9 Branches Tags Go to file Code Folders and files Name Name Last commit message Last commit date Latest commit ayastreb Merge pull request #32 from dkocich/update May 21, 2021 ed9074e · May 21, 2021 History 149 Commits src src Remove logging Nov 28, 2017 .gitignore .gitignore Ignore ecosystem.js Nov 13, 2017 LICENSE LICENSE Initial commit May 24, 2017 Procfile Procfile Initial commit. May 24, 2017 README.md README.md Add youtube guide Mar 23, 2018 app.json app.json Update Heroku app template Nov 8, 2017 package-lock.json package-lock.json build: bump all deps; change node engine from v8 to v14 LTS May 20, 2021 package.json package.json build: bump all deps; change node engine from v8 to v14 LTS May 20, 2021 server.js server.js Remove logging Nov 28, 2017 View all files Repository files navigation README MIT license Bandwidth Hero Data Compression Service This data compression service is used by Bandwidth Hero browser extension. It compresses given
+image to low-res WebP or JPEG image. Optionally it also
+converts image to greyscale to save even more data. It downloads original image and transforms it with Sharp on the
+fly without saving images on disk. This is NOT an anonymizing proxy — it downloads images on user's behalf, passing cookies
+and user's IP address through to the origin host. Deployment Heroku You can deploy this service to Heroku: Self-hosted Data compression service is a Node.js app which you can run on any server that supports Node.js.
+Check out this guide on how to setup Node.js on Ubuntu. DigitalOcean also provides an easy way to setup a server ready to
+host Node.js apps. {"resolvedServerColorMode":"day"} About ⚡ Proxy that compresses images to low-resolution bandwidth-hero.com/ Topics heroku express compression proxy sharp data-compression data-saving compression-proxy-server Resources Readme License MIT license Activity Stars 189 stars Watchers 12 watching Forks 157 forks Report repository Releases No releases published Packages 0 No packages published Contributors 2 ayastreb Anatoliy Yastreb dkocich Languages JavaScript 100.0% Footer © 2024 GitHub, Inc. Footer navigation Terms Privacy Security Status Docs Contact Manage cookies Do not share my personal information You can’t perform that action at this time.
+======>
+https://github.com/furkan-guvenc/crud_routers
+-->>-->>
+Repository files navigation README MIT license crud_routers crud_routers is a library to automatically generate crud routes with given schemas.
+It is orm and web framework agnostic, highly inspired by fastapi-crudrouter . Basic usage with Axum and Diesel Installation cargo add crud_routers --features axum,diesel Usage Below is a simple example of what the crud_routers can do. In just ten lines of code, you can generate all
+the crud_routers you need for any model. The full example is in diesel_example folder # [ tokio :: main ] async fn main ( ) -> io :: Result < ( ) > { let database_url = "postgres://postgres:testpw@localhost/diesel_demo" ; let connection = PgConnection :: establish ( & database_url ) . unwrap ( ) ; let shared_state = Arc :: new ( Mutex :: new ( DieselRepository :: new ( connection , posts :: table ) ) ) ; let router = CrudRouterBuilder :: new :: < AxumServer > ( ) . schema :: < Post , i32 > ( ) . create_schema :: < NewPost > ( ) . update_schema :: < PostForm > ( ) . prefix ( "base/api" ) . build_router ( ) . with_state ( shared_state ) ; axum :: serve ( listener , router ) . await } Features Orm-Agnostic Following ORMs are implemented, and you can activate them with adding necessary features. Diesel with feature "diesel" Sea-orm with feature "sea-orm" You can easily add new ones by implementing necessary traits . Api Server Agnostic Following api servers are implemented, and you can activate them with adding necessary features.
+You can mix and match them with Orms however you want. Axum with feature "axum" Actix with feature "actix" OpenApi support You can easily add openapi support with feature "openapi" and
+deriving utoipa::ToSchema for your schemas.
+You can use all UIs supported by utoipa . let mut openapi = OpenApiBuilder :: new ( ) . info ( InfoBuilder :: new ( ) . title ( "Diesel Axum example" ) . build ( ) ) . build ( ) ; let router = CrudRouterBuilder :: new :: < AxumServer > ( ) . schema :: < Post , i32 > ( ) . create_schema :: < NewPost > ( ) . update_schema :: < PostForm > ( ) . prefix ( "base/api" ) . build_openapi ( & mut openapi ) . build_router ( ) . with_state ( shared_state ) . merge ( SwaggerUi :: new ( "/docs/swagger/" ) . url ( "/api-docs/openapi.json" , openapi ) ) ; Pagination Pagination is automatically setup for you. You can use the skip and limit query parameters to
+paginate your results. Skip :
+Using the skip (int) parameter, you can skip a certain number of items before returning the items you want. Limit :
+Using the limit (int) parameter, the maximum number of items to be returned can be defined. Opting Out Routes If you don't add a schema with create_schema then create item route won't be created.
+Same applies for update_schema method and update item route.
+Alternatively all routes can be opted out using disable_*_route methods. CrudRouterBuilder :: new :: < TestServer > ( ) . repository :: < Repo > ( ) . schema :: < Schema , PrimaryKeyType > ( ) . create_schema :: < CreateSchema > ( ) . update_schema :: < UpdateSchema > ( ) . disable_list_items_route ( ) . disable_get_item_route ( ) . disable_delete_item_route ( ) . disable_delete_all_items_route ( ) . disable_create_item_route ( ) . disable_update_item_route ( ) Set tag and prefix You can set a prefix for your url with prefix method.
+Leaving prefix makes it the table name.
+If "openapi" feature is added then tag method
+can be used to set the tag for the api spec. CrudRouterBuilder :: new :: < TestServer > ( ) . repository :: < Repo > ( ) . schema :: < Schema , PrimaryKeyType > ( ) . prefix ( "base/api" ) . tag ( "My Tag" ) TODO Add Middleware support Create an mdBook for documentation
+
+======>
+https://github.com/awtkns/fastapi-crudrouter
+-->>-->>
+Repository files navigation README MIT license ⚡ Create CRUD routes with lighting speed ⚡ A dynamic FastAPI router that automatically creates CRUD routes for your models Documentation : https://fastapi-crudrouter.awtkns.com Source Code : https://github.com/awtkns/fastapi-crudrouter Tired of rewriting generic CRUD routes? Need to rapidly prototype a feature for a presentation
+or a hackathon? Thankfully, fastapi-crudrouter has your back. As an
+extension to the APIRouter included with FastAPI , the FastAPI CRUDRouter will automatically
+generate and document your CRUD routes for you, all you have to do is pass your model and maybe your database connection. FastAPI-CRUDRouter is lighting fast , well tested, and production ready . Installation pip install fastapi-crudrouter Basic Usage Below is a simple example of what the CRUDRouter can do. In just ten lines of code, you can generate all
+the crud routes you need for any model. A full list of the routes generated can be found here . from pydantic import BaseModel from fastapi import FastAPI from fastapi_crudrouter import MemoryCRUDRouter as CRUDRouter class Potato ( BaseModel ): id : int color : str mass : float app = FastAPI () app . include_router ( CRUDRouter ( schema = Potato )) Advanced Usage fastapi-crudrouter provides a number of features that allow you to get the most out of your automatically generated CRUD
+routes. Listed below are some highlights. Automatic Pagination ( docs ) Ability to Provide Custom Create and Update Schemas ( docs ) Dynamic Generation of Create and Update Schemas ( docs ) Ability to Add, Customize, or Disable Specific Routes ( docs ) Native Support for FastAPI Dependency Injection ( docs ) Supported Backends / ORMs fastapi-crudrouter currently supports a number of backends / ORMs. Listed below are the backends currently supported. This list will
+likely grow in future releases. In Memory ( docs ) SQLAlchemy ( docs ) Databases (async) ( docs ) Gino (async) ( docs ) Ormar (async) ( docs ) Tortoise ORM  (async) ( docs ) OpenAPI Support By default, all routes generated by the CRUDRouter will be documented according to OpenAPI spec. Below are the default routes created by the CRUDRouter shown in the generated OpenAPI documentation. The CRUDRouter is able to dynamically generate detailed documentation based on the models given to it.
+
+
+======>
+https://github.com/Dark-Alex-17/managarr
+-->>-->>
+Repository files navigation README Code of conduct MIT license Security managarr - A TUI and CLI to manage your Servarrs Managarr is a TUI and CLI to help you manage your HTPC (Home Theater PC). Built with 🤎 in Rust! What Servarrs are supported? Radarr Sonarr Readarr Lidarr Prowlarr Whisparr Bazarr Tautulli Try Before You Buy To try out Managarr before linking it to your HTPC, you can use the purpose built managarr-demo repository.
+Simply run the following command to start a demo: curl https://raw.githubusercontent.com/Dark-Alex-17/managarr-demo/main/managarr-demo.sh > /tmp/managarr-demo.sh && bash /tmp/managarr-demo.sh Installation Cargo If you have Cargo installed, then you can install Managarr from Crates.io: cargo install managarr # If you encounter issues installing, try installing with '--locked' cargo install --locked managarr Docker Run Managarr as a docker container by mounting your config.yml file to /root/.config/managarr/config.yml . For example: docker run --rm -it -v ~ /.config/managarr:/root/.config/managarr darkalex17/managarr You can also clone this repo and run make docker to build a docker image locally and run it using the above command. Features Radarr View your library, downloads, collections, and blocklist View details of a specific movie including description, history, downloaded file info, or the credits View details of any collection and the movies in them Search your library or collections Add movies to your library Delete movies, downloads, and indexers Trigger automatic searches for movies Trigger refresh and disk scan for movies, downloads, and collections Manually search for movies Edit your movies, collections, and indexers Manage your tags Manage your root folders Manage your blocklist View and browse logs, tasks, events queues, and updates Manually trigger scheduled tasks Sonarr Support for Sonarr Readarr Support for Readarr Lidarr Support for Lidarr Whisparr Support for Whisparr Bazarr Support for Bazarr Prowlarr Support for Prowlarr Tautulli Support for Tautulli The Managarr CLI Managarr can be used in one of two ways: As a TUI, or as a CLI for managing your Servarrs. All management features available in the TUI are also available in the CLI. The CLI can be helpful for automating tasks or for use in scripts. For example, you can use the CLI to trigger a search for a movie, or to add a movie to your library. To see all available commands, simply run managarr --help : $ managarr --help
+managarr 0.0.36
+Alex Clarke < alex.j.tusa@gmail.com > A TUI and CLI to manage your Servarrs
+
+Usage: managarr [COMMAND]
+
+Commands:
+  radarr       Commands for manging your Radarr instance
+  completions  Generate shell completions for the Managarr CLI help Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help -V, --version  Print version All subcommands also have detailed help menus to show you how to use them. For example, to see all available commands for Radarr, you would run: $ managarr radarr --help
+Commands for manging your Radarr instance
+
+Usage: managarr radarr < COMMAND > Commands:
+  add                       Commands to add or create new resources within your Radarr instance
+  delete                    Commands to delete resources from your Radarr instance
+  edit                      Commands to edit resources in your Radarr instance
+  get                       Commands to fetch details of the resources in your Radarr instance
+  list                      Commands to list attributes from your Radarr instance
+  refresh                   Commands to refresh the data in your Radarr instance
+  clear-blocklist           Clear the blocklist
+  download-release          Manually download the given release for the specified movie ID
+  manual-search             Trigger a manual search of releases for the movie with the given ID
+  search-new-movie          Search for a new film to add to Radarr
+  start-task                Start the specified Radarr task
+  test-indexer              Test the indexer with the given ID. Note that a successful test returns an empty JSON body ; i.e. ' {} ' test-all-indexers         Test all indexers
+  trigger-automatic-search  Trigger an automatic search for the movie with the specified ID help Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help  Print help Pro Tip: The CLI is even more powerful and useful when used in conjunction with the jq CLI tool. This allows you to parse the JSON response from the Managarr CLI and use it in your scripts; For example, to extract the movieId of the movie "Ad Astra", you would run: $ managarr radarr list movies | jq ' .[] | select(.title == "Ad Astra") | .id ' 277 Configuration Managarr assumes reasonable defaults to connect to each service (i.e. Radarr is on localhost:7878),
+but all servers will require you to input the API token. The configuration file is located somewhere different for each OS Linux $HOME/.config/managarr/config.yml Mac $HOME/Library/Application Support/managarr/config.yml Windows %APPDATA%/Roaming/managarr/config.yml Example Configuration: radarr : host : 127.0.0.1 port : 7878 api_token : someApiToken1234567890 sonarr : host : 127.0.0.1 port : 8989 api_token : someApiToken1234567890 readarr : host : 127.0.0.1 port : 8787 api_token : someApiToken1234567890 lidarr : host : 127.0.0.1 port : 8686 api_token : someApiToken1234567890 whisparr : host : 127.0.0.1 port : 6969 api_token : someApiToken1234567890 bazarr : host : 127.0.0.1 port : 6767 api_token : someApiToken1234567890 prowlarr : host : 127.0.0.1 port : 9696 api_token : someApiToken1234567890 tautulli : host : 127.0.0.1 port : 8181 api_token : someApiToken1234567890 Track My Progress for the Beta release (With Sonarr Support!) Progress for the beta release can be followed on my Wekan Board with all items tagged Beta . Screenshots Dependencies ratatui crossterm clap tokio serde reqwest Servarr Requirements Radarr >= 5.3.6.8612 Sonarr >= v3 Readarr v1 Lidarr v1 Whisparr >= v3 Prowlarr v1 Bazarr v1.1.4 Tautulli >= v2 Creator Alex Clarke
+======>
+https://www.reddit.com/r/rust/comments/1gctr27/ygen_now_landed_in_godbolt/
+-->>-->>
+FractalFir • 4d ago • Top Commenter +1 That is some pretty nice progress! I'd say that your project would be somewhat impressive even for an adult, so it is even more impressive that you managed to achieve so much at such a young age. I have a couple questions, tough. You say that you support "55% of LLVM IR nodes" - does that mean you plan to support all of them? Also, you say that "the IR is a little bit different from LLVM" - What are the differences, and what is the reason behind them? Your IR looks LLVM-inspired(the default example in godbolt is both valid Ygen IR and valid LLVM IR), so I am curious to see why you deviated. Is there a technical reason behind that, or you just arrived at something slightly different? I feel like if you stuck closer to LLVM IR, maybe you could use it for testing? Eg. compare the output of LLVM with ygen to better understand bugs? Also, you could then maybe reuse some of the tests LLVM has? You could maybe even try compiling small Rust programs with --emit=llvm-ir , and try loading them into YGen. From a cursory look, this seems possible with some  changes. I got Ygen to compile this rust function: #[no_mangle]
+pub extern "C" fn add(a:i32, b:i32)->i32{
+   (a + b * 2) * a - b
+} By cleaning up the LLVM IR a tiny bit(removed debug info, module info, noundef, and the function address space), you can turn it into something YGen understands, and get it to produce assembly. define i32 u/add(i32  %0, i32  %1) {
+start:
+  %_5 = shl i32 %1, 1
+  %_4 = add i32 %_5, %0
+  %_3 = mul i32 %_4, %0
+  %_0 = sub i32 %_3, %1
+  ret i32 %_0
+} If you mimicked the LLVM IR more closely, and ignored some less important  things YGen does not support, maybe you could get it to compile some more complex Rust code? I don't know how feasible that would be, or if this is something you already considered and decided against, but I think getting some small snippets of Rust to compile could be a neat way to demo and test your work. This is probably not a very good idea, but I am still curious to see if it would work. Anyway: I wanted to congratulate you on this project, since I think it is quite neat :). Reply reply Cr0a3 • 4d ago • Hi, Thank you Does that mean you support all of them. I support 55% of llvm ir node functionality either directly (the same ir node) or indirectly through other ir nodes. A good example for this is the cast node which casts (as the name says). It combines nearly all of llvm cast nodes into one and automatically selects the perfect one in another step. And there are no float specific ir nodes. Most ir nodes (should) stably support float variables and input. And I also do not support all variants of it. You often need to create temporaries for constant values. so I am curious why you deviated. I don't really know why I deviated it is just historically from the start. Also I thought some parts of the ir were just overcomplicated (like casts) so I combined some into my own "higher level ir nodes". I feel like if you stuck close to to LLVM IR, you could maybe use it for testing? Yeah, I often compare the output of llvm with the one of ygen. I could add support for parsing llvm ir into ygen ir so I can use the tests of llvm (good idea) Thank you, Bye Reply reply More replies
+======>
+https://github.com/Cr0a3/ygen
+-->>-->>
+Repository files navigation README Code of conduct Apache-2.0 license Security Ygen - Yet another Code Generator Welcome to Ygen!
+This repository contains the source code of the ygen project. Ygen is a toolkit for building modern compilers, using a llvm like api. Why ygen? You are probably wondering: Why would I choose ygen and not llvm?
+Here are a few reasons: Simplicity : One of ygens main focus is simplicity which means to us that as much code as possible is readable and shared Similare API : Ygens API is very similar to LLVMs API. For example all function names for building ir are nearly the safe as llvms. Simple start : You can easily start with ygen. You do not need to install any dlls, or build it. Ygen also has many simple examples. Warning This project is still early in its developement. Bugs and miscompilations are expected. ONLY USE YGEN FOR TOY COMPILERS Contributions Simple example Here is a simple example on how to use Ygen to build an add function: use std :: error :: Error ; use Ygen :: prelude :: * ; pub fn main ( ) -> Result < ( ) , Box < dyn Error > > { let mut module = Module ( ) ; let ty = FnTy ( vec ! [ TypeMetadata :: i32 , TypeMetadata :: i32 ] , TypeMetadata :: i32 ) ; let func = module . add ( "add" , & ty ) ; func . extrn ( ) ; func . addBlock ( "entry" ) ; let val = func . BuildAdd ( ty . arg ( 0 ) , ty . arg ( 1 ) ) ; func . BuildRet ( val ) ; module . verify ( ) ? ; // prints out the ir of the module println ! ( "{}" , module.dump ( ) ) ; let triple = Triple :: host ( ) ; // compiles the module in the host assembly and saves it in the specified path module . emitToAsmFile ( triple , & mut initializeAllTargets ( triple ) ? , Path :: new ( "out.asm" ) ) ? ; // compiles the module to a host object file module . emitMachineCode ( triple , & mut initializeAllTargets ( triple ) ? , false // is debugging metadata enabled ) ? . 0 . emit ( OpenOptions :: new ( ) . write ( true ) . create ( true ) . open ( "out.o" ) ? , None // if debugging metadata is enabled here is the outputed metadata ) ? ; Ok ( ( ) ) } When executed this simple program builds an add function and dumps it's ir: define i32 @add ( i32 %0 , i32 %1 ) {
+ entry: %2 = add i32 %0 , %1 ret i32 %2 } Support Ygen currently supports following architectures: x86-64 wasm [WIP] Copyright This project is owned by Cr0a3 and licensed under the Apache2 License
+======>
+https://github.com/Abdenasser/neohtop
+-->>-->>
+Repository files navigation README NeoHtop A modern, cross-platform system monitor built with Tauri, Rust, and Svelte. Features 🚀 Real-time process monitoring 💻 CPU and Memory usage tracking 🎨 Beautiful, modern UI with dark/light themes 🔍 Process search and filtering 📌 Pin important processes 🛠 Process management (kill processes) 🎯 Sort by any column 🔄 Auto-refresh system stats Tech Stack Frontend : SvelteKit, TypeScript Backend : Rust, Tauri Styling : CSS Variables for theming Icons : FontAwesome Development Prerequisites Node.js (v16 or later) Rust (latest stable) Xcode Command Line Tools (for macOS) Setup # Install dependencies npm install # Run in development mode npm run tauri dev # Build for production npm run tauri build # Build universal macOS binary ./build-universal.sh
+======>
+https://abdenasser.github.io/neohtop/
+-->>-->>
+Home Features Download Install Changelog 🌙 NeoHtop A modern, cross-platform system monitor Rust Tauri Svelte Features 🚀 Real-time Monitoring Track system processes in real-time with minimal resource usage 🎨 Modern UI Beautiful interface with automatic dark/light theme detection 🔍 Smart Search Quick process search with advanced filtering options 📌 Process Pinning Keep important processes in view for easy monitoring ⚡️ Resource Efficient Built with Rust for optimal performance and low memory usage 🛠 Process Management View and manage processes with detailed information Download for macOS 💻 Intel Mac 🍎 Apple Silicon Installation Guide 1 Download Choose and download the appropriate version for your Mac 2 Open DMG Double-click the downloaded .dmg file 3 Install Drag NeoHtop to your Applications folder 4 First Launch Right-click and choose Open to bypass Gatekeeper Frequently Asked Questions How does NeoHtop compare to Activity Monitor? ▼ NeoHtop offers a modern interface with additional features like process pinning, smart search, and themes
+            while maintaining high performance through its Rust backend. Is NeoHtop resource intensive? ▼ No, NeoHtop is built with Rust and optimized for minimal resource usage, typically using less than 1% CPU
+            and minimal memory. View on GitHub © 2024 NeoHtop
+======>
+https://old.reddit.com/r/rust/comments/1gg0659/how_can_i_find_the_files_produced_by_my_build/
+-->>-->>
+I have a build script which generates some files that I need to use at run time. How can my binary find them?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfsdz2/how_to_pass_a_struct_field_into_a_macro/
+-->>-->>
+How could I write a macro to turn this:   
+
+   pub struct User {
+    id: UserId,
+    username: Username,
+    history: History,
+}
+
+impl User {
+    ...
+
+    add_history_code!(self.history); // Or whatever is equivilent to this.
+}
+   
+
+   Into this:   
+
+   pub struct User {
+    id: UserId,
+    username: Username,
+    history: History,
+}
+
+impl User {
+    ...
+
+    // Macro should add functions that hide and encapsulate self.history,
+    // as they'll be implemented identically on many objects, like so:
+
+    pub fn date_created(&self) -> DateTime {
+        self.history.date_created()
+    }
+
+    pub fn date_last_updated(&self) -> DateTime {
+        self.history.date_last_updated()
+    }
+
+    pub fn update(&mut self, now: DateTime) -> () {
+        self.history.update(now)
+    }
+
+    ...
+}
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfqi84/rusty_bandwidth_the_original_bandwith_hero/
+-->>-->>
+Bandwidth hero extension was made to real time encode the pictures on the sites you visit to save bandwidth. Great when using mobile data. Public instance was shut down and it's node.js server is bloated.   
+
+   By the fact of how badly optimised the original    bandwidth hero server    was i got the idea to rewrite it in rust. It used node.js and used unreasonably high amount of system resources. From my experience it uses around 1.5GB of ram at all time (no disk, it is just a proxy) while doing absolutly nothing.    
+
+   I wanted to make a faster, less resource hungry backend for the    extension    that can run on low-end devices or cheap cloud servers because your only option right now is selfhosting the backend otherwise the extension is useless. I may make a public instance if there is enough demand.   
+
+   Its at version 2.0.2 currently after a big rewrite from the failed idea of using Avif instead of WebP. Hoping to get feedback and bug reports for my project.   
+
+   https://github.com/furdiburd/rusty-bandwith   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfqicr/introducing_crud_routers/
+-->>-->>
+Hi    r/rust   ,   
+
+   I am introducing    crud_routers   , a library to automatically generate CRUD routes, very similar to    fastapi-crudrouter    in python and it implements most of the functionality of fastapi-crudrouter except middlewares. It is not limited only to one web framework.   
+
+   It supports below api servers:   
+
+   
+   Axum   
+   Actix   
+   
+
+   And these orms are also supported for database operations:   
+
+   
+   Diesel   
+   Sea-orm   
+   
+
+   Openapi is also supported thanks to utoipa, you can have a swagger page with all crud operations very quickly with this library.   
+
+   https://preview.redd.it/w5xxm0vh5xxd1.png?width=2854&format=png&auto=webp&s=8f3707fd9289498bf9199858e9039a0d36380e16   
+
+   It's version 0.1 but very usable. Please give it a go and let me know what do you think.   
+
+   Repository:    https://github.com/furkan-guvenc/crud_routers   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfzbju/i_present_managarr_a_tui_and_cli_to_manage_your/
+-->>-->>
+After almost 3 years of work, I've finally managed to get this project stable enough to release an alpha version! This is my first Rust project to help me learn the language better and I have to say...I've learned quite a bit! But this project is what helped me realize that Rust is by far my favorite language!   
+
+   All that said: I'm proud to present    Managarr - A TUI and CLI for managing your Servarr instances   ! At the moment, the alpha version only supports Radarr.   
+
+   Not all features are implemented for the alpha version, like managing quality profiles or quality definitions, etc.   
+
+   Here's some screenshots:   
+
+   https://preview.redd.it/1dv2778tzyxd1.png?width=1903&format=png&auto=webp&s=5c6d49121053eb63308d8f1060add4fd1f1da12b   
+
+   https://preview.redd.it/jwocu48tzyxd1.png?width=1903&format=png&auto=webp&s=f22051237517ab8e197ae5b521b12def0175b05f   
+
+   https://preview.redd.it/1a48u48tzyxd1.png?width=1903&format=png&auto=webp&s=9f4b854579bb573ac7207430e5fe2f260b73932c   
+
+   https://preview.redd.it/8v0m8r8tzyxd1.png?width=1903&format=png&auto=webp&s=8aad1692126b16f1dc481d662f0b59b3315ba1ba   
+
+   https://preview.redd.it/j5wm868tzyxd1.png?width=1903&format=png&auto=webp&s=51fd437b3fc0a14495a58b23b8bf321de71ea1bb   
+
+   https://preview.redd.it/99obw48tzyxd1.png?width=1903&format=png&auto=webp&s=2669ed57e2dcf0ceb4d5729758eaeb43eb2a97c2   
+
+   https://preview.redd.it/f8c1t58tzyxd1.png?width=1903&format=png&auto=webp&s=a0e04cb3b0d318f2c238a1ca0ea34cb52286d597   
+
+   Additionally, you can use it as a CLI for Radarr; For example, to search for a new film:   
+
+   managarr radarr search-new-movie --query "star wars"   
+
+   Or you can add a new movie by its TMDB ID:   
+
+   managarr radarr add movie --tmdb-id 1895 --root-folder-path /nfs/movies --quality-profile-id 1   
+
+   All features available in the TUI are also available via the CLI.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfvf58/rustlings_the_rust_book_for_the_win/
+-->>-->>
+I’ve been going through the Rustlings exercises with the Rust book by my side and it seems to me like the best way to learn Rust before building your own projects. It’s been a fun, pragmatic, practical, and focused approach!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfse67/good_technical_deep_dive_talks_on_rust_on_youtube/
+-->>-->>
+Could you point me to some good deep technical talks / tutorials on Rust on YouTube? Unlike Java and Python such talks seem to be fewer or I'm not using the right search terms. I know there is an official Rust channel, but there the talks seem to be from meet ups and so on, so the quality seems to be lacking compared to venues like DevOps for Java and pycon/pydata talks.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfjwu9/ygen_is_looking_for_contributors/
+-->>-->>
+Hi,   
+
+   I am currently working on a new code generation libary called ygen:    Cr0a3/ygen: Ygen - Yet another code generation libary    which recently got support in godbolt:    Ygen now landed in godbolt : r/rust   
+
+   What is ygen?   
+
+   Ygen is a new code generation libary which is strongly inspired by llvm.   
+
+   I am working on ygen since july.   
+
+   It currently supports 55% of llvm ir nodes (not all variants; some are all bundled into one node).   
+
+   The backends are:   
+
+   
+   x64   
+   wasm    (WIP)   
+   
+
+   Where do I need help?   
+
+   So, I know nothing about optimizations but they are really important.   
+
+   I would like that we would implement some optimizations together and teach me also a little how they work.   
+
+   Especially:   
+
+   
+   Mem2reg   
+   loop analaysiz and optimization   
+   
+
+   How do we stay in touch?   
+
+   When working together communication is really important.   
+
+   I made a little discord server for that:    https://discord.gg/26RxXg8qx3   
+
+   Best,   
+
+   Cr0a3   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gfzrdx/my_first_attempt_at_tauri/
+-->>-->>
+Hey r/rust! I spent my weekend building a native task manager for macOS that brings the htop experience to the desktop. Try it out:    https://abdenasser.github.io/neohtop/    or check the Github repo:    https://github.com/Abdenasser/neohtop    This is my first project with Rust and Tauri, and I have to say - the experience was amazing! The performance and developer experience were fantastic (though dealing with Apple's certification process was... interesting 😅).   
+
+   Tech Stack   
+
+   
+   Rust   
+   Tauri   
+   Svelte   
+   sysinfo   
+   
+
+   Features   
+
+   
+   Process monitoring   
+   CPU/Memory usage   
+   Clean, native UI   
+   Dark mode support   
+   
+
+   Links   
+
+   
+   GitHub:    https://github.com/Abdenasser/neohtop   
+   Website:    https://abdenasser.github.io/neohtop/   
+   
+
+   Would love to hear your thoughts and feedback! Has anyone else built desktop apps with Tauri? How was your experience ? Edit: Thanks for all the feedback and awards! 🙏   
+   
+
+
+======>
+https://tonbo.io/blog/async-rust-is-not-safe-with-io-uring
+-->>-->>
+Async Rust is not safe with io_uring October 30, 2024 by Tzu Gwo TL;DR 1. Clone this repository on a Linux system that supports io_uring. 2. Try switching these two lines. 3. Execute cargo run for a while. The demo shows that even though the behavior appears similar, TCP connections leak when
+				using the io_uring driver but not with the epoll driver. I've also tested this across various io_uring runtimes, and it turns out to be a common issue across all of them. Barbara's TCP connection mysteriously leaked Barbara had a lot of experience developing web services with async Rust. One day, she read a
+				blog about io_uring, which described it as the next-generation async I/O interface for
+				Linux. Interested, Barbara decided to try it out in her sidecar web service. Rust's "async/await" model is separate from the async runtime and I/O interface
+				implementations, making it easy to switch between different runtimes. Barbara was very
+				familiar with Tokio, the most popular async runtime in Rust, which uses epoll for I/O
+				interface. So, she looked for an async runtime that supported io_uring to transform her web
+				service into an io_uring-based version. After some research, Barbara discovered several async runtimes like glommio, monoio, and compio that supported io_uring.
+				She decided to give one of them a try—monoio, in particular, which provided both epoll and io_uring
+				interfaces and allowed for easy switching. It seemed like the perfect fit for Barbara's io_uring
+				exploration. With her familiarity with Tokio, Barbara quickly wrote her first HTTP server demo: use monoio::io::{AsyncReadRentExt, AsyncWriteRentExt}; use monoio::net::TcpListener; #[monoio::main(driver = "io_uring" )] async fn main () { let listener = TcpListener:: bind ( "127.0.0.1:0" ). unwrap (); loop { let ( mut stream, _) = listener. accept (). await . unwrap (); let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ;
+        result. unwrap (); let (result, _) = stream. write_all (buf). await ;
+        result. unwrap ();
+    }
+} 0 use monoio::io::{AsyncReadRentExt, AsyncWriteRentExt}; 1 use monoio::net::TcpListener; 2 3 #[monoio::main(driver = "io_uring" )] 4 async fn main () { 5 let listener = TcpListener:: bind ( "127.0.0.1:0" ). unwrap (); 6 7 loop { 8 let ( mut stream, _) = listener. accept (). await . unwrap (); 9 let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ; 10 result. unwrap (); 11 let (result, _) = stream. write_all (buf). await ; 12 result. unwrap (); 13 } 14 } Barbara thought, "Great, this looks no different from a typical Tokio program—first bind to
+				an address, then continuously accept new TCP connections in a loop and process them." Barbara then considered her next steps. She decided to learn how to implement asynchronous
+				control, such as timeouts, so that if the TCP listener did not accept a connection for a
+				while, it could switch to handling some sidecar tasks (like logging) before resuming
+				acceptance: use monoio::io::{AsyncReadRentExt, AsyncWriteRentExt}; use monoio::net::TcpListener; use monoio::select; #[monoio::main(driver = "io_uring" )] async fn main () { let listener = TcpListener:: bind ( "127.0.0.1:0" ). unwrap (); loop { select! {
+            stream = listener. accept () => { let ( mut stream, _) = stream. unwrap (); let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ;
+                result. unwrap (); let (result, _) = stream. write_all (buf). await ;
+                result. unwrap ();
+            }
+            _ = time:: sleep (Duration:: from_secs ( 1 )) => { // do somethings continue ;
+            }
+        }
+    }
+} 0 use monoio::io::{AsyncReadRentExt, AsyncWriteRentExt}; 1 use monoio::net::TcpListener; 2 use monoio::select; 3 4 #[monoio::main(driver = "io_uring" )] 5 async fn main () { 6 let listener = TcpListener:: bind ( "127.0.0.1:0" ). unwrap (); 7 8 loop { 9 select! { 10 stream = listener. accept () => { 11 let ( mut stream, _) = stream. unwrap (); 12 let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ; 13 result. unwrap (); 14 let (result, _) = stream. write_all (buf). await ; 15 result. unwrap (); 16 } 17 _ = time:: sleep (Duration:: from_secs ( 1 )) => { 18 // do somethings 19 continue ; 20 } 21 } 22 } 23 } Using the concurrency primitive "select" to add timeouts to futures worked well with
+				io_uring. Barbara was pleased and quickly updated her web service to use io_uring,
+				eventually deploying it. Everything ran smoothly until one day she noticed something odd in
+				the client logs: some requests were never processed. To investigate, Barbara wrote a minimal
+				example, only to find the issue was far more complex than expected. Barbara found that while the client running in a child thread was connecting correctly, the
+				server in the main thread wasn’t proceeding as it should. Instead, the timeout kept getting
+				triggered, as if the client's connection had vanished. A TCP connection leak had occurred. And it wasn't just monoio—this issue affected all async runtimes that used io_uring. What’s going on? Before understanding why using "select" for timeout control in an io_uring-based async
+				runtime leads to TCP connection leaks, we need to first understand why this issue doesn’t
+				occur with epoll. The entire async Rust ecosystem is built around a core asynchronous primitive from the
+				standard library: Future. Its definition is as follows: pub enum Poll <T> { Ready (T),
+    Pending,
+} pub trait Future { type Output ; // Required method fn poll ( self : Pin<& mut Self >, cx: & mut Context< '_ >) -> Poll< Self ::Output>;
+} 0 pub enum Poll <T> { 1 Ready (T), 2 Pending, 3 } 4 5 pub trait Future { 6 type Output ; 7 8 // Required method 9 fn poll ( self : Pin<& mut Self >, cx: & mut Context< '_ >) -> Poll< Self ::Output>; 10 } In Rust, all asynchronous operations—not just those manually written by async library
+				developers but also those written by users using "async" blocks—are defined as recursive
+				future structures, which get instantiated when ".await" is called. The entire structure
+				contains all the state that must be saved across suspended futures during pending
+				operations. The async executor is then responsible for repeatedly calling the "poll" method
+				to advance this state until completion. Consider this example async block: async fn foo (z: i32 ) { ... } async fn bar (x: i32 , y: i32 ) -> i32 { let mut z = x + y; foo (z). await ;
+    z
+} 0 async fn foo (z: i32 ) { ... } 1 2 async fn bar (x: i32 , y: i32 ) -> i32 { 3 let mut z = x + y; 4 foo (z). await ; 5 z 6 } will transform to below by compiler: enum Bar { // When it starts, it contains only its arguments Start { x: i32 , y: i32 }, // At the first await, it must contain `z` and the `Foo` future FirstAwait { z: i32 , foo: Foo } // When its finished it needs no data Complete,
+} impl Future for Bar {
+    Output = i32 fn poll ( self : Pin<& mut Self >, cx: & mut Context< '_ >) -> Poll< Self ::Output> { // if self is Start then advance self to FirstAwait // if self is FirstAwait then advance it to Complete }
+} 0 enum Bar { 1 // When it starts, it contains only its arguments 2 Start { x: i32 , y: i32 }, 3 4 // At the first await, it must contain `z` and the `Foo` future 5 FirstAwait { z: i32 , foo: Foo } 6 7 // When its finished it needs no data 8 Complete, 9 } 10 11 impl Future for Bar { 12 Output = i32 13 14 fn poll ( self : Pin<& mut Self >, cx: & mut Context< '_ >) -> Poll< Self ::Output> { 15 // if self is Start then advance self to FirstAwait 16 // if self is FirstAwait then advance it to Complete 17 } 18 } For a more detailed explanation of futures and how they are executed, I recommend reading ihciah's blog. He is one of the core authors of monoio. Async Rust makes a few core assumptions about futures: 1. The state of futures only change when they are polled. 2. Futures are implicitly cancellable by simply never polling them again. Futures bound to epoll adhere to these assumptions, which relates to the mechanism of epoll:
+				epoll is not an asynchronous syscall mechanism; it’s an event notification mechanism. In the
+				above example, the actual behavior of the "listener.accept()" future, simplified, is as
+				follows: impl Future for TcpListenerAccept { type Output = io:: Result <TcpStream>; fn poll ( self : Pin<& mut Self >, cx: & mut Context< '_ >) -> Poll< Self ::Item> { match self . accept () { Ok ((stream, _)) => Poll:: Ready ( Ok (stream)), Err (e) if e. kind () == io::ErrorKind::WouldBlock => { // register the file descriptor in TcpListener // from the epoll interest list ...
+                Poll::Pending
+            } Err (e) => Poll:: Ready ( Some ( Err (e))),
+        }
+    }
+} 0 impl Future for TcpListenerAccept { 1 type Output = io:: Result <TcpStream>; 2 3 fn poll ( self : Pin<& mut Self >, cx: & mut Context< '_ >) -> Poll< Self ::Item> { 4 match self . accept () { 5 Ok ((stream, _)) => Poll:: Ready ( Ok (stream)), 6 Err (e) if e. kind () == io::ErrorKind::WouldBlock => { 7 // register the file descriptor in TcpListener 8 // from the epoll interest list 9 ... 10 Poll::Pending 11 } 12 Err (e) => Poll:: Ready ( Some ( Err (e))), 13 } 14 } 15 } "self.accept()" runs synchronously, either succeeding by obtaining a TCP stream or
+				encountering a "would block" exception, leaving it in a pending state until the kernel is
+				ready. To cancel this operation, you simply stop polling, as the syscall only happens during
+				polling. However, io_uring-bound futures break these two assumptions: 1. The syscall is executed asynchronously by the kernel, not during polling. The kernel commit the TCP stream into a kernel / user shared ring buffer, meaning the accept event is completed implicitly. 2. You cannot simply cancel an io_uring-bound future by stopping polling, as the kernel might complete the syscall at any time, even during the cancellation progress . A step-by-step explanation of the earlier example will make this process clearer: ... loop { // <- Step 0. first round of loop. // <- Step 5. second round of loop, // 💀 listener starts to next accept syscall, // we loose the chance to handle the previous one. select! { // <- Step 1. into select! macro, // accept syscall is submitted to kernel. stream = listener. accept () => { let ( mut stream, _) = stream. unwrap (); let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ;
+            result. unwrap (); let (result, _) = stream. write_all (buf). await ;
+            result. unwrap ();
+        }
+        _ = time:: sleep (Duration:: from_secs ( 1 )) => { // <- Step 2. time::sleep is ready before accept, // goes to this branch. println! ( "timeout" ); // <- Step 3. into timeout branch, // 💥 accept syscall behind listener.accept() // is ready at the time. continue ; // <- step 4. continue to next loop. }
+    }
+}
+... 0 ... 1 loop { // <- Step 0. first round of loop. 2 3 // <- Step 5. second round of loop, 4 // 💀 listener starts to next accept syscall, 5 // we loose the chance to handle the previous one. 6 7 select! { // <- Step 1. into select! macro, 8 // accept syscall is submitted to kernel. 9 10 stream = listener. accept () => { 11 let ( mut stream, _) = stream. unwrap (); 12 let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ; 13 result. unwrap (); 14 let (result, _) = stream. write_all (buf). await ; 15 result. unwrap (); 16 } 17 _ = time:: sleep (Duration:: from_secs ( 1 )) => { 18 // <- Step 2. time::sleep is ready before accept, 19 // goes to this branch. 20 21 println! ( "timeout" ); // <- Step 3. into timeout branch, 22 // 💥 accept syscall behind listener.accept() 23 // is ready at the time. 24 25 continue ; // <- step 4. continue to next loop. 26 } 27 } 28 } 29 ... How to solve this? Before discussing the solution, we need to break the problem down into two parts: 1. I/O Safety : Ensuring that accepted TCP streams are properly closed without leaking connections. 2. Halt Safety (proposed by Yoshua Wuyts): Handling connections that have already been opened when they are cancelled, allowing them to continue being processed. I/O Safety First of all, we are fortunate that the I/O safety problem can be addressed now, which safe
+				Rust aims to ensure this in the future. Rust provides the Drop trait to define custom
+				behavior when a value is cleaned up. Thus, we can do something like this: impl Drop for TcpListenerAccept { fn drop (& mut self ) { // Cancel accept operation // Submit request }
+} 0 impl Drop for TcpListenerAccept { 1 fn drop (& mut self ) { 2 // Cancel accept operation 3 // Submit request 4 } 5 } We just need to encourage async runtimes to implement this fix. Halt Safety Halt safety is more complicated. Monoio provides a component called "cancellable I/O" to
+				properly handle the cancellation of io_uring-bound futures. A complete example can be found
+				here: cancellable I/O example. You can run this branch to see that the connection handling behavior now matches that of epoll.
+				Here, I’ll show a simplified usage: loop { let canceler = monoio::io::Canceller:: new (); let handle = canceler. handle (); let mut timer = pin!(time:: sleep (Duration:: from_millis ( 1 ))); let mut accept = pin!(listener. cancelable_accept (handle)); select! {
+        stream = & mut accept => {
+						...
+        }
+        _ = & mut timer => {
+            canceler. cancel (); let stream = (& mut accept). await ; if let Ok (stream) = stream { let ( mut stream, _) = stream; let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ;
+            } continue ;
+        }
+    }
+} 0 loop { 1 let canceler = monoio::io::Canceller:: new (); 2 let handle = canceler. handle (); 3 let mut timer = pin!(time:: sleep (Duration:: from_millis ( 1 ))); 4 let mut accept = pin!(listener. cancelable_accept (handle)); 5 6 select! { 7 stream = & mut accept => { 8 ... 9 } 10 _ = & mut timer => { 11 canceler. cancel (); 12 let stream = (& mut accept). await ; 13 if let Ok (stream) = stream { 14 let ( mut stream, _) = stream; 15 let (result, buf) = stream. read_exact ( vec! [ 0 ; 11 ]). await ; 16 } 17 continue ; 18 } 19 } 20 } As you can see, besides performing the accept operation in the regular select branch, the
+				timeout branch explicitly cancels the accept future. Afterwards, it proceeds to .await the
+				accept future again to confirm if a TCP stream was ready during the timeout period. Monoio's component partially solves the problem, but there's still an issue: since a future
+				is a recursive structure, an io_uring-bound future may not be directly at the place where
+				cancellation occurs: let canceler = monoio::io::Canceller:: new (); let handle = canceler. handle (); let block = async { async {
+        ... async { let stream = listener. cancelable_accept (handle). await ;
+        }. await ;
+        ...
+    }. await ;
+}; drop (block); // how to cancel the inner accept future and .await for completed operation? 0 let canceler = monoio::io::Canceller:: new (); 1 let handle = canceler. handle (); 2 3 let block = async { 4 async { 5 ... 6 async { 7 let stream = listener. cancelable_accept (handle). await ; 8 }. await ; 9 ... 10 }. await ; 11 }; 12 13 drop (block); 14 // how to cancel the inner accept future and .await for completed operation? Canceling a future that contains an io_uring-bound future will also affect its inner
+				io_uring-bound futures. This means that the cancellation safety of io_uring-bound futures is
+				"contagious." Simply converting an io_uring-bound future to cancellable I/O does not solve
+				all the issues. Another key issue is that if you forget to handle the cancellation of an io_uring-bound
+				future, there are no compile-time checks to catch it. For io_uring-bound futures, you need
+				to ".await" them after cancellation to see if they have completed. This means they must be used exactly once, a concept called linear types, which ensures correct usage of resources at compile time. Unfortunately, Rust lacks the support for this kind of type system. For more details on why
+				adding linear logic to Rust is challenging, you can refer to Without Boats' blog: Changing the rules of Rust. Why wrote this? There has been a lot of discussion about memory safety in the context of io_uring. For more
+				details, you can refer to these resources: • Async Cancellation by yoshuawuyts • Notes on io-uring by withoutboats • Async Rent by ihciah However, the community rarely addresses I/O safety and halt safety with io_uring in async
+				Rust. I'm presenting a specific case to draw attention to this topic. The title of this blog
+				might sound a bit dramatic, but everyone has different definitions and understandings of
+				"safety." What do you think about this issue: • Keep things as they are; I/O safety and halt safety do not need guarantees from the language. • Rust should ensure I/O safety (this is already a goal outlined in the RFC, but not yet implemented in Rust.) • Rust should ensure halt safety (rarely discussed!)
+======>
+https://gaultier.github.io/blog/lessons_learned_from_a_successful_rust_rewrite.html
+-->>-->>
+$ cargo +nightly-2024-09-01 miri r
+error: Undefined Behavior: attempting a write access using <2883> at alloc1335[0x0], but that tag does not exist in the borrow stack for this location
+ --> src/main.rs:7:9
+  |
+7 |         *a = 2;
+  |         ^^^^^^
+  |         |
+  |         attempting a write access using <2883> at alloc1335[0x0], but that tag does not exist in the borrow stack for this location
+  |         this error occurs as part of an access at alloc1335[0x0..0x8]
+  |
+  [...]
+ --> src/main.rs:4:29
+  |
+4 | let a: *mut usize = &mut x;
+  |                             ^^^^^^ help : <2883> was later invalidated at offsets [0x0..0x8] by a Unique retag
+ --> src/main.rs:5:29
+  |
+5 | let b: *mut usize = &mut x;
+  |                             ^^^^^^
+  [...]
+======>
+https://old.reddit.com/r/rust/comments/1gfs7zz/sincere_question_what_is_up_with_all_these_great/
+-->>-->>
+I don't know much about rust. But lately (and over the years) I have tried various tools for my computer. For example, I use Dufs in my homelab as a file server. And I recently starting using GlazeWM for windows.   
+
+   Over the years, I have noticed a trend. Every time I try something and say... "damn, this tool is good/smooth/nice"... almost always, it's written in rust.   
+
+   Is it that rust attracts great minds? is it just a happy coincidence?   
+   

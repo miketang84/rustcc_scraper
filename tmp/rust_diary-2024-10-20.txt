@@ -1,0 +1,537 @@
+https://github.com/N-Maas/hivetui
+-->>-->>
+Repository files navigation README MIT license hivetui Hivetui is a TUI (Terminal User Interface) implementation of the board game Hive .
+It is played with the keyboard and includes a challenging AI. The game inlcudes a tutorial and rules summary.
+However, you might want to consult the full rules if you don't know Hive yet. Game Impressions In-game: Menu: With different graphic settings: Installation and Usage Pre-built packages are available for some of the most common architectures (currently Windows x86_64 and Linux x86_64). Download the according zip file from the latest release ( not "source code", but the single zip file corresponding to your OS) Extract the zip file in the location where you want to store the game Windows Before running hivetui, Windows Terminal must be installed from the Microsoft Store Afterwards, hivetui can be started with a double click on hivetui.bat Alternatively, execute the hivetui.exe binary manually in Windows Terminal Windows Defender: It is possible that Windows Defender blocks execution or even silenty deletes the file, causing an error when trying to start the program. To avoid this, add an exclusion to Windows Security as follows: Open Windows Security Under "Virus & threat protection", select "Manage settings", and then under "Exclusions", select "Add or remove exclusions" Select "Add an exclusion", choose "Folder", and then select the folder where the files are stored Linux Just execute the provided binary in a terminal of your choice (which has proper unicode and color support). Terminal Colors Currently, the game assumes that the active terminal style has black background and white foreground (text).
+If you use a different style, consider changing either the terminal or the style. Building from Source To build from source, the Rust toolchain must be installed.
+Then, you can build the project with cargo: cargo build --release This should create a hivetui binary in the target/release directory. Missing Features Features that might be added at some point in the future include: Support for the Pillbug A replay mode Copyright Hive Copyright (c) 2016 Gen42 Games. Hivetui is not associated with or endorsed by Gen42 Games.
+
+======>
+https://gen42.com/games/hive
+-->>-->>
+/* <![CDATA[ */
+eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}',43,43,'||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'.split('|'),0,{}))
+/* ]]> */ Powered by Translate function googleTranslateElementInit2() {new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element2');} Select Language English Afrikaans Albanian Amharic Arabic Armenian Azerbaijani Basque Belarusian Bengali Bosnian Bulgarian Catalan Cebuano Chichewa Chinese (Simplified) Chinese (Traditional) Corsican Croatian Czech Danish Dutch Esperanto Estonian Filipino Finnish French Frisian Galician Georgian German Greek Gujarati Haitian Creole Hausa Hawaiian Hebrew Hindi Hmong Hungarian Icelandic Igbo Indonesian Irish Italian Japanese Javanese Kannada Kazakh Khmer Korean Kurdish (Kurmanji) Kyrgyz Lao Latin Latvian Lithuanian Macedonian Malagasy Malay Malayalam Maltese Maori Marathi Mongolian Myanmar (Burmese) Nepali Norwegian Pashto Persian Polish Portuguese Punjabi Romanian Russian Samoan Scottish Gaelic Serbian Sesotho Shona Sindhi Sinhala Slovak Slovenian Somali Spanish Sudanese Swahili Swedish Tajik Tamil Telugu Thai Turkish Ukrainian Urdu Uzbek Vietnamese Welsh Xhosa Yiddish Yoruba Zulu
+======>
+https://github.com/hibiken/asynq
+-->>-->>
+Repository files navigation README Code of conduct MIT license Simple, reliable & efficient distributed task queue in Go Asynq is a Go library for queueing tasks and processing them asynchronously with workers. It's backed by Redis and is designed to be scalable yet easy to get started. Highlevel overview of how Asynq works: Client puts tasks on a queue Server pulls tasks off queues and starts a worker goroutine for each task Tasks are processed concurrently by multiple workers Task queues are used as a mechanism to distribute work across multiple machines. A system can consist of multiple worker servers and brokers, giving way to high availability and horizontal scaling. Example use case Features Guaranteed at least one execution of a task Scheduling of tasks Retries of failed tasks Automatic recovery of tasks in the event of a worker crash Weighted priority queues Strict priority queues Low latency to add a task since writes are fast in Redis De-duplication of tasks using unique option Allow timeout and deadline per task Allow aggregating group of tasks to batch multiple successive operations Flexible handler interface with support for middlewares Ability to pause queue to stop processing tasks from the queue Periodic Tasks Support Redis Cluster for automatic sharding and high availability Support Redis Sentinels for high availability Integration with Prometheus to collect and visualize queue metrics Web UI to inspect and remote-control queues and tasks CLI to inspect and remote-control queues and tasks Stability and Compatibility Status : The library is currently undergoing heavy development with frequent, breaking API changes. ☝️ Important Note : Current major version is zero ( v0.x.x ) to accommodate rapid development and fast iteration while getting early feedback from users ( feedback on APIs are appreciated! ). The public API could change without a major version update before v1.0.0 release. Sponsoring If you are using this package in production, please consider sponsoring the project to show your support! Quickstart Make sure you have Go installed ( download ). Latest two Go versions are supported (See https://go.dev/dl ). Initialize your project by creating a folder and then running go mod init github.com/your/repo ( learn more ) inside the folder. Then install Asynq library with the go get command: go get -u github.com/hibiken/asynq Make sure you're running a Redis server locally or from a Docker container. Version 4.0 or higher is required. Next, write a package that encapsulates task creation and task handling. package tasks import ( "context" "encoding/json" "fmt" "log" "time" "github.com/hibiken/asynq" ) // A list of task types. const ( TypeEmailDelivery = "email:deliver" TypeImageResize = "image:resize" ) type EmailDeliveryPayload struct { UserID int TemplateID string } type ImageResizePayload struct { SourceURL string } //---------------------------------------------- // Write a function NewXXXTask to create a task. // A task consists of a type and a payload. //---------------------------------------------- func NewEmailDeliveryTask ( userID int , tmplID string ) ( * asynq. Task , error ) { payload , err := json . Marshal ( EmailDeliveryPayload { UserID : userID , TemplateID : tmplID }) if err != nil { return nil , err } return asynq . NewTask ( TypeEmailDelivery , payload ), nil } func NewImageResizeTask ( src string ) ( * asynq. Task , error ) { payload , err := json . Marshal ( ImageResizePayload { SourceURL : src }) if err != nil { return nil , err } // task options can be passed to NewTask, which can be overridden at enqueue time. return asynq . NewTask ( TypeImageResize , payload , asynq . MaxRetry ( 5 ), asynq . Timeout ( 20 * time . Minute )), nil } //--------------------------------------------------------------- // Write a function HandleXXXTask to handle the input task. // Note that it satisfies the asynq.HandlerFunc interface. // // Handler doesn't need to be a function. You can define a type // that satisfies asynq.Handler interface. See examples below. //--------------------------------------------------------------- func HandleEmailDeliveryTask ( ctx context. Context , t * asynq. Task ) error { var p EmailDeliveryPayload if err := json . Unmarshal ( t . Payload (), & p ); err != nil { return fmt . Errorf ( "json.Unmarshal failed: %v: %w" , err , asynq . SkipRetry )
+    } log . Printf ( "Sending Email to User: user_id=%d, template_id=%s" , p . UserID , p . TemplateID ) // Email delivery code ... return nil } // ImageProcessor implements asynq.Handler interface. type ImageProcessor struct { // ... fields for struct } func ( processor * ImageProcessor ) ProcessTask ( ctx context. Context , t * asynq. Task ) error { var p ImageResizePayload if err := json . Unmarshal ( t . Payload (), & p ); err != nil { return fmt . Errorf ( "json.Unmarshal failed: %v: %w" , err , asynq . SkipRetry )
+    } log . Printf ( "Resizing image: src=%s" , p . SourceURL ) // Image resizing code ... return nil } func NewImageProcessor () * ImageProcessor { return & ImageProcessor {}
+} In your application code, import the above package and use Client to put tasks on queues. package main import ( "log" "time" "github.com/hibiken/asynq" "your/app/package/tasks" ) const redisAddr = "127.0.0.1:6379" func main () { client := asynq . NewClient (asynq. RedisClientOpt { Addr : redisAddr }) defer client . Close () // ------------------------------------------------------ // Example 1: Enqueue task to be processed immediately. //            Use (*Client).Enqueue method. // ------------------------------------------------------ task , err := tasks . NewEmailDeliveryTask ( 42 , "some:template:id" ) if err != nil { log . Fatalf ( "could not create task: %v" , err )
+    } info , err := client . Enqueue ( task ) if err != nil { log . Fatalf ( "could not enqueue task: %v" , err )
+    } log . Printf ( "enqueued task: id=%s queue=%s" , info . ID , info . Queue ) // ------------------------------------------------------------ // Example 2: Schedule task to be processed in the future. //            Use ProcessIn or ProcessAt option. // ------------------------------------------------------------ info , err = client . Enqueue ( task , asynq . ProcessIn ( 24 * time . Hour )) if err != nil { log . Fatalf ( "could not schedule task: %v" , err )
+    } log . Printf ( "enqueued task: id=%s queue=%s" , info . ID , info . Queue ) // ---------------------------------------------------------------------------- // Example 3: Set other options to tune task processing behavior. //            Options include MaxRetry, Queue, Timeout, Deadline, Unique etc. // ---------------------------------------------------------------------------- task , err = tasks . NewImageResizeTask ( "https://example.com/myassets/image.jpg" ) if err != nil { log . Fatalf ( "could not create task: %v" , err )
+    } info , err = client . Enqueue ( task , asynq . MaxRetry ( 10 ), asynq . Timeout ( 3 * time . Minute )) if err != nil { log . Fatalf ( "could not enqueue task: %v" , err )
+    } log . Printf ( "enqueued task: id=%s queue=%s" , info . ID , info . Queue )
+} Next, start a worker server to process these tasks in the background. To start the background workers, use Server and provide your Handler to process the tasks. You can optionally use ServeMux to create a handler, just as you would with net/http Handler. package main import ( "log" "github.com/hibiken/asynq" "your/app/package/tasks" ) const redisAddr = "127.0.0.1:6379" func main () { srv := asynq . NewServer (
+        asynq. RedisClientOpt { Addr : redisAddr },
+        asynq. Config { // Specify how many concurrent workers to use Concurrency : 10 , // Optionally specify multiple queues with different priority. Queues : map [ string ] int { "critical" : 6 , "default" : 3 , "low" : 1 ,
+            }, // See the godoc for other configuration options },
+    ) // mux maps a type to a handler mux := asynq . NewServeMux () mux . HandleFunc ( tasks . TypeEmailDelivery , tasks . HandleEmailDeliveryTask ) mux . Handle ( tasks . TypeImageResize , tasks . NewImageProcessor ()) // ...register other handlers... if err := srv . Run ( mux ); err != nil { log . Fatalf ( "could not run server: %v" , err )
+    }
+} For a more detailed walk-through of the library, see our Getting Started guide. To learn more about asynq features and APIs, see the package godoc . Web UI Asynqmon is a web based tool for monitoring and administrating Asynq queues and tasks. Here's a few screenshots of the Web UI: Queues view Tasks view Metrics view Settings and adaptive dark mode For details on how to use the tool, refer to the tool's README . Command Line Tool Asynq ships with a command line tool to inspect the state of queues and tasks. To install the CLI tool, run the following command: go install github.com/hibiken/asynq/tools/asynq@latest Here's an example of running the asynq dash command: For details on how to use the tool, refer to the tool's README . Contributing We are open to, and grateful for, any contributions (GitHub issues/PRs, feedback on Gitter channel , etc) made by the community. Please see the Contribution Guide before contributing. License Copyright (c) 2019-present Ken Hibino and Contributors . Asynq is free and open-source software licensed under the MIT License . Official logo was created by Vic Shóstak and distributed under Creative Commons license (CC0 1.0 Universal).
+======>
+https://github.com/FractalFir/rustc_codegen_clr
+-->>-->>
+Repository files navigation README Code of conduct MIT license Apache-2.0 license rustc_codegen_clr Warning This project is still early in its developement. Bugs, crashes and miscompilations are expected. DO NOT USE IT FOR ANYTHING SERIOUS. rustc_codegen_clr is an experimental Rust to .NET compiler backend. It allows the Rust compiler to turn Rust code into .NET assemblies. This translation is very high-level, and preserves things like types,
+field/varaible names. The project aims to provide a way to easily use Rust libraries in .NET. It comes with a Rust/.NET interop layer, which allows you to easily interact with .NET code from Rust: use mychorizza::*;
+fn main(){
+    // Alocate a new GC-managed string builder
+    let stringBuilder = StringBuilder::empty();
+    // You can easily operate on GC-managed types
+    mstring.AppendChar('H');
+    mstring.AppendChar('i');
+    mstring.AppendChar('.');
+} The project will also include support for defining .NET classes from Rust. This is currently heavily WIP, and any feedback is appreciated. // Early WIP syntax, subject to change.
+dotnet_typedef! {
+  class MyClass inherits [Some::External::Assebmly]SomeNamespace::SomeClass{
+    virtual fn ToString(_this:MyClass)->MString{
+      "I am a class defined in Rust!".into_managed()
+    },
+  }
+} Current state of the project The project currently supports most Rust features (except async and proc macros), but it is not bug-free. It can compile a mostly working version of Rust std, but there are many minor bugs make such std not 100% functional. Most compoenets of std are about 95% working. So, you can compile a lot of existing Rust code, but it may not necessarily work . core, std, and alloc uint tests. Name Pass Faliure Crash \ Timeout OK precentage Core tests 1635 38 41 95.39% Alloc tests 616 8 40 92.77% Alloc benches 464 0 0 100.00% Test Harness tests 57 0 100.00% std tests 955 33 17 95.02% Core benches 490 2 98.39% FAQ Q: What is it? A : This is a compiler backend for rustc, which targets the .NET platform and runtime; this would enable you to use some Rust libraries from C#/F#, with little effort. Q: Is Rust's memory management useless in .NET? A : Rust code typically uses the stack more than the heap, which can speed up code running within the CLR runtime. Heap-allocated objects are allocated from unmanaged (non-GC) memory and are allocated and freed in the same way as in Rust. Q: Is this useless since I can already load shared libraries from C#? A : The Rust APIs this codegen exposes to C#/F# code are only slightly easier to use than those exposed by a .so or .dll Rust library. Interop still requires some effort, but the Rust code is bundled with everything else. Types used from C# are guaranteed to be the same as those in C#, preventing mismatch issues. All types can be safely sent between Rust and C#, with exactly the same layout. Additionally, since all Rust code compiled with this codegen can be bundled with C#/F# code, you no longer need to ship different versions of the library for different architectures. Any architecture supported by CLR works out of the box, using the exact same assembly. You can also avoid the cost of switching between code running within and outside the runtime. This cost is not unbearable, but it is not easily eliminated, and reducing it can have safety penalties. In this case, all code runs within the runtime, meaning there is no transition between code running inside and outside the runtime. Compiling Rust to CLR can potentially improve JIT optimization. Since the CLR's JIT now sees all the code, it can make better decisions about optimization, resulting in faster code. Q: Compatibility? A : rustc_codegen_clr is only tested on Linux x86_64, with the CoreCLR runtime (more commonly known as simply the .NET runtime), on .NET 8. It should work on other platforms, but it is not guaranteed. Q: Whata about Mono? A The support for the Mono runtime is not as good as it could be. Due to not supported features and differences, 128-bit integers and checked 64-bit integer arithmetic are not supported on Mono. Aligned allocators(__rust_alloc) and certain intrinsics are also not supported. I plan to expand support for Mono, but my resources are limited. Q: Are there any issues? A : While the backend is extensively tested, it is still far from perfect, and there are still many edge cases that may break this backend. A : Currently, there are no .NET-specific versions of std or .NET specific target triples. This means that you will need separate .NET assemblies for each OS. Licensing rustc_codegen_clr is dual licensed under MIT license or Apache License, Version 2.0.
+======>
+https://rust-lang.zulipchat.com/#narrow/stream/421156-gsoc/topic/Project.3A.20Rust.20to.20.2ENET.20compiler
+-->>-->>
+If this message does not go away, try reloading the page. Error loading Zulip. Try reloading the page. document.addEventListener('DOMContentLoaded', function () {
+            function reload() {
+                window.location.reload(true);
+            }
+            document.querySelectorAll('.reload-lnk').forEach(lnk => lnk.addEventListener('click', reload));
+        }); × Unable to connect to Zulip. Updates may be delayed.
+        Retrying soon… Try now. Your Zephyr mirror is not working. We recommend that
+            you give Zulip the ability to mirror the messages for you via
+            Webathena .  If you'd prefer, you can instead run the
+            Zephyr mirror script yourself in a screen
+            session. To fix this, you'll need to use the web interface. This view is still loading messages. Load more
+======>
+https://github.com/sponsors/FractalFir
+-->>-->>
+Skip to content {"props":{"docsUrl":"https://docs.github.com/get-started/accessibility/keyboard-shortcuts"}} {"resolvedServerColorMode":"day"} Navigation Menu Toggle navigation Sign in Product GitHub Copilot Write better code with AI Security Find and fix vulnerabilities Actions Automate any workflow Codespaces Instant dev environments Issues Plan and track work Code Review Manage code changes Discussions Collaborate outside of code Code Search Find more, search less Explore All features Documentation GitHub Skills Blog Solutions By company size Enterprises Small and medium teams Startups By use case DevSecOps DevOps CI/CD View all use cases By industry Healthcare Financial services Manufacturing Government View all industries View all solutions Resources Topics AI DevOps Security Software Development View all Explore Learning Pathways White papers, Ebooks, Webinars Customer Stories Partners Open Source GitHub Sponsors Fund open source developers The ReadME Project GitHub community articles Repositories Topics Trending Collections Enterprise Enterprise platform AI-powered developer platform Available add-ons Advanced Security Enterprise-grade security features GitHub Copilot Enterprise-grade AI features Premium Support Enterprise-grade 24/7 support Pricing Search or jump to... Search code, repositories, users, issues, pull requests... Search Clear Explore Enterprise Learn More Security Learn More Copilot Learn More Pricing Learn More 4 suggestions. Search syntax tips Provide feedback We read every piece of feedback, and take your input very seriously. Include my email address so I can be contacted Cancel Submit feedback Saved searches Use saved searches to filter your results more quickly Name Query To see all available qualifiers, see our documentation . Cancel Create saved search Sign in Sign up Reseting focus You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert {{ message }} You must be logged in to sponsor FractalFir Become a sponsor to FractalFir FractalFir Szcecin, Poland, EU I am a young programmer from Poland, interested in compilers and language runtimes.  I work on rustc_codegen_clr - a Rust compiler module, allowing you to compile and run Rust code within the .NET runtime. Current sponsors 7 Show more Learn more about sponsoring developers and organizations . Report abuse Select a tier Monthly One-time $ a month Choose a custom amount. Footer © 2024 GitHub, Inc. Footer navigation Terms Privacy Security Status Docs Contact Manage cookies Do not share my personal information You can’t perform that action at this time.
+======>
+https://github.com/TobiasBengtsson/crc-fast-rs
+-->>-->>
+Repository files navigation README MIT license crc-fast-rs This is a CRC algorithm generator with SIMD support. Apart from the generator,
+contains the cargo roots for all generated CRC algorithms. How the repository works The gen_crates.sh generates all the specific CRC algorithm crates using the
+template directory crc-crate-template based on the algorithm list in algos.csv . The generated lib.rs file contains a single expression crc!(...) and a
+dependency on the crc-fast-gen crate which contains the proc macro logic. Example In this example, make some change to the template Cargo.toml file and re-
+generate the crates. ~/crc-fast-rs $ vim crc-crate-template/Cargo.toml
+(make changes and save)
+~/crc-fast-rs $ ./gen_crates.sh
+~/crc-fast-rs $ git diff When the general version is bumped, the crates have to be re-generated. ~/crc-fast-rs $ echo 'v0.2.1' > version.txt
+~/crc-fast-rs $ ./gen_crates.sh Versioning In general, the crates are in sync with the version of this repository. For
+hotfixes to individual crates, patch versions may be applied to only the
+affected crate(s). If so, the next bump of the general repository will skip
+those versions for clarity. The general repository versions is typically bumped on changes to the generating
+logic. It is stored in version.txt used in the generation of the
+crates. Benchmarks Performance is the main raison d'être of this project. Therefore there are
+plenty of benchmarks of the CRC algorithms. Each CRC implementation is benchmarked for SIMD, table lookup, and simple loop
+peformance using criterion. Input size in bytes range from 128 to 64k in powers
+of 2. In the future (TODO), the benchmarks will be run on a set of
+architectures/families and the results published. Example ~/crc-fast-rs $ cargo bench Questions Why one crate per algorithm and not just one crate? In general, granular crates are preferred in the Rust ecosystem. From a consumer point of view, it's unlikely you'll need more than 1 or 2 CRCs
+for a given application. Explicit crates per algorithm makes it clearer which
+one you're depending on. It makes it possible to pre-expand the code (in the future, WIP) without
+bloating a single crate (making it slow to download, among other things).
+Pre-expanding will also improve compilation times. It's easier to review the expanded code of a single algorithm for e.g.
+security compared to the complicated macro. It's easier to hotfix if there is a problem with a single algorithm Better statistics on CRC populatity, that can guide future development License Everything is licensed under the MIT license (see LICENSE ). References https://reveng.sourceforge.io/crc-catalogue/ good collection of CRC:s with all
+the relevant parameters https://crccalc.com/ used to double-check some values
+======>
+https://mobilitydb.com/
+-->>-->>
+Location tracking devices, such as GPS, are nowadays widely used in smartphones, and in vehicles. As a result, geospatial trajectory data are currently being collected and used in many application domains. MobilityDB provides the necessary database support for storing and querying such geospatial trajectory data MobilityDB is implemented as an extension to PostgreSQL and PostGIS. It implements persistent database types, and query operations for managing geospatial trajectories and their time-varying properties. Learn More
+======>
+https://libmeos.org/
+-->>-->>
+Open Navigation Close Navigation MEOS GitHub Toggle Dark/Light/Auto mode Toggle Dark/Light/Auto mode Toggle Dark/Light/Auto mode Back to homepage Close Menu Bar Open Menu Bar Navigation Project About Installation Licence Bindings Python Java Go Rust Documentation Data Model Normalization Data Structures Aggregate Operations Developer's Documentation Moving Features Formats Well-Known Text (WKT) Moving-Features JSON (MF-JSON) Tutorial Programs MEOS MEOS MEOS (Mobility Engine, Open Source) is a C library and its associated API for manipulating temporal and spatiotemporal data. It is the core component of MobilityDB , an open source geospatial trajectory data management & analysis platform built on top of PostgreSQL and PostGIS . MEOS extends the ISO 19141:2008 standard (Geographic information — Schema for moving features) for representing the change of non-spatial attributes of features. It also takes into account the fact that when collecting mobility data it is necessary to represent “temporal gaps”, that is, when for some period of time no observations were collected due, for instance, to signal loss. MEOS is heavily inspired by a similar library called GEOS (Geometry Engine, Open Source) — hence the name. A first version of the MEOS library written in C++ has been proposed by Krishna Chaitanya Bommakanti. However, due to the fact that MEOS codebase is actually a subset of MobilityDB codebase, which is written in C and in SQL, the current version of the library allows us to evolve both programming environments simultaneously. MEOS aims to be the base library on which other projects can be built. For example, the following projects are built on top of MEOS: PyMEOS is a Python binding to MEOS using CFFI MobilityDB is a PostgreSQL extension that enables storing and manipulating the temporal types provided by MEOS. Other projects can built on top of MEOS, for example, Java or C# drivers for MEOS or implementing MEOS on other DBMSs such as MySQL. Built with Hugo and Back to top
+======>
+https://github.com/MobilityDB/meos-rs
+-->>-->>
+Repository files navigation README License meos-rs meos-rs is a Rust library providing bindings for the MEOS C library, designed for spatiotemporal data management and analysis. It enables handling of temporal and spatial data, making it ideal for applications that need to work with moving objects, trajectories, and time-varying geographical data. It supports MEOS version >= 1.2 Overview The primary goal of this library is to facilitate the creation and manipulation of temporal types, such as time-stamped geographic points, sequences, and numeric values. These temporal data structures can be used for various use cases including: Tracking Movement: Efficiently manage and analyze the movement of objects (e.g., vehicles, ships, animals) over time. Spatiotemporal Queries : Distance Calculations: Compute the shortest distance between trajectories, which can be useful for determining when two moving objects were closest to each other. Time-Weighted Averages: Analyze time-dependent data, like averaging speeds or temperatures over a period. Intersection Queries: Check if a trajectory passes through specific points or regions, enabling location-based analysis of movement. This library provides access to advanced spatiotemporal data handling capabilities of MEOS while maintaining Rust’s memory safety, concurrency, and performance benefits. Installation Add the following dependency to your Cargo.toml : [ dependencies ] meos = " 0.2 " Ensure that the meos C library is installed on your system. Follow the installation instructions on the MEOS website . Key Features The library offers a range of temporal data types, including: Temporal Geometric Points ( TGeomPoint ): These represent geometric points that change over time (e.g., location data of moving objects). Temporal Float ( TFloat ): These store numeric values associated with time, such as speed or temperature over time. Temporal Boolean ( TBool ): Represents true/false values that vary over time, useful for tracking binary states such as whether an object is within a specific area at given times. The type hierarchy is the following, the main types ( TGeomPoint , TFloat , etc.) are enums that encapsulate the different kinds of temporal subtypes, Instant , Sequence , and SequenceSet , to learn more about these, refer to the meos documentation . Users can almost seamlessly use either the enums or the concrete structs (e.g. TGeomPointSequence ). Some users may benefit from using the concrete structs since more concrete types can be inferred in some functions. Usage example You can check more examples in the examples/ directory. Constructing trajectories from text: use meos :: { meos_initialize , TGeomPoint } ; meos_initialize ( ) ; let trajectory : TGeomPoint = "[POINT(1 1)@2000-01-01 08:00, POINT(2 2)@2000-01-01 08:01]" . parse ( ) . unwrap ( ) ; Constructing trajectories from a list of pairs (point, timestamp): use chrono :: { DateTime , TimeZone , Utc } ; use geos :: Geometry ; use meos :: { meos_initialize , TGeomPointSequence } ; meos_initialize ( ) ; let geometries_with_time : Vec < ( Geometry , DateTime < Utc > ) > = vec ! [ ( Geometry ::new_from_wkt ( "POINT(1 1)" ) .unwrap ( ) , Utc .with_ymd_and_hms ( 2020 , 1 , 1 , 0 , 0 , 0 ) .unwrap ( ) , ) , ( Geometry ::new_from_wkt ( "POINT(3 2)" ) .unwrap ( ) , Utc .with_ymd_and_hms ( 2020 , 1 , 1 , 0 , 1 , 0 ) .unwrap ( ) , ) , ( Geometry ::new_from_wkt ( "POINT(3 3)" ) .unwrap ( ) , Utc .with_ymd_and_hms ( 2020 , 1 , 1 , 0 , 2 , 0 ) .unwrap ( ) , ) , ] ; let tpoint : TGeomPointSequence = geometries_with_time . into_iter ( ) . collect ( ) ; println ! ( "{tpoint:?}" ) ; Get the shortest distance ever between two temporal points use meos :: { meos_initialize , TGeomPoint , TPointTrait } ; meos_initialize ( ) ; let tpoint1 : TGeomPoint = "[Point(0 0 0)@2001-01-01, Point(1 1 1)@2001-01-03, Point(0 0 0)@2001-01-05)" . parse ( ) . unwrap ( ) ; let tpoint2 : TGeomPoint = "[Point(2 0 0)@2001-01-02, Point(1 1 1)@2001-01-04, Point(2 2 2)@2001-01-06)" . parse ( ) . unwrap ( ) ; let distance = tpoint1 . nearest_approach_distance ( & tpoint2 ) ; println ! ( "{distance}" ) ; // Prints 0.5 Check if a trajectory ever goes through a point (using geos ) use geos :: Geometry ; use meos :: { meos_initialize , TGeomPoint , Temporal } ; meos_initialize ( ) ; let trajectory : TGeomPoint = "[Point(0 0 0)@2001-01-01, Point(2 2 2)@2001-01-05)" . parse ( ) . unwrap ( ) ; let geom = Geometry :: new_from_wkt ( "Point (1 1 1)" ) . expect ( "Invalid geometry" ) ; println ! ( "Does go through `geom`: {}" ,
+    trajectory.ever_equal_than_value ( geom ) .unwrap ( ) ) ; // `true` Multithreading Right now it should only be used in single-threaded applications. In the foreseeable future this could change. Build This crate links dynamically to your system-installed meos . See sys/README.md for
+more information. Contributing Only a subset of meos has been implemented, feel free to add wrappers for missing features. All added features needs to be tested and this being a C wrapper, valgrind runs on all examples/tests to check that
+no bugs / memory leaks are lurking. Acknowledgments This wrapper has been deeply influenced by the Rust wrapper of geos
+======>
+https://github.com/arthurprs/canopydb/
+-->>-->>
+Repository files navigation README Canopydb Embedded Key-Value Storage Engine Fully transactional Ordered map API similar to std::collections::BTreeMap B+Tree implementation with prefix and suffix truncation Handles large values efficiently, with optional transparent compression Efficient IO utilization, with lower read and write amplification compared to alternatives Efficient durable commits via an optional Write-Ahead-Log (WAL) Efficient async durability with background WAL fsyncs (e.g. every 500ms) Bounded recovery times using an optional Write-Ahead-Log (WAL) ACID transactions with serializable snapshot isolation (SSI) Multi-Version-Concurrency-Control (MVCC) - writers do not block readers and vice versa Long running read transactions have limited impact on the database Supports larger than memory transactions Multiple key spaces per database - key space (Tree) management is fully transactional Multiple databases per environment - efficiently shares resources such as the WAL and page cache Supports cross database atomic commits The storage engine is optimized for read heavy and read-modify-write workloads where a transactional key-value store is desired and a single-writer is desired or sufficient. This is a design choice, as multi-writer transactions require a complexity jump and significant tradeoffs (e.g. write conflict failures), specially if it's to offer a flexible set of features (e.g. dynamic key spaces, large key/value support, larger than memory transactions, etc.) and stricter transaction isolation (e.g serializable). If you need a different set of tradeoffs such as extreme write performance, you're probably looking for Fjall or RocksDb. Examples Basic usage use canopydb :: Database ; let sample_data : [ ( & [ u8 ] , & [ u8 ] ) ; 3 ] = [ ( b"baz" , b"qux" ) , ( b"foo" , b"bar" ) , ( b"qux" , b"quux" ) , ] ; let _dir = tempfile :: tempdir ( ) . unwrap ( ) ; let db = Database :: new ( _dir . path ( ) ) . unwrap ( ) ; let tx = db . begin_write ( ) . unwrap ( ) ; { // multiple trees (keyspaces) per database, fully transactional let mut tree1 = tx . get_or_create_tree ( b"tree1" ) . unwrap ( ) ; let mut tree2 = tx . get_or_create_tree ( b"tree2" ) . unwrap ( ) ; for ( k , v ) in sample_data { tree1 . insert ( k , v ) . unwrap ( ) ; tree2 . insert ( k , v ) . unwrap ( ) ; } // the write transaction can read its own writes let maybe_value = tree1 . get ( b"foo" ) . unwrap ( ) ; assert_eq ! ( maybe_value.as_deref ( ) , Some ( & b"bar" [ .. ] ) ) ; } // commit to persist the changes tx . commit ( ) . unwrap ( ) ; // a read only transaction let rx = db . begin_read ( ) . unwrap ( ) ; let tree = rx . get_tree ( b"tree2" ) . unwrap ( ) . unwrap ( ) ; let maybe_value = tree . get ( b"foo" ) . unwrap ( ) ; assert_eq ! ( maybe_value.as_deref ( ) , Some ( & b"bar" [ .. ] ) ) ; // range iterators like a BTreeMap for kv_pair_result in tree . range ( & b"foo" [ .. ] .. ) . unwrap ( ) { let ( db_k , db_v ) = kv_pair_result . unwrap ( ) ; println ! ( "{db_k:?} => {db_v:?}" ) ; } // full scan of the tree for kv_pair_result in tree . iter ( ) . unwrap ( ) { let ( db_k , db_v ) = kv_pair_result . unwrap ( ) ; println ! ( "{db_k:?} => {db_v:?}" ) ; } Multiple databases per environment use canopydb :: { EnvOptions , Environment } ; let sample_data = [ ( & b"baz" [ .. ] , & b"qux" [ .. ] ) , ( & b"foo" [ .. ] , & b"bar" [ .. ] ) , ( & b"qux" [ .. ] , & b"quux" [ .. ] ) , ] ; let _dir = tempfile :: tempdir ( ) . unwrap ( ) ; let mut options = EnvOptions :: new ( _dir . path ( ) ) ; // all databases in the same environment will share this 1GB cache options . page_cache_size = 1024 * 1024 * 1024 ; let env = Environment :: new ( _dir . path ( ) ) . unwrap ( ) ; let db1 = env . get_or_create_database ( "db1" ) . unwrap ( ) ; let db2 = env . get_or_create_database ( "db2" ) . unwrap ( ) ; // Each database unique write transaction is independent. let tx1 = db1 . begin_write ( ) . unwrap ( ) ; let tx2 = db2 . begin_write ( ) . unwrap ( ) ; let mut tree = tx1 . get_or_create_tree ( b"my_tree" ) . unwrap ( ) ; tree . insert ( b"foo" , b"bar" ) . unwrap ( ) ; drop ( tree ) ; tx1 . commit ( ) . unwrap ( ) ; tx2 . rollback ( ) . unwrap ( ) ; // Write transactions for databases in the same environment // can be committed together atomically. // This allows stablishing a consistent state between them. let tx1 = db1 . begin_write ( ) . unwrap ( ) ; let tx2 = db2 . begin_write ( ) . unwrap ( ) ; // Use tx1 and tx2 here.. env . group_commit ( [ tx1 , tx2 ] , false ) . unwrap ( ) ; Status Canopydb should be considered early stage software and new releases could be incompatible. Do not trust it with production data. Help is welcome to test and make it better, hopefully removing the disclaimer above. It's been an experimental project for many years and rewritten a few times. Even though it's reasonably well tested, there could be bugs and sharp API corners. Benchmarks See the BENCHMARKS.md file in the repository. Comparison with other databases Note that these are only brief high-level comparisons. SQLite Canopydb, like the rest of the list, is a lower level storage engine with an ordered key-value interface. SQLite is a full-featured relational database, that supports complex SQL queries (e.g. joins and aggregations). While both are embedded databases, SQLite may be better suited in applications that can take advantage of SQL, while Canopydb is optimized for speed and simplicity. LMDB Canopydb and LMDB both implement single writer, transactional, ordered key-value embedded databases. Canopydb is implemented in pure Rust and provides a safe and flexible API in addition to other functionalities. Whereas LMDB is implemented in C and has some potential complications such as the usage of memory-mapped files and relatively low max key size (> 511 bytes). Canopydb has a different MVCC implementation and uses an optional Write-Ahead-Log (WAL) which enables more efficient writes. LMDB doesn't use any background threads, whereas Canopydb has one background thread per Database. Redb Canopydb and Redb are similar. Redb has a richer API that includes strongly typed tables, multi-tables and savepoints. Canopydb focuses on a byte oriented API, leaving type (de)serialization up to the user. Canopydb has a different MVCC implementation and an optional Write-Ahead-Log (WAL) which enables more efficient writes. Canopydb also offers efficient transparent compression for large values. Redb doesn't use any background threads, whereas Canopydb has one background thread per Database. Rocksdb and Fjall Rocksdb and Fjall both implement Log-Structured-Merge Trees (LSMs) with optional support for transactions. These implementations can achieve higher random write performance and lower space utilization, although these come with tradeoffs and their corresponding downsides. For instance, while these libraries allow multiple concurrent write transactions, transactions have to fit in memory and have to perform conflict checking, so they can fail due to write-write and read-write conflicts (in case of SSI). License This project is licensed under the MIT license.
+======>
+https://github.com/Timmoth/aid-cli
+-->>-->>
+Repository files navigation README Apache-2.0 license A CLI toolkit featuring a variety of helpful utilities. Installation Manual installation is simple, just download the release and add it to your PATH environment variable, if you'd like an even easier way i've added scripts to do it for you. Linux / Mac wget https://raw.githubusercontent.com/Timmoth/aid-cli/refs/heads/main/install.sh
+chmod +x install.sh
+sudo ./install.sh Windows (powershell) Invoke-WebRequest -Uri https://raw.githubusercontent.com/Timmoth/aid-cli/refs/heads/main/install.ps1 -OutFile install.ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+.\install.ps1 Releases Download the latest release v0.1.3 20/10/2024 Build If you'd like to build the latest version from source: //Install rust https://www.rust-lang.org/tools/install
+git clone https://github.com/Timmoth/aid-cli
+cd aid-cli
+cargo build --release
+.\target\release\aid.exe Commands: aid http     HTTP functions
+  aid ip       IP information / scanning
+  aid port     Port information / scanning
+  aid cpu      System cpu information
+  aid mem      System memory information
+  aid disk     System disk information
+  aid network  System network information
+  aid json     JSON parsing / extraction functions
+  aid csv      CSV search / transformation functions
+  aid text     Text manipulation functions
+  aid file     File info functions
+  aid help     Print this message or the help of the given subcommand(s) aid http aid http req    Make a HTTP request
+            -m, --method <METHOD>  Specify the HTTP method (e.g., GET, POST).
+            -u, --url <URL>        Specify the URL for the HTTP request.
+            -c, --config <CONFIG>  Path to a configuration file for the request. Specify: method, url, body, headers in json format.
+            -o, --output <OUTPUT>  If specified saves http response body to a file at the given path.
+            
+  aid http serve  Start a HTTP server (GET: 0.0.0.0:80 -> 'Hello, World!')
+            -p, --port <PORT>  Specify the port for the HTTP server (default is 80). [default: 80] aid ip aid ip local   Show my local IP address
+            -j, --json  Output the local IP address in JSON format.
+
+  aid ip public  Show my public IP address
+            -j, --json  Output the local IP address in JSON format.
+
+  aid ip scan    Scan a specified IP address subnet for active ip addresses
+            -i, --ip <IP>  The IP subnet to scan. If not provided, the local subnet will be used. [default: ]        
+            -j, --json     Output scan results in JSON format.
+
+  aid ip status  Try to connect to the specified IP address
+            -i, --ip <IP>  The IP address to check the status of.
+            -j, --json     Output status in JSON format. aid port aid port status  Check if the specified port is 'open' or 'closed'.
+            -i, --ip <IP>  The IP address to check (optional).
+            -p <PORT>      The port number to check the status of.
+            -j, --json     Output port status in JSON format.
+
+  aid port scan    Scan for open ports on a specified IP address
+            -i, --ip <IP>  The IP address to scan (optional).
+            -j, --json     Output scan results in JSON format. aid cpu aid cpu info   Show CPU information
+            -j, --json  Output CPU information in JSON format.
+
+  aid cpu usage  Monitor CPU usage
+            -w, --watch  Continuously monitor CPU usage.
+            -j, --json   Output CPU usage in JSON format. aid mem aid mem usage  Monitor memory usage
+            -w, --watch  Continuously monitor memory usage.
+            -j, --json   Output memory usage in JSON format. aid disk aid disk info  Show disk information
+            -j, --json  Output disk information in JSON format. aid network aid network info  Show network information
+            -j, --json  Output network information in JSON format. aid json aid json extract      Extract a property from JSON data
+            -p, --prop <PROPERTY>  Specify the property to extract from the JSON.
+  aid json jwt-decode   Decode a JWT
+            -j, --jwt <TOKEN>  Specify JWT to decode. aid csv aid csv search  Sql search over csv
+            -s, --sql <SQL>        Sql query e.g SELECT 'first name',age FROM people.csv WHERE age >= 25 AND age < 30 ORDER BY 'age' ASC.
+            -o, --output <OUTPUT>  Output file path. aid text aid text base64-encode  encodes a base64 string
+            -i, --input <INPUT>   Input text to base64 encode.
+  aid text base64-decode  decodes a base64 string
+            -i, --input <INPUT>   Input text to base64 decode.
+  aid text lines  reads and prints lines from a text file
+           -i, --input <FILE>   Input text file to search.
+           -s, --start <START>  first line to print      
+           -e, --end <END>      last line to print       
+           -f, --first <HEAD>   number of lines from the start of the file to print
+           -l, --last <TAIL>    number of lines from the end of the file to print aid file aid file info  prints file metadata
+            -f, --file <FILE>   file path.
+  aid file md5  calculates the files Md5 checksum
+            -f, --file <FILE>   file path.
+  aid file sha1  calculates the files Sha1 checksum
+            -f, --file <FILE>   file path.
+  aid file sha256  calculates the files Sha256 checksum
+            -f, --file <FILE>   file path.
+  aid file zip  zips the files in the source directory
+            -d, --dir <DIRECTORY>   file path.
+            -f, --file <FILE>   output zip file.
+======>
+https://github.com/Timmoth/RustyRatracerr
+-->>-->>
+Repository files navigation README RustyRatracerr 🧪Experiments into HPC ray tracing using Rust. About After having built a 4 node 32 core cluster at home using ex enterprise components I wanted to experiment with high performance computing and needed a computationally expensive task to throw at it. I decided to follow Ray Tracing In One Weekend whilst learning Rust, both are new to me so if you have any feedback I'd highly appreciate it! Follow this guide to get slurm & openMpi setup on your cluster cargo build --release
+sbatch ./run.sh
+squeue
+=====>
+https://old.reddit.com/r/rust/comments/1g87kue/passing_potentially_heterogeneous_collections/
+-->>-->>
+I'm trying to figure out a way to pass an arbitrary collection of objects that implement a trait to a function, as per the following:   
+
+   
+   I don't want to stipulate the type of collection (it could be a    Vec   , array or something else)   
+   The members of the collection can be simple    struct    objects, or potentially something using    Box<dyn>    or the equivalent   
+   
+
+   In the example below, the trait is called    Frobber    and I'm trying to pass my collection as type    impl IntoIterator<Item = impl Borrow<dyn Frobber + 'a>> + 'a   , see below.   
+
+   However, I can't seem to figure out precisely how to get the compiler to do what I want to, so I'm soliciting help.  Or is there just not a good way to do what I'm trying to do?   
+
+   Rust Playground link:   
+
+   https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=e097a7d572a8be9f127432d81bdba0b0   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g84igx/hivetui_implementation_of_hive_board_game_based/
+-->>-->>
+As a hobby project, I've worked for a while on a TUI implementation of the    Hive boardgame   , which is now in a useable state. It is based on    ratatui   , allows customization of quite a few settings and includes a rather challenging AI (I would recommend starting with the easy levels if you don't know the game yet^^)   
+
+   Link (includes images):    https://github.com/N-Maas/hivetui   
+
+   Perhaps it is interesting and/or fun for some people here :)   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g7z0oe/why_isnt_there_a_simple_and_efficient_distributed/
+-->>-->>
+Hi everyone, I'm new to Rust and looking to implement a backend service that needs a task queue to handle data fetching for me. I'm looking for a reliable, Redis-based solution with features like retries and priority management, similar to asynq in Golang (   https://github.com/hibiken/asynq   ). Is there any crate like that?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g7jnac/rust_to_net_compiler_update_f128_f16_and/
+-->>-->>
+This is a small-ish update on    rustc_codegen_clr    .   
+
+   I am still in the process of refactoring the project, and I just went to a university for the first time  - so the progress has not been as fast as I would like it to be.   
+
+   Still, besides some behind the scene improvements, I also managed to make some more substantial ones.   
+
+   After I fully rewrote the type representation used by    rustc_codegen_clr   , I felt more confident adding support for new types - since I now know that the code supporting those types is here to stay.   
+
+   Nightly floats   
+
+   f128   
+
+   So, I added some very bare-bones support for the nightly    f128    type. .NET does not support quad-precision floating-points natively, so, currently, support for f128 is implemented by calling    libm    functions that operate on this type. In the future, I plan to add some built-in    f128    emulation, but for now,    f128    only works on certain systems.   
+
+   f16   
+
+   I have also added support for another nightly floating-point type -    f16   . This type mapped nicely to .NETs    System.Half   , so it is more or less fully supported - on all platforms. There still are some rough edges, that make a small fraction of the f16 test fail(I don't handle    min    and    max    with    NaN    values correctly yet). But, besides this edge case, this type should work as expected.   
+
+   Async   
+
+   Another new addition to the project is support for the internal compiler types, which are used to implement async. This type (   Coroutine   ) is a bit odd, and its exact semantics are poorly documented, so I am not 100% confident my implementation is fully correct. Still, this type is at least functional enough to run some basic async tests from    core   , so I still consider that good progress.   
+
+   SIMD   
+
+   Something a bit more exciting is SIMD support for    rustc_codegen_clr   . I must admit that SIMD support in    rustc_codegen_clr    is very bare bones, but it is still nonetheless there. Currently, all Rust SIMD types, up to 256 bits, are properly handled and translated into corresponding    System.Runtime.Intrinsics.Vector%BITS%<T>    type. A small, most commonly used subset of the SIMD intrinsic are also supported, which allows the single SIMD test in the core unit test suite to run. This is not much, but it seems to suggest that implementing full SIMD support for Rust code compiled for .NET should be relatively easy.   
+
+   Of course, there still are some questions that need answering. SIMD types    should    be aligned to some specific byte boundaries. I    think    .NET aligns them this way by default, but I was not able to confirm that.   
+
+   Since .NET only guarantees aliment of up to    size_of::<usize>    for most types,    rustc_codegen_clr    implements an additional ffix-upxup step, which allows it to manually manage the stack allocation of those variables, and ensure that they are indeed aligned. If SIMD vectors are automatically aligned by .NET to the correct byte boundaries, then those types can ignore this step.   
+
+   Depending on the exact implementation of this alignment on the .NET side, I also might be able to use those SIMD vectors to force .NET to align  other types by itself - but that is something for the future.   
+
+   Core test suite   
+
+   I have also squashed a few bugs, meaning 96.9 % (1660) of core tests now pass. This is not a huge improvement(compared to 95.6 % (1609) 2 months ago), but it is nonetheless an improvement.   
+
+   The backed changes should also make supporting other VMs \ runtime easier. A lot of .NET-specific code has been moved to builtin functions in my CIL generation library(cilly). The implementation of those built-ins can be easily changed, meaning other potential targets(like JVM) could just use different implementations.   
+
+   There are a lot of other, behind the scenes changes(I rewrote most of the backed code). I have simplified a lot of things, which allowed me to add some more optimizations.   
+
+   Article about panics   
+
+   I am also working on a second part of my write up about implementation of panics - but it is proving bit more of a challenge than expected.   
+
+   The article is supposed to be an in-depth explanation of how panics are implemented in `std. I am attempting to do a line-by-line explanation of how panics are created, raised and catched. Naturally, this kind of explanation is a bit long.   
+
+   Due to how panics are implemented, exhaling them also requires explaining a lot of other Rust features(Lang items,    #[track_caller]   , the never type). Currently, I am trying to strike a balance between being easy to understand(explaining everything in simpler terms) and being concise(glossing over some detail, and assuming the reader has some knowledge of Rust).   
+
+   As mentioned before, university is also taking a bit of my time.   
+
+   So, I might take a bit longer to write the second part of my article.   
+
+   FAQ:   
+
+   Q: What is the intended purpose of this project?   
+A:    The main goal is to allow people to use Rust crates as .NET libraries, reducing GC pauses, and improving performance. The project comes bundled together with an interop layer, which allows you to safely interact with C# code. More       detailed explanation   .   
+
+   Q: Why are you working on a .NET related project? Doesn't Microsoft own .NET?   
+A:    the .NET runtime is licensed under the permissive MIT license (one of the licenses the rust compiler uses). Yes, Microsoft continues to invest in .NET, but the runtime is managed by the .NET foundation.   
+
+   Q: why .NET?   
+   A. Simple: I already know .NET well, and it has support for pointers. I am a bit of a runtime / JIT / VM nerd, so this project is exciting for me. However, the project is designed in such a way that adding support for targeting other languages / VMs should be relatively easy.   
+
+   Q: How far from completion is the project:   
+   A: Hard to say. The codegen is mostly feature complete , and the only thing preventing it from running more complex code are bugs. If I knew where / how many bugs there are, I would have fixed them already. So, providing any concrete timeline is difficult. I would expect it to take at least half a year more before the project enters alpha.   
+
+   Q: Can I contribute to the project?   
+   A:Yes! I am currently accepting contributions, and I will try to help you if you want to contribute. Besides bigger contributions, you can help out by refactoring things or helping to find bugs. You can find a bug by building and testing some small crates, or by minimizing some of the problematic tests       from this list   .   
+
+   Q: How else can I support the project?   
+   A: If you are willing and able to, you can become       my sponsor on Github   . Things like starring the project also help a small bit.   
+
+   This project was a part of Rust GSoC 2024. If you want to see more detailed reports from my work, you can find them    on the Rust zulip   . While I do not plan to post there daily after GSoC 2024 ended, I will still write about some minor milestones there.   
+
+   Project repo link   .   
+
+   If you have any more questions, feel free to ask me in the comments.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g82uqt/my_weekend_project_a_simd_crc_algorithm_generator/
+-->>-->>
+I did an SIMD implementation of CRC-24/OPENPGP quite a while ago, and was a bit intrigued by how generic the algorithm was. It seemed like it wouldn't be too hard to make a generic CRC SIMD algorithm "generator".   
+
+   This weekend I finally got to it, and got something working out:    crc-fast-rs   
+
+   It consists of a proc-macro for code generation, and some boilerplate template/script to generate new CRC crates based on the CRC parameters. Currently it supports 8/16/24/32-bit CRC:s without inversion (in input or output). It's possible to generate a new CRC implementation in minutes. The SIMD implementation is around 50x faster than table lookup, and 200x faster than a simple loop on my machine according to the criterion benchmarks.   
+
+   There are still some rough edges that will be dealt with going forward, but I'm surprised how easy this was to do with Rust thanks to macros and the tooling around (and I'm just getting started with Rust in general).   
+
+   Oh, and might I ask of your opinion: this will eventually generate up to over a hundred different CRC crates. I left my motivations in the README of the repository, but I am also interested in what the community has to say.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g8bmsi/lldbgdb_visualizers_derive_macro/
+-->>-->>
+You can embed debug formatters for lldb/gdb into rust  with :   
+
+   #![debugger_visualizer(gdb_script_file = "../foo.py")]
+   
+
+   this is very useful if you go through all the effort of defining your formatters yourself. Has anyone gone through the trouble of generating the python for these with a procmacro like    #[derive(debug)]    ? It would be incredibly useful to have this for debug targets at the moment.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g8bcky/meosrs_spatiotemporal_analysis_in_rust_feedback/
+-->>-->>
+TL;DR   
+
+   Announcing    meos-rs   , a Rust library to analyze spatio-temporal data!   
+
+   
+
+   MEOS    is a C library for manipulating temporal and spatio-temporal data, it's the library behind    MobilityDB   , a postgres extension. During these past months I've developed the FFI bindings of the C library as a Rust crate, and as of yesterday it's production ready! (I think)   
+
+   A code snippet to find the nearest distance between 2 points:   
+
+   use meos::{meos_initialize, TGeomPoint, TPointTrait};
+
+meos_initialize();
+
+let tpoint1: TGeomPoint =
+    "[Point(0 0 0)@2001-01-01, Point(1 1 1)@2001-01-03, Point(0 0 0)@2001-01-05)"
+        .parse()
+        .unwrap();
+let tpoint2: TGeomPoint =
+    "[Point(2 0 0)@2001-01-02, Point(1 1 1)@2001-01-04, Point(2 2 2)@2001-01-06)"
+        .parse()
+        .unwrap();
+
+let distance = tpoint1.nearest_approach_distance(&tpoint2);
+println!("{distance}"); // Prints 0.5
+   
+
+   This is my first serious library, moreover, this is my first FFI experience, so I'm very open to any feedback you may have! More concretely, I would specially welcome feedback in the following areas:   
+
+   
+   Is the README readable/useful enough?   
+   Is the -sys (raw bindings) crate missing any important feature?   
+   Is the user API easy enough/intuitive to use?   
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g7w628/canopydb_lightweight_and_efficient_transactional/
+-->>-->>
+https://github.com/arthurprs/canopydb/   
+
+   Canopydb is (yet another) Rust transactional key-value storage engine, but a different one too.   
+
+   It's lightweight and optimized for read-heavy and read-modify-write workloads. However, its MVCC design and (optional) WAL allow for significantly better write performance and space utilization than similar alternatives, making it a good fit for a wider variety of use cases.   
+
+   
+   Fully transactional API - with single writer Serializable Snapshot Isolation   
+   BTreeMap-like API - familiar and easy to integrate with Rust code   
+   Handles large values efficiently - with optional transparent compression   
+   Multiple key spaces per database - key space management is fully transactional   
+   Multiple databases per environment - efficiently sharing the WAL and page cache   
+   Supports cross-database atomic commits - to establish consistency between databases   
+   Customizable durability - from sync commits to periodic background fsync   
+   
+
+   The repository includes some benchmarks, but the key takeaway is that CanopyDB significantly outperforms similar alternatives. It offers excellent and stable read performance, and its write performance and space amplification are good, sometimes comparable to LSM-based designs.   
+
+   The first commit dates back to 2020 after some frustations with LMDB's (510B max key size, mandatory sync commit, etc.). It's been an experimental project since and rewritten a few times. At some point it had an optional Bε-Tree mode but that didn’t pan out and was removed to streamline the design and make it public. Hopefully it will be useful for someone now.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g86tyv/how_im_learning_rust/
+-->>-->>
+I wanted to share with you how I've been learning Rust, I tried a year ago and built a simple    ray tracer    but I found that project was really just me learning how ray tracing works and I don't feel like I really learnt that much actual rust.    
+
+   This time round I had a different idea, I wanted to give myself exposure to a wide range of crates built in functions and language features, I also wanted to keep my learning sessions short so huge projects were out.    
+
+   I settled on building a collection of CLI utility functions that I plan on using in my day job, things I understand well (enough) are very small in scope and actually genuinely useful for me, of course it's not super practical since  the standard tools out there do a much better job then what I've produced, but it's sufficient and using something you've built yourself is a great motivating factor. The other nice bit about this is that I'll have an endless amount of features I can add to it whenever I've got the time to learn about something new.    
+
+   Already it's touched networking, http requests, files, regex, parsing, and loads more.    
+
+   If you're looking for inspiration have a look at the feature list. I highly recommend building your own toolkit if your new to rust like me and stuck trying to find a project to start.   
+
+   Additionally, if anyone has feedback i'd love to hear it since I'm still very early in my rust journey    
+
+   https://github.com/Timmoth/aid-cli   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g80u99/people_with_cc_background_who_successfully_got/
+-->>-->>
+Note   : I meant to say: how do you    look for new    crates :))   
+
+   Just the title. I'm liking Rust a lot so far, but I very often find myself going into the usual direction I often took when developing C/C++ code, i.e. writing routines and traits for certain things from scratch, despite the huge amount of crates offered by the rust ecosystem. I'm not saying I'd like to completely avoid it, but I know the there's huge amount of polished code out there which makes sense to learn and use, instead of wasting time writing sub-optimal or non-idiomatic code.   
+
+   The biggest issue I have in solving this, I think, is that I'm not really used to browsing library collections to discover what I need; I've done in the past for python, and almost every time I ended up resorting to Google, which lead to SO/reddit/whatever. I feel like I'm always getting stuck in the same rut with Rust. With C/C++ there are also library repos, but they're often very limited in scope so most of the time you just have to select a couple components for    big    subsystems of your programs, and do the rest yourself.   
+
+   Adding also that I often deal with embedded stuff so a lot of crates are severely incomplete/loosely optimized/abandoned, and that ends with me walking away from crates.io feeling like I can't navigate it on my own.   
+
+   Question of course is not limited to people with that background, in fact every opinion is highly welcome! I felt like directing this question specifically to C/C++ devs because of a perceived shared tendency to develop a lot of the code from scratch every time it's needed - of course this topic also requires a lot of nuance to discuss, but you get the idea.   
+   
+
+======>
+https://notgull.net/blocking-leaky
+-->>-->>
+Blocking code is a leaky abstraction John Nunley  ·  October 19, 2024 async rust smol Asynchronous code does not require the rest of your code to be asynchronous.
+I can’t say the same for blocking code. Disclaimer: I am one of the maintainers for smol , a small and fast async runtime for Rust. I’ve been involved in the Rust community for four years at this point. At this
+point, I’ve seen a lot of criticism of async . I’ve found it to be an elegant model for programming that easily outclasses alternatives . I use it
+frequently in my own programs when it fits. There are a lot of programs that
+would be improved with the presence of async , that don’t use it because
+people are scared of it. In fact, many organizations have a “hard ban” on async code. Some of this criticism is valid. async code is a little hard to wrap your head around,
+but that’s true with many other concepts in Rust, like the borrow checker and
+the weekly blood sacrifices. Many popular async libraries are explicitly tied to heavyweight
+crates like tokio and futures , which aren’t good picks for many types of 
+programs. There are also a lot of language features that need to be released for async to be used without an annoying amount of Box ing dyn amic objects. There’s one point, though, that I’ve heard quite frequently at this point. I think
+it’s misleading. Let’s talk about it. What’s in a leak? I’ve seen a lot of people say that async is a “leaky abstraction”. What this means
+is that the presence of async in a program forces you to bend the program’s
+control flow to accommodate it. If you have 100 files in your program, and one of those files uses async , you have to either write the entire program in async or resort to bohemian, mind-bending hacks to contain it. Just like an
+inlaw moving into your spare bedroom. I do not mean memory leaks, which is what happens if you fail to free memory that you
+allocate. Neither async nor blocking code has a problem with memory leaking intrinsically. Dependency Dog: If you want to see a good example of a leaky abstraction, consider AppKit . Not only is AppKit thread-unsafe to the point where many functions can only safely be called on the main() thread, it forces you into Apple’s terrifying Objective-C model. Basically any program that wants to have working GUI on macOS now needs to interface in Apple’s way, with basically no alternatives. I’ve seen the “What Color is Your Function?” blogpost by Bob Nystrom referenced a lot in these discussions. This blogpost was
+originally written with JavaScript’s callbacks in mind. Fair enough. The callback
+model is hard to deal with, and its enduring popularity in the Rust ecosystem is something
+I have to write a blogpost about. He also mentions async / await as a potential
+solution to this problem, although one that he is unsatisfied with, as it still
+divides the ecosystem into asynchronous and synchronous halves. While this blogpost may be correct when it comes to JavaScript and other, higher-level
+languages, I believe that Rust stands out in such a way that it’s not true for this language.
+In fact, I believe the opposite is true. Non- async code (or “blocking” code)
+is the real leaky abstraction. Object Class: Safe I’d like to discuss how you call blocking code from async code, and vice versa.
+That way we can compare. Let’s make a table to describe how it goes calling functions from one “color” to
+another. You can call blocking code from blocking code without any issues. You
+can also call asynchronous code from asynchronous code trivially. There is also
+a strategy for calling asynchronous code from blocking code that I will go into
+shortly. So our table looks like this: → calls ↓  code async blocking async Trivial Generally Easy blocking We’ll see… Trivial Note that not all code fits cleanly into the async /blocking categories. A notorious
+example is GUI code, which uses blocking semantics but overall acts a lot like async code in that it’s not allowed to block. But that’s a topic for another post. When you write an async function, it returns a Future , which represents a
+value that will eventually be resolved. There are a lot of things you can do with
+a Future . You can race it against another Future , spawn it on an executor,
+and any number of other operations. It’s a point I delve deeper into in this post . However, one of the simpler operations is to just wait for a Future to
+complete. Often, the waiting is done by blocking the current thread. So by “blocking on” the Future , we can effectively turn an async function into
+a synchronous call. async fn my_async_code () { /* ... */ } fn my_main_blocking_code () { use futures_lite :: future :: block_on ; block_on ( my_async_code ()); } block_on takes any Future , whether it’s !Send or not 'static or if
+it’s about to explode. So literally any async function can be called from
+synchronous code. It’s relatively simple, too. block_on is implemented like this: pub fn block_on < T > ( future : impl Future < Output = T > ) -> T { // A `Context` with a `Waker` is needed to poll a `Future`. let waker = waker_that_blocks_current_thread (); let mut context = Context :: from_waker ( & waker ); std :: pin :: pin! ( future ); // This used to require `unsafe` code, but doesn't anymore! // Poll the future in a loop, blocking the thread while we wait. loop { match future .as_mut () .poll ( & mut context ) { Poll :: Ready ( value ) => return value , Poll :: Pending => block_thread_until_waker_wakes_us (), } } } Dependency Dog: The actual block_on is a little more complicated. It has some logic to reuse the waker between function calls, to reduce the overhead to one thread-local key access and nothing else. Okay, but what if you don’t want futures_lite in your dependency tree? futures_lite isn’t the heaviest dependency on the block (that’s futures ), but it’s still a
+non-negligible amount of code. No need to worry! There’s also pollster , which
+has zero (required) dependencies and consists of less than 100 lines of code. fn my_main_blocking_code () { use pollster :: block_on ; block_on ( my_async_code ()); } So, calling async code from blocking code is easy. Just call block_on . It’s that simple! It’s not that simple Of course it’s not that simple. I’m sure people familiar with actually calling async code from blocking code are screaming at the screen right now. So let’s
+address that. There are a substantial number of async crates out there that run on top of tokio . They use tokio ’s primitives, tokio ’s executor, and tokio ’s I/O semantics. Because of this, they rely on tokio ’s runtime to
+be running in the background. If you try the above strategy for a crate that
+relies on tokio , it will fail at runtime with a panic. No need to fear. We can start a tokio runtime and let it
+peacefully run in the background, forever. The libraries are able to pick up on
+this runtime and use it. In main() , during your program initialization, put this: use std ::{ future , thread }; fn main () { // Create a runtime. let rt = tokio :: runtime :: Builder :: new_current_thread () .enable_all () .build () .unwrap (); // Clone a handle to the runtime and send it to another thread. thread :: spawn ({ let handle = rt .handle () .clone (); // Run the handle on this thread, forever. move || handle .block_on ( future :: pending :: < () > ()) }); // "Enter" the runtime and let it sit there. let _guard = rt .enter (); // Block on any futures. pollster :: block_on ( my_async_function ()); } For any block_on calls in your application, the runtime will already be
+available. Note that you will need to call enter() on any new threads that use tokio primitives. Thankfully you can get a Handle to the runtime, which
+can be sent to any thread and is also cheaply clonable. But that’s really it. Once you have the runtime humming away in the background, tokio futures should Just Work! As an aside, another hitch is that block_on and functions like it are only available on std -enabled
+platforms. But the no_std async story is a blogpost for another day. A Quick Segue into tokio::main I’ve seen some people recommend using the tokio::main attribute to turn an async function into a blocking function, then calling that from your real code.
+For example: #[tokio::main(flavor = "current_thread" )] async fn my_async_code () { /* ... */ } fn main () { // `tokio::main` transparently converts `my_async_code` into a blocking function. my_async_code (); } It’s a little impressive, if not a little hacky. The async function is turned into
+a blocking function using the proc macro. But… just don’t do this. It means that, every time my_async_code is called, it
+spins up a tokio runtime, runs the code, then immediately throws that runtime
+away. For functions that are called a lot, it really adds up. In addition it makes
+the function signature misleading. It’s a blocking function, not an async function! Meanwhile, for blocking code… First off, I find async code to be more predictable than blocking code, in a
+weird way. Look at this function signature: async fn my_async_function () { /* ... */ } What does this tell you? I know that the Future returned by this function
+won’t block. I can place it in my executor of choice, or race it against any
+other Future s, without worrying that it will hog the execution loop. By
+convention poll() will probably run in a time period close to “instant”,
+before yielding and then letting something else take over. Yes, there are buggy Future s out there. But well-formed Future s
+complete quickly. Now look at this function signature: fn my_function () { /* ... */ } By looking at this function signature, can you tell how long it will take to run?
+Maybe it will complete instantly. Maybe it reads from a file and can potentially
+take between a few microseconds to a few whole seconds, depending on the file
+system. Maybe it blocks on a network socket. Maybe it processes a bunch of data
+in a loop, meaning that for large datasets it could run for a long time. Yes, you can check the docs. But the docs usually fail to mention any of the
+above behavior, even for functions in the standard library. All of this ignores
+behavior dependent on generics/traits, too. It doesn’t matter how well-formed it is,
+you can’t tell how this function will act. Often, when writing async programs, I have to be extra sure when I use blocking
+functions that I’m not accidentally blocking, which would lock up the entire event
+loop. In most cases this requires me to read the entire code of the function
+to understand what can go wrong. If I can’t be sure it won’t block, I’ll need to wrap it in a Future that runs
+it on its own isolated thread. smol provides the blocking threadpool to
+run code on other threads, while tokio has a spawn_blocking function. use blocking :: unblock ; fn my_blocking_function () { /* ... */ } async fn my_async_main () { unblock (|| my_blocking_function ()) .await ; } This method comes at a cost. At the very least it’s an allocation for the blocking
+task’s state, as well as a few atomic operations to push it and then pop it from some thread
+pool’s task queue. At worst it spawns an entire new thread. Compare this to the
+cost of block_on which is usually one thread-local access. But wait! unblock will send the function to another thread to be run. So,
+the function needs to be Send and 'static . This strategy doesn’t even work
+if the function relies on some kind of thread-unsafe state, like a RefCell .
+If the function takes a reference to some data you may need to wrap it in an Arc < Mutex >. use blocking :: unblock ; use std :: sync ::{ Arc , Mutex }; fn my_blocking_function ( data : & mut Foo ) { /* ... */ } async fn my_async_main () { let data = Arc :: new ( Mutex :: new ( /* ... */ )); unblock ({ let data = data .clone (); move || my_blocking_function ( & mut data .lock () .unwrap ()) }) .await ; } I know this is a common complain with tokio ’s style of async / await , but
+it’s just as bad the other way as well. For the record, you can call block_on with any kind of borrowed data, with no
+hassles. async fn my_async_code ( foo : & mut Foo ) { /* ... */ } fn my_main_blocking_code () { use futures_lite :: future :: block_on ; let mut data = /* ... */ ; block_on ( my_async_code ( & mut data )); // This works! } In order to avoid these issues I often have to segment out code that might block
+into their own sections. This lets me avoid the overhead of unblock for each
+function as a bonus. fn some_blocking_segment ( mut data : Foo ) { do_something ( & mut data ); data .postprocess (); print_the_data ( & data ); } async fn my_async_main () { // This doesn't work if `Foo` is `!Send`. let data = /* ... */ ; unblock ( move || my_blocking_function ( & mut data .lock () .unwrap ()) }) .await ; } However this requires me to re-architect parts of my code into these segments. It gets
+difficult to interweave further async code into this sub-section as well. Yes,
+I can call async functions from block_on , but I’d really prefer to .await on it. Say, doesn’t this seem very… leaky , to you? Let’s Fix This I don’t like to bring up a problem without also mentioning a possible solution.
+I mentioned documentation above; it would be nice if there was some kind of
+indicator that a function blocked. /// Does a thing. /// /// # Blocking /// /// This function will block the first time it is called, as it is reading from /// `/dev/random` to seed the random number generator. fn my_blocking_function ( data : & mut Foo ) { /* ... */ } It would be a Herculean effort, and I don’t think it’s a sustainable approach.
+If you’re writing a higher level library, it would be a lot to ask to check if
+your dependency’s dependency’s dependency maybe reads from a socket. From a language standpoint, it would be nice if there was some kind of #[blocking] attribute to indicate that a function blocked, like so: #[blocking] fn my_blocking_function ( data : & mut Foo ) { /* ... */ } Maybe there could even be some kind of tree-traversal to see if you were calling a #[blocking] function from async code, and then raise a warning. Unfortunately I’m
+unsure if this would work either. There are function that might block once and never again,
+or functions that only block under specific circumstances that the Rust compiler
+can’t predict. Not to mention, it would be difficult to solve the problem of data
+being processed in a tight loop. So, I don’t know. There are some clever people on the language design team, so maybe
+they have better ideas. Parting Shots Frankly, I don’t think async code is leaky at all, and the ways that it does leak
+are largely due to library problems. Meanwhile blocking code leaks by its fundamental design.
+I hope you found this helpful and that it might remove some reservations about using async code in the future. Share: Twitter , Facebook This website's source code is hosted via Codeberg

@@ -1,0 +1,346 @@
+https://github.com/google/diff-match-patch
+-->>-->>
+Repository files navigation README Code of conduct Apache-2.0 license Security The Diff Match and Patch libraries offer robust algorithms to perform the
+operations required for synchronizing plain text. Diff: Compare two blocks of plain text and efficiently return a list of differences. Diff Demo Match: Given a search string, find its best fuzzy match in a block of plain text. Weighted for both accuracy and location. Match Demo Patch: Apply a list of patches onto plain text. Use best-effort to apply patch even when the underlying text doesn't match. Patch Demo Originally built in 2006 to power Google Docs, this library is now available in C++, C#, Dart, Java, JavaScript, Lua, Objective C, and Python. Reference API - Common API across all languages. Line or Word Diffs - Less detailed diffs. Plain Text vs. Structured Content - How to deal with data like XML. Unidiff - The patch serialization format. Support - Newsgroup for developers. Languages Although each language port of Diff Match Patch uses the same API, there are some language-specific notes. C++ C# Dart Java JavaScript Lua Objective-C Python A standardized speed test tracks the relative performance of diffs in each language. Algorithms This library implements Myer's diff algorithm which is generally considered to be the best general-purpose diff. A layer of pre-diff speedups and post-diff cleanups surround the diff algorithm, improving both performance and output quality. This library also implements a Bitap matching algorithm at the heart of a flexible matching and patching strategy .
+======>
+https://www.udemy.com/course/ultimate-rust-crash-course/?couponCode=GIVETHANKS2024
+-->>-->>
+Join Nathan Stocks for a fast-paced, entertaining, and curiously informative hands-on crash course in the Rust programming language. This course will provide you with the fundamentals you need to boost you up Rust's steep learning curve.  This is a hands-on course with targeted exercises for each subject and projects for you to use your combined knowledge.  From using cargo to creating a project, to writing your code, to compiling and running it, this course has everything you need to get started. This course is kept up-to-date when Rust is updated with new features or major editions. Rust is a systems programming language that eliminates entire classes of bugs and security vulnerabilities, has zero-cost abstractions like C and C++, is fun to program in, and lets systems programmers have nice things. No wonder Rust is gaining traction in spaces as diverse as game engines, high-performance computing, embedded devices, and web programming! Learn how to write high-performance code without the worry of crashes or security vulnerabilities. Join a vibrant community of developers where diversity, inclusion, and just plain being nice are all first-class objectives. This course is the first in the Ultimate Rust series. If you like this course, then you'll love Ultimate Rust 2: Intermediate Concepts afterwards! Who this course is for: Aspiring systems programmers, software developers, engineers, wizards, warriors, and hobbits Any developer who needs to run code fast, efficiently, securely, under tight restraints, or with a minimum of bugs. A desire to begin using Rust
+======>
+https://github.com/faiface/par
+-->>-->>
+Repository files navigation README MIT license ⅋ — session types for Rust Cheatsheet Showcase example: Chat server Try it out! This example is a simple single-room chat server that operates via WebSocket. After
+cloning the repository, run it with: > cargo run --example chat
+Listening on: 127.0.0.1:3000 Use any WebSocket client to connect to it. For example, I like to use Postman . Right after connecting, you should get a message: > What's your name? Respond with your nickname and you're in the room. Make multiple connections and chat away! Alice Bob > What's your name? alice > alice joined > What's your name? bob > bob joined > bob joined hey bob! alice> hey bob! alice> hey bob! hey alice! how are you doing? bob> hey alice! how are you doing? bob> hey alice! how are you doing? good! session types are cool ;) alice> good! session types are cool ;) alice> good! session types are cool ;) Features Specify full concurrent protocols — Sequencing, branching, recursion, higher-order patterns. Type-checked protocol adherence — Expectations delivered, obligations fulfilled. Deadlock freedom — Cyclic communication is statically ruled out. Multiple concurrent participants. Fits well with Rust's type system: Use enum s for making choices. Use recursion on types for cyclic protocols. Built on top of async / .await . Runtime agnostic. Ergonomic design — eg. atm.choose(Operation::CheckBalance) Standard patterns in modules: Queue — Transmit an arbitrary number of items in order. Server — Handle a dynamic number of clients concurrently. No unsafe! Accessible documentation as a learning tool. Introduction What's a session type, anyway? It's a description an entire external behavior
+of a concurrent, message-passing process. From the first message, through every
+possible path and interaction that can be made with it, to all the ways it can
+finish. When implementing a concurrent program according to a session type, the type tells
+what can happen at any point in the program. When we have to send a message, when to
+select a path to continue, when to wait for someone else to make a choice and adapt. Crucially, the types are designed to provide some useful guarantees: Protocol adherence — Expectations delivered, obligations fulfilled. Deadlock freedom — Cyclic communication is statically ruled out. Protocol adherence means that when interacting with a process described by a session
+type, we can be sure (unless it crashes) that it will behave according to the protocol
+specified by its type. There will no unexpected messages, nor forgotten obligations.
+Just like we can rely on a function to return a string if it says so, we can rely on
+a process to send a string if its specified anywhere within its session type. Deadlock freedom means that deadlocks can't happen, without dirty tricks anyway. It is
+achieved by imposing a certain structure on how processes are connected. It can take
+a bit of getting used to, but it becomes very important when implementing very complex
+concurrent systems. ❓ Reading this, one may easily think, "I don't see deadlocks happen in practice..." ,
+and that's a valid objection! But it arises from our concurrent systems not being very
+complex due to a lack of tools and types to design and implement them reliably.
+At high levels of complexity, deadlocks become an issue, and having them ruled out
+proves crucial. Using session types, complex concurrent systems can be modelled and implemented with confidence,
+as any type-checked program is guaranteed to adhere to its protocol, and avoid any deadlocks.
+Message passing itself ensures natural synchronization. Lastly, session types give names to concurrent concepts and patterns, which
+enables high levels of abstraction and composability. That makes it easier to
+reason and talk about large concurrent systems. 📚 The particular flavor of session types presented here is a full implementation
+of propositional linear logic. However, no knowledge of linear logic is required to use
+or understand this library. Continue reading the tutorial... ❤️ If you like what you see, and want to see more, consider sponsoring! It really helps with being able
+to do what I love, alongside navigating life.
+======>
+https://brutally-honest.medium.com/the-rise-of-rust-as-high-performance-superhero-8f898e769331
+-->>-->>
+The Rise of Rust, As High-Performance Superhero. Brutally Honest (aka Ashish Vyas) · Follow 3 min read · 16 hours ago -- Listen Share The Background P resent Day — Digital World In a world where technology advanced at breakneck speed, a sinister force known as Scalator wreaked havoc by slowing systems, crashing apps, and overwhelming networks. Scalator exploited complexity, consumed resources, and caused widespread crashes with his devastating power of ‘billions-requests-per-day’. As the chaos grew, systems buckled under the pressure. Latency was everywhere, users were frustrated, and engineers were helpless. Traditional solutions, even those written in efficient languages like C, failed to defeat Scalator’s cunning traps such as deadlocks, memory issues, and the need for speed and safety. 2 009 — On a quiet night in the distant city of Vancouver Graydon Hoare, A brilliant Mozilla engineer was working tirelessly to create a programming language, wield the power of systems programming with unparalleled safety and speed. As Graydon worked harder, he envisioned code as not just a sequence of instructions but a symphony of performance and security. And so, our hero was born — Rust , a programming language that fused systems-level programming with unparalleled safety and speed. Little did he know that his creation would propel humanity into the ‘ trillion-requests-per-day ’ era after 15 years. The Showdown P resent Day While Scalator unleashed chaos year after year, driving the world deeper into the belief that ‘a billion is the limit’, Rust was silently forging itself in the shadows, honing unparalleled features destined to challenge Scalator. Unlike others before, Rust wasn’t just a descendant of older heroes like C++ or Java. Rust combined the power of low-level control with a modern focus on safety. When Scalator unleashed his deadliest weapon — ThreadLock, causing crashes in multithreaded systems — Rust was simultaneously perfecting its ownership model, ensuring that no two threads could fight over the same memory. As Scalator corrupted data with his Null Pointer Missiles, Rust developed its Option Type Shield, protecting programs from unexpected null values. With precision, Rust wielded its Borrow Checker Sword, preventing memory leaks and eliminating race conditions. Its Async Supercharger tackled Scalator’s storm head-on, processing vast amounts of concurrent requests without breaking a sweat. As Scalator defeated, systems began to stabilise, and developers communities across the world started to notice: this new hero was different. The Legacy P resent Day In the battle against Scalator, Rust proved that scaling wasn’t a villain to fear, but a challenge to conquer — with the right tools and the courage to innovate. Projects plagued by scaling issues began to adopt Rust, rebuilding systems that could now handle billions and billions of requests with ease. Today, Rust stands watch, ever vigilant, as the guardian of the digital realm. Its influence spreads, inspiring a new generation of programmers to wield its power. As the world continues to evolve, Rust remains the beacon of hope, ensuring that the forces of scaling and performance problems will never again threaten the stability of the digital universe. N ear F uture Just as Rust basked in the glory of its triumph over Scalator, whispers of a new threat emerged — Magnitor , Scalator’s monstrous progeny, capable of unleashing quadrillion requests per day. Can Rust stand strong against Magnitor? or will someone else rise to rewrite history, creating the ultimate programming language to face this formidable challenge? The clock ticks. Magnitor draws near. The world awaits its next hero. Who knows it could be you . Disclaimer: All copyrights are owned by their respective brands. No animals were harmed in the making of the above script (even in the thoughts) If anyone is interested in making a movie, let’s discuss the financials. :-)
+======>
+https://github.com/skim-rs/skim
+-->>-->>
+Repository files navigation README MIT license Life is short, skim! Half of our life is spent on navigation: files, lines, commands… You need skim!
+It is a general fuzzy finder that saves you time. skim provides a single executable: sk . Basically anywhere you would want to use grep , try sk instead. Table of contents Installation Usage As Filter As Interactive Interface Key Bindings Search Syntax Exit code Customization Keymap to redefine Sort Criteria Color Scheme Misc Advance Topics Interactive Mode Executing external programs Preview Window Fields Support Use as a Library FAQ How to ignore files? Some files are not shown in vim plugin Differences to fzf How to contribute Installation The skim project contains several components: sk executable -- the core. sk-tmux -- script for launching sk in a tmux pane. Vim/Nvim plugin -- to call sk inside Vim/Nvim. check skim.vim for more Vim support. Package Managers Distribution Package Manager Command macOS Homebrew brew install sk macOS MacPorts sudo port install skim Fedora dnf dnf install skim Alpine apk apk add skim Arch pacman pacman -S skim Gentoo Portage emerge --ask app-misc/skim Guix guix guix install skim Void XBPS xbps-install -S skim See repology for a comprehensive overview of package availability. Install as Vim plugin Via vim-plug (recommended): Plug ' lotabout/skim ' , { ' dir ' : ' ~/.skim ' , ' do ' : ' ./install ' } Hard Core Any of the following applies: Using Git $ git clone --depth 1 git@github.com:lotabout/skim.git ~ /.skim
+$ ~ /.skim/install Using Binary: directly download the sk executable . Install from crates.io : cargo install skim Build Manually $ git clone --depth 1 git@github.com:lotabout/skim.git ~ /.skim
+$ cd ~ /.skim
+$ cargo install
+$ cargo build --release
+$ # put the resulting `target/release/sk` executable on your PATH. Usage skim can be used as a general filter (like grep ) or as an interactive
+interface for invoking commands. As filter Try the following # directly invoke skim sk # or pipe some input to it: (press TAB key select multiple items with -m enabled) vim $( find . -name " *.rs " | sk -m ) The above command will allow you to select files with ".rs" extension and open
+the ones you selected in Vim. As Interactive Interface skim can invoke other commands dynamically. Normally you would want to
+integrate it with grep , ack , ag , or rg for searching contents in a
+project directory: # works with grep sk --ansi -i -c ' grep -rI --color=always --line-number "{}" . ' # works with ack sk --ansi -i -c ' ack --color "{}" ' # works with ag sk --ansi -i -c ' ag --color "{}" ' # works with rg sk --ansi -i -c ' rg --color=always --line-number "{}" ' Key Bindings Some commonly used key bindings: Key Action Enter Accept (select current one and quit) ESC/Ctrl-G Abort Ctrl-P/Up Move cursor up Ctrl-N/Down Move cursor Down TAB Toggle selection and move down (with -m ) Shift-TAB Toggle selection and move up (with -m ) For full list of key bindings, check out the man
+page ( man sk ). Search Syntax skim borrowed fzf 's syntax for matching items: Token Match type Description text fuzzy-match items that match text ^music prefix-exact-match items that start with music .mp3$ suffix-exact-match items that end with .mp3 'wild exact-match (quoted) items that include wild !fire inverse-exact-match items that do not include fire !.mp3$ inverse-suffix-exact-match items that do not end with .mp3 skim also supports the combination of tokens. Whitespace has the meaning of AND . With the term src main , skim will search
+for items that match both src and main . | means OR (note the spaces around | ). With the term .md$ | .markdown$ , skim will search for items ends with either .md or .markdown . OR has higher precedence. So readme .md$ | .markdown$ is grouped into readme AND (.md$ OR .markdown$) . In case that you want to use regular expressions, skim provides regex mode: sk --regex You can switch to regex mode dynamically by pressing Ctrl-R (Rotate Mode). exit code Exit Code Meaning 0 Exit normally 1 No Match found 130 Abort by Ctrl-C/Ctrl-G/ESC/etc... Customization The doc here is only a preview, please check the man page ( man sk ) for a full
+list of options. Keymap Specify the bindings with comma separated pairs (no space allowed), example: sk --bind ' alt-a:select-all,alt-d:deselect-all ' Additionally, use + to concatenate actions, such as execute-silent(echo {} | pbcopy)+abort . See the KEY BINDINGS section of the man page for details. Sort Criteria There are five sort keys for results: score, index, begin, end, length , you can
+specify how the records are sorted by sk --tiebreak score,index,-begin or any
+other order you want. Color Scheme It is a high chance that you are a better artist than me. Luckily you won't
+be stuck with the default colors, skim supports customization of the color scheme. --color=[BASE_SCHEME][,COLOR:ANSI] The configuration of colors starts with the name of the base color scheme,
+followed by custom color mappings. For example: sk --color=current_bg:24
+sk --color=light,fg:232,bg:255,current_bg:116,info:27 See --color option in the man page for details. Misc --ansi : to parse ANSI color codes (e.g., \e[32mABC ) of the data source --regex : use the query as regular expression to match the data source Advanced Topics Interactive mode With "interactive mode", you could invoke command dynamically. Try out: sk --ansi -i -c ' rg --color=always --line-number "{}" ' How it works? Skim could accept two kinds of source: command output or piped input Skim has two kinds of prompts: A query prompt to specify the query pattern and a
+command prompt to specify the "arguments" of the command -c is used to specify the command to execute while defaults to SKIM_DEFAULT_COMMAND -i is to tell skim open command prompt on startup, which will show c> by default. If you want to further narrow down the results returned by the command, press Ctrl-Q to toggle interactive mode. Executing external programs You can set up key bindings for starting external processes without leaving skim ( execute , execute-silent ). # Press F1 to open the file with less without leaving skim # Press CTRL-Y to copy the line to clipboard and aborts skim (requires pbcopy) sk --bind ' f1:execute(less -f {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort ' Preview Window This is a great feature of fzf that skim borrows. For example, we use 'ag' to
+find the matched lines, once we narrow down to the target lines, we want to
+finally decide which lines to pick by checking the context around the line. grep and ag has an option --context , skim can do better with preview
+window. For example: sk --ansi -i -c ' ag --color "{}" ' --preview " preview.sh {} " (Note the preview.sh is a script to print the context given filename:lines:columns)
+You got things like this: How does it work? If the preview command is given by the --preview option, skim will replace the {} with the current highlighted line surrounded by single quotes, call the
+command to get the output, and print the output on the preview window. Sometimes you don't need the whole line for invoking the command. In this case
+you can use {} , {1..} , {..3} or {1..5} to select the fields. The
+syntax is explained in the section "Fields Support". Last, you might want to configure the position of preview windows, use --preview-window . --preview-window up:30% to put the window in the up position with height
+30% of the total height of skim. --preview-window left:10:wrap , to specify the wrap allows the preview
+window to wrap the output of the preview command. --preview-window wrap:hidden to hide the preview window at startup, later
+it can be shown by the action toggle-preview . Fields support Normally only plugin users need to understand this. For example, you have the data source with the format: < filename > : < line number > : < column number > However, you want to search <filename> only when typing in queries. That
+means when you type 21 , you want to find a <filename> that contains 21 ,
+but not matching line number or column number. You can use sk --delimiter ':' --nth 1 to achieve this. Also you can use --with-nth to re-arrange the order of fields. Range Syntax <num> -- to specify the num -th fields, starting with 1. start.. -- starting from the start -th fields, and the rest. ..end -- starting from the 0 -th field, all the way to end -th field,
+including end . start..end -- starting from start -th field, all the way to end -th
+field, including end . Use as a library Skim can be used as a library in your Rust crates. First, add skim into your Cargo.toml : [ dependencies ] skim = " * " Then try to run this simple example: extern crate skim ; use skim :: prelude :: * ; use std :: io :: Cursor ; pub fn main ( ) { let options = SkimOptionsBuilder :: default ( ) . height ( Some ( "50%" ) ) . multi ( true ) . build ( ) . unwrap ( ) ; let input = "aaaaa \n bbbb \n ccc" . to_string ( ) ; // `SkimItemReader` is a helper to turn any `BufRead` into a stream of `SkimItem` // `SkimItem` was implemented for `AsRef<str>` by default let item_reader = SkimItemReader :: default ( ) ; let items = item_reader . of_bufread ( Cursor :: new ( input ) ) ; // `run_with` would read and show items from the stream let selected_items = Skim :: run_with ( & options , Some ( items ) ) . map ( |out| out . selected_items ) . unwrap_or_else ( || Vec :: new ( ) ) ; for item in selected_items . iter ( ) { print ! ( "{}{}" , item.output ( ) , " \n " ) ; } } Given an Option<SkimItemReceiver> , skim will read items accordingly, do its
+job and bring us back the user selection including the selected items, the
+query, etc. Note that: SkimItemReceiver is crossbeam::channel::Receiver<Arc<dyn SkimItem>> If it is none, it will invoke the given command and read items from command output Otherwise, it will read the items from the (crossbeam) channel. Trait SkimItem is provided to customize how a line could be displayed,
+compared and previewed. It is implemented by default for AsRef<str> Plus, SkimItemReader is a helper to convert a BufRead into SkimItemReceiver (we can easily turn a File for String into BufRead ).
+So that you could deal with strings or files easily. Check more examples under examples/ directory. FAQ How to ignore files? Skim invokes find . to fetch a list of files for filtering. You can override
+that by setting the environment variable SKIM_DEFAULT_COMMAND . For example: $ SKIM_DEFAULT_COMMAND= " fd --type f || git ls-tree -r --name-only HEAD || rg --files || find . " $ sk You could put it in your .bashrc or .zshrc if you like it to be default. Some files are not shown in Vim plugin If you use the Vim plugin and execute the :SK command, you might find some
+of your files not shown. As described in #3 , in the Vim
+plugin, SKIM_DEFAULT_COMMAND is set to the command by default: let $SKIM_DEFAULT_COMMAND = " git ls-tree -r --name-only HEAD || rg --files || ag -l -g \"\" || find . " That means, the files not recognized by git will not shown. Either override the
+default with let $SKIM_DEFAULT_COMMAND = '' or find the missing file by
+yourself. Differences to fzf fzf is a command-line fuzzy finder written
+in Go and skim tries to implement a new one
+in Rust! This project is written from scratch. Some decisions of implementation are
+different from fzf. For example: skim is a binary as well as a library while fzf is only a binary. skim has an interactive mode. skim supports pre-selection The fuzzy search algorithm is different. UI of showing matched items. fzf will show only the range matched while skim will show each character matched. (fzf has this now) skim 's range syntax is Git style : now it is the same with fzf. How to contribute Create new issues if you meet any bugs
+or have any ideas. Pull requests are warmly welcomed. Troubleshooting No line feed issues with nix , FreeBSD, termux If you encounter display issues like: $ for n in {1..10} ; do echo " $n " ; done | sk
+  0/10 0/0. > 10/10  10  9  8  7  6  5  4  3 2> 1 For example #412 #455 You need to set TERMINFO or TERMINFO_DIRS to the path to a correct terminfo database path For example, with termux, you can add in your bashr: export TERMINFO=/data/data/com.termux/files/usr/share/terminfo
+======>
+https://github.com/cmrschwarz/rust-prettifier-for-lldb
+-->>-->>
+Repository files navigation README GPL-3.0 license Rust Prettifier for LLDB Script to add Rust specific pretty-printing to the LLDB debugger. With the recent removal of Rust specific pretty printing from CodeLLDB , debugging Rust, especially
+enums, has become quite painful. This script is meant as a temporary fix until the situation of the
+ecosystem improves, see Compatability . With Prettifier Without Prettifier Standalone LLDB To load the script into your lldb debugger instance, execute the following lldb command: command script import <path to rust_prettifier_for_lldb.py> rust_prettifier_for_lldb.py is the only file from this Repository
+that you actually need. You can download it separately from the Releases section. Usage with VSCode Debug Adapters To use this script with VSCode debug adapters you have to instruct them
+to execute the same lldb command as above before the actual debugging session. Don't forget to replace <path to rust_prettifier_for_lldb.py> with the actual path on your local machine in the examples below . If you dislike linking to an absolute path on your machine I recommend
+placing (or symlinking) rust_prettifier_for_lldb.py into the .vscode folder of your repository, so you can use "${workspaceFolder}/.vscode/rust_prettifier_for_lldb.py" as the path. VSCode + CodeLLDB For the CodeLLDB extension, add the preRunCommands json tag to your launch configuration(s).
+It is also recommended to set "expressions": "simple" to fix an issue with
+the array subscript operator ( [..] ) in the Debug Watch Window.
+Here's an example configuration for your .vscode/launch.json : {
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug",
+            "cargo": {
+                "args": [
+                    "build",
+                ],
+                "filter": {
+                    "name": "<your binary name here>",
+                    "kind": "bin"
+                }
+            },
+            "expressions": "simple",
+            "preRunCommands": [
+                "command script import <path to rust_prettifier_for_lldb.py>"
+            ],
+            "args": [],
+         
+           
+        },
+    ]
+} VSCode + lldb-dap For the lldb-dap extension, add the initCommands JSON tag to your .vscode/launch.json configuration(s), as shown in the example below: {
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb-dap",
+            "request": "launch",
+            "name": "Debug",
+            "program": "<binary name here>",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "initCommands": [
+                "command script import <path to rust_prettifier_for_lldb.py>"
+            ],
+        }
+    ]
+} Compatability This script was developed for LLDB Version 19.0.0 , aswell as 19.1.0-codelldb (version currently bundled by CodeLLDB ). At the time of writing, it is known to work well with the latest stable version Rust ( 1.82.0 ). If you are using older versions of Rust or LLDB this script might not work for you. Due to the changing nature of the Rust Standard Library internals aswell
+as the LLDB representation of them, this will never be more than a temporary hack
+that's constantly in danger of becoming outdated.
+The hope is that Rust's own  Pretty Printers will eventually ship in a functional state, superseeding this temporary bandaid. The plan for this script is to live at head, and hopefully get retired sooner rather than later. I'm happy to accept pull requests to improve this script or even add support
+for commonly used collection types of third party crates,
+as long as you supply testcases to make sure your additions can be maintained. Thank You Thank you to Vadim Chugunov (@vadimcn) for the wonderful CodeLLDB
+and the starting point for this script. Support If this script has helped you out a a Github Star ✨ would make me very happy,
+and maybe help demonstrate to the Rust Project Maintainers that a solid solution
+for debugging Rust is something that many people desire.
+======>
+https://old.reddit.com/r/rust/comments/1gwsdxf/should_i_delegate_this_task_from_my_service_to_a/
+-->>-->>
+I use websockets in an interpreted language known to not be very performant. The websocket receives    patches    that are applied to text and returns the patched text. Multiples patches are received all at once from different users.   
+
+   Does it make sense to delegate this specific task (applying patches) to a Rust app? Or would the service<->Rust communication be too slow and offset the gains? I'm thinking about using a redis cache to communicate between them.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gwqeph/jog_my_memory_on_string_slices/
+-->>-->>
+Howzit,   
+
+   I've declared a global array in my program as follows;   
+
+   static MY_ARR: &[&str] = &["Hello", "World"];
+   
+
+   It works fine but I can't remember why exactly it needs to be a reference.    
+
+   For example, why doesn't the following line of code work?   
+
+   static MY_ARR: [str] = ["Hello", "World"];
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gwtyq1/learn_rust_free_video_courses/
+-->>-->>
+It is almost time for the Thanksgiving Holiday in the USA. This year, I'm thankful for all the opportunities I have had to learn. I am also thankful for Rust. Here's some coupon links for free access to my Rust courses on Udemy to celebrate. They are each good for the next 5 days or 1000 redemptions, whichever comes first. Happy Thanksgiving!   
+
+   
+   Ultimate Rust Crash Course   
+   Ultimate Rust 2: Intermediate Concepts   
+   
+   
+
+
+======>
+https://old.reddit.com/r/rust/comments/1gwjeid/poll_why_are_you_not_using_session_types_for_your/
+-->>-->>
+Hey there ;)   
+
+   Recently I released a Rust crate implementing session types, and while I fully expected it to be an uphill battle to adoption, I realized I don’t actually know what the main obstacles are!   
+
+   Link to the repo:    https://github.com/faiface/par   
+
+   Now, of course, since I made the crate, I believe session types are awesome and useful and deserve wider adoption. So I’m very curious to know what the outlook actually is and what folks are missing.   
+
+   Aside from that, I’m curious what the general opinion and impression of session types among Rust programmers is.   
+
+   For those who don’t know: session types allow specifying entite concurrent communication protocols, making it possible to write safe concurrent applications that are type-checked in their behavior throughout. They also help prevent deadlocks.   
+
+   If you have any thoughts on the matter, don’t hesitate to express yourself in the comments!   
+
+   View Poll   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gwbzuk/the_rise_of_rust_as_highperformance_superhero/
+-->>-->>
+Last night, I was reading an article about Cloudflare’s Pingora, the proxy that connects Cloudflare to the Internet. Pingora, written in Rust, handles over 1 trillion requests per day. Previously, Cloudflare relied on Nginx which reached its limit. Interesting...A few years ago, who would have thought Nginx would face such a challenge?   
+
+       
+
+   Since scriptwriting has always been a hobby of mine, I decided to write a script imagining Rust as a superhero who rises to battle Scalator—an imaginary villain capable of sending billions of requests and bringing any system to its knees.   
+
+       
+
+   Take a moment to read it when you have some free time and share your comments on an article!   
+
+   https://brutally-honest.medium.com/the-rise-of-rust-as-high-performance-superhero-8f898e769331   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gwsbsx/skim_is_back/
+-->>-->>
+Hello everyone !   
+
+   After being unmaintained for over a year, a    new release    of    skim   , the rust fuzzy-finder, just dropped !   
+
+   This release brings you bug fixes as well as dependencies updates, with more features to come in the next weeks.   
+
+   Most of the PRs on the repo have been merged in the process, and the issues are being triaged to constitute a backlog.   
+
+   Notably, we are planning for the next few weeks :
+- The addition of a    --tmux    argument to deprecate the    sk-tmux    script and integrate more tightly with tmux
+- The addition of some QoL improvements and new flags
+- The addition of    --<shell>    arguments to generate completions at runtime and make it easier to package the cli
+- Support for more shells' completions
+- Documentation improvements   
+
+   In the longer term, a    ratatui    rewrite is in the works but will take a lot of time as we need to make sure not to break anything in the process (note: this    could    mean that compatibility with windows might become possible).   
+   
+
+
+======>
+https://zed.dev/blog/zed-decoded-rope-optimizations-part-1
+-->>-->>
+Releases Extensions Docs Blog Resources ⌘ K Log in L Download D ← Back to Blog Rope Optimizations, Part 1 self.__wrap_n!=1&&self.__wrap_b(":Raj7rrrqbt6ja:",1) Thorsten Ball Antonio Scandurra November 18th, 2024 A couple of weeks ago I came across one of Antonio's PRs, titled " Speed up
+point translation in the Rope " — now who doesn't stop to take a
+closer look at a PR with that title? The description already lives up to the title. It contains benchmark results
+telling me that a method on our Rope named point_to_offset is now up to 70%
+faster. 70%! Throughput increased by 250%. (I can't remember but I'm sure I made
+one of those impressed whistling sounds when I saw those numbers.) Then there's the code. I scrolled through the diff and with the fourth move of
+the mouse wheel I landed on this snippet and stopped: #[inline(always)] fn nth_set_bit_u64 ( v : u64 , mut n : u64 ) -> u64 { let v = v . reverse_bits (); let mut s : u64 = 64 ; // Parallel bit count intermediates let a = v - (( v >> 1 ) & ( u64 ::MAX / 3 )); let b = ( a & ( u64 ::MAX / 5 )) + (( a >> 2 ) & ( u64 ::MAX / 5 )); let c = ( b + ( b >> 4 )) & ( u64 ::MAX / 0x11 ); let d = ( c + ( c >> 8 )) & ( u64 ::MAX / 0x101 ); // Branchless select let t = ( d >> 32 ) + ( d >> 48 ); s -= ( t . wrapping_sub ( n ) & 256 ) >> 3 ; n -= t & ( t . wrapping_sub ( n ) >> 8 ); // [...] } Okay, okay, okay — "Parallel bit count intermediates", "Branchless select" in a
+PR that results in a 75% speed up — I'm in. I need to know the whole story. No
+way this won't be interesting. So I asked Antonio what's up with the bit twiddling and he not only offered to
+walk me through the optimizations he made, but also said we should pair and
+add yet another optimization to make the Rope even faster when handling tabs. And — lucky me — that's exactly what we did. We recorded the whole pairing
+session, so you can watch it too, and now I'll share with you everything I
+learned about bit twiddling optimizations on our Rope so far. Companion Video : Rope Optimizations, Part 1 The 1.5hr companion video is the full pairing session in which Antonio and Thorsten first walk through these new optimizations on the Rope and then add another one to index tabs. Watch the video here: https://youtu.be/9Ys9lpOyv08 Speeding up Point translation First, we let's take a look at how Antonio sped up "point translation" in the
+Rope and what that even means. If you've read our post on Rope & SumTree you already know this:
+our Rope is not a real Rope but a SumTree in a trench coat and looked
+roughly like this before Antonio made his changes: struct Rope { chunks : SumTree < Chunk > } struct Chunk ( ArrayString < 128 >); It's a B-tree of Chunk s and a Chunk is nothing more than a stack-allocated
+string with a maximum length of 128 bytes. And that's already all the background you need — our Rope is a B-tree of
+128-byte strings. The Problem So what's point translation? Expressed in code, it's roughly equivalent to this: struct Point { row : u32 , column : u32 , } impl Rope { fn offset_to_point (& self , offset : usize ) -> Point ; } Point translation means: take an arbitrary offset into a string (represented
+as a Rope) and translate it into a Point — the row and column your cursor
+would land on if moved to the given offset. As you can imagine, this method is a popular one in a text editor. Zed gets
+offsets from all kinds of sources and has to turn them into lines and columns —
+hundreds if not thousands of times per second when you're moving around a file
+and editing. Now imagine how you would implement that offset_to_point method. Conceptually, what you'd have to do is to go through each character in the file,
+count the newlines and characters you come across, and stop once you are at your
+offset. Then you know which line you are on. And that's exactly what our Rope did, too. If you called rope.offset_to_point(7234) , the Rope would traverse its SumTree to find the Chunk that contains offset 7234 and then, on that Chunk , it would call offset_to_point again. And that method, on Chunk ,
+looked pretty similar to this piece of code: fn offset_to_point ( text : & str , offset : usize ) -> Point { let mut point = Point { row : 0 , column : 0 }; for ( ix , ch ) in text . char_indices () { if ix == offset { break ; } if ch == ' \n ' { point .column = 0 ; point .row += 1 ; } else { point .column += 1 ; } } point } It's straightforward: set up a counter in the form of a Point , loop through all the
+characters in the 128-byte string, and keep track of newlines as you come across
+them. But that's also the problem, right there: while the Rope can get us to the
+right Chunk in O(log(n)) , we still have to loop through 128 characters and
+count the newlines manually — like cavemen. Now you might say that 128 characters isn't a lot and what harm comes from a
+little loop like that, but remember: we're talking about a text editor that
+supports multiple cursors and talks to multiple language servers at once — this
+loop gets executed so often, it's hot to the touch. We want it to be as
+fast as possible. And that's exactly what Antonio achieved. The Optimization What Antonio figured out is that instead of looping through 128 characters every
+time we need find a newline, we can do it once and remember where they are,
+effectively building an index of the Chunk . And all we need for such an index is a u128 . A u128 is Rust's 128-bit unsigned integer type and, hey, 128 — that's exactly
+how many bytes are in a Chunk . A single u128 is enough to remember whether a given byte in a Chunk has a certain property or not. For example, we could set a bit in a u128 at a given position to 1 if the corresponding byte in the Chunk is a
+newline character. Or we could flip bits to remember how many bytes a character
+takes up — which can be more than one with UTF-8 and emojis. That's what that Antonio's PR did. Our Chunk now looks like this: struct Chunk { chars : u128 , chars_utf16 : u128 , newlines : u128 , text : ArrayString < 128 >, } But how does that work? And what does it buy us? Is that really better than
+looping through the characters? To illustrate the idea, let's focus on newlines only and use a u8 instead of a u128 — less bits to show and count, same principle. Indexing newlines in a u8 Say we have the following text: ab\ncd\nef We can use the following code to index the positions of the newline characters
+in a u8 : fn main () { let text = "ab \n cd \n ef" ; let newlines = newline_mask ( text ); // ... } fn newline_mask ( text : & str ) -> u8 { let mut newlines : u8 = 0 ; for ( char_ix , c ) in text . char_indices () { newlines |= (( c == ' \n ' ) as u8 ) << char_ix ; } newlines } When we run this, we end up with a newlines bitmask that looks like this: newlines now tells us that the 3rd and 6th characters in text are newlines.
+Sweet. Now with newlines in hand, back to our original problem: translating an
+offset into a Point . How does newlines help with that? Say our offset is 4 and say our text is "ab\ncd\nef" . We want to know what
+line and column the character d is on. Here's how we can use newlines to find out: struct Point { row : u8 , column : u8 } fn offset_to_point ( newlines : u8 , offset : usize ) -> Point { let mask = if offset == MAX_LEN { u8 ::MAX } else { ( 1 u8 << offset ) - 1 }; let row = ( newlines & mask ). count_ones () as u8 ; let newline_ix = u8 ::BITS - ( newlines & mask ). leading_zeros (); let column = ( offset - newline_ix as usize ) as u8 ; Point { row , column } } We first create a mask that has all the bits set to 1 up until the offset
+we're interested in: Then we take that mask and bitwise-and it with the newlines we passed in: That leaves only the newline-bits up to the offset we're interested in being
+set. Now, to find out which line our offset is on, all we have to do is to count
+the number of remaining bits set to 1 . That's this line: let row = ( newlines & mask ). count_ones () as u8 ; // row = 1 That's the row the offset is on — 1 in our case. It's zero-indexed, meaning
+that when talking to a human and not a computer, we'd say that the character d is on line 2. The next step is to figure out the column. To do that, we need to calculate the
+distance between the offset we're interested in and the last newline
+character, because that is what a column is: the number of characters from the
+last newline. This line first gives us the position of the newline closest to our offset: let newline_ix = u8 ::BITS - ( newlines & mask ). leading_zeros (); In our case, newline_ix is 3 : Then we plug that into the next line: let column = ( offset - newline_ix as usize ) as u8 ; Which gives us the column 1 . The result: offset 4 in ab\ncd\nef translates to Point { row: 1, column: 1 } — second line, second column. The Beauty of It Take a look at these two lines from above again: let row = ( newlines & mask ). count_ones () as u8 ; let newline_ix = u8 ::BITS - ( newlines & mask ). leading_zeros (); count_ones() and leading_zeros() — sounds an awful lot like there might be
+some looping going on to count those ones and zeros, right? But no, that's the beautiful part! count_ones and leading_zeros are both
+implemented with a single CPU instructions. No loop necessary. Turns out CPUs
+are pretty good with zeros and ones. And it's not just that we reduced the number of instructions, we also have less branch instructions now and branchless
+programming can often
+lead to tremendous speed-ups in hot loops. If we put both versions of offset_to_point — one with a loop and one with the
+bitmask — into micro-benchmark and use an actual u128 instead of
+an u8 to make the results more pronounced, we can see how much faster the
+loop-less, branch-less version is: Running benches/benchmark.rs (target/release/deps/benchmark-21888b29446a33c0)
+
+offset_to_point_u128/loop_version
+                   time:   [56.914 ns 57.001 ns 57.096 ns]
+
+offset_to_point_u128/mask_version
+                   time:   [1.0478 ns 1.0501 ns 1.0529 ns] 57ns with the loop and 1ns with the bitmask — 57x faster. Impressed
+whistling sound. Of course, all the disclaimers about micro-benchmarks apply and in our
+production code the results aren't that drastic, but very, very good
+nonetheless: the 70% speed-up I mentioned at the start is real. Indexing Tabs Fascinated and motivated by all of this, Antonio and I then set out to add the
+same index for tabs. "Tabs?", you might say, "I don't use tabs." Yes, you don't, but Zed doesn't know
+that and still has to check whether you have tabs at the start of your lines in
+order to display them correctly. And tabs are tricky. You can't display tabs like other characters. Tabs
+are... dynamic, for the lack of a better word. How the string \t\tmy function is displayed depends on what tab size you have
+configured : if the tab size is
+four, then \t\t should be displayed as eight spaces. If it's two, it's four spaces. "Poor text editor developers", you might be thinking, "they have to multiply
+numbers." Appreciate the compassion, but, listen, that's not all. Consider this piece of text: ab\t\tline 1
+\t\tline 2 With a tab size of 4 and hard tabs enabled, it should be displayed like this: That's right — the first tab in the first line only takes up two spaces, the
+others all take up four spaces. You see: tabs are tricky and, as it turns out, also costly. In a performance profile, Antonio saw that we spend a lot of time figuring out
+where and how many tabs there are in a given file. A lot of time. So what we did in our pairing session was to add an index for tabs that works
+just like the index for newlines: struct Chunk { chars : u128 , chars_utf16 : u128 , newlines : u128 , // We added this field: tabs : u128 text : ArrayString < 128 >, } Does it make Zed faster? We'll see. This time we only added the index, but we haven't actually changed
+the code the higher layers to use it yet. We'll do that in the next Zed
+Decoded episode. Until then, watch the full pairing session in the companion
+video to see how all the nuts and bolts are put into place. Looking for a better editor? You can try Zed today on macOS or Linux. Download now ! We are hiring! If you're passionate about the topics we cover on our blog, please consider joining our team to help us ship the future of software development. © 2024 Zed Industries Terms of Use · Attributions · Sign In Product Download Releases Extensions Docs GitHub ↗ Status ↗ Resources Blog Community Links Discussions ↗ FAQ CLA Merch ↗ Company About Values Team Jobs Brand Social Twitter ↗ Bluesky ↗ YouTube ↗ Discord ↗ Reddit ↗
+======>
+https://github.com/lakehq/sail
+-->>-->>
+Repository files navigation README Apache-2.0 license Sail The mission of Sail is to unify stream processing, batch processing, and compute-intensive (AI) workloads.
+Currently, Sail features a drop-in replacement for Spark SQL and the Spark DataFrame API in both single-host and distributed settings. Kubernetes Deployment Please refer to the Kubernetes Deployment Guide for instructions on deploying Sail on Kubernetes. Installation Sail is available as a Python package on PyPI. You can install it using pip . pip install " pysail==0.2.0.dev0 " Alternatively, you can install Sail from source for better performance for your hardware architecture.
+You would need rustup and protoc in your environment for this. env RUSTFLAGS= " -C target-cpu=native " pip install " pysail==0.2.0.dev0 " -v --no-binary pysail You can follow the Getting Started guide to learn more about Sail. Documentation The documentation of the latest Sail version can be found here . Benchmark Results Check out our blog post, Supercharge Spark: Quadruple Speed, Cut Costs by 94% , for detailed benchmark results comparing Sail with Spark. Contributing Contributions are more than welcome! Please submit GitHub issues for bug reports and feature requests. Feel free to create a pull request if you would like to make a code change.
+You can refer to the development guide to get started. Support See the Support Options Page for more information.
+
+======>
+https://old.reddit.com/r/rust/comments/1gwm4d7/psa_working_enum_support_coming_to_a_debugger/
+-->>-->>
+https://github.com/cmrschwarz/rust-prettifier-for-lldb   
+   

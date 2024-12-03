@@ -1,0 +1,385 @@
+https://github.com/urrickhunt/drugwars-rust
+-->>-->>
+Repository files navigation README MIT license 40th Anniversary Drugwars in Rust 🦀 Drugwars, the classic text-based game, is back & rewritten in Rust for its 40th Anniversary. This cross-platform version stays true to the original experience, featuring familiar gameplay & updated terminal compatibility. Single Key Commands like the original ensure smooth gameplay with quick input handling. Installation cargo install drugwars-rust Building git clone https://github.com/urrickhunt/drugwars-rust normal release cargo build --release lto release cargo build --profile release-lto normal install cargo install --path . lto install cargo install --path . --profile release-lto run drugwars-rust run on git bash mintty winpty drugwars-rust
+======>
+https://siddharthqs.com/design-patterns-in-rust
+-->>-->>
+Permalink The SOLID Design Principles Let's review the SOLID design principles since we'll mention them while discussing design patterns. It's helpful to remember these principles when designing maintainable and scalable object-oriented systems. Single Responsibility Principle (SRP): A class should have only one reason to exist, meaning it should have only one job or responsibility. You should not overload your objects with two many responsibility, just create a new class for it. Open/Closed Principle (OCP): Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification. This means you should be able to add new functionality without changing existing code. Liskov Substitution Principle (LSP): Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program. This ensures that a subclass can stand in for its superclass. Interface Segregation Principle (ISP): Clients should not be forced to depend on interfaces they do not use. This means creating smaller, more specific interfaces rather than a large, general-purpose one. Dependency Inversion Principle (DIP): High-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions. This principle helps in reducing the coupling between different parts of a system. Permalink Strategy pattern The Strategy design pattern is a behavioral design pattern that enables selecting an algorithm's behavior at runtime. This pattern is based on composition Lets see the definition from the “ Head First Design Pattern ”: The strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. Strategy lets algorithm vary independently from clients that use it. It is naturally useful in trading systems where algorithms need to switch between different execution methods. In this example, we'll implement a simplified trading system in Rust that executes orders using different strategies like TWAP (Time-Weighted Average Price), VWAP (Volume-Weighted Average Price), and POV (Percentage of Volume). These are your execution strategies. You can choose one of the strategies based on certain factors or constraints. Permalink Structure The Strategy interface is common to all concrete strategies. It declares a method the context uses to execute a strategy. We define a common interface for all execution strategies, the method execute_order that all execution strategies must implement. Copy Copy trait ExecutionStrategy { fn execute_order (& self , order_id: u32 , quantity: u32 );
+} Concrete Strategies implement different variations of an algorithm the context uses. In this example, we write implementations of TWAP, VWAP, and POV strategies. Copy Copy struct TwapStrategy ; impl ExecutionStrategy for TwapStrategy { fn execute_order (& self , order_id: u32 , quantity: u32 ) { println! ( "Executing order {} using TWAP for {} units." , order_id, quantity); // Implement TWAP logic here }
+ } struct VwapStrategy ; impl ExecutionStrategy for VwapStrategy { fn execute_order (& self , order_id: u32 , quantity: u32 ) { println! ( "Executing order {} using VWAP for {} units." , order_id, quantity); // Implement VWAP logic here }
+ } struct PovStrategy {
+     participation_rate: f64 ,
+ } impl ExecutionStrategy for PovStrategy { fn execute_order (& self , order_id: u32 , quantity: u32 ) { println! ( "Executing order {} using POV at {}% participation for {} units." ,
+             order_id, self .participation_rate * 100.0 , quantity
+         ); // Implement POV logic here }
+ } The Context maintains a reference to one of the concrete strategies and communicates with this object only via the strategy interface. Here we write the OrderExecutor that holds a reference to a strategy and uses it to execute orders. The context calls the execution method on the linked strategy object each time it needs to run the algorithm. The context doesn’t know what type of strategy it works with or how the algorithm is executed. Copy Copy struct OrderExecutor {
+     strategy: Box < dyn ExecutionStrategy>,
+ } impl OrderExecutor { fn new (strategy: Box < dyn ExecutionStrategy>) -> Self {
+         OrderExecutor { strategy }
+     } fn set_strategy (& mut self , strategy: Box < dyn ExecutionStrategy>) { self .strategy = strategy;
+     } fn execute (& self , order_id: u32 , quantity: u32 ) { self .strategy.execute_order(order_id, quantity);
+     }
+ } The Client creates a specific strategy object and passes it to the context. The context exposes a setter which lets clients replace the strategy associated with the context at runtime. Copy Copy fn main () { let order_id = 101 ; let quantity = 1000 ; // Using TWAP Strategy let twap_strategy = Box ::new(TwapStrategy); let mut executor = OrderExecutor::new(twap_strategy);
+     executor.execute(order_id, quantity); // Switching to VWAP Strategy let vwap_strategy = Box ::new(VwapStrategy);
+     executor.set_strategy(vwap_strategy);
+     executor.execute(order_id+ 1 , quantity); // Switching to POV Strategy let pov_strategy = Box ::new(PovStrategy {
+         participation_rate: 0.1 ,
+     });
+     executor.set_strategy(pov_strategy);
+     executor.execute(order_id+ 2 , quantity);
+ } Permalink Strategy pattern Class Diagram Copy Copy +-----------------------------------------------------------------+
+| <<interface>>                                                   |
+| ExecutionStrategy                                               |
+|-----------------------------------------------------------------|
+| + execute_order(...)                                            |
++-----------------------------------------------------------------+
+
+     /|\                  /|\                   /|\
+      |                    |                     |
+      |                    |                     |
++---------------+     +--------------+       +--------------+
+| TwapStrategy  |     | VwapStrategy |       | PovStrategy  |
+|---------------|     |--------------|       |--------------|
+|               |     |              |       | - participation_rate: f64 |
+|---------------|     |--------------|       |--------------|
+| + execute_order(...)|+ execute_order(...)  |+ execute_order(...)|
++---------------+     +--------------+       +--------------+
+
++-----------------------------+
+| OrderExecutor               |
+|-----------------------------|
+| - strategy: ExecutionStrategy |
+|-----------------------------|
+| + new(strategy)             |
+| + set_strategy(strategy)    |
+| + execute(order_id, quantity) |
++-----------------------------+ Permalink Observer Design Pattern The Observer design pattern is a behavioral design pattern that enables an object, known as the Subject , to maintain a list of its dependents, called Observers , and automatically notify them of any state changes, typically by calling one of their methods. This pattern is particularly useful in Event-Driven Systems , when you need to notify multiple objects about events without tightly coupling them. The definition from the “ Head First Design Pattern ”: The observer pattern defines a one to many dependency between objects so that when one object changes state, all of its dependents are notified and updated automatically. In the context of algorithmic trading , the Observer pattern can be applied to scenarios such as: Market Data Feeds : Notifying trading strategies when new market data arrives. Order Execution Updates : Informing interested parties when an order is executed or its status changes. Price Alerts : Triggering alerts when certain price thresholds are crossed. Permalink Structure Subject (Observable or Publisher) : The Subject issues events of interest to other objects. These events occur when the subject (publisher) changes its state or executes some behaviors. Subjects maintain a subscription infrastructure, list of observers and provides methods to attach, detach, and notify them. Observer (Subscriber) : The Observer interface declares the notification interface. In most cases, it consists of a single update method. Concrete Subject : Implements the subject interface and holds the state of interest. Concrete Observer : Concrete Observer perform some actions in response to notifications issued by the subject. All of these classes must implement the same interface so the subject isn’t coupled to concrete classes. Usually, subscribers need some contextual information to handle the update correctly. For this reason, publishers often pass some context data as arguments of the notification method. The publisher can pass itself as an argument, letting subscriber fetch any required data directly. Permalink Implementation Example We will implement a simplified version of trading system using Rust where we have: Market Data Feed (Subject): Provides live price updates for various financial instruments. Trading Strategies (Observers): React to market data updates to make trading decisions. Let look at the code implementation. Permalink Observer Trait The Observer trait declares the update method, which observers must implement. Copy Copy use std::rc::Rc; use std::cell::RefCell; trait Observer { fn update (& self , instrument_id: & str , price: f64 );
+} Permalink Implement Concrete Observers (Trading Strategies) Copy Copy struct MomentumStrategy {
+    name: String ,
+    threshold: f64 ,
+} impl Observer for MomentumStrategy { fn update (& self , instrument_id: & str , price: f64 ) { if price > self .threshold { println! ( "{}: [{}] Price crossed above threshold! Price: {}" , self .name, instrument_id, price
+            ); // Implement buy logic } else { println! ( "{}: [{}] Price below threshold. Price: {}" , self .name, instrument_id, price
+            ); // Implement hold or sell logic }
+    }
+} struct MeanReversionStrategy {
+    name: String ,
+    average_price: RefCell< f64 >,
+} impl Observer for MeanReversionStrategy { fn update (& self , instrument_id: & str , price: f64 ) { let mut avg = self .average_price.borrow_mut();
+        *avg = (*avg * 0.9 ) + (price * 0.1 ); // Update moving average if price < *avg { println! ( "{}: [{}] Price below average! Price: {}, Average: {:.2}" , self .name, instrument_id, price, *avg
+            ); // Implement buy logic } else { println! ( "{}: [{}] Price above average. Price: {}, Average: {:.2}" , self .name, instrument_id, price, *avg
+            ); // Implement sell logic }
+    }
+} Permalink Define the Subject Trait Copy Copy trait Subject { fn attach (& mut self , observer: Rc< dyn Observer>); fn detach (& mut self , observer: &Rc< dyn Observer>); fn notify (& self );
+} Permalink Implement the Concrete Subject (Market Data Feed) Copy Copy struct MarketDataFeed {
+    instrument_id: String ,
+    observers: RefCell< Vec <Rc< dyn Observer>>>,
+    price: RefCell< f64 >,
+} impl MarketDataFeed { fn new (instrument_id: & str ) -> Self {
+        MarketDataFeed {
+            instrument_id: instrument_id.to_string(),
+            observers: RefCell::new( Vec ::new()),
+            price: RefCell::new( 0.0 ),
+        }
+    } fn set_price (& self , new_price: f64 ) {
+        * self .price.borrow_mut() = new_price; self .notify();
+    }
+} impl Subject for MarketDataFeed { fn attach (& mut self , observer: Rc< dyn Observer>) { self .observers.borrow_mut().push(observer);
+    } fn detach (& mut self , observer: &Rc< dyn Observer>) { let mut observers = self .observers.borrow_mut(); if let Some (pos) = observers.iter().position(|x| Rc::ptr_eq(x, observer)) {
+            observers.remove(pos);
+        }
+    } fn notify (& self ) { let price = * self .price.borrow(); let instrument_id = & self .instrument_id; for observer in self .observers.borrow().iter() {
+            observer.update(instrument_id, price);
+        }
+    }
+} Permalink Client Code Copy Copy fn main () { // Create market data feed for AAPL let mut market_data_feed = MarketDataFeed::new( "AAPL" ); // Create observers let momentum_strategy: Rc< dyn Observer> = Rc::new(MomentumStrategy {
+        name: String ::from( "MomentumStrategy" ),
+        threshold: 150.0 ,
+    }); let mean_reversion_strategy: Rc< dyn Observer> = Rc::new(MeanReversionStrategy {
+        name: String ::from( "MeanReversionStrategy" ),
+        average_price: RefCell::new( 145.0 ),
+    }); // Attach observers market_data_feed.attach(momentum_strategy.clone());
+    market_data_feed.attach(mean_reversion_strategy.clone()); // Simulate market data updates let price_updates = vec! [ 148.0 , 151.0 , 149.5 , 152.5 , 147.0 ]; for price in price_updates { println! ( "\nMarketDataFeed [{}]: New price is {}" , "AAPL" , price);
+        market_data_feed.set_price(price);
+    } // Detach momentum strategy market_data_feed.detach(&momentum_strategy); // More updates let more_price_updates = vec! [ 153.0 , 146.5 ]; for price in more_price_updates { println! ( "\nMarketDataFeed [{}]: New price is {}" , "AAPL" , price);
+        market_data_feed.set_price(price);
+    }
+} Permalink Notes on Rust Implementation Reference Counting ( Rc ): Used to allow multiple ownership of observers by the subject. Interior Mutability ( RefCell ): Allows us to mutate data even when it is wrapped in an immutable reference, which is necessary when observers need to update their internal state upon receiving updates. Trait Objects ( dyn Trait ): Trait objects like dyn Observer allow for dynamic dispatch in Rust. They allow the subject to hold a collection of different types that implement the same trait. In Rust, comparing trait objects ( dyn Observer ) directly is not straightforward because trait objects do not implement PartialEq by default. We use Rc::ptr_eq to compare the pointers of the Rc smart pointers, which checks if they point to the same allocation. In the line, if we don’t explicitly say the type Rc<dyn Observer> then momentum_strategy will be of type Rc<MomentumStrategy> and it will be fine for attach method however not work with detach method. Copy Copy let momentum_strategy: Rc< dyn Observer> = Rc::new(MomentumStrategy{...}); In Rust, even though MomentumStrategy implements the Observer trait, Rc<MomentumStrategy> and Rc<dyn Observer> are different types and are not directly interchangeable. Note: The Rc::ptr_eq function requires that both Rc pointers have the same type parameter. By ensuring that both Rc pointers are of type Rc<dyn Observer> , we satisfy this requirement. Rust can automatically coerce a reference to a concrete type into a reference to a trait object if the type implements the trait. This is what happens when you assign Rc::new(MomentumStrategy { /* fields */ }) to a variable of type Rc<dyn Observer> . Permalink Decorator Pattern The Decorator Pattern is a structural design pattern that allows behavior to be added to individual objects dynamically without affecting the behavior of other objects from the same class. The definition from the “ Head First Design Pattern ”: The decorator pattern attaches additional responsibilities to an object dynamically. Decorators provides a flexible alternative to subclassing for extending functionality. Permalink Structure Component Interface : Defines the interface for objects that can have responsibilities added to them dynamically. Concrete Component : The original object to which additional responsibilities are added. Decorator : Abstract class that implements the component interface and contains a reference to a component object. Concrete Decorators : Extend the functionality of the component by overriding methods and adding additional behaviors. Permalink UML Diagram Copy Copy +------------------+
+|    Component     |<---------------------------+
++------------------+                            |
+| + operation()    |                            |
++------------------+                            |
+          ^                                     |
+          |                                     |
++------------------+          +------------------+
+| ConcreteComponent|          |    Decorator     |
++------------------+          +------------------+
+| + operation()    |          | - component      |
++------------------+          | + operation()    |
+                              +------------------+
+                                       ^
+                                       |
+                      +----------------+----------------+
+                      |                                 |
+            +------------------+               +------------------+
+            | ConcreteDecoratorA|               | ConcreteDecoratorB|
+            +------------------+               +------------------+
+            | + operation()    |               | + operation()    |
+            +------------------+               +------------------+ Permalink Example: Enhancing Order Execution with Decorators We have an OrderExecutor component responsible for executing trades. We want to add additional behaviors: LoggingDecorator : Logs the details of each order execution. ValidationDecorator : Validates orders before execution. Permalink Component Trait Copy Copy #[derive(Debug)] struct Order {
+    symbol: String ,
+    quantity: i32 ,
+    price: f64 ,
+} trait OrderExecutor { fn execute_order (& self , order: &Order) -> Result <(), String >;
+} Permalink Concrete Component Copy Copy struct BasicOrderExecutor ; impl OrderExecutor for BasicOrderExecutor { fn execute_order (& self , order: &Order) -> Result <(), String > { // Simulate order execution logic println! ( "Executing order: {:?}" , order); Ok (())
+    }
+} Permalink Concrete Decorators Copy Copy struct LoggingDecorator <T: OrderExecutor> {
+    executor: T,
+} impl <T: OrderExecutor> LoggingDecorator<T> { fn new (executor: T) -> Self {
+        LoggingDecorator { executor }
+    }
+} impl <T: OrderExecutor> OrderExecutor for LoggingDecorator<T> { fn execute_order (& self , order: &Order) -> Result <(), String > { println! ( "LoggingDecorator: Order received: {:?}" , order); let result = self .executor.execute_order(order); println! ( "LoggingDecorator: Order execution result: {:?}" , result);
+        result
+    }
+} struct ValidationDecorator <T: OrderExecutor> {
+    executor: T,
+} impl <T: OrderExecutor> ValidationDecorator<T> { fn new (executor: T) -> Self {
+        ValidationDecorator { executor }
+    }
+} impl <T: OrderExecutor> OrderExecutor for ValidationDecorator<T> { fn execute_order (& self , order: &Order) -> Result <(), String > { if self .validate(order) { println! ( "Validated Order: {:?}" , order); self .executor.execute_order(order)
+        } else { Err ( String ::from( "Validation failed" ))
+        }
+    }
+} impl <T: OrderExecutor> ValidationDecorator<T> { fn validate (& self , order: &Order) -> bool { // Implement validation logic order.quantity > 0 && order.price > 0.0 }
+} Permalink Client Code Copy Copy fn main () { let order = Order {
+        symbol: String ::from( "AAPL" ),
+        quantity: 100 ,
+        price: 150.0 ,
+    }; // Basic executor let basic_executor = BasicOrderExecutor; // Decorate with validation let validated_executor = ValidationDecorator::new(basic_executor); // Further decorate with logging let logged_executor = LoggingDecorator::new(validated_executor); // Execute the order let result = logged_executor.execute_order(&order); match result { Ok (_) => println! ( "Order executed successfully." ), Err (e) => println! ( "Order execution failed: {}" , e),
+    }
+} Permalink Notes on Rust Implementation In this example, I used generics allowing static dispatch. By the way, in Rust, traits are not types themselves; they are a collection of methods that types can implement. You cannot instantiate a trait directly or store it as a field without using a pointer or a generic parameter. The following will result in compilation error because OrderExecutor is a trait. Copy Copy struct ValidationDecorator {
+    executor: OrderExecutor,
+} In Rust, all types must have a known size at compile time unless they are behind a pointer (like & , Box , or Rc ) or used as a generic type parameter with trait bounds. By default, all generic type parameters and struct fields have an implicit Sized bound. This means that the compiler needs to know the size of the type at compile time. The choice between generics and trait objects depends on your specific needs for performance and flexibility. Instead of generics, you can use Trait Objects as follows: Copy Copy struct ValidationDecorator {
+    executor: Box < dyn OrderExecutor>,
+} This uses dynamic dispatch , which introduces a slight runtime overhead due to the use of a vtable. Permalink Conclusion The Strategy design pattern is particularly useful where algorithms need to be flexible and interchangeable. By encapsulating execution and trading strategies separately, we can build systems that are easier to maintain, extend, and adapt to changing market conditions. Permalink References https://refactoring.guru/design-patterns/strategy .post-floating-bar {
+              bottom: -60px;
+            }
+            .post-floating-bar.animation {
+              -webkit-transition: .2s all;
+              -o-transition: .2s all;
+              transition: .2s all;
+              transition-timing-function: ease-in;
+            }
+            .post-floating-bar.active {
+              bottom: 40px
+            }
+            .post-floating-bar.freeze {
+              bottom: 0!important;
+              position: absolute!important;
+              transition: none!important;
+            }
+            .post-floating-bar.freeze > div {
+              box-shadow: none!important;
+            } @keyframes slideUpAndFade {
+            from {
+              opacity: 0;
+              transform: translateY(2px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .reaction-count-tooltip-content {
+            box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+            user-select: none;
+            transition: .2s all;
+            animation-duration: 400ms;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+          }
+          .reaction-count-tooltip-content[data-state='instant-open'][data-side='top'] {
+            animation-name: slideUpAndFade;
+          }
+
+          @keyframes shake {
+            0% { transform: translateX(0) }
+            25% { transform: translateX(1px) }
+            50% { transform: translateX(-1px) }
+            75% { transform: translateX(1px) }
+            100% { transform: translateX(0) }
+          }
+          .shake {
+            animation-name: shake;
+            animation-iteration-count: 2;
+            animation-duration: 400ms;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+          } 3
+======>
+https://github.com/hosseinmoein/DataFrame
+-->>-->>
+Repository files navigation README BSD-3-Clause license DataFrame documentation with code samples This is a C++ analytical library designed for data analysis similar to libraries in Python and R. For example, you would compare this to Pandas or R data.frame You can slice the data in many different ways. You can join, merge, group-by the data. You can run various statistical, summarization, financial, and ML algorithms on the data. You can add your custom algorithms easily. You can multi-column sort, custom pick and delete the data. And more … DataFrame also includes a large collection of analytical algorithms in form of visitors. These are from basic stats such as Mean , Std Deviation , Return , … to more involved analysis such as Affinity Propagation , Polynomial Fit , Fast Fourier transform of arbitrary length … including a good collection of trading indicators. You can also easily add your own algorithms. DataFrame also employs extensive multithreading in almost all its API’s, for large datasets. That makes DataFrame especially suitable for analyzing large datasets. For basic operations to start you off, see Hello World . For a complete list of features with code samples, see documentation . I have followed a few principles in this library : Support any type either built-in or user defined without needing new code Never chase pointers ala linked lists , std::any , pointer to base , ... Have all column data in contiguous memory space Never use more space than you need ala unions , std::variant , ... Avoid copying data as much as possible Use multi-threading but only when it makes sense Do not attempt to protect the user against garbage in , garbage out Keep DataFrame library self-contained, meaning DataFrame must only depend on C++ language and its standard library Performance You have probably heard of Polars DataFrame. It is implemented in Rust and ported with zero-overhead to Python (as long as you don’t have a loop). I have been asked by many people to write a comparison for DataFrame vs. Polars . So, I finally found some time to learn a bit about Polars and write a very simple benchmark. I wrote the following identical programs for both Polars and C++ DataFrame (and Pandas). I used Polars version 0.19.14. And I used C++20 clang compiler with -O3 option. I ran both on my, somewhat outdated, MacBook Pro. In both cases, I created a dataframe with 3 random columns. The C++ DataFrame also required an additional index column of the same size. Polars doesn’t believe in index columns (that has its own pros and cons. I am not going through it here).
+Each program has three identical parts. First it generates and populates 3 columns with 300m random numbers each (in case of C++ DataFrame, it must also generate a sequential index column of the same size). That is the part I am not interested in. In the second part, it calculates the mean of the first column, the variance of the second column, and the Pearson correlation of the second and third columns. In the third part, it does a select (or filter as Polars calls it) on one of the columns. Results : The maximum dataset I could load into Polars was 300m rows per column. Any bigger dataset blew up the memory and caused OS to kill it. I ran C++ DataFrame with 10b rows per column and I am sure it would have run with bigger datasets too. So, I was forced to run both with 300m rows to compare.
+I ran each test 4 times and took the best time. Polars numbers varied a lot from one run to another, especially calculation and selection times. C++ DataFrame numbers were significantly more consistent. C++ DataFrame Polars Pandas Data generation/load time 26.945900 secs 28.468640 secs 36.678976 secs Calculation time 1.260150 secs 4.876561 secs 40.326350 secs Selection time 0.742493 secs 3.876561 secs 8.326350 secs Overall time: 28.948600 secs 36.876345 secs 85.845114 secs Please consider sponsoring DataFrame, especially if you are using it in production capacity. It is the strongest form of appreciation
+======>
+https://www.reddit.com/r/rust/comments/1g9u0uj/comment/lt97hej/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+-->>-->>
+Go to rust r/rust r/rust A place for all things related to the Rust programming language—an open-source systems language that emphasizes performance, reliability, and productivity. 316K Members 233 Online • 2 hr. ago Alarming_Piccolo_252 ADMIN MOD Rust borrow checker should be capable of flow analysis? Consider the following idiomatic multi-threaded program, this pattern occurs so frequently in practice that it seems very inconvenient that Rust bans it on two accounts: 1) lifetime violation 2) read-write conflict. The intention is very simple, we create a piece of shared data on the heap, and spawn a new thread (or dispatch a task to a thread pool) to populate that data. Later on, we join the thread (or task) and read the data. A human programmer can easily see that it's not possible to have race condition nor lifetime violation here, but the Rust borrow checker can't, which seems awkward. (I know we can use Arc<Mutex> to fix it, but that's not my point here). One argument is that borrow checker is doing compile time reasoning, while the program's safety needed runtime reasoning. But I don't think so, here what's needed for the reasoning is the `happens-after/before` relationship in multi-threaded program. All modern language has multi-thread memory model that's based on happens-before, happens-after relationships. The main thread's termination `happens-after` the spawn thread's termination due to the .join() call, therefore, the lifetime of data within main() thread must be long enough to cover the usage inside the spawn thread. The read of data in main thread happens-after the .join() which happens-after the .push() in the spawn() thread, which proves that there's no race condition between the two. Neither 1) nor 2) requires runtime reasoning, so I don't know why it can't be done at compile time. But I'm new to Rust (with 10+ years of C/C++ experience). Did some brief search and didn't find good discussion on this topic nor proposals. Can someone enlighten me? update: u/passcod suggested scoped thread which is really neat! Although my point regarding the borrow checker's inability to reason about multi-threaded program remains, please jump to this reply for more discussion: https://www.reddit.com/r/rust/comments/1g9u0uj/comment/lt97hej/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button fn main() {
+    let mut data = Box::new(vec![1, 2, 3, 4, 5]);
+    // spawn a new thread to modify `data`
+    let handle = std::thread::spawn(|| {
+        // modify `data` in the new thread
+        let data = &mut data;
+        (*data).push(6);
+        println!("data: {:?}", data);
+    });
+
+    handle.join().unwrap();
+    
+    // print `data`
+    println!("data: {:?}", data);
+} Read more hasuragraphql • Promoted Secure and Scalable GraphQL APIs: Leverage Hasura Cloud for enterprise-grade security and scalability. Start for free today. Sign Up cloud.hasura.io Collapse video player Alarming_Piccolo_252 • 44m ago • > The type system in Rust doesn’t know that .join() releases the reference to &mut data. Exactly. I looked at scoped thread and it's indeed very neat. Although I still think it's more of a neat trick rather than solving the fundamental problem of the borrow checker, meaning, that the borrow checker can't do multi-threaded happens-before/after relationships analysis to detect if there's race condition (or lack thereof). As @ EpochVanquisher said, the borrow checker doesn't know that join() releases &mut data. My point is, it should be given that knowledge. More precisely, all multi-threaded synchronization primitives carries happens-before/after semantics that should be feed into the scope analysis of the borrow checker. This would make the borrow checker so much more powerful (precise) and able to reason like a human programmer about the safety of concurrent programs without putting undue overly restrictive & sweeping rules that makes the programmer having to "fight the borrow checker". Reply reply funkdefied • 18m ago • This is an excellent question. You got me reading the docs and source code from the standard lib. Thank you. I think it’s a question of default behavior. My naive reading of Atomic Memory Orderings suggests that the compiler can make better optimizations when it doesn’t have to worry about synchronizing a thread with a scoped lifetime. More importantly, I don’t think this issue is actually a real issue. You can trivially move data into the closure, modify it, return it from the thread, and reassign it to the outer data . Why would you not do that? Perhaps you want to reference data in multiple threads. But then you have a shared memory issue which you need to be MUCH more careful about anyway. Reply reply Alarming_Piccolo_252 • 8m ago • I agree with your point that if it comes down to needing the borrow checker to be able to do multi-threaded happens-before/after analysis, then I'm probably doing thing in a not-so-principled way. Better approach can usually be found in using channels, scoped thread, etc. At this moment, I can't think of a scenario that is strictly better solved if the borrow checker has such ability to reason. Maybe someone from the Rust community can help me here. Somewhere in my mind says this scenario does exist since human programmers reason like this in multi-threaded programs all the time (seems like a fundamental necessity for one to be able to reason the correctness of multi-thread programs based on happens-before/after analysis), admittingly often due to usage of raw multi-threaded coding patterns like using signals, semaphores, etc. to synchronize data access, or maybe lock-free based code. Reply reply More replies nicolehmez • 1m ago • The problem in general is that you need to guarantee that the lifetime of threads is the same as the lifetime of the handle, but there's no way to tell whether the lifetime of the handle has ended because you called join or because the handle has been "leaked". In general, the feature needed to ensure some type is eventually consumed by calling a method (and not leaked) is what people refer to as linear types or unforgettable types. It is generally considered that we know how to implement it, but it has backward compatibility issues. I suppose that for the simple case you are showing where join is called in the same lexical scope, you could implement some ad-hoc analysis. I don't think that'd be very useful in practice though because the closure trick used by scope is doing exactly that (without the need to implement anything) Reply reply More replies
+======>
+https://github.com/igumnoff/shiva
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Shiva Shiva library: Implementation in Rust of a parser and generator for documents of any type Features Common Document Model (CDM) for all document types Parsers produce CDM Generators consume CDM Common Document Model Supported document types Document type Parse Generate Plain text + + Markdown + + HTML + + PDF + + JSON + + XML + + CSV + + RTF + + DOCX + + XLS + - XLSX + + ODS + + Typst - + Parse document features Document type Header Paragraph List Table Image Hyperlink PageHeader PageFooter Plain text - + - - - - - - Markdown + + + + + + - - HTML + + + + + + - - PDF - + + - - - - - DOCX + + + + - + - - RTF + + + + - + + + JSON + + + + - + + + XML + + + + + + + + CSV - - - + - - - - XLS - - - + - - - - XLSX - - - + - - - - ODS - - - + - - - - Generate document features Document type Header Paragraph List Table Image Hyperlink PageHeader PageFooter Plain text + + + + - + + + Markdown + + + + + + + + HTML + + + + + + - - PDF + + + + + + + + DOCX + + + + + + - - RTF + + + + + + - - JSON + + + + - + + + XML + + + + + + + + CSV - - - + - - - - XLSX - - - + - - - - ODS - - - + - - - - Typst + + + + + + + + Usage Shiva library Cargo.toml [ dependencies ] shiva = { version = " 1.4.6 " , features = [ " html " , " markdown " , " text " , " pdf " , " json " , " csv " , " rtf " , " docx " , " xml " , " xls " , " xlsx " , " ods " , " typst " ] } main.rs fn main ( ) { let input_vec = std :: fs :: read ( "input.html" ) . unwrap ( ) ; let input_bytes = bytes :: Bytes :: from ( input_vec ) ; let document = shiva :: html :: Transformer :: parse ( & input_bytes ) . unwrap ( ) ; let output_bytes = shiva :: markdown :: Transformer :: generate ( & document ) . unwrap ( ) ; std :: fs :: write ( "out.md" , output_bytes ) . unwrap ( ) ; } Shiva CLI & Server Build executable Shiva CLI and Shiva Server git clone https://github.com/igumnoff/shiva.git cd shiva/cli
+cargo build --release Run executable Shiva CLI cd ./target/release/
+./shiva README.markdown README.html Run Shiva Server cd ./target/release/
+./shiva-server --port=8080 --host=127.0.0.1 Who uses Shiva Metatron library: Implementation in Rust of a report generation Contributing I would love to see contributions from the community. If you experience bugs, feel free to open an issue. If you would like to implement a new feature or bug fix, please follow the steps: Do fork Add comment to the issue that you are going to work on it Create pull request If you would like add new document type, you need to implement the following traits: Required: shiva::core::TransformerTrait pub trait TransformerTrait { fn parse ( document : & Bytes ) -> anyhow :: Result < Document > ; fn generate ( document : & Document ) -> anyhow :: Result < Bytes > ; } Optional: shiva::core::TransformerWithImageLoaderSaverTrait (If images store outside of document for example: HTML, Markdown) pub trait TransformerWithImageLoaderSaverTrait { fn parse_with_loader < F > ( document : & Bytes , image_loader : F ) -> anyhow :: Result < Document > where F : Fn ( & str ) -> anyhow :: Result < Bytes > ; fn generate_with_saver < F > ( document : & Document , image_saver : F ) -> anyhow :: Result < Bytes > where F : Fn ( & Bytes , & str ) -> anyhow :: Result < ( ) > ; } License Licensed under either of Apache License, Version
+2.0 or MIT license at your option. Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in Shiva by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
+======>
+https://github.com/lapce/lapdev
+-->>-->>
+Repository files navigation README License Lapdev Self-hosted remote development enviroment management with ease Lapdev is a self hosted application that spins up remote development environments on your own servers or clouds. It scales from a single machine in the corner to a global fleet of servers. It uses Devcontainer open specification for defining your development environment as code. If you’re interested in a deep dive into how Lapdev works, you can read about its architecture here. Cloud If you don't want to self host, we also have cloud offering of Lapdev using high end Gaming CPU: https://ws.lap.dev/ Read More to know how a Gaming CPU can boost the performance. Features Self hosted with ease: Lapdev is designed to be self hosted with minimum efforts for installation and maintenance. The application is designed to just work, sparing you from digging too deep into the internals for troubleshooting. Horizontal scalability: With a simple yet powerful architecture , Lapdev can scale from a single machine to a fleet of servers, so that you can have a development environment management system that can grow with your developer teams. Development Environment as Code: Using the Devcontainer open specification , Lapdev allows you to define your development environment as code. This empowers you to standardize development environments that can be replicated across different developers, avoiding environment related issues and ensuring a consistent setup for everyone. Save Onboarding Time: Onboarding developers to new projects don't need hours or days to prepare the environment on their machines. They can start to code instantly. Planned Features More workspace types: Currently Lapdev only supports container based workspaces, which has its own limitations for example when you want to run a k8s cluster in your development flow. It's planned to have support for more than containers. VMs and bare metal machine support are on the roadmap. And more OS support is planned as well, e.g. when you are developing a cross platform desktop application for Windows, Linux and macOS, Lapdev can spin up development environments on all of them and you can develop and debug from the same local machine without the need to switch machines. Installation You can see the installation steps here . Build from source Contributing
+======>
+https://lap.dev/
+-->>-->>
+Spin up performant cloud development environment Gaming CPU Lapdev cloud uses powerful gaming CPUs to provide high single core performance which is essential for development. Read More rust-lang/regex Lapdev 4 vCPU / 16 GB RAM 6.99s Codespaces 4 vCPU / 16 GB RAM 17.4s Gitpod 4 vCPU / 16 GB RAM 17.5s Consistent Dev Environment No more "it works on my machine". Using the Devcontainer open specification, Lapdev allows you to define your development environment as code. Save Onboarding Time Onboarding developers to new projects don't need hours or days to prepare the environment on their machines. They can start to code instantly. Jump between projects or branches Need to review a PR while working on your own branch? Simply open a new workspace - no need to stash or commit your current changes. Use your favorite IDE or editor Lapdev offers a browser-based IDE right out of the box, but you can also use your preferred tools like VSCode, JetBrains IDEs, or Lapce. Alternatively, you can SSH directly into the environment and use editors like Vim or Emacs.
+======>
+https://old.reddit.com/r/rust/comments/1g8ymym/drugwars_in_rust/
+-->>-->>
+Classic Drugwars game in Rust 🦀   
+
+   https://github.com/urrickhunt/drugwars-rust   
+
+   https://preview.redd.it/ty9wkqf2x5wd1.png?width=1305&format=png&auto=webp&s=28b6d6ccc144b22448a004084d2fbbc58156ac97   
+
+   Any feedback is welcome. Enjoy 🙂   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9tfpe/exploring_design_patterns_in_rust_with/
+-->>-->>
+In this post, I explore design patterns like the    Strategy   ,    Observer   , and    Decorator    patterns can be applied using Rust to build algorithmic trading systems. I will  keep on adding more patterns, and would love to hear your thoughts, feedback and if it provides some insights.   
+
+   https://siddharthqs.com/design-patterns-in-rust   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9j8k7/implementing_a_deeplynested_oo_specification_in/
+-->>-->>
+Assume I have an older specification written in UML that I have to implement. It contains some pretty deeply nested abstract classes: A -> B -> C -> D -> E, F, G, H (various concrete classes). Each abstract class may have 1-3 properties and 1-3 methods. It's not quite that linear, as there are other classes that inherit from B, C and D. What is the idiomatic way to do this in Rust?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9pzsh/need_help_understanding_the_types_of_wgpu_gpu/
+-->>-->>
+Hi, I'm following the learnwgpu tutorial and I'm having a hard time understanding the purpose for the different GPU buffers. As far as I can tell, the CPU executable sends over a chunk of data in a buffer and the shader running on the GPU can interpret that information in any way it wants. For example, I could send an index buffer and use those values as vertices in the vertex shader. I could send a storage buffer and the GPU interprets that data as indices. In fact, in the tutorial, it uses a vertex buffer to store vertices along with colors.    
+
+   My question is, do the different types of buffers actually mean anything to the GPU, and is it important to use the right one in terms of performance?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9c9jy/polars_is_faster_than_pandas_but_seems_to_be/
+-->>-->>
+Rust is commonly advertised as "better than C++" because it is safer and as fast as C++.    
+
+   However, I see the benchmarks in C++ Dataframe project between it and Polars, and at least in the benchmarks, Polars is sensibly slower.   
+
+   Is not Rust supposed to be on par with C++ but safer?    
+
+   How does Polars compare to C++ Dataframe?   
+
+   https://github.com/hosseinmoein/DataFrame   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9u0uj/rust_borrow_checker_should_be_capable_of_flow/
+-->>-->>
+Consider the following idiomatic multi-threaded program, this pattern occurs so frequently in practice that it seems very inconvenient that Rust bans it on two accounts: 1) lifetime violation 2) read-write conflict.   
+
+   The intention is very simple, we create a piece of shared data on the heap, and spawn a new thread (or dispatch a task to a thread pool) to populate that data. Later on, we join the thread (or task) and read the data.   
+
+   A human programmer can easily see that it's not possible to have race condition nor lifetime violation here, but the Rust borrow checker can't, which seems awkward. (I know we can use Arc<Mutex> to fix it, but that's not my point here).   
+
+   One argument is that borrow checker is doing compile time reasoning, while the program's safety needed runtime reasoning. But I don't think so, here what's needed for the reasoning is the `happens-after/before` relationship in multi-threaded program. All modern language has multi-thread memory model that's based on happens-before, happens-after relationships.   
+
+   
+   The main thread's termination `happens-after` the spawn thread's termination due to the .join() call, therefore, the lifetime of data within main() thread must be long enough to cover the usage inside the spawn thread.   
+   The read of data in main thread happens-after the .join() which happens-after the .push() in the spawn() thread, which proves that there's no race condition between the two.   
+   
+
+   Neither 1) nor 2) requires runtime reasoning, so I don't know why it can't be done at compile time.   
+
+   But I'm new to Rust (with 10+ years of C/C++ experience). Did some brief search and didn't find good discussion on this topic nor proposals. Can someone enlighten me?   
+
+   update:    u/passcod       suggested scoped thread which is really neat! Although my point regarding the borrow checker's inability to reason about multi-threaded program remains, please jump to this reply for more discussion:       https://www.reddit.com/r/rust/comments/1g9u0uj/comment/lt97hej/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button   
+
+   fn main() {
+    let mut data = Box::new(vec![1, 2, 3, 4, 5]);
+    // spawn a new thread to modify `data`
+    let handle = std::thread::spawn(|| {
+        // modify `data` in the new thread
+        let data = &mut data;
+        (*data).push(6);
+        println!("data: {:?}", data);
+    });
+
+    handle.join().unwrap();
+
+    // print `data`
+    println!("data: {:?}", data);
+}
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9e44z/shiva_a_new_project_an_alternative_to_apache_tika/
+-->>-->>
+I began the journey of the    Shiva    project with the first commit in March 2024, aiming to create a versatile tool written in    Rust    for document parsing and conversion. Over the months, it has grown significantly, expanding support for a wide range of file formats including    HTML, Markdown, plain text, PDF, JSON, CSV, RTF, DOCX, XML, XLS, XLSX, ODS   , and    Typst   . Shiva is an open-source project, and its repository can be found at    github.com/igumnoff/shiva   .   
+
+   The goal with Shiva is to provide an alternative to established tools like    Apache Tika   , written in Java, and    Pandoc   , developed in Haskell. While these tools have long been staples for developers working with documents, Shiva aims to offer a simple and efficient alternative that can handle the growing diversity and complexity of digital documents. The project is evolving quickly, and there is still a lot of work to do, but we are excited about the progress so far.   
+
+   A huge thank you to all the contributors who helped add support for so many formats. Your efforts have been invaluable.   
+
+   Feel free to check out the repository and contribute or provide feedback. The community is open to ideas and collaboration to push the boundaries of what Shiva can achieve.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9nrvw/what_do_you_use_for_cpu_profiling_on_windows/
+-->>-->>
+Title. In particular I'm looking for a straight foward, easy to usesolutions. Suggestions welcome.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1g9ruge/lapdev_a_remote_dev_env_that_you_can_compile_rust/
+-->>-->>
+Lapdev   , built by the Lapce team, is a new Codespaces/Gitpod similar service.   
+
+   We all know compiling speed is probably the only caveat of Rust, which inspired us building Lapdev with the emphasise on the single core CPU performance. It's powered by AMD 7950X3d, which is one of the fastest single core performance CPU out there. So you should see a boost in Rust compiling speed if your machine is less powerful than it. Lapdev has 30 hours free usage so should be enough for hobby projects without paying anything.   
+
+   Oh it's all written in Rust as well.    https://github.com/lapce/lapdev   
+   
+
+
+======>
+https://github.com/GitoxideLabs/gitoxide/discussions/1641
+-->>-->>
+Discussion options {{title}} Something went wrong. Quote reply Byron Oct 22, 2024 Maintainer Original comment in English - Translate to English This month was full of exciting progress, let's dive right in. Tree Merge (Work in Progress) Now that blob-merging, including textual content merges, was finished, I started on a very feared topic of mine: merging the actual trees. Doing a trivial merge without rename tracking is easy, of course, but adding rename tracking to the mix adds a level of difficulty, especially when thinking about clean (by identity) directory renames. And on top of that, we can put all the fancy capabilities that were implemented in the Git default merge algorithm, merge-ORT, implemented in a single file with a little more than 5000 lines of code. It would have taken a lot of unbounded time to try to understand it, and so I limited my research to high-level capabilities only. All the rest, the actual behaviour, is something that is very observable via baseline tests which let Git produce the expectations for the implementation in Gitoxide. It's as simple as producing the correctly merged tree, so their hashes match. Armed with this baseline test and debug-printing by default to see program state more clearly, e.g. what does Git say, and what are our changes and their changes, and a bunch of pattern matching, the problem turned out to be very approachable after all. The beauty of it was that one could focus on one capability at a time and just get it to work step by step. Then, add the next test, rinse and repeat until all test cases poached from the Git test suite pass. Blob-Merging Despite blob-merging being available , one day I noticed that I missed a very important aspect of merging anything: merge a b should be the same as merge b a . Assuring this is easy as each baseline test, for blobs and for trees, can just be repeated in reverse. Fortunately, Git also works like that, but it did turn out that gitoxide 's blob merge did not in one particular case. That one case showed a major shortcoming in the algorithm which fortunately could be fixed without much ado. After being confronted with my own fallibility it was clear that more testing is needed. What can do that better than the beloved fuzzer, who with great probability will find ways to trigger all those .expect() calls. And like predicted, it immediately found a crash, then a case of OOM (trying to draw 4billion conflict markers isn't a great idea), and many more panics until finally, the code ran for 2 hours on a couple of cores. I'd argue that every algorithm should be fuzzed, especially when there is a lot of calculation and logic happening. gix merge file To make blob content merging more approachable, there is now a gix merge file not dissimilar to git merge-file available on the command-line. It does what it says, but outputs the result straight to stdout so there are no surprises (by default, git merge-file writes the result back to one of the input files). Community Gitoxide and the Sovereign Tech Fund - Open Collective Having made another step, gitoxide is now owned by GitoxideLabs , a small organization that helps with the proliferation of the project. With this it was finally possible to be fiscally hosted on Open Collective, here is the link: https://opencollective.com/gitoxide . Now the only thing that's missing is me approaching the Sovereign Tech Fund, which seems to be done through their WebPortal . They need very concrete project descriptions about the work to be done, and it will take time to complete anything there. It would truly be lovely to be able to talk to someone and learn how much effort this actually needs. The GitMerge 2024 in Berlin - Videos And there was yet another, wonderful conference and my very first GitMerge . This time I was even given a speak-slot along with the generous and tremendous opportunity to talk about gitoxide for 20 minutes ! The audience was chock-full of Git core contributors, Google, GitHub and GitLab employees, Git enthusiasts, and of course the fine folks (and conference sponsors) of GitButler . And I also could meet in person, for the first time, the wonderful crew behind Radicle - the sovereign Forge . While at it, please do also check out recordings of the other speakers, one more fantastic than the next (here is the playlist): https://youtube.com/playlist?list=PLNXkW_le40U6Igw7FcHgQGnQNDQ8kWyuE&si=BEXe7GwgYJXiJHki Oldest-first traversal There was a very interesting PR which added a new traversal sorting, oldest-first, to the simple traversal, which sped up their traversal from 2.6s to just 12ms. Of course, every commit-graph is different and your mileage will vary, but it's nice to see what's possible with such a seemingly trivial change. gix cat <revspec> While watching a fun video about Git where the UX-issues of git cat-file where pointed out once again I decided to quickly hack together the answer: a gix cat-file with perfect UX, just called gix cat for short. It really doesn't take much and here is the code for those interested. Chrstoph Rüßler gets a dedicated section this month After realizing that everything that follows was contributed by a single person, let me say thanks once more to Christoph Rüßler for his continued contributions. The following three sections are his work. GIX_WORK_TREE support Brought to us by the same person that also pushed gix blame to completion (review pending), is this innocuously looking improvement that turned out to hell of a journey to actually get working: GIT_WORK_TREE support for the gix binary. Despite finally working after ' only ' 2 hours, it felt much like rebuilding the house around the nail. And for those who wish to know why, I summed it up in a PR-comment . gix diff tree And finally, in order to make real-world debugging for gix blame easier, there is now a gix diff tree command which exposes an algorithm that has been long available, but in API only. This is also a perfect example of what gix is meant to be for - a tool for  developers to facilitate to develop tools with gitoxide and gitoxide itself. Everything is allowed, and it can start (and stay) very simple, while it's useful. 'Blame' is getting there Thanks to the introduction of the new and recently contributed Topo traversal gix blame is now matches the Git baseline even better, to the point where mismatches just seem to be related to the slider problem . There were also some optimizations inspired by Git which together bring it very close to being very usable. Now I still owe the 2500 lines of code a thorough review, and thus far couldn't allow myself to expend the amount of focus time I'd feel I would need to do so properly. After all, I couldn't even make blame work in my head yet, so there is much to learn - it still just feels like magic to me ✨. Gix in Cargo Still, there is no news here, yet I am excited for the dam-break that is definitely going to happen. gix status just needs one component to be complete, and that can already be useful. Also, I will revisit it once gix merge tree is usable, maybe it can benefit already. Cargo-issue with non-ignored device-files in the package directory There is one related PR which I will push to completion as soon as possible as it will address a real issue with current Cargo that can happen for some. A workaround is probably quite easy, but of course, this really needs fixing. And if there is anything I have learned, then iti is that Filesystems are hard, and working with files is hard. Cheers Sebastian PS: The latest timesheets can be found here (2024) . Beta Was this translation helpful? Give feedback. 2 You must be logged in to vote All reactions Replies: 0 comments Sign up for free to join this conversation on GitHub .
+    Already have an account? Sign in to comment
+======>
+https://www.memorysafety.org/blog/rustls-performance-outperforms/
+-->>-->>
+Rustls Outperforms OpenSSL and BoringSSL Josh Aas, Joe Birr-Pixton, and Daniel McCarney Oct 22, 2024 ISRG has been investing heavily in the Rustls TLS library over the past few years. Our goal is to create a library that is both memory safe and a leader in performance. Back in January of this year we published a post about the start of our performance journey. We've come a long way since then and we're excited to share an update on Rustls performance today. What is Rustls? Rustls is a memory safe TLS implementation with a focus on performance. It is production ready and used in a wide range of applications. You can read more about its history on Wikipedia . It comes with a C API and FIPS support so that we can bring both memory safety and performance to a broad range of existing programs. This is important because OpenSSL and its derivatives, widely used across the Internet, have a long history of memory safety vulnerabilities with more being found this year. It's time for the Internet to move away from C-based TLS. Handshake Performance The first metric we'll look at is the number of handshakes that can be completed per second on the same hardware with the same resource constraints. These tests connect one client to one server over a memory buffer, and then measure the time elapsed in client and server processing — therefore, they give an upper bound on performance given no network latency or system call overhead. Rustls leads in every scenario tested. Throughput Performance The next metric we'll look at is throughput on the same hardware with the same resource constraints, in terms of megabytes per second: Rustls leads across the board in throughput as well. Testing Methodology Tests were performed using Debian Linux on a bare-metal Intel Xeon E-2386G CPU with hyper-threading disabled, dynamic frequency scaling disabled, and the CPU scaling governor set to performance for all cores. More details are available here . Try Rustls! Rustls is ready for production use today and we encourage folks to try it out . In addition to memory safety and great performance, it offers: C and Rust APIs FIPS Support Post-quantum key exchange (updated algorithms coming soon) Encrypted Client Hello (client side) OS trust verifier support Thank You Rustls uses the aws-lc-rs cryptographic library by default. We'd like to thank the aws-lc-rs team at AWS for helping us reach our performance goals, and for being generally helpful with our adoption of their library. We couldn't have asked for better partners in this. We'd also like to thank Intel for helping with AVX-512 optimizations for aws-lc-rs recently. This was an important part of achieving our performance goals. We would not be able to do this work without our funders. Thank you to Sovereign Tech Fund, Alpha-Omega, Google, Fly.io, and Amazon Web Services for their support.

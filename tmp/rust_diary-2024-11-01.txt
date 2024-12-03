@@ -1,0 +1,1138 @@
+https://docs.next-hat.com/blog/nanocl-0.16
+-->>-->>
+ApiVersion : v0.16 Secrets : - Name : test - client Kind : nanocl.io/tls Immutable : false Data : Certificate : | -----BEGIN CERTIFICATE----- MIIErDCCApQCFA0NY4tAFj3MJEOqNJoUacx8lHhgMA0GCSqGSIb3DQEBCwUAMBQx EjAQBgNVBAMMCUN1c3RvbSBDQTAeFw0yNDAxMzExNTAwNDNaFw0yNTAxMzAxNTAw NDNaMBExDzANBgNVBAMMBmNsaWVudDCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCC AgoCggIBAMxpYNAVPRG3SArHfdzscL86o0St73ZFODMCb0WkVucDetCUTY6qcG+4 YzSNDpYKmwkdQ/k95zQPq09GKjD7Us2YrAvUM/Bk3rZ0LpI01ApmXDGKhGQRW/T5 U9veLOkjY3MzDQBdOYhwSQeHqmPyUepMfSmMeAFrLLo7SqVyjwxc9qLO4TATgsnA qlGYqeVr+VKdduy1/lcwetGb2swOFNWahaac9H6XN+5m3O0zj6tyq9u6G42RZswT gyW9pOiLa0BJWOK8ON7h7uPDEx6bwYTiBE2eyGPqT3HEPQjQ1jiJ3PEZN5YQj2A2 j6csjmostpDUweL0lH0VfsOOqFsZv3pGqNWMWSUqDTuGxxTcSRntVQNbW0OfG1zB t6ZtBbQqC/6RlpqSvXHf7K1ctqONJM27kpdmw9sAmqCRAnfxJCwwwnC1vrFnXNv7 WQGhjBeegyj0Acxh/ubXCwgqeVbxMVig49b1fUwm3eqaT8/zIQg9C8cp9BsF7PLw EA8IHO+/iiUGlq2vzsens3FPkJDaqsBVdFh3IBER4VzG63qe1ui0l80d9h/qKa/O 2CTSo8xy01fvxemjTmxMNdOwB6TLMPSpU+D3FEC17ptGqalwewlVIW9/67e4ebQH VF8/+zktn7mN8DMc+XNM2n1umrsXgz59xB6grkxb4SzTst408whFAgMBAAEwDQYJ KoZIhvcNAQELBQADggIBAG0qkRIzH1p4IdJz+FuwggXoV5qpCHzBfTBvb4SNVvxe BPryZ7Qxjc9/KpyOMHF9PqyHoTJoQRFesDpmFpgOfDSU2+mXsVBQb7y393uRLGMq K5XVLO1q8mFDI9ktB1N0vc6DvL8RE6IbN66AanKvtTzxlkHcpRtIwFnpRWJwyQqP HWa+0AFTkWMU3c1ljW5+kUVuUxrHA83W6cu8+pjz0wabfqFbe5o5ycRIR6aDJ2Dj DUltkPnstmgnTMfjS4/gJVOwKt248QPwLdGQxKhYNr587pISrGybNZ0c79VcuY6H 6Q/dDQI9gIG0vcfkyChpwO78ycsqfqTgqoURjoEFu1XM3+zyho4BdjBMvNVkKAuJ FhfdQF8UkpDvHNvM35QR9rjkebSC9yJjCqFAj8J7mRmgwfkfDbss/yurUFWCpAE3 QlJuwQPcg6Uq1EL0Diah7oYzy3exdZHlXoX2GJcAchOkGkzdjlggRD/o4BZ0yKR0 buV7W24av9syoNNUGl7IPBINJm0rs3+TjwGp60c+yay2APeG3TxP9wWQ0E0e8xYI /ZFFoHngBDkWbBBvrIy3bffXTisMlHXdt5WeoN5x1lrm+PVP/95Ntebj7DIK2TJx +Je/N6PsCqJkCxYIX2iA0DK+gzDcTy2bXiTysh01G7w9vKK1ycMVQNOWxlowBRnR -----END CERTIFICATE----- CertificateClient : | -----BEGIN PRIVATE KEY----- MIIJQgIBADANBgkqhkiG9w0BAQEFAASCCSwwggkoAgEAAoICAQCwjJ3Yg04CkFVx x3I+F7xQEB+FSe/7HhWHauGRauOpjJdif37b15xIPwxGyFJ5KTDkWkqQ/TWFagkB 4yUsYaoSZccL4taKWFuCFaSCtPGKc2nQbjQixELpg1T7T/OJFQvik5HAqvgCsnQB UcVXVf/36rqkTivI1m7Tl7D35XieQsgTqRy4QqWEQQKJVBVQ1Obotau+FsAiwAvB 51JlpFg60S6ZWtYuj5Ixh19Nj+5sSlHexcUk01jvHHmkUK1Xl6JPUNoIBJtqogV9 YlUeykEzZo8qqwTSbs8vUjW1L5e5d3ubVSwxozNbxtHLyrOAhYdM0R8wLhpKtaEO 5KKtSXzNsB7+Ggo3K69UV0syhXUPA8YOxiumKFJgBQ3guDFIo06cUFoRjjs/24ia P2PaGrRnqw8kOEnVaNNh53+kY+TA5moTPkeg/9IINsKh7OAPo3UEsGx8cerVslRM ALPCkOkmlLM8nZOX0+aUWrfwQbq/icsitPnE2Z/hm0uHm+X2slHNXf83cfPgK4O1 AM0dfwRozODbFWICPquYIX/GDw60tZ8PnIiJHnok69kb+bEI1OkEVbqnZKQErn14 hnKLWb8fsiJcI3VVHcT1qiAKE5uX1PvqFB8yULAzLtEVHINmPiZ2D+0mGHbbEtIM c3MhDsDdW/AHhlYv/ViBfrcxJfohbwIDAQABAoICABSp9gpSyV1WH2oYegVNKeav vGtmuAagWCISycwHbWt5inkmNbxC2YaV5TieVxOEqrWk4SK56vsZP2ylIBi4ZaY5 m2PcwlehoombQYy646UyKlRm/FswCtTiC575QKaZfAaiVxDsnJKpkxevG8tDxENJ igbpJLQhGl+nBY4+TDEvMn56m2NFtFxtGirmAzNZd/K3hh59ndzItZeVx6MglTht JhMfpVSrITqtfuNz0T2DhV7vBErHIfBQA5Ij5JC4AsYIeecuWDJ8PEBCCMx4cnaI WSwZUDsrv7w+LGMZ6vGeS9gRJAG7TwDoSG3zOlyfRF14AeUrFZC2VDTgtdmqcZzq QhgkY1EpETZYQyWtEBR2WP10r8HXJ9idKXCk99LgC+BL75DJc08/4NaP6c/6z4Cx Y6BubifUYAd5cXe30xy9CMQRFhw75JX+RxIv8hM450sdme9aH7Dpfi99i0QUu8r4 MGl1BzYaDIebJc126GxIn76sAAhtRFimHfG04venERvhVBDbJQ0NBiaQQpSzVS83 Y6gzEU6ssrX63cEU8mFlKGj5vFyvZriMjNTob9ec648A2go5lJjOEV3lA8fUCJHH eAYmDbMya8DVXok/j+l9v7iPhmuW3JfHPNgCS+9RYyj6dxkNBsJtzAwj0y6otDLZ 0B1xxMFgCfpCYjo2/2/hAoIBAQDm3l0lSRNLhdCpu14gWOWQeWftW3LFFVN1uTlT W+T4qncqhRxyZs0sbamkMsBs+Jv+6SFTo/MlT6msb7lVZYt7EfsTrjOOtvrUkg0P KODK1ncjO8PKhsaEcCoxDCiKfvQ4wZ22Ajsj4KCGyBDDiLA2BOw8AjSXr+h0oh4I CKPqBrXgfZROu8vl2U7l+A+KSqh9S/PD59kVQ/iLQfKktAacqF7Q0NwJx5AF5QCo ooeq7DP+ZhP/DXJGjw3gAHdKLPU2MuDdHizC0ZLfJYODzRpn4TXBQdpW9gXA9XKW xAtKDK22apHpEZGMjx3wxgpc9LZQLrdt9R+EdU0gqs7b2h7TAoIBAQDDxIf/oVEH YAtwMW2Yq3DVgPGulpRuQycuTMMJPW6eFvv+MDMmdjij+kkWtQrAN72Uxq3gd8Cg nDLokzHPhqpmqoNvXaqa3MfIAukXEL3mBLiNPodNlIzkf6qFBxX0Fe0qIEoK1TTz 7d42XX84DCEuQtUHfpoujgM25/u0jGg1ERnP1Jk9oc0YIDNAZTKadtRQ6OLSbZk7 KG9jCFchQtb2asKzmWF8Wr5C/5VKC5xIXPpKH74KAUnq/vini/LIOf+WFb2kSCoW MOhibZm3D2DNff4VOUM9q6CY0qB1r3W988p50D6zB1MStIQpymtVonjmi1xnKDlL nBBPv4PYVOl1AoIBAH+6EkpojXZBCFp/QOoghJFTub3F1E9ZJx2AZkjKFHnGxbsO fdiFK4oi+bHQKkmfmZ6EGF4P3JuN4U93WE/4qBxkrEYNIJUagtdMHlF+yi8uTCeA DyhjPD1VWOJd2agV6MPlyn1B6rpEsksfMLcdTm/0dUYV6kbpmW+9qWPEc/srzz/t +jk9COeXPGFaxi46c9EuTiTahm2Pd1iEGdwphWbyd9KLWtFGSVYZhi3GDczwdSuQ CgwXwltrFcASQe0Vxmw/5cwvv4/hJqKyPHqU5MEIBhdveX6XCkPhB46F08EaFplP iH4rrBzZqTTmPCGFecAOuIjrDo7X3t3t4hgcKuUCggEAanAAQUxD8e6WSXmWTNtp jat9u57DNO/t7Y5uvCdabTmx6JHsPY0pXn5GHsJwBfJIcQtUniZ95NUIGMtu2ZYu L4Ol0nbquygutuBeOtwvY1BNxv2oMtYBhHqlC46+sOb6+1xy5VDmaXl6x7Qt5xsx LyXHDTwYOBeeR8v5XkC4p6GUlxrP9mJyUBuxweFDkhfpd9Qm/qH4HeHuLbnrJXph xbhmA5/xENuFdoffc1K8tdtXedWoTWhF+C6Iow/EAHkILWHEqf1SZJ5SurE8Ufta dl96Na/cjzsxJeXeuB2dtplGDNTcQhpJYHIlKVOU6ApeEXrT0oJcJG/FrpZB6OzB wQKCAQEAiUNXWkm3kj3jHsc4o8eyvDkDt7lHqk1o4r+nQX0m/PSWhkt61kg5aTUI qBmuPZ+5ZcH3wC92w8M0S6rvxZHwdUS/UtqVsj/KKzp1zXY7gVqjp+ZOAMYo6nEK Qj835Xaw+RsuG4OVFIv/xiccG8gkERr8WCpkPaHcOoyJj6p/JLcIj4nT2/sllFRK 7PaAxFIOzQtzjzOvX3riVZl9ZvyY0G5noPYS9T1cxPtHDX3Pzddr1fHAxyQPac9T V2wQH2qCTkJCBzEqcoWAEv67PKhGFERXh4J13OxxGfej32D9I7xmtAXopFJV0YN1 hJuriKyWGRdv1yvfRLQzxRQsJOb0OA== -----END PRIVATE KEY----- CertificateKey : | -----BEGIN PRIVATE KEY----- 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 EDMo4iBXxfQa2PpBry2dyhFN07e2 -----END PRIVATE KEY----- VerifyClient : false - Name : test - srv Kind : nanocl.io/tls Immutable : false Data : Certificate : | -----BEGIN CERTIFICATE----- MIIEsTCCApkCFBdhDFVUKj+T74FUL+0R4tVm7+/bMA0GCSqGSIb3DQEBCwUAMBQx EjAQBgNVBAMMCUN1c3RvbSBDQTAeFw0yNDAxMzExNTAwMzJaFw0yNTAxMzAxNTAw MzJaMBYxFDASBgNVBAMMC2V4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOC Ag8AMIICCgKCAgEAuyYLpyMpy3yGT00omMvQ8v8hBq/NtstTI5I/B45fmEf9UmQC yDragWdkixQssLxOYro0qCj/O607AJHNakMaazZ4imgHhvzYuHMlvv27KXxLxCFj f1PXRTAzo3gCwJrC9HjGr23/3L8KWUlbI/12R2Vswlg4fa4BL7iOggPIV6qoRdjk X4un+50jELAweNfOy6OH+STCVkNCbAivett2VTyWCp9y+TI3wH1L8MBHwidY6d/0 Gzqh8EbTreqeU898wSSjZEJD8sxxBfECChvRBXVgp2vnAaWxAw+5dmIMr+PGPB2I 83GROYa1M9WoKBYzVDXxk0tyAqJ6kvgVzam6WIz3qdwMQUofy0ydyglG47SY8zs4 ivNus4tIkygcVHE+B1Jhu2FUFbvzdVQ5D9bRms4+OaK2QJ5YLpujRC0YSthOiToX /kVAZQzu/NcMqVNUy5/jeD07HvAt41c+dXLSqs6nRgwGquqKfCVHfDRB1/LScLfR A8/9LED24VhD3CvTIEEU++ncGw5xVXHc96cPZkBfcU4qM2NIZrLt4pAmorsGi7Wj P9c7VRtHmTuzlYXLD81/DpnahNtKI/awIu3cjM9mt6L5gSOvCV0D6J0gBhN/7v9b 0q+GqI/bEm9Ao2snlxFNmJwqqbDvyVcBuLAUDrtqYrpSgMHGJq69VPkI4gkCAwEA ATANBgkqhkiG9w0BAQsFAAOCAgEARswWop1ZibUSFobhEZR7kPKy3boPV+Dq0Ezj N4Sn+r1mgTo9alW6UqcGO7CJPWWILC9iEbmcW5CLrcDzb6Atax2VPBLWYK4SWXNf IBcXAdh75SYpx4M8eCcHlOb4FXTM3NGuGoJfUxDXBSFoe+iJ6WVnWCgbsqHqSMeK ZWL9rjScItMw9AK68CCRe4YVtwGIGNCd+TZsPekfDbqxBtVxa3XJkbjdONhLdgC0 JD8/5hpQj3LOMAtGvzcbzyZ+IbjLD8HttSvnZI1+iqUd6nOkACGiIrIMmR5Ao6GE 7dX6D/ue74PbQUUfI9jS/Ire6OtkOxPwvj83dLD6ZJ/dt3/Djt2S3pWnEnGxR1br mIvH5xIAjdrG7fSKBzOTMN3i+VFdKsC1f696RgYBlGyiB4LnJex8D7LWk2osXYRB 4/bLjuF3OlWIzvPZSZ8dUZcKrx/0XcgRCfneuDQAbQUcfw2cbkm0BDxetMCCVIyl cF77+NQ0KQqrTQe9qPhkpwmIT6nA8T3Tn/KoZwoLOuNN3PRoOfcTKCFym5+qN/c6 VfD4nH+otSEbCfkbIe3Uu7yxyGRJB3OSL8MyHLe8eGsMRCSxzUxlTy6Qaj3X2Cdk ZUlYGbfyOq07srXzLHRMiW1QhpTA0Fos9Mc/HvdlNvg6guG496+XknELJzCN1t8W fll3jsU= -----END CERTIFICATE----- CertificateClient : | -----BEGIN PRIVATE KEY----- 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 hJuriKyWGRdv1yvfRLQzxRQsJOb0OA== -----END PRIVATE KEY----- CertificateKey : | -----BEGIN PRIVATE KEY----- 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 LnG2nPscWJpYbyj2sYzIdM1LgPOMIA== -----END PRIVATE KEY----- VerifyClient : false Resources : - Name : tls - end - to - end - example.com Kind : ncproxy.io/rule Data : Rules : - Domain : tls - end - to - end - example.com Network : All Locations : - Path : / Target : Key : test - web - tls.global.c Port : 443 # Use the client tls secret Ssl : test - client Cargoes : - Name : test - web - tls # Use the server tls secret Secrets : - test - srv Container : Image : docker.io/nginx : alpine Cmd : - /bin/sh - - c - | echo 'server { listen 443 ssl; ssl_certificate /opt/nanocl.io/secrets/test-srv.crt; ssl_certificate_key /opt/nanocl.io/secrets/test-srv.key; ssl_client_certificate /opt/nanocl.io/secrets/test-srv.ca; root /usr/share/nginx/html; index index.html; }' > /etc/nginx/conf.d/default.conf; echo "<html><body><h1>Hello, World!</h1></body></html>" > /usr/share/nginx/html/index.html; nginx -g 'daemon off;'
+======>
+https://github.com/next-hat/nanocl
+-->>-->>
+Repository files navigation README Code of conduct Apache-2.0 license MIT license Security Develop, Deploy. Docs • Examples • Discord Test, Deploy, Scale, Monitor, Orchestrate Nanocl is an open-source distributed system designed to revolutionize developers' workflows. It aims to provide an easy solution for localhost development, addressing common issues like CORS and cookies when working with complex microservice architectures. Nanocl also facilitates seamless deployment to production. By empowering developers and DevOps professionals, Nanocl helps optimize workflows, enhance security, and reduce operational costs. Join our discord and help us shape the future of infrastructure management. Latest news [2024/11/01] End to End TLS encryption and first step for network meshing (release) [2024/06/11] Man page, Backup, Remove Orphans and more (release) [2024/06/01] We are invited to the Merge Berlin 2024 (event) [2024/05/07] Context, SubState and more (release) Installation To install Nanocl for your system, please refer to our online installation guide . Documentation To learn more about Nanocl , you can take a look at the following resources: Overview Get Started CLI References DAEMON References Usage Nanocl is designed to be easy to operate by mostly using Statefiles . Statefiles are yaml , toml or json files that define the state you want. There is an example used to deploy our documentation : ApiVersion : v0.16 # See all options: # https://docs.next-hat.com/references/nanocl/objects/cargo Cargoes :
+- Name : doc Container : Image : ghcr.io/next-hat/documentation:0.16.0 # See all options: # https://docs.next-hat.com/references/nanocl/objects/resource Resources :
+- Name : docs.next-hat.com Kind : ncproxy.io/rule Data : Rules :
+    - Domain : docs.next-hat.com Network : Public Locations :
+      - Path : / Target : Key : doc.global.c Port : 80 To apply a state you can do it easily bu running nanocl state apply -s path|url You can also remove a state by calling nanocl state rm -s path|url Demo Below are live demos of Nanocl in action: Cargo and Resource Job Vm Architecture Nanocl is designed in a micro services architecture several component are required and they are running as container included the Nanocl Daemon itself.
+The following components will be installed during nanocl install and are required to ensure Nanocl functionality: nstore to save our state ndaemon as REST API to manage everything nmetrics to monitor cpu, memory and network usage nproxy proxy to redirect traffic to our containers and virtual machines (optional) ncproxy to update proxy configuration based on the current state (optional) ndns to manage the dns entries for the containers and virtual machines (optional) ncdns to update dns entries based on the current state (optional) Simplified version of our architecture for a single node: Contributing Every contribution is very welcome.
+Bug reports, feature requests, and pull requests are the most common ways to contribute. You can also help us by improving the documentation . Learn how to setup a development environment by reading the contribution guide .
+Also don't hesitate to join the discord if you have any question! Sponsors Sponsors are the ones who make this project possible. They help us to keep the project alive and to improve it. If you want to become a sponsor, you can do so by clicking on the sponsor button. People that sponsor us will have their name or logo displayed here, and will have access to a special role on our discord server. If you sponsor for more then 40$ you will be rewarded with a VPS server with nanocl pre-installed ready to use for 1 month. You can also help us by contributing to the project, by reporting bugs, by suggesting new features, or by improving the documentation . Or just give a star it's free and it helps us a lot! ⭐️ Huge thanks to our sponsors mamaicode xf10w Star History
+======>
+https://blog.rust-lang.org/2024/10/31/project-goals-oct-update.html
+-->>-->>
+Rust Blog Rust Install Learn Tools Governance Community 🖌 Light Dark October project goals update Oct. 31, 2024 · Niko Matsakis
+     on behalf of Leadership Council The Rust project is currently working towards a slate of 26 project
+goals , with 3 of them designed as flagship
+goals . This post provides selected
+updates on our progress towards these goals (or, in some cases, lack thereof). The full details for any particular goal
+are available in its associated tracking issue on the rust-project-goals
+repository . Flagship goals Bring the async Rust experience closer to parity with sync Rust The biggest elements of our goal are solving the "send bound" problem via return-type notation (RTN) and adding support for async closures. This month we made progress towards both. For RTN, @compiler-errors extended the return-type notation landed support for using RTN in self-types like where Self::method(): Send . He also authored a blog post with a call for testing explaining what RTN is and how it works. For async closures, the lang team reached a preliminary consensus on the async Fn syntax, with the understanding that it will also include some "async type" syntax. This rationale was documented in RFC #3710 , which is now open for feedback. The team held a design meeting on Oct 23 and @nikomatsakis will be updating the RFC with the conclusions. We have also been working towards a release of the dynosaur crate that enables dynamic dispatch for traits with async functions. This is intended as a transitionary step before we implement true dynamic dispatch. The next steps are to polish the implementation and issue a public call for testing. With respect to async drop experiments, @nikomatsakis began reviews. It is expected that reviews will continue for some time as this is a large PR. Finally, no progress has been made towards async WG reorganization. A meeting was scheduled but deferred. @tmandry is currently drafting an initial proposal. Resolve the biggest blockers to Linux building on stable Rust We have made significant progress on resolving blockers to Linux building on stable. Support for struct fields in the offset_of! macro has been stabilized. The final naming for the "derive-smart-pointer" feature has been decided as #[derive(CoercePointee)] ; @dingxiangfei2009 prepared PR #131284 for the rename and is working on modifying the rust-for-linux repository to use the new name. Once that is complete, we will be able to stabilize. We decided to stabilize support for references to statics in constants pointers-refs-to-static feature and are now awaiting a stabilization PR from @dingxiangfei2009. Rust for Linux (RfL) is one of the major users of the asm-goto feature (and inline assembly in general) and we have been examining various extensions. @nbdd0121 authored a hackmd document detailing RfL's experiences and identifying areas for improvement. This led to two immediate action items: making target blocks safe-by-default ( rust-lang/rust#119364 ) and extending const to support embedded pointers ( rust-lang/rust#128464 ). Finally, we have been finding an increasing number of stabilization requests at the compiler level, and so @wesleywiser and @davidtwco from the compiler team have started attending meetings to create a faster response. One of the results of that collaboration is RFC #3716 , authored by Alice Ryhl, which proposes a method to manage compiler flags that modify the target ABI. Our previous approach has been to create distinct targets for each combination of flags, but the number of flags needed by the kernel make that impractical. Authoring the RFC revealed more such flags than previously recognized, including those that modify LLVM behavior. Rust 2024 edition The Rust 2024 edition is progressing well and is on track to be released on schedule. The major milestones include preparing to stabilize the edition by November 22, 2024, with the actual stabilization occurring on November 28, 2024. The edition will then be cut to beta on January 3, 2025, followed by an announcement on January 9, 2025, indicating that Rust 2024 is pending release. The final release is scheduled for February 20, 2025. The priorities for this edition have been to ensure its success without requiring excessive effort from any individual. The team is pleased with the progress, noting that this edition will be the largest since Rust 2015, introducing many new and exciting features. The process has been carefully managed to maintain high standards without the need for high-stress heroics that were common in past editions. Notably, the team has managed to avoid cutting many items from the edition late in the development process, which helps prevent wasted work and burnout. All priority language items for Rust 2024 have been completed and are ready for release. These include several key issues and enhancements. Additionally, there are three changes to the standard library, several updates to Cargo, and an exciting improvement to rustdoc that will significantly speed up doctests. This edition also introduces a new style edition for rustfmt , which includes several formatting changes. The team is preparing to start final quality assurance crater runs. Once these are triaged, the nightly beta for Rust 2024 will be announced, and wider testing will be solicited. Rust 2024 will be stabilized in nightly in late November 2024, cut to beta on January 3, 2025, and officially released on February 20, 2025. More details about the edition items can be found in the Edition Guide . Goals with updates "Stabilizable" prototype for expanded const generics camelid has started working on using the new lowering schema for more than just const parameters, which once done will allow the introduction of a min_generic_const_args feature gate. compiler-errors has been working on removing the eval_x methods on Const that do not perform proper normalization and are incompatible with this feature. Assemble project goal slate Posted the September update. Created more automated infrastructure to prepare the October update, utilizing an LLM to summarize updates into one or two sentences for a concise table. Associated type position impl trait No progress has been made on this goal. The goal will be closed as consensus indicates stabilization will not be achieved in this period; it will be revisited in the next goal period. Begin resolving `cargo-semver-checks` blockers for merging into cargo No major updates to report. Preparing a talk for next week's EuroRust has taken away most of the free time. Const traits Key developments: With the PR for supporting implied super trait bounds landed ( #129499 ), the current implementation is mostly complete in that it allows most code that should compile, and should reject all code that shouldn't. Further testing is required, with the next steps being improving diagnostics ( #131152 ), and fixing more holes before const traits are added back to core. Explore sandboxed build scripts A working-in-process pull request is available at https://github.com/weihanglo/cargo/pull/66 . The use of wasm32-wasip1 as a default sandbox environment is unlikely due to its lack of support for POSIX process spawning, which is essential for various build script use cases. Expose experimental LLVM features for automatic differentiation and GPU offloading The Autodiff frontend was merged, including over 2k LoC and 30 files, making the remaining diff much smaller. The Autodiff middle-end is likely getting a redesign, moving from a library-based to a pass-based approach for LLVM. Extend pubgrub to match cargo's dependency resolution Significant progress was made with contributions by @x-hgg-x, improving the resolver test suite in Cargo to check feature unification against a SAT solver. This was followed by porting the test cases that tripped up PubGrub to Cargo's test suite, laying the groundwork to prevent regression on important behaviors when Cargo switches to PubGrub and preparing for fuzzing of features in dependency resolution. Make Rustdoc Search easier to learn The team is working on a consensus for handling generic parameters, with both PRs currently blocked on this issue. Next-generation trait solver Attempted stabilization of -Znext-solver=coherence was reverted due to a hang in nalgebra, with subsequent fixes improving but not fully resolving performance issues. No significant changes to the new solver have been made in the last month. Optimizing Clippy & linting GnomedDev pushed rust-lang/rust#130553, which replaced an old Clippy infrastructure with a faster one (string matching into symbol matching). Inspections into Clippy's type sizes and cache alignment are being started, but nothing fruitful yet. Patterns of empty types The linting behavior was reverted until an unspecified date. The next steps are to decide on the future of linting and to write the never patterns RFC. Provided reasons for yanked crates The PR https://github.com/rust-lang/crates.io/pull/9423 has been merged. Work on the frontend feature is in progress. Scalable Polonius support on nightly Key developments in the 'Scalable Polonius support on nightly' project include fixing test failures due to off-by-one errors from old mid-points, and ongoing debugging of test failures with a focus on automating the tracing work. Efforts have been made to accept variations of issue #47680 , with potential adjustments to active loans computation and locations of effects. Amanda has been cleaning up placeholders in the work-in-progress PR #130227 . Stabilize cargo-script rust-lang/cargo#14404 and rust-lang/cargo#14591 have been addressed. Waiting on time to focus on this in a couple of weeks. Stabilize parallel front end Key developments: Added the cases in the issue list to the UI test to reproduce the bug or verify the non-reproducibility. Blockers: null. Help wanted: Help test the deadlock code in the issue list and try to reproduce the issue. Survey tools suitability for Std safety verification Students from the CMU Practicum Project have started writing function contracts that include safety conditions for some unsafe functions in the core library, and verifying that safe abstractions respect those pre-conditions and are indeed safe. Help is needed to write more contracts, integrate new tools, review pull requests , or participate in the repository discussions . Use annotate-snippets for rustc diagnostic output Progress has been made in matching rustc suggestion output within annotate-snippets , with most cases now aligned. The focus has been on understanding and adapting different rendering styles for suggestions to fit within annotate-snippets . Goals without updates The following goals have not received updates in the last month: Ergonomic ref-counting Implement "merged doctests" to save doctest time Stabilize doc_cfg Testing infra + contributors for a-mir-formality User-wide build cache Get help! Documentation Contact the Rust Team Terms and policies Code of Conduct Licenses Logo Policy and Media Guide Security Disclosures All Policies Social RSS Main Blog "Inside Rust" Blog Maintained by the Rust Team. See a typo? Send a fix here !
+======>
+https://github.com/rust-lang/rust/pull/130654
+-->>-->>
+rustbot added
+  the S-waiting-on-perf Status: Waiting on a perf run to be completed. label Sep 21, 2024 lcnr added I-types-nominated Nominated for discussion during a types team meeting. T-types Relevant to the types team, which will review and decide on the PR/issue. and removed T-compiler Relevant to the compiler team, which will review and decide on the PR/issue. S-waiting-on-perf Status: Waiting on a perf run to be completed. labels Sep 21, 2024 bors added a commit
+        to rust-lang-ci/rust
+      that referenced
+      this pull request Sep 21, 2024 Auto merge of rust-lang#130654 - lcnr:stabilize-coherence-again, r=<try> … Loading Loading status checks… 454f2fe stabilize `-Znext-solver=coherence` again
+
+r? `@compiler-errors`
+
+---
+
+This PR stabilizes the use of the next generation trait solver in coherence checking by enabling `-Znext-solver=coherence` by default. More specifically its use in the *implicit negative overlap check*. The tracking issue for this is rust-lang#114862 . Closes rust-lang#114862 .
+
+This is a direct copy of rust-lang#121848 which has been reverted due to a hang in `nalgebra`: rust-lang#130056 . This hang should have been fixed by rust-lang#130617 . See the added section in the stabilization report containing user facing changes merged since the original FCP.
+
+## Background
+
+### The next generation trait solver
+
+The new solver lives in [`rustc_trait_selection::solve`]( https://github.com/rust-lang/rust/blob/master/compiler/rustc_trait_selection/src/solve/mod.rs ) and is intended to replace the existing *evaluate*, *fulfill*, and *project* implementation. It also has a wider impact on the rest of the type system, for example by changing our approach to handling associated types.
+
+For a more detailed explanation of the new trait solver, see the [rustc-dev-guide]( https://rustc-dev-guide.rust-lang.org/solve/trait-solving.html ). This does not stabilize the current behavior of the new trait solver, only the behavior impacting the implicit negative overlap check. There are many areas in the new solver which are not yet finalized. We are confident that their final design will not conflict with the user-facing behavior observable via coherence. More on that further down.
+
+Please check out [the chapter]( https://rustc-dev-guide.rust-lang.org/solve/significant-changes.html ) summarizing the most significant changes between the existing and new implementations.
+
+### Coherence and the implicit negative overlap check
+
+Coherence checking detects any overlapping impls. Overlapping trait impls always error while overlapping inherent impls result in an error if they have methods with the same name. Coherence also results in an error if any other impls could exist, even if they are currently unknown. This affects impls which may get added to upstream crates in a backwards compatible way and impls from downstream crates.
+
+Coherence failing to detect overlap is generally considered to be unsound, even if it is difficult to actually get runtime UB this way. It is quite easy to get ICEs due to bugs in coherence.
+
+It currently consists of two checks:
+
+The [orphan check] validates that impls do not overlap with other impls we do not know about: either because they may be defined in a sibling crate, or because an upstream crate is allowed to add it without being considered a breaking change.
+
+The [overlap check] validates that impls do not overlap with other impls we know about. This is done as follows:
+- Instantiate the generic parameters of both impls with inference variables
+- Equate the `TraitRef`s of both impls. If it fails there is no overlap.
+- [implicit negative]: Check whether any of the instantiated `where`-bounds of one of the impls definitely do not hold when using the constraints from the previous step. If a `where`-bound does not hold, there is no overlap.
+- *explicit negative (still unstable, ignored going forward)*: Check whether the any negated `where`-bounds can be proven, e.g. a `&mut u32: Clone` bound definitely does not hold as an explicit `impl<T> !Clone for &mut T` exists.
+
+The overlap check has to *prove that unifying the impls does not succeed*. This means that **incorrectly getting a type error during coherence is unsound** as it would allow impls to overlap: coherence has to be *complete*.
+
+Completeness means that we never incorrectly error. This means that during coherence we must only add inference constraints if they are definitely necessary. During ordinary type checking [this does not hold]( https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=01d93b592bd9036ac96071cbf1d624a9 ), so the trait solver has to behave differently, depending on whether we're in coherence or not.
+
+The implicit negative check only considers goals to "definitely not hold" if they could not be implemented downstream, by a sibling, or upstream in a backwards compatible way. If the goal is is "unknowable" as it may get added in another crate, we add an ambiguous candidate: [source]( https://github.com/rust-lang/rust/blob/bea5bebf3defc56e5e3446b4a95c685dbb885fd3/compiler/rustc_trait_selection/src/solve/assembly/mod.rs#L858-L883 ).
+
+[orphan check]: https://github.com/rust-lang/rust/blob/fd80c02c168c2dfbb82c29d2617f524d2723205b/compiler/rustc_trait_selection/src/traits/coherence.rs#L566-L579 [overlap check]: https://github.com/rust-lang/rust/blob/fd80c02c168c2dfbb82c29d2617f524d2723205b/compiler/rustc_trait_selection/src/traits/coherence.rs#L92-L98 [implicit negative]: https://github.com/rust-lang/rust/blob/fd80c02c168c2dfbb82c29d2617f524d2723205b/compiler/rustc_trait_selection/src/traits/coherence.rs#L223-L281 ## Motivation
+
+Replacing the existing solver in coherence fixes soundness bugs by removing sources of incompleteness in the type system. The new solver separately strengthens coherence, resulting in more impls being disjoint and passing the coherence check. The concrete changes will be elaborated further down. We believe the stabilization to reduce the likelihood of future bugs in coherence as the new implementation is easier to understand and reason about.
+
+It allows us to remove the support for coherence and implicit-negative reasoning in the old solver, allowing us to remove some code and simplifying the old trait solver. We will only remove the old solver support once this stabilization has reached stable to make sure we're able to quickly revert in case any unexpected issues are detected before then.
+
+Stabilizing the use of the next-generation trait solver expresses our confidence that its current behavior is intended and our work towards enabling its use everywhere will not require any breaking changes to the areas used by coherence checking. We are also confident that we will be able to replace the existing solver everywhere, as maintaining two separate systems adds a significant maintainance burden.
+
+## User-facing impact and reasoning
+
+### Breakage due to improved handling of associated types
+
+The new solver fixes multiple issues related to associated types. As these issues caused coherence to consider more types distinct, fixing them results in more overlap errors. This is therefore a breaking change.
+
+#### Structurally relating aliases containing bound vars Fixes rust-lang#102048 . In the existing solver relating ambiguous projections containing bound variables is structural. This is *incomplete* and allows overlapping impls. These was mostly not exploitable as the same issue also caused impls to not apply when trying to use them. The new solver defers alias-relating to a nested goal, fixing this issue:
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+trait Trait {}
+
+trait Project {
+    type Assoc<'a>;
+}
+
+impl Project for u32 {
+    type Assoc<'a> = &'a u32;
+}
+
+// Eagerly normalizing `<?infer as Project>::Assoc<'a>` is ambiguous,
+// so the old solver ended up structurally relating
+//
+//     (?infer, for<'a> fn(<?infer as Project>::Assoc<'a>))
+//
+// with
+//
+//     ((u32, fn(&'a u32)))
+//
+// Equating `&'a u32` with `<u32 as Project>::Assoc<'a>` failed, even
+// though these types are equal modulo normalization.
+impl<T: Project> Trait for (T, for<'a> fn(<T as Project>::Assoc<'a>)) {}
+
+impl<'a> Trait for (u32, fn(&'a u32)) {}
+//[next]~^ ERROR conflicting implementations of trait `Trait` for type `(u32, for<'a> fn(&'a u32))`
+```
+
+A crater run did not discover any breakage due to this change.
+
+#### Unknowable candidates for higher ranked trait goals
+
+This avoids an unsoundness by attempting to normalize in `trait_ref_is_knowable`, fixing rust-lang#114061 . This is a side-effect of supporting lazy normalization, as that forces us to attempt to normalize when checking whether a `TraitRef` is knowable: [source]( https://github.com/rust-lang/rust/blob/47dd709bedda8127e8daec33327e0a9d0cdae845/compiler/rustc_trait_selection/src/solve/assembly/mod.rs#L754-L764 ).
+
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+trait IsUnit {}
+impl IsUnit for () {}
+
+pub trait WithAssoc<'a> {
+    type Assoc;
+}
+
+// We considered `for<'a> <T as WithAssoc<'a>>::Assoc: IsUnit`
+// to be knowable, even though the projection is ambiguous.
+pub trait Trait {}
+impl<T> Trait for T
+where
+    T: 'static,
+    for<'a> T: WithAssoc<'a>,
+    for<'a> <T as WithAssoc<'a>>::Assoc: IsUnit,
+{
+}
+impl<T> Trait for Box<T> {}
+//[next]~^ ERROR conflicting implementations of trait `Trait`
+```
+The two impls of `Trait` overlap given the following downstream crate:
+```rust
+use dep::*;
+struct Local;
+impl WithAssoc<'_> for Box<Local> {
+    type Assoc = ();
+}
+```
+
+There a similar coherence unsoundness caused by our handling of aliases which is fixed separately in rust-lang#117164 .
+
+This change breaks the [`derive-visitor`]( https://crates.io/crates/derive-visitor ) crate. I have opened an issue in that repo: nikis05/derive-visitor#16 .
+
+### Evaluating goals to a fixpoint and applying inference constraints
+
+In the old implementation of the implicit-negative check, each obligation is [checked separately without applying its inference constraints]( https://github.com/rust-lang/rust/blob/bea5bebf3defc56e5e3446b4a95c685dbb885fd3/compiler/rustc_trait_selection/src/traits/coherence.rs#L323-L338 ). The new solver instead [uses a `FulfillmentCtxt`]( https://github.com/rust-lang/rust/blob/bea5bebf3defc56e5e3446b4a95c685dbb885fd3/compiler/rustc_trait_selection/src/traits/coherence.rs#L315-L321 ) for this, which evaluates all obligations in a loop until there's no further inference progress.
+
+This is necessary for backwards compatibility as we do not eagerly normalize with the new solver, resulting in constraints from normalization to only get applied by evaluating a separate obligation. This also allows more code to compile:
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+trait Mirror {
+    type Assoc;
+}
+impl<T> Mirror for T {
+    type Assoc = T;
+}
+
+trait Foo {}
+trait Bar {}
+
+// The self type starts out as `?0` but is constrained to `()`
+// due to the where-clause below. Because `(): Bar` is known to
+// not hold, we can prove the impls disjoint.
+impl<T> Foo for T where (): Mirror<Assoc = T> {}
+//[current]~^ ERROR conflicting implementations of trait `Foo` for type `()`
+impl<T> Foo for T where T: Bar {}
+
+fn main() {}
+```
+The old solver does not run nested goals to a fixpoint in evaluation. The new solver does do so, strengthening inference and improving the overlap check:
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+trait Foo {}
+impl<T> Foo for (u8, T, T) {}
+trait NotU8 {}
+trait Bar {}
+impl<T, U: NotU8> Bar for (T, T, U) {}
+
+trait NeedsFixpoint {}
+impl<T: Foo + Bar> NeedsFixpoint for T {}
+impl NeedsFixpoint for (u8, u8, u8) {}
+
+trait Overlap {}
+impl<T: NeedsFixpoint> Overlap for T {}
+impl<T, U: NotU8, V> Overlap for (T, U, V) {}
+//[current]~^ ERROR conflicting implementations of trait `Foo`
+```
+
+### Breakage due to removal of incomplete candidate preference Fixes rust-lang#107887 . In the old solver we incompletely prefer the builtin trait object impl over user defined impls. This can break inference guidance, inferring `?x` in `dyn Trait<u32>: Trait<?x>` to `u32`, even if an explicit impl of `Trait<u64>` also exists.
+
+This caused coherence to incorrectly allow overlapping impls, resulting in ICEs and a theoretical unsoundness. See rust-lang#107887 (comment) . This compiles on stable but results in an overlap error with `-Znext-solver=coherence`:
+
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+struct W<T: ?Sized>(*const T);
+
+trait Trait<T: ?Sized> {
+    type Assoc;
+}
+
+// This would trigger the check for overlap between automatic and custom impl.
+// They actually don't overlap so an impl like this should remain possible
+// forever.
+//
+// impl Trait<u64> for dyn Trait<u32> {}
+trait Indirect {}
+impl Indirect for dyn Trait<u32, Assoc = ()> {}
+impl<T: Indirect + ?Sized> Trait<u64> for T {
+    type Assoc = ();
+}
+
+// Incomplete impl where `dyn Trait<u32>: Trait<_>` does not hold, but
+// `dyn Trait<u32>: Trait<u64>` does.
+trait EvaluateHack<U: ?Sized> {}
+impl<T: ?Sized, U: ?Sized> EvaluateHack<W<U>> for T
+where
+    T: Trait<U, Assoc = ()>, // incompletely constrains `_` to `u32`
+    U: IsU64,
+    T: Trait<U, Assoc = ()>, // incompletely constrains `_` to `u32`
+{
+}
+
+trait IsU64 {}
+impl IsU64 for u64 {}
+
+trait Overlap<U: ?Sized> {
+    type Assoc: Default;
+}
+impl<T: ?Sized + EvaluateHack<W<U>>, U: ?Sized> Overlap<U> for T {
+    type Assoc = Box<u32>;
+}
+impl<U: ?Sized> Overlap<U> for dyn Trait<u32, Assoc = ()> {
+//[next]~^ ERROR conflicting implementations of trait `Overlap<_>`
+    type Assoc = usize;
+}
+```
+
+### Considering region outlives bounds in the `leak_check`
+
+For details on the `leak_check`, see the FCP proposal rust-lang#119820 .[^leak_check]
+
+[^leak_check]: which should get moved to the dev-guide :3
+
+In both coherence and during candidate selection, the `leak_check` relies on the region constraints added in `evaluate`. It therefore currently does not register outlives obligations: [source]( https://github.com/rust-lang/rust/blob/ccb1415eac3289b5ebf64691c0190dc52e0e3d0e/compiler/rustc_trait_selection/src/traits/select/mod.rs#L792-L810 ). This was likely done as a performance optimization without considering its impact on the `leak_check`. This is the case as in the old solver, *evaluatation* and *fulfillment* are split, with evaluation being responsible for candidate selection and fulfillment actually registering all the constraints.
+
+This split does not exist with the new solver. The `leak_check` can therefore eagerly detect errors caused by region outlives obligations. This improves both coherence itself and candidate selection:
+
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+trait LeakErr<'a, 'b> {}
+// Using this impl adds an `'b: 'a` bound which results
+// in a higher-ranked region error. This bound has been
+// previously ignored but is now considered.
+impl<'a, 'b: 'a> LeakErr<'a, 'b> for () {}
+
+trait NoOverlapDir<'a> {}
+impl<'a, T: for<'b> LeakErr<'a, 'b>> NoOverlapDir<'a> for T {}
+impl<'a> NoOverlapDir<'a> for () {}
+//[current]~^ ERROR conflicting implementations of trait `NoOverlapDir<'_>`
+
+// --------------------------------------
+
+// necessary to avoid coherence unknowable candidates
+struct W<T>(T);
+
+trait GuidesSelection<'a, U> {}
+impl<'a, T: for<'b> LeakErr<'a, 'b>> GuidesSelection<'a, W<u32>> for T {}
+impl<'a, T> GuidesSelection<'a, W<u8>> for T {}
+
+trait NotImplementedByU8 {}
+trait NoOverlapInd<'a, U> {}
+impl<'a, T: GuidesSelection<'a, W<U>>, U> NoOverlapInd<'a, U> for T {}
+impl<'a, U: NotImplementedByU8> NoOverlapInd<'a, U> for () {}
+//[current]~^ conflicting implementations of trait `NoOverlapInd<'_, _>`
+```
+
+### Removal of `fn match_fresh_trait_refs`
+
+The old solver tries to [eagerly detect unbounded recursion]( https://github.com/rust-lang/rust/blob/b14fd2359f47fb9a14bbfe55359db4bb3af11861/compiler/rustc_trait_selection/src/traits/select/mod.rs#L1196-L1211 ), forcing the affected goals to be ambiguous. This check is only an approximation and has not been added to the new solver.
+
+The check is not necessary in the new solver and it would be problematic for caching. As it depends on all goals currently on the stack, using a global cache entry would have to always make sure that doing so does not circumvent this check.
+
+This changes some goals to error - or succeed - instead of failing with ambiguity. This allows more code to compile:
+
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+
+// Need to use this local wrapper for the impls to be fully
+// knowable as unknowable candidate result in ambiguity.
+struct Local<T>(T);
+
+trait Trait<U> {}
+// This impl does not hold, but is ambiguous in the old
+// solver due to its overflow approximation.
+impl<U> Trait<U> for Local<u32> where Local<u16>: Trait<U> {}
+// This impl holds.
+impl Trait<Local<()>> for Local<u8> {}
+
+// In the old solver, `Local<?t>: Trait<Local<?u>>` is ambiguous,
+// resulting in `Local<?u>: NoImpl`, also being ambiguous.
+//
+// In the new solver the first impl does not apply, constraining
+// `?u` to `Local<()>`, causing `Local<()>: NoImpl` to error.
+trait Indirect<T> {}
+impl<T, U> Indirect<U> for T
+where
+    T: Trait<U>,
+    U: NoImpl
+{}
+
+// Not implemented for `Local<()>`
+trait NoImpl {}
+impl NoImpl for Local<u8> {}
+impl NoImpl for Local<u16> {}
+
+// `Local<?t>: Indirect<Local<?u>>` cannot hold, so
+// these impls do not overlap.
+trait NoOverlap<U> {}
+impl<T: Indirect<U>, U> NoOverlap<U> for T {}
+impl<T, U> NoOverlap<Local<U>> for Local<T> {}
+//~^ ERROR conflicting implementations of trait `NoOverlap<Local<_>>`
+```
+
+### Non-fatal overflow
+
+The old solver immediately emits a fatal error when hitting the recursion limit. The new solver instead returns overflow. This both allows more code to compile and is results in performance and potential future compatability issues.
+
+Non-fatal overflow is generally desirable. With fatal overflow, changing the order in which we evaluate nested goals easily causes breakage if we have goal which errors and one which overflows. It is also required to prevent breakage due to the removal of `fn match_fresh_trait_refs`, e.g. [in `typenum`]( rust-lang/trait-system-refactor-initiative#73 ).
+
+#### Enabling more code to compile
+
+In the below example, the old solver first tried to prove an overflowing goal, resulting in a fatal error. The new solver instead returns ambiguity due to overflow for that goal, causing the implicit negative overlap check to succeed as `Box<u32>: NotImplemented` does not hold.
+```rust
+// revisions: current next
+//[next] compile-flags: -Znext-solver=coherence
+//[current] ERROR overflow evaluating the requirement
+
+trait Indirect<T> {}
+impl<T: Overflow<()>> Indirect<T> for () {}
+
+trait Overflow<U> {}
+impl<T, U> Overflow<U> for Box<T>
+where
+    U: Indirect<Box<Box<T>>>,
+{}
+
+trait NotImplemented {}
+
+trait Trait<U> {}
+impl<T, U> Trait<U> for T
+where
+    // T: NotImplemented, // causes old solver to succeed
+    U: Indirect<T>,
+    T: NotImplemented,
+{}
+
+impl Trait<()> for Box<u32> {}
+```
+
+#### Avoiding hangs with non-fatal overflow
+
+Simply returning ambiguity when reaching the recursion limit can very easily result in hangs, e.g.
+```rust
+trait Recur {}
+impl<T, U> Recur for ((T, U), (U, T))
+where
+    (T, U): Recur,
+    (U, T): Recur,
+{}
+
+trait NotImplemented {}
+impl<T: NotImplemented> Recur for T {}
+```
+This can happen quite frequently as it's easy to have exponential blowup due to multiple nested goals at each step. As the trait solver is depth-first, this immediately caused a fatal overflow error in the old solver. In the new solver we have to handle the whole proof tree instead, which can very easily hang.
+
+To avoid this we restrict the recursion depth after hitting the recursion limit for the first time. We also **ignore all inference constraints from goals resulting in overflow**. This is mostly backwards compatible as any overflow in the old solver resulted in a fatal error.
+
+### sidenote about normalization
+
+We return ambiguous nested goals of `NormalizesTo` goals to the caller and ignore their impact when computing the `Certainty` of the current goal. See the [normalization chapter]( https://rustc-dev-guide.rust-lang.org/solve/normalization.html ) for more details.This means we apply constraints resulting from other nested goals and from equating the impl header when normalizing, even if a nested goal results in overflow. This is necessary to avoid breaking the following example:
+```rust
+trait Trait {
+    type Assoc;
+}
+
+struct W<T: ?Sized>(*mut T);
+impl<T: ?Sized> Trait for W<W<T>>
+where
+    W<T>: Trait,
+{
+    type Assoc = ();
+}
+
+// `W<?t>: Trait<Assoc = u32>` does not hold as
+// `Assoc` gets normalized to `()`. However, proving
+// the where-bounds of the impl results in overflow.
+//
+// For this to continue to compile we must not discard
+// constraints from normalizing associated types.
+trait NoOverlap {}
+impl<T: Trait<Assoc = u32>> NoOverlap for T {}
+impl<T: ?Sized> NoOverlap for W<T> {}
+```
+
+#### Future compatability concerns
+
+Non-fatal overflow results in some unfortunate future compatability concerns. Changing the approach to avoid more hangs by more strongly penalizing overflow can cause breakage as we either drop constraints or ignore candidates necessary to successfully compile. Weakening the overflow penalities instead allows more code to compile and strengthens inference while potentially causing more code to hang.
+
+While the current approach is not perfect, we believe it to be good enough. We believe it to apply the necessary inference constraints to avoid breakage and expect there to not be any desirable patterns broken by our current penalities. Similarly we believe the current constraints to avoid most accidental hangs. Ignoring constraints of overflowing goals is especially useful, as it may allow major future optimizations to our overflow handling. See [this summary]( https://hackmd.io/ATf4hN0NRY-w2LIVgeFsVg ) and the linked documents in case you want to know more.
+
+### changes to performance
+
+In general, trait solving during coherence checking is not significant for performance. Enabling the next-generation trait solver in coherence does not impact our compile time benchmarks. We are still unable to compile the benchmark suite when fully enabling the new trait solver.
+
+There are rare cases where the new solver has significantly worse performance due to non-fatal overflow, its reliance on fixpoint algorithms and the removal of the `fn match_fresh_trait_refs` approximation. We encountered such issues in [`typenum`]( https://crates.io/crates/typenum ) and believe it should be [pretty much as bad as it can get]( rust-lang/trait-system-refactor-initiative#73 ).
+
+Due to an improved structure and far better caching, we believe that there is a lot of room for improvement and that the new solver will outperform the existing implementation in nearly all cases, sometimes significantly. We have not yet spent any time micro-optimizing the implementation and have many unimplemented major improvements, such as fast-paths for trivial goals.
+
+TODO: get some rough results here and put them in a table
+
+### Unstable features
+
+#### Unsupported unstable features
+
+The new solver currently does not support all unstable features, most notably `#![feature(generic_const_exprs)]`, `#![feature(associated_const_equality)]` and `#![feature(adt_const_params)]` are not yet fully supported in the new solver. We are confident that supporting them is possible, but did not consider this to be a priority. This stabilization introduces new ICE when using these features in impl headers.
+
+#### fixes to `#![feature(specialization)]`
+
+- fixes rust-lang#105782 - fixes rust-lang#118987 #### fixes to `#![feature(type_alias_impl_trait)]`
+
+- fixes rust-lang#119272 - rust-lang#105787 (comment) - fixes rust-lang#124207 ### Important changes since the original FCP rust-lang#127574 changes the coherence unknowable candidate to only apply if all the super trait bounds may hold. This allows more code to compile and fixes a regression in `pyella` rust-lang#130617 bails with ambiguity if the query response would contain too many non-region inference variables. This should only be triggered in case the result contains a lot of ambiguous aliases in which case further constraining the goal should resolve this. This PR prevents the hang in `nalgebra`.
+
+## This does not stabilize the whole solver
+
+While this stabilizes the use of the new solver in coherence checking, there are many parts of the solver which will remain fully unstable. We may still adapt these areas while working towards stabilizing the new solver everywhere. We are confident that we are able to do so without negatively impacting coherence.
+
+### goals with a non-empty `ParamEnv`
+
+Coherence always uses an empty environment. We therefore do not depend on the behavior of `AliasBound` and `ParamEnv` candidates. We only stabilizes the behavior of user-defined and builtin implementations of traits. There are still many open questions there.
+
+### opaque types in the defining scope
+
+The handling of opaque types - `impl Trait` - in both the new and old solver is still not fully figured out. Luckily this can be ignored for now. While opaque types are reachable during coherence checking by using `impl_trait_in_associated_types`, the behavior during coherence is separate and self-contained. The old and new solver fully agree here.
+
+### normalization is hard
+
+This stabilizes that we equate associated types involving bound variables using deferred-alias-equality. We also stop eagerly normalizing in coherence, which should not have any user-facing impact.
+
+We do not stabilize the normalization behavior outside of coherence, e.g. we currently deeply normalize all types during writeback with the new solver. This may change going forward
+
+### how to replace `select` from the old solver
+
+We sometimes depend on getting a single `impl` for a given trait bound, e.g. when resolving a concrete method for codegen/CTFE. We do not depend on this during coherence, so the exact approach here can still be freely changed going forward.
+
+## Acknowledgements
+
+This work would not have been possible without `@compiler-errors.` He implemented large chunks of the solver himself but also and did a lot of testing and experimentation, eagerly discovering multiple issues which had a significant impact on our approach. `@BoxyUwU` has also done some amazing work on the solver. Thank you for the endless hours of discussion resulting in the current approach. Especially the way aliases are handled has gone through multiple revisions to get to its current state.
+
+There were also many contributions from - and discussions with - other members of the community and the rest of `@rust-lang/types.` This solver builds upon previous improvements to the compiler, as well as lessons learned from `chalk` and `a-mir-formality`. Getting to this point  would not have been possible without that and I am incredibly thankful to everyone involved. See the [list of relevant PRs]( https://github.com/rust-lang/rust/pulls?q=is%3Apr+is%3Amerged+label%3AWG-trait-system-refactor+-label%3Arollup+closed%3A%3C2024-03-22+ ).
+======>
+https://blog.tonari.no/rust-face-detection
+-->>-->>
+It might sound like a marketing truism, but there's much hidden in that concise statement. It is the simplest way I've come to understand this unique, mysterious oddball of a product in the three years I've worked on it. While not at all an official slogan, I believe it speaks of the design ethos that makes tonari feel unlike technology, but like magic.
+======>
+https://old.reddit.com/r/rust/comments/1ghigtx/generating_c_structs_from_rust_structs/
+-->>-->>
+My team has our Rust native library in its own crate. We want to generate C bindings for our Rust library using    cbindgen   . However, I noticed that the structs the binding functions use are not being included in the header file for our C bindings. I put together a minimal reproducible example below.   
+
+   pure-rust/src/lib.rs:
+```   
+
+   [repr(C)]   
+
+   pub struct S {
+    pub x: libc::c_int,
+}
+```   
+
+   c_bindings/src/lib.rs:
+```   
+
+   [no_mangle]   
+
+   pub unsafe extern "C" fn foo(s:    const pure_rust::S) {
+    println!("{}", (   s).x);
+}
+```   
+
+   c_bindings/build.rs:
+```
+extern crate cbindgen;   
+
+   use std::env;   
+
+   fn main() {
+    let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let mut config: cbindgen::Config = Default::default();
+    config.language = cbindgen::Language::C;
+    let bindings = cbindgen::generate_with_config(crate_dir, config);
+    if let Err(error) = bindings {
+        eprintln!("Hint: Try running    rustc +nightly -Z parse-only    on the bad file to get a more helpful error message than the one below.");
+        panic!("Failed to generate C bindings (a hint is above): {}", error);
+    }
+    bindings.unwrap().write_to_file("mqtt.h");
+}
+```   
+
+   Auto-generated mqtt.h (note that it is missing a definition for the    S    struct, despite using it):
+```   
+
+   include <stdarg.h>   
+
+   include <stdbool.h>   
+
+   include <stdint.h>   
+
+   include <stdlib.h>   
+
+   void foo(const S *s);
+```   
+
+   How can I correctly let cbindgen know that it needs to output the definition for    S    in the    mqtt.h    header?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ghdnny/is_it_possible_to_use_a_different_version_of_the/
+-->>-->>
+Idle question, I don't have a usecase.   
+
+   How coupled are the stdlib version and the compiler? Would it be possible to get, say, a particular nightly to work with a slightly newer std (and core etc)? Or could I compile, say, the 1.80 stdlib with the 1.82 compiler? I don't imagine there's a wide compatibility range, and I'm guessing the guarantees are "no" but, in theory...   
+
+   (Well, one thing of course is I'd need to build-std because the precompiled std rlib won't be compatible. But assuming that's the case.)   
+   
+
+======>
+https://thenewstack.io/feds-critical-software-must-drop-c-c-by-2026-or-face-risk/
+-->>-->>
+The federal government is heightening its warnings about dangerous software development practices, with the U.S. Cybersecurity and Infrastructure Security Agency ( CISA ) and the Federal Bureau of Investigation (FBI) issuing stark warnings about basic security failures that continue to plague critical infrastructure. A recent report issued jointly by CISA and the FBI on Product Security Bad Practices warns software manufacturers about bad practices such as using memory-unsafe programming languages like C and C++ . “The development of new product lines for use in service of critical infrastructure or [national critical functions] NCFs in a memory-unsafe language (e.g., C or C++) where there are readily available alternative memory-safe languages that could be used is dangerous and significantly elevates risk to national security, national economic security, and national public health and safety,” the report says. Three Categories The report says bad practices are divided into three categories: Product properties, which describe the observable, security-related qualities of a software product. Security features, which describe the security functionalities that a product supports. Organizational processes and policies, which describe the actions taken by a software manufacturer to ensure strong transparency in its approach to security. The report is aimed at software manufacturers who develop software products and services — including on-premises software, cloud services, and Software as a Service (SaaS) — used in support of critical infrastructure or NCFs, the report said Avoid Bad Practices, Follow Recommendations Moreover, the report also encourages all software manufacturers to avoid these product security bad practices. And “By following the recommendations in this guidance, manufacturers will signal to customers that they are taking ownership of customer security outcomes, a key Secure by Design principle,” the report said. “This guidance certainly follows up on the U.S. government’s earlier statement on the matter, statements that date back to 2022, admonishing technology providers and enterprise adopters alike to adopt or migrate to memory-safe languages,” said Brad Shimmin , an analyst at Omdia . TRENDING STORIES Feds: Critical Software Must Drop C/C++ by 2026 or Face Risk Cloud Native App Protection Platforms: 6 Tips Before Buying Who Should Be Responsible for Software Security? How Agentless Security Can Prevent Major Ops Outages Implement Third-Party Authentication With Google in Next.js “Putting all new code aside, fortunately, neither this document nor the U.S. government is calling for an immediate migration from C/C++ to Rust — as but one example,” he said. “CISA’s Secure by Design document recognizes that software maintainers simply cannot migrate their code bases en masse like that.” The guidance, while voluntary, represents CISA’s strongest stance yet on baseline security practices — putting companies on notice about what constitutes negligent software development practices when it comes to critical infrastructure. The Clock Is Ticking However, the clock is ticking for software manufacturers. Companies have until January 1, 2026, to create memory safety roadmaps. “For existing products that are written in memory-unsafe languages, not having a published memory safety roadmap by Jan. 1, 2026, is dangerous and significantly elevates risk to national security, national economic security, and national public health and safety,” the report said. In addition, default passwords must be eliminated from admin accounts by the same date. These deadlines signal a shift from recommendations to expected standards. The report also states that the memory safety roadmap should outline the manufacturer’s prioritized approach to eliminating memory safety vulnerabilities in priority code components (e.g., network-facing code or code that handles sensitive functions like cryptographic operations). “Manufacturers should demonstrate that the memory safety roadmap will lead to a significant, prioritized reduction of memory safety vulnerabilities in the manufacturer’s products and demonstrate they are making a reasonable effort to follow the memory safety roadmap,” the report said. “There are two good reasons why businesses continue to maintain COBOL and Fortran code at scale. Cost and risk,” Shimmin told The New Stack. “It’s simply not financially possible to port millions of lines of code, nor is it a risk any responsible organization would take.” Yet, according to the report, critical infrastructure still suffers from “exceptionally risky” practices like: Default passwords. Direct SQL injection vulnerabilities. Lack of basic intrusion detection. Missing multifactor authentication. Open Source Regarding open source software, the report says special attention should be paid to open source vulnerabilities. Other recommendations include: Companies must maintain software bills of materials (SBOMs). Required to cache dependencies rather than pulling from public sources. Need to contribute responsibly to open source projects they depend on. “Software manufacturers should responsibly consume and sustainably contribute to the open source software that they depend on,” the report said. The report also urges more transparency, stating that: Companies must publish vulnerability disclosure policies. Required to issue CVEs for all critical vulnerabilities. Must provide clear documentation about security issues. Expected to maintain six months of security logs. It’s a Good Thing Finally, it is good that CISA is recommending that companies with critical software in their care should create a stated plan of attack by early 2026, Shimmin said. It’s good because it will give the industry more time to come up with a more skillful means of ensuring the safety of our critical software assets, he said. “Those means will likely involve hardware manufacturing shoring up potential attack vectors and programming language maintainers coming up with things ideas like the Safe C++ proposal ), which calls for the creation of a superset for C++ that addresses memory safety issues without forcing major code rewrites,” he said. Paper Tiger? “CISA is putting its foot down on memory unsafe application, built with C / C++ or assembler. With the deadline leaving less than 15 months, it will see users and providers scramble to stay compliant, as numerous and critical assets of government systems still use C/C++,” Holger Mueller , an analyst at Constellation Research, told The New Stack. “Now all eyes will be on provider and developers to see if that deadline can be achieved – we will see in a few months if this CISA order is a paper tiger, a toothed tiger or a largely complied with standard regulation. Time will tell.” Shifting to Memory Safety According to Tim McNamara , founder of Accelerant.dev and author of Rust in Action , the temperature is definitely rising for companies to build more secure software. The industry is being biased away from insecure practices, which is a healthy shift. “The document still leaves plenty of wriggle room to maintain the status quo, however,” McNamara told The New Stack. “It seems that the authors are clearly mindful of overstepping their authority. Notice that terms such as ‘strongly encourage’, ‘should’, and ‘reasonable effort’ are used in the text.” Moreover, the document’s requirements are also fairly light, McNamara said. New software should be written in a memory-safe programming language. Software producers with current products are being requested to produce a “memory safe roadmap” in 2025. “This roadmap is the producer’s plan for reducing memory safety bugs over time,” McNamara said. “There are also important exceptions. Roadmaps are not required for products that have an end of life in 2030, despite the fact that lots of software has a tendency to linger for far longer than intended.” McNamara noted that in 2007, MITRE produced a report called Unforgivable Vulnerabilities that listed a memory safety issue on top. Yet, these bugs are not treated as negligence in software development. “I don’t see other fields where it’s acceptable not to apply known solutions to major safety problems,” he said. Still, “It’ll be interesting to observe how the industry responds to the invitation to comment, especially given that there’s an election in the intervening time,” McNamara said. “Hopefully the concerns will transcend political bickering.” CISA has opened a public comment period on its guidance until December 16, 2024. Please visit the Federal Register to submit comments. $(document).ready(function() {
+			var $container = $('.tns-trending-stories-list-6724f875d98f0');
+			var context = $container.data('context');
+
+			$container.load('/no-cache/trending-stories/', {
+				limit : '5',
+				category_slug : '',
+				postID : '22764370',
+				context : 'inline'
+			}, function(result) {
+				if (context === 'frontpage') {
+					$container.find('.trending-story-link').addClass('frontpage-link');
+				}
+
+				$('body').off('click.trending_story');
+				$('body').on('click.trending_story', '.trending-story-link', function($event) {
+					var title = $(this).attr('aria-label');
+					var url = $(this).attr('href');
+					url = url.replace('https://thenewstack.io', '');
+					var context = $(this).data('context');
+
+					window.dataLayer.push({
+						'event' : 'trending_story_click',
+		                'post_title' : title,
+		                'url' : url,
+		                'context' : context
+					});
+				});
+			});
+		}); $(document).ready(function() {
+			var target_p = parseInt('7');
+			var trending_stories_block = $('.tns-trending-stories-block.inline');
+
+			$('#tns-post-body-content > p:eq(' + (target_p - 1) + ')').after(trending_stories_block);
+		}); YOUTUBE.COM/THENEWSTACK Tech moves fast, don't miss an episode. Subscribe to our YouTube 
+				channel to stream all our podcasts, interviews, demos, and more. SUBSCRIBE $(document).ready(function() {
+		var youtube_subscribe_template = $('.youtube-subscribe-block-template').html();
+		$(youtube_subscribe_template).insertAfter('.youtube-embed-wrapper');
+	}); Group Created with Sketch. Darryl K. Taft covers DevOps, software development tools and developer-related issues from his office in the Baltimore area. He has more than 25 years of experience in the business and is always looking for the next scoop. He has worked... Read more from Darryl K. Taft SHARE THIS STORY $(document).ready(function() {
+			$('body').off('click.share');
+			$('body').on('click.share', '.share-media-icon', function() {
+				var platform = $(this).data('platform');
+				var url = $(this).attr('href');
+				var sponsor = '';
+				var categories = 'c,security,software-development';
+
+				window.dataLayer.push({
+					'event' : 'share',
+	                'platform' : platform,
+	                'url' : url,
+					'sponsor' : sponsor,
+					'categories' : categories
+				});
+			});
+		}); TRENDING STORIES Feds: Critical Software Must Drop C/C++ by 2026 or Face Risk Cloud Native App Protection Platforms: 6 Tips Before Buying Who Should Be Responsible for Software Security? How Agentless Security Can Prevent Major Ops Outages Implement Third-Party Authentication With Google in Next.js $(document).ready(function() {
+			var $container = $('.tns-trending-stories-list-6724f875dad9d');
+			var context = $container.data('context');
+
+			$container.load('/no-cache/trending-stories/', {
+				limit : '5',
+				category_slug : '',
+				postID : '22764370',
+				context : 'sidebar'
+			}, function(result) {
+				if (context === 'frontpage') {
+					$container.find('.trending-story-link').addClass('frontpage-link');
+				}
+
+				$('body').off('click.trending_story');
+				$('body').on('click.trending_story', '.trending-story-link', function($event) {
+					var title = $(this).attr('aria-label');
+					var url = $(this).attr('href');
+					url = url.replace('https://thenewstack.io', '');
+					var context = $(this).data('context');
+
+					window.dataLayer.push({
+						'event' : 'trending_story_click',
+		                'post_title' : title,
+		                'url' : url,
+		                'context' : context
+					});
+				});
+			});
+		}); $(document).ready(function() {
+		$(window).scroll(function() {
+			var headerHeight = $('#tns-header-nav-topics').outerHeight();
+			$('#tns-post-body-sidebar').css('top', headerHeight + 30 + 'px');
+		});
+	});
+======>
+https://old.reddit.com/r/rust/comments/1ghal5w/nanocl_the_rust_developerfriendly_kubernetes/
+-->>-->>
+Hello, Rust community!   
+
+   It's hard to believe it's been a year since my last post! I wanted to take a moment to share some exciting progress we've made with    Nanocl   .   
+
+   What’s New?   
+
+   
+   Jobs   : We’ve introduced a new feature called "jobs," which allows you to run a set of commands for various tasks, such as generating SSL/TLS certificates, backing up your database, and more. You can execute these jobs once or schedule them to run periodically, similar to cron jobs.   
+   Secrets Management   : You can now add environment variables to your cargos and jobs, and securely mount TLS/SSL certificates. This enables seamless end-to-end SSL/TLS communication between the proxy and your cargos.   
+   Docker Desktop Support   : We're thrilled to announce that Nanocl now fully supports Docker Desktop, specifically for macOS users! This enhancement allows macOS users to run and manage their applications locally, making it easier to integrate Nanocl into existing Docker workflows.   
+   Other Enhancements   : There are many more updates! Check out our changelog and recent blog posts for all the details:
+
+   
+   Changelog   
+   Blog Post   
+   
+   
+
+   I want to extend my heartfelt thanks for the positive feedback on my previous post and the incredible support you've shown for Nanocl. Your encouragement has led to some fantastic opportunities, including invitations to speak at events like GDG in Tbilisi and Open Source Day in Florence. We were also invited to have a stand during The Merge in Berlin!   
+
+   https://preview.redd.it/3tpgnphombyd1.jpg?width=2048&format=pjpg&auto=webp&s=c36ce9b1918621fe49080a162378613626137c4c   
+
+   Our next big step is integrating network meshing. If you have experience with tools like Calico, Cilium, or Flannel and would like to contribute, your expertise would be greatly appreciated!   
+
+   Additionally, I’m more than willing to mentor anyone interested in participating in the project. If you want to learn Rust and cloud technology, feel free to join our Discord community:    Join our Discord   .   
+
+   Thank you all once again for your support! I'm looking forward to your feedback and contributions!   
+   
+
+======>
+https://fjall-rs.github.io/post/fjall-2-3/
+-->>-->>
+fjall-rs Posts Tags const iconMoon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>`;
+  const iconSun = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>`;
+
+  function theme() {
+    const local = localStorage.getItem("theme");
+    if (local) {
+      return local;
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  }
+
+  function registerStuff(document) {
+    const root = document.documentElement;
+    const themeSwitch = document.querySelector(".theme-switch");
+
+    if (theme() === "light") {
+      root.classList.remove("dark");
+      themeSwitch.innerHTML = iconMoon;
+    } else {
+      root.classList.add("dark");
+      themeSwitch.innerHTML = iconSun;
+    }
+
+    themeSwitch.addEventListener("click", () => {
+      const isDark = root.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+      console.log(isDark);
+
+      if (isDark) {
+        root.classList.remove("dark");
+        themeSwitch.innerHTML = iconMoon;
+      } else {
+        root.classList.add("dark");
+        themeSwitch.innerHTML = iconSun;
+      }
+    });
+  }
+
+  registerStuff(document);
+
+  document.addEventListener("astro:after-swap", (ev) => {
+    registerStuff(document);
+  }); /**
+   * Gets the vertical scroll percent (0.0 - 1.0)
+   */
+  function getScrollPercent() {
+    const doc = document.documentElement;
+    const body = document.body;
+
+    return (
+      (doc.scrollTop || body.scrollTop) /
+      ((doc.scrollHeight || body.scrollHeight) - doc.clientHeight)
+    );
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    document.addEventListener("scroll", () => {
+      const el = document.querySelector(".reading-progress");
+      if (el) {
+        el.style.width = `${getScrollPercent() * 100}%`;
+      }
+    });
+  }); Announcing Fjall 2.3 November 1, 2024 - 6 min. read #benchmark #memory usage #performance #point reads #release #short Fjall is an embeddable LSM-based forbid-unsafe Rust key-value storage engine.
+Its goal is to be a reliable & predictable but performant general-purpose KV storage engine. Like 2.1 , the 2.3 release is another one focused on maintenance and performance improvements, most of them in the lsm-tree crate. Better write scaling of random key insertions In a leveled LSM-tree, when a level A exceeds its target size, some segments of it are merged into the next level A+1, by rewriting all overlapping segments in level A+1. The function that picked the segments to compact in level A was very naive stupid, and caused one side of the keyspace (lower keys) to be preferred.
+This caused the segments in level A+1 to be very granular for a small key range.
+Future compactions would then have to rewrite an increasing amount of segments, causing longer compaction runs, up until the system write stalled, essentially strangling itself. The function has been improved to take into account all possible windows of segments that could be compacted, and choose the least-effort set with the most payoff. This results in much more sane write scaling for huge data sets that are writing random keys (e.g. UUIDs) - 100M x 100 bytes here: Note: the MDB_NO_SYNC flag was used for heed , which may not be safe to use, but not using it makes writes way too slow. Faster LZ4 (de)compression By default, lsm-tree uses the lz4_flex crate for compression.
+The crate has a (default) safe and (faster) unsafe mode.
+Up until now, the safe mode was used.
+But seeing the crate being used in unsafe mode in tantivy (and thus quickwit ) gave me the confidence to change it to unsafe mode as well in lsm-tree . The change results in slightly faster compaction; micro benchmarks showed a ~5-15% decrease in decompression times. Fixed degradation in point reads in some workloads Under certain conditions, point reads to old KVs in certain workloads could, at some point, hit a performance cliff.
+This was caused by a control flow mishap, causing unnecessary lookups in levels that did not contain the requested key. Faster sync writes To reduce fsync latency, the journal file is preallocated to 16 MiB.
+However, for small values, the default memtable size, combined with the overhead of journal entries, would cross that threshold.
+This would result in sync writes flip flopping between fast and moderate, which is not desirable. The default journal preallocation has been increased to 32 MiB, which seems to be a good default for a variety of value sizes. In the future, the preallocation size will be made configurable, and should be set to around the largest expected memtable size. Disk used: Samsung PM9A3 Decreased memory usage in monotonic workloads LSM-trees use probabilistic filters (e.g. Bloom filters) to skip superfluous I/O operations when traversing through levels.
+Because generally 90% of data is kept in the last level, many keys will not be present in the upper (smaller) levels, so skipping I/O work there (especially L0) is very important. Because the upper levels are very small and short-lived, the bloom filter FPR can be set abnormally low at very low costs. However, when the segments are never rewritten (e.g. time series), but instead moved down (”trivial move”), the bloom filter memory overhead will end up being unexpectedly high (1.5 - 2.5x). The compaction has been tweaked to force rewriting segments when they are demoted into the deeper, “colder” levels (L2+).
+This will probably be tweaked in the future to make it less aggressive for certain workloads. The following benchmark writes ~250M time series data points: This increases background I/O costs; notice how the write amplification changes from ~2 to ~3, as we now write each item three times (WAL, flush, L1→L2 compaction) instead of twice.
+However, write throughput stays more or less the same. Note: fjall 2.2.0-nb disabled bloom filters altogether Additionally, when segments are very small, they will instead be tried to merged together to reach the configured segment target size (64 MB by default). Additional benchmarks I reran the benchmarks from CanopyDB with an extended period of 5 minutes, to better demonstrate the scaling of the storage engines. Test rig: i9 11900K, 32 GB RAM (limited to 2 GB using systemd), Samsung PM9A3. Note that cumulative stats are kind of misleading right now, they will be fixed in an upcoming version of the benchmark tool. 50% reads, 20% scans, 10% overwrites and 20% inserts (random) 50% reads, 20% scans, 10% overwrites, and 20% inserts (sequential) (preloaded) 50% reads, 20% scans, 10% overwrites, and 20% inserts (preloaded, 20 KB values) 50% reads, 20% scans, 10% overwrites, and 20% inserts 95% inserts, 5% reads (sync commit) Interested in LSM-trees and Rust? Check out fjall , an MIT-licensed
+  LSM-based storage engine written in Rust. Tags #benchmark #memory usage #performance #point reads #release #short Back to top © 2024 fjall-rs 
+- powered by nanoblog function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
+======>
+https://sycamore.dev/post/announcing-v0-9-0
+-->>-->>
+document.title = 'Announcing Sycamore v0.9.0' November 1, 2024 Announcing Sycamore v0.9.0 I’m excited to announce the release of Sycamore v0.9.0! This is once again by
+far the biggest update we’ve had. Sycamore is a reactive Rust UI framework for building web apps using
+WebAssembly. This release is by far the biggest release we’ve ever had, with
+tons of new features and improvements. If you have not used Sycamore before,
+here’s a quick sample: #[component] fn Counter ( initial : i32 ) -> View { let mut value = create_signal ( initial ) ; view! { button ( on : click = move | _ | value += 1 ) { "Count: " ( value ) } } } Sycamore’s community has also grown a lot since the v0.8.0 release. We’ve gone
+from just over 1.0k stars to 2.8k stars on GitHub. What used to be just
+over 350 discord members has now grown to 626 ! We’ve also reached 151k downloads on crates.io . For migrating over from v0.8, check out the migration guide A shiny new website We now have a shiny new website along with a shiny new domain: sycamore.dev ! This was long overdue. We were previously
+using a Netlify subdomain so this change hopefully makes Sycamore look more
+legitimate. The old website had a bunch of issues such as buggy navigation, no
+server side rendering support, and an awkward layout. This new website redesign
+fixes many of those things. The old docs are still available at the old website
+but the index page will now automatically redirect to the new website. A lot of the content has also been rewritten and updated for this new version of
+Sycamore. This includes a brand new “Introduction” section which helps guide you
+through creating your first Sycamore app, a simple Todo manager. This introduces
+various topics such as the view macro, the basics of reactivity, and how
+rendering lists work. This will hopefully help new users interested in Sycamore
+to get started with the main concepts. Here are a few comparisons between the old and new website. figure img,video {
+    border: 1px black;
+    border-style: solid;
+    border-radius: 5px;
+}
+figure video {
+    margin-bottom: 0 !important;
+}
+figure figcaption {
+    text-align: center;
+    margin-top: 0.4em !important;
+} The old homepage The new homepage The old docs The new docs There are still currently a few sections of the docs that needs writing or
+simply needs a few more details. You can help us out by contributing to the
+docs! Simply go to the relevant page and click on “Edit this page on GitHub” at
+the bottom and send us a Pull Request. Reactivity v3 What is probably the biggest new feature of this release is our new reactivity
+system, dubbed Reactivity v3 ! In Reactivity v2 (introduced in the v0.8 release), we eliminated the need for cloning
+signals and other reactive primitives into closures. This, however, came at the
+expense of introducing lifetimes for tracking whether a signal was alive and
+could be accessed. Lifetimes are well known to add complexity to a Rust codebase. So although we no
+longer needed to deal with cloning, we now needed to deal with lifetimes.
+Reactivity v3 fixes all this. We made all signals and other reactive data-types
+both 'static and Copy -able. This way, you get both the benefit of passing
+signals wherever you want without littering your codebase with .clone() everywhere, all without having to worry about lifetimes. Along the way, we also
+eliminated the need for the cx parameter as well! Whereas previously, you might have written: let signal = create_signal ( cx , 123 ) ; create_effect_scoped ( cx , | cx | { let nested = create_signal ( cx , 456 ) ; println! ( "{signal}, {nested}" ) ; } ) ; Now, you can simply write: let signal = create_signal ( 123 ) ; create_effect ( move | | { let nested = create_signal ( 456 ) ; println! ( "{signal}, {nested}" ) ; } ) ; Although a very contrived example, hopefully this demonstrates that the new
+reactivity system is much more simple and intuitive. We no longer need to thread
+the cx parameter everywhere, we no longer have to worry about scoped versus
+non-scoped effects, and we can pass signals wherever we want without infecting
+everything with lifetimes. Under the hood, this involved a huge rewrite of essentially
+the entire sycamore-reactive crate from scratch. The new implementation uses a
+singleton Root datatype for managing the reactive graph instead of a bunch of
+smart pointers everywhere in a tangled mess. This should hopefully make the
+implementation more robust and reliable. View v2 Another major change coming to Sycamore v0.9 is View v2 . Reactivity v3
+removed a lot of friction and boilerplate when interacting with reactive state.
+View v2 continues this theme and removes a bunch of boilerplate from
+components and views. The biggest change is the complete removal of the GenericNode and Html traits which have been infesting Sycamore codebases ever since we introduced SSR
+(server side rendering) support all the way back in v0.5. Witness the difference yourself. Here is Sycamore v0.8 code: #[component(inline_props)] fn Component < 'a , G : Html > ( cx : Scope < 'a > , value : & 'a ReadSignal < i32 > ) -> View < G > { ... } There is a bunch of noise here that is distracting from what this component
+does, such as the 'a lifetime and the G: Html generic parameter. Reactivity
+v3 and View v2 together turns this into: #[component(inline_props)] fn Component ( value : ReadSignal < i32 > ) -> View { ... } Doesn’t this just look so much better? New builder API This refactor also introduces a new builder API. Apologies to all the churn the
+builder API has received over the past few releases, but I really think this new
+API is much better than before. For a long time, the builder API was always a
+second-class citizen compared to the macro. This is no more. In fact, the view! macro has been refactored to simply codegen the builder API behind the
+hood, making the builder API a true first-class citizen in Sycamore. Here is
+what it looks like: div ( ) . class ( "hello-world" ) . children ( ( span ( ) . style ( "color: red" ) . children ( "Hello " ) , em ( ) . children ( "World!" ) , ) ) For more information, check out the builder API docs
+in the book. Type-checked HTML attributes Since we are now using the builder API as the codegen target for the view macro,
+we also get type-checked and auto-completed HTML attributes! Documentation for attributes, provided by Rust-Analyzer in VSCode This also means no more silly typos causing hard to spot bugs, and finally,
+proper support for boolean and optional attributes. Event handlers are also fully type-checked now so that you can use the specific
+event type such as KeyboardEvent instead of the base Event type. Attribute passthrough Suppose you’re writing a component library and are creating a Button component. Which props should you component accept? Ideally, you want your
+component to be as flexible as possible so you should try to provide as many
+HTML attributes as you can. This quickly becomes tedious: you’ll need to provide class , id , disabled , r#type , value , etc. Furthermore, HTML allows
+arbitrary custom attributes of the form data-* as well as a bunch of
+accessibility attributes like aria-* , making this task essentially impossible. Enter attribute passthrough . This allows your component to behave as if it
+were an HTML element, accepting HTML attributes, and letting you forward all of
+these attributes onto the element itself. Here’s an example: #[component(inline_props)] fn Button ( #[prop(attributes(html, button))] attributes : Attributes , children : Children , accent : StringAttribute , ) -> View { view! { // Spread the attributes onto the wrapped element. button ( .. attributes ) { ( children ) } } } // Now use your component just as if it were a normal HTML element. view! { Button ( class = "btn btn-red" , id = "login-button" , on : click = move | _ | login ( ) , // `accent` is passed as a prop, not as an attribute. accent = "primary" , ) { "Login" } } To learn more, read the section on Attribute passthrough in the book. Resources Sycamore v0.9 introduces the Resources API. Resources let you load asynchronous
+data into your app, in a way that is tightly coupled with the reactivity system
+and suspense. Resources are essentially asynchronous nodes in the reactive graph. This means
+that resources can depend on reactive values. For instance, this will refetch
+the resource whenever the id signal is updated. let id = create_signal ( ... ) ; let resource = create_resource ( on ( id , move | | async move { fetch_user ( id . get ( ) ) . await } ) ) ; You can then use the resource value like so: view! { Suspense ( fallback = move | | view! { "Loading..." } ) { ( if let Some ( data ) = resource . get_clone ( ) { view! { ... } } else { // This will never get shown. view! { } } ) } } Accessing the value will automatically trigger suspense, letting you easily
+define loading screens etc. To learn more, read the section on Resources in the book. SSR streaming We’ve had support for server side rendering (SSR) for quite a while now. This
+release, however, introduces SSR streaming. What is SSR streaming? Let’s first look at how normal server side rendering works. If we don’t fetch
+any asynchronous data, everything is simple: just render the app in one shot on
+the server and send it over to the client. If, however, we do have asynchronous
+data, we have a few choices. We might choose not to do any data-fetching on the
+server and instead just send the loading fallback. We can then do all the
+data-fetching client side. This approach has a major disadvantage. When we make
+the request to the server, we already, in principle , know all the asynchronous
+data that needs to be fetched. The client, however, can not know this until the
+WASM binary has been sent over, loaded, and the app hydrated. So we are wasting
+a lot of time where we could have been fetching these asynchronous resources in
+parallel. Another approach would be to load all the data on the server-side and wait for
+all loading to complete before sending the HTMl over to the client. Such an
+approach, however, causes an annoying delay on the client where nothing is
+displayed while the data is loading. SSR streaming strikes a balance between these two approaches. First, an initial
+HTML shell is sent over to the client displaying the fallback view, such as
+loading text or spinners. Then as the data is fetched on the server, the new
+view is rendered and subsequently streamed over to the client over the same
+HTTP request. This new view is then dynamically inserted into the right position
+in the DOM. SSR Streaming Demo SSR streaming offers the best of both worlds. The client displays something
+right away, and data is fetched as soon as possible on the server and the result
+streamed over to the client. This feature is seamlessly integrated with Suspense. The natural streaming
+boundaries are the suspense boundaries, so that the suspense fallback is sent
+first, and then when the suspense resolves, the suspense content is streamed
+over. Learn more by reading the SSR Streaming section of the book. Other changes There have been so many other smaller changes since v0.8. Many were done so long
+ago that it’s hard to think they were done during the v0.9 development cycle.
+One of them is adopting a logo in #551 ! Some of these changes, in fact, are already obsolete as they got replaced with
+new features and refactors later on. You can see the full changelog here for yourself. The future of Sycamore This release was long overdue. In fact, the last stable update (v0.8.2) was over
+2 years ago! Such a long time between releases definitely is not healthy for an
+Open-Source project, and this is mainly my fault, partly due to a lack of time
+for working on Sycamore. After this release, we’ll hopefully settle into a more regular release cycle of
+a couple months rather than years. This will also mean that subsequent updates
+will likely be smaller and contain less breaking changes. This is a good thing.
+It means that we’re getting to a point where we’re pretty happy with the look
+and feel of the current API and we can really start building things on top
+rather than constantly changing the foundations. On a related note, Sycamore is looking for more contributors! If you’re
+interested in contributing code, check out some good first issues on our issue tracker. Contributing doesn’t just mean writing code. It can also
+be contributing to the docs, writing blog posts, or building community libraries
+for Sycamore. Thanks! A big thanks to everyone who contributed to this release! Listed here in no
+particular order: @liigo @wingertge @wa1aric @jhutchins @sapphire-arches @Kromgart @mekanoe @brynnjmccormick @danielnehrig @wainwrightmark @blainehansen @alexisfontaine @mtshr @noxxxxxious @dependabot @Hmikihiro @danielalvsaaker @lukechu10 @iiiii7d @JasonLovesDoggo @davidon-top @sokratisvas @simonhyll @Miroito @nthnd @StarSapien @dyanechi On this page A shiny new website Reactivity v3 View v2 New builder API Type-checked HTML attributes Attribute passthrough Resources SSR streaming Other changes The future of Sycamore Thanks! November 1, 2024 Announcing Sycamore v0.9.0 I’m excited to announce the release of Sycamore v0.9.0! This is once again by
+far the biggest update we’ve had. Sycamore is a reactive Rust UI framework for building web apps using
+WebAssembly. This release is by far the biggest release we’ve ever had, with
+tons of new features and improvements. If you have not used Sycamore before,
+here’s a quick sample: #[component] fn Counter ( initial : i32 ) -> View { let mut value = create_signal ( initial ) ; view! { button ( on : click = move | _ | value += 1 ) { "Count: " ( value ) } } } Sycamore’s community has also grown a lot since the v0.8.0 release. We’ve gone
+from just over 1.0k stars to 2.8k stars on GitHub. What used to be just
+over 350 discord members has now grown to 626 ! We’ve also reached 151k downloads on crates.io . For migrating over from v0.8, check out the migration guide A shiny new website We now have a shiny new website along with a shiny new domain: sycamore.dev ! This was long overdue. We were previously
+using a Netlify subdomain so this change hopefully makes Sycamore look more
+legitimate. The old website had a bunch of issues such as buggy navigation, no
+server side rendering support, and an awkward layout. This new website redesign
+fixes many of those things. The old docs are still available at the old website
+but the index page will now automatically redirect to the new website. A lot of the content has also been rewritten and updated for this new version of
+Sycamore. This includes a brand new “Introduction” section which helps guide you
+through creating your first Sycamore app, a simple Todo manager. This introduces
+various topics such as the view macro, the basics of reactivity, and how
+rendering lists work. This will hopefully help new users interested in Sycamore
+to get started with the main concepts. Here are a few comparisons between the old and new website. figure img,video {
+    border: 1px black;
+    border-style: solid;
+    border-radius: 5px;
+}
+figure video {
+    margin-bottom: 0 !important;
+}
+figure figcaption {
+    text-align: center;
+    margin-top: 0.4em !important;
+} The old homepage The new homepage The old docs The new docs There are still currently a few sections of the docs that needs writing or
+simply needs a few more details. You can help us out by contributing to the
+docs! Simply go to the relevant page and click on “Edit this page on GitHub” at
+the bottom and send us a Pull Request. Reactivity v3 What is probably the biggest new feature of this release is our new reactivity
+system, dubbed Reactivity v3 ! In Reactivity v2 (introduced in the v0.8 release), we eliminated the need for cloning
+signals and other reactive primitives into closures. This, however, came at the
+expense of introducing lifetimes for tracking whether a signal was alive and
+could be accessed. Lifetimes are well known to add complexity to a Rust codebase. So although we no
+longer needed to deal with cloning, we now needed to deal with lifetimes.
+Reactivity v3 fixes all this. We made all signals and other reactive data-types
+both 'static and Copy -able. This way, you get both the benefit of passing
+signals wherever you want without littering your codebase with .clone() everywhere, all without having to worry about lifetimes. Along the way, we also
+eliminated the need for the cx parameter as well! Whereas previously, you might have written: let signal = create_signal ( cx , 123 ) ; create_effect_scoped ( cx , | cx | { let nested = create_signal ( cx , 456 ) ; println! ( "{signal}, {nested}" ) ; } ) ; Now, you can simply write: let signal = create_signal ( 123 ) ; create_effect ( move | | { let nested = create_signal ( 456 ) ; println! ( "{signal}, {nested}" ) ; } ) ; Although a very contrived example, hopefully this demonstrates that the new
+reactivity system is much more simple and intuitive. We no longer need to thread
+the cx parameter everywhere, we no longer have to worry about scoped versus
+non-scoped effects, and we can pass signals wherever we want without infecting
+everything with lifetimes. Under the hood, this involved a huge rewrite of essentially
+the entire sycamore-reactive crate from scratch. The new implementation uses a
+singleton Root datatype for managing the reactive graph instead of a bunch of
+smart pointers everywhere in a tangled mess. This should hopefully make the
+implementation more robust and reliable. View v2 Another major change coming to Sycamore v0.9 is View v2 . Reactivity v3
+removed a lot of friction and boilerplate when interacting with reactive state.
+View v2 continues this theme and removes a bunch of boilerplate from
+components and views. The biggest change is the complete removal of the GenericNode and Html traits which have been infesting Sycamore codebases ever since we introduced SSR
+(server side rendering) support all the way back in v0.5. Witness the difference yourself. Here is Sycamore v0.8 code: #[component(inline_props)] fn Component < 'a , G : Html > ( cx : Scope < 'a > , value : & 'a ReadSignal < i32 > ) -> View < G > { ... } There is a bunch of noise here that is distracting from what this component
+does, such as the 'a lifetime and the G: Html generic parameter. Reactivity
+v3 and View v2 together turns this into: #[component(inline_props)] fn Component ( value : ReadSignal < i32 > ) -> View { ... } Doesn’t this just look so much better? New builder API This refactor also introduces a new builder API. Apologies to all the churn the
+builder API has received over the past few releases, but I really think this new
+API is much better than before. For a long time, the builder API was always a
+second-class citizen compared to the macro. This is no more. In fact, the view! macro has been refactored to simply codegen the builder API behind the
+hood, making the builder API a true first-class citizen in Sycamore. Here is
+what it looks like: div ( ) . class ( "hello-world" ) . children ( ( span ( ) . style ( "color: red" ) . children ( "Hello " ) , em ( ) . children ( "World!" ) , ) ) For more information, check out the builder API docs
+in the book. Type-checked HTML attributes Since we are now using the builder API as the codegen target for the view macro,
+we also get type-checked and auto-completed HTML attributes! Documentation for attributes, provided by Rust-Analyzer in VSCode This also means no more silly typos causing hard to spot bugs, and finally,
+proper support for boolean and optional attributes. Event handlers are also fully type-checked now so that you can use the specific
+event type such as KeyboardEvent instead of the base Event type. Attribute passthrough Suppose you’re writing a component library and are creating a Button component. Which props should you component accept? Ideally, you want your
+component to be as flexible as possible so you should try to provide as many
+HTML attributes as you can. This quickly becomes tedious: you’ll need to provide class , id , disabled , r#type , value , etc. Furthermore, HTML allows
+arbitrary custom attributes of the form data-* as well as a bunch of
+accessibility attributes like aria-* , making this task essentially impossible. Enter attribute passthrough . This allows your component to behave as if it
+were an HTML element, accepting HTML attributes, and letting you forward all of
+these attributes onto the element itself. Here’s an example: #[component(inline_props)] fn Button ( #[prop(attributes(html, button))] attributes : Attributes , children : Children , accent : StringAttribute , ) -> View { view! { // Spread the attributes onto the wrapped element. button ( .. attributes ) { ( children ) } } } // Now use your component just as if it were a normal HTML element. view! { Button ( class = "btn btn-red" , id = "login-button" , on : click = move | _ | login ( ) , // `accent` is passed as a prop, not as an attribute. accent = "primary" , ) { "Login" } } To learn more, read the section on Attribute passthrough in the book. Resources Sycamore v0.9 introduces the Resources API. Resources let you load asynchronous
+data into your app, in a way that is tightly coupled with the reactivity system
+and suspense. Resources are essentially asynchronous nodes in the reactive graph. This means
+that resources can depend on reactive values. For instance, this will refetch
+the resource whenever the id signal is updated. let id = create_signal ( ... ) ; let resource = create_resource ( on ( id , move | | async move { fetch_user ( id . get ( ) ) . await } ) ) ; You can then use the resource value like so: view! { Suspense ( fallback = move | | view! { "Loading..." } ) { ( if let Some ( data ) = resource . get_clone ( ) { view! { ... } } else { // This will never get shown. view! { } } ) } } Accessing the value will automatically trigger suspense, letting you easily
+define loading screens etc. To learn more, read the section on Resources in the book. SSR streaming We’ve had support for server side rendering (SSR) for quite a while now. This
+release, however, introduces SSR streaming. What is SSR streaming? Let’s first look at how normal server side rendering works. If we don’t fetch
+any asynchronous data, everything is simple: just render the app in one shot on
+the server and send it over to the client. If, however, we do have asynchronous
+data, we have a few choices. We might choose not to do any data-fetching on the
+server and instead just send the loading fallback. We can then do all the
+data-fetching client side. This approach has a major disadvantage. When we make
+the request to the server, we already, in principle , know all the asynchronous
+data that needs to be fetched. The client, however, can not know this until the
+WASM binary has been sent over, loaded, and the app hydrated. So we are wasting
+a lot of time where we could have been fetching these asynchronous resources in
+parallel. Another approach would be to load all the data on the server-side and wait for
+all loading to complete before sending the HTMl over to the client. Such an
+approach, however, causes an annoying delay on the client where nothing is
+displayed while the data is loading. SSR streaming strikes a balance between these two approaches. First, an initial
+HTML shell is sent over to the client displaying the fallback view, such as
+loading text or spinners. Then as the data is fetched on the server, the new
+view is rendered and subsequently streamed over to the client over the same
+HTTP request. This new view is then dynamically inserted into the right position
+in the DOM. SSR Streaming Demo SSR streaming offers the best of both worlds. The client displays something
+right away, and data is fetched as soon as possible on the server and the result
+streamed over to the client. This feature is seamlessly integrated with Suspense. The natural streaming
+boundaries are the suspense boundaries, so that the suspense fallback is sent
+first, and then when the suspense resolves, the suspense content is streamed
+over. Learn more by reading the SSR Streaming section of the book. Other changes There have been so many other smaller changes since v0.8. Many were done so long
+ago that it’s hard to think they were done during the v0.9 development cycle.
+One of them is adopting a logo in #551 ! Some of these changes, in fact, are already obsolete as they got replaced with
+new features and refactors later on. You can see the full changelog here for yourself. The future of Sycamore This release was long overdue. In fact, the last stable update (v0.8.2) was over
+2 years ago! Such a long time between releases definitely is not healthy for an
+Open-Source project, and this is mainly my fault, partly due to a lack of time
+for working on Sycamore. After this release, we’ll hopefully settle into a more regular release cycle of
+a couple months rather than years. This will also mean that subsequent updates
+will likely be smaller and contain less breaking changes. This is a good thing.
+It means that we’re getting to a point where we’re pretty happy with the look
+and feel of the current API and we can really start building things on top
+rather than constantly changing the foundations. On a related note, Sycamore is looking for more contributors! If you’re
+interested in contributing code, check out some good first issues on our issue tracker. Contributing doesn’t just mean writing code. It can also
+be contributing to the docs, writing blog posts, or building community libraries
+for Sycamore. Thanks! A big thanks to everyone who contributed to this release! Listed here in no
+particular order: @liigo @wingertge @wa1aric @jhutchins @sapphire-arches @Kromgart @mekanoe @brynnjmccormick @danielnehrig @wainwrightmark @blainehansen @alexisfontaine @mtshr @noxxxxxious @dependabot @Hmikihiro @danielalvsaaker @lukechu10 @iiiii7d @JasonLovesDoggo @davidon-top @sokratisvas @simonhyll @Miroito @nthnd @StarSapien @dyanechi On this page A shiny new website Reactivity v3 View v2 New builder API Type-checked HTML attributes Attribute passthrough Resources SSR streaming Other changes The future of Sycamore Thanks!
+======>
+https://old.reddit.com/r/rust/comments/1ghb8lf/when_can_we_expect_portablesimd_to_be_in_stable/
+-->>-->>
+I'm interested in writing a fast python package in rust and I got interested in simd. I saw Rust has two crates for simd, one that is platform specific and another that is portable. The portability aside is there any downsides to using the    std::arch    crate? And if so any idea when    std:: portable_simd   ` will make it to stable?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gh31df/where_to_hire_rust_nerds/
+-->>-->>
+Hi all I’ve got myself into difficult project, but it’s not something I can do alone. I’ve looked on places like upwork, but it’s just the same “ai ai blockchain crypto ai ai chat gpt” bs    
+
+   Does anyone have suggestions…?!   
+
+   Edit: This really got traction. Thanks for all the replies, but I can only handle so many DMs! Putting this on pause for now.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ghg1da/should_i_stick_to_rust/
+-->>-->>
+Hi, I landed a Software Engineering job a few months ago. To get there, I had to switch to .NET. It took me a few months to learn OOP since Rust was my first language (I have a Computer Science background but never built anything meaningful with non-Rust technologies). Eventually, I managed to get a job as a Python/JS developer. Learning OOP actually helped me ace this interview.   
+
+   Now I'm thinking about my next step. My heart wants Rust, but the job prospects tell me to continue with .NET – I just don't enjoy it as much. I really love programming in Rust, but I live in a country where there are exactly 0 job openings in this language, so all my future jobs would be remote or freelance. I don't particularly mind that, but I'm afraid it would be hard to get work. I would appreciate your input.   
+   
+
+======>
+https://blog.rust-lang.org/inside-rust/2024/11/01/compiler-team-reorg.html
+-->>-->>
+Re-organising the compiler team and recognising our team members Nov. 1, 2024 · davidtwco and wesleywiser
+     on behalf of the compiler team Back in June, the compiler team merged RFC 3599 which re-structured the team to ensure the
+team's policies and processes can support the maintenance of the Rust compiler going forward. Since the last change to the structure of the compiler team, the project has grown a lot -  the
+compiler receives roughly twice as many contributions, more team members regularly take on
+additional responsibilities such as performance triage or backport reviews, and many contributors
+are now paid to work on the project. It is imperative that the compiler team and its procedures are able to scale to meet the demands
+on the project, both to ensure that the compiler team's outputs remain high-quality, but also to
+avoid over-working and burning out our team members. RFC 3599 aims to recognise all of the ways that team members are currently contributing, to ensure
+that the team's processes remain efficient as the team grows, and to strike a balance between team
+membership enabling work efficiency and team membership being a form of status and recognition. Team
+members who have been contributing for a year or more and want to participate in the maintenance
+activities that keep the team going can choose to be maintainers as well as team members. See the
+full RFC for more detailed motivations. With RFC 3599 merged, we're now implementing the compiler team's new structure and with this post,
+announcing and recognising the contributions of the compiler team's membership: alexcrichton , team member alexcrichton has been a prolific contributor since 2013 and has over 2500 merged pull
+requests. Recently they have been working to improve Rust's WASM support for emerging
+standards. apiraino , team member apiraino is an invaluable member of the compiler team, handily tackling the team's
+operational work (agenda preparation, meeting notes, automation, etc) so that the team's work
+progresses smoothly each week. b-naber , team member b-naber has been contributing to the compiler since 2020 and has worked on the compiler's
+constant evaluation, on constant generics and on generic associated types in that time. bjorn3 , team member bjorn3 has been an active contributor to the compiler since 2017, becoming a compiler team
+contributor in 2020. bjorn has been instrumental in the compiler's support for multiple
+codegen backends and is the primary author of the Cranelift codegen backend. BoxyUwU , maintainer BoxyUwU has been contributing relentlessly since 2020, immediately jumping into some of the
+more challenging and technical areas in the compiler. Boxy is a member of the types team and
+has contributed heavily to the implementation and design of constant generics. camelid , team member camelid has contributed for many years, improving constant generics, project documentation, and compiler diagnostics
+and making many refactorings and cleanups on the compiler codebase. chenyukang , maintainer Since 2021, yukang has been tirelessly improving the compiler's diagnostics. It would be hard
+to find a part of the compiler which hasn't had a diagnostic improved by yukang. cjgillot , maintainer cjgillot is another reliable and consistent contributor who has made countless improvements
+to the compiler since they started contributing, notably to the MIR and its optimisations,
+the query system and the HIR. compiler-errors , maintainer compiler-errors is a prolific contributor and prominent member of the types team. They have
+authored numerous improvements to compiler diagnostics, resolved countless ICEs and made
+large refactorings and improvements to the compiler frontend. compiler-errors has worked to
+stabilize many recent features for T-types and WG-async, like async functions in traits. It
+would be difficult to find a contributor who hasn't been helped out or had a patch reviewed by
+compiler-errors. cuviper , team member cuviper regularly contributes to the compiler's build system, driver and LLVM backend, and
+regularly performs backports. davidtwco , maintainer + team co-lead davidtwco co-leads the compiler team and has been contributing since 2017, making patches to
+various parts of the compiler, contributing to various working groups such as non-lexical
+lifetimes, and implementing features such as the non-exhaustive attribute and split debuginfo. DianQK , team member DianQK has been contributing for over a year and has focused on improving the compiler's MIR
+optimisations and fixing and improving our use of LLVM. durin42 , team member durin42 has been a strong contributor to the compiler's LLVM backend, debuginfo and general
+code generation infrastructure since they started contributing in 2021. eholk , team member + council representative eholk is active in the compiler team and async working group, contributing to the design and
+implementation of the proposed dyn* types, generator functions and for await loops.
+Eric also represents the compiler team in the project's leadership council. est31 , team member est31 has been a frequent contributor for almost eight years, making lots of helpful fixes
+and refactorings throughout the compiler. est31 can often be found providing helpful reviews
+and suggestions to Rust's open PRs. estebank , maintainer estebank is almost synonymous with better compiler diagnostics - over eight years and a
+thousand pull requests later, it would be hard to find a Rust user who hasn't seen a
+diagnostic improved by estebank. fee1-dead , maintainer fee1-dead has made many impactful contributions since starting to contribute in 2021,
+including C string literals, keyword generic/effect experiments, const trait design &
+implementation and many bug fixes and diagnostic improvements. flodiebold , team member flodiebold is a long-time prolific contributor to rust-analyzer, making over 300 pull
+requests since starting to contribute to the language server in 2018. fmease , team member fmease has been contributing since 2022, making various improvements to the compiler to
+support rustdoc, as well as refactorings, bug fixes and diagnostic improvements. jackh726 , maintainer jackh726 co-leads the types team and has made numerous improvements to the implementation of
+the type system, most notably enabling the stabilization of generic associated types. jieyouxu , team member jieyouxu does invaluable work in helping maintain bootstrap, compiletest and the new run_make_support library for run-make tests, as well as fixing ICEs and improving
+diagnostics. jswrenn , team member jswrenn has been a stalwart member of the safe transmute project group for years and has
+made various contributions implementing the fruits of the group's efforts. lcnr , maintainer lcnr co-leads the types team and is one of the team's foremost experts on the language's
+type system and the compiler's implementation of it. lcnr's recent work has been focused on
+implementing and stabilizing the compiler's next-generation trait solver. lqd , maintainer lqd started out in the non-lexical lifetimes working group back in 2018 and has been part
+of the fabric of the project since. Compiler performance has seen significant improvements
+thanks to lqd's work on enabling LTO for the compiler and supporting lld. lqd is currently
+leading work on Polonius, the next generation of Rust's borrow checker. lukas-code , team member lukas-code has been contributing regularly since 2022, making improvements and fixing bugs
+throughout the compiler's codebase. Mark-Simulacrum , maintainer Mark-Simulacrum has been working on the Rust project for almost a decade and frequently
+contributes to the team through backports, reverts and patches throughout the codebase. For
+many years, they have helped maintain critical compiler infrastructure such as bootstrap and
+the compiler test harness. matthewjasper , maintainer matthewjasper has been contributing since 2017 and was a key contributor to the non-lexical
+lifetimes working group. They have since made significant improvements to the MIR, progress
+on specialization and stabilizing the THIR unsafeck. Nadrieril , maintainer Nadrieril is the compiler team's expert on exhaustiveness checking, pattern analysis and
+match lowering, their significant refactoring and improvement work have enabled progress on
+previously blocked features such as slice patterns, or-patterns, exhaustive patterns and
+deref patterns. nagisa , team member nagisa has been a compiler team member for many years, with their initial work on Rust
+dating back to 2014. nagisa improves the compiler's LLVM backend and everything to do with
+our MIR, codegen, debuginfo and the compiler backends in general. nikic , team member nikic is the team's LLVM expert and helps ensure the compiler is keeping pace with changes
+in LLVM upstream. nikic is also the lead maintainer of LLVM and has made many improvements
+in LLVM to better support Rust. nikomatsakis , team member nikomatsakis needs no introduction, as one of the original members of the Rust project and
+former lead of the compiler team. nikomatsakis has worked on crucial parts of the compiler
+since their initial implementation. Noratrieb , maintainer Noratrieb has been a staple of the contributor community since they started in 2021,
+working on a swathe of refactorings, bug fixes, features and improvements throughout the
+compiler. Prolific contributors like Nora have an outsized impact across the codebase. Nora
+can often be found answering questions and helping other contributors on Zulip! nnethercote , maintainer nnethercote has been working on compiler performance since 2016, including the benchmarking
+and profiling infrastructure. He has also cleaned up a lot of old crufty code across many
+parts of the compiler. oli-obk , maintainer oli-obk is a long-time compiler team member whose prolific contribution history is a
+challenge to summarize, but include constant evaluation, constant generics, pattern types,
+MIR optimisations, diagnostics, clippy improvements, and existential types. petrochenkov , maintainer petrochenkov is another long-time compiler team member who primarily maintains the compiler's
+name resolution and macro expansion, notoriously tricky and nuanced subsystems of the
+compiler. pnkfelix , maintainer Former compiler team co-lead, pnkfelix is yet another long-time team member has made
+contributions throughout the compiler and made significant contributions to the borrow
+checker, early MIR, and early compiler architecture. RalfJung , team member Known for his work on Miri and Stacked Borrows, an operational semantics for memory accesses
+in the language, RalfJ is the team's foremost expert on the operational semantics of the
+language and also deeply involved in const evaluation. He has been working on achieving sound
+semantics down to lowest levels of the compiler. saethlin , maintainer saethlin has made significant improvements to MIR, Miri, and codegen in their contributions
+since starting in 2021 and has become an invaluable source of knowledge on the language's
+operational semantics/unsafe code guidelines. scottmcm , team member scottmcm is a member of the language team who also regularly implements improvements in the
+compiler, particularly in the MIR and compiler's codegen, always trying to get to the perfect
+machine code. SparrowLii , maintainer SparrowLii is a relatively new member of the team who has resurrected and led the effort to
+parallelize the compiler and has been responsible for the great strides that effort has made
+alongside members of the parallel rustc and compiler performance working groups. spastorino , maintainer spastorino is another alum of the non-lexical lifetimes working group, starting to contribute
+in late 2017. Since NLL, spastorino has implemented negative impls in coherence, refactored
+return position impl trait in trait code to lower as a GAT, and has done a lot of refactors/bugfixes
+to the compiler. TaKO8Ki , team member TaKO8Ki has made lots of diagnostic improvements, helped the team keep on top of regressions
+by adding plenty of regression tests, done lots of refactorings and cleanup, fixed a bunch of
+ICEs in their time contributing. tgross35 , team member tgross35 has been contributing for two years and has been leading the implementation of the
+new f16 and f128 types. the8472 , team member the8472 has been a contributor since 2020 and has helped to improve the quality of code
+generated by the compiler via changes to the Rust standard library. tmandry , team member tmandry has been leading the async working group since its inception and has made remarkable
+contributions to pushing forward the async support in the compiler. tmiasko , team member tmiasko has been contributing for almost four years and has reliably completed invaluable
+work on the compiler's MIR representation, optimisations and LLVM code generation, becoming
+one of the team's experts in these areas. Urgau , team member Urgau has worked on a wide variety of improvements in their time contributing, from check-cfg to range patterns, black_box to lints, and much more. WaffleLapkin , team member WaffleLapkin has been another staple of the contributor community since 2020, doing a
+variety of essential refactors, bug fixes and performance improvements. Like Nora above,
+Waffle is a prolific contributor whose improvements across the compiler have a major impact. wesleywiser , maintainer + team co-lead wesleywiser is co-lead of the compiler team and has been contributing since 2015 while
+working on various parts of the compiler including self-profiling, incremental compilation,
+MIR optimizations and Windows & Linux debugging support. Zalathar , team member Zalathar has been contributing for a little over a year and has had a massive impact,
+working on significant and widespread refactorings to the compiler's support for code
+coverage instrumentation. There are also some team members choosing to become alumni who have made valuable contributions
+during their time as team members: Aaron1011 Aaron1011 contributed widely since 2017, touching basically every part of the compiler,
+fixing bugs, making improvements and doing important refactorings wherever they went. eddyb eddyb is a prolific and incredibly knowledgable member of the compiler team who has made
+widespread improvements throughout the compiler for many years. Much of their work has
+focused on the LLVM backend, the initial implementation and improvements to MIR, the v0 Rust
+name mangling scheme, and a huge number of bug fixes and architectural improvements to the
+compiler. michaelwoerister Another long-time compiler team member, michaelwoerister has been responsible for huge
+improvements and progress in the project's debuginfo, codegen, incremental compilation, LTO
+and PGO, going back to 2013. Thank you to our past, current and future compiler team members and maintainers!

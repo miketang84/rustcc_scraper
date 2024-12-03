@@ -1,0 +1,537 @@
+https://github.com/bmillham/requestlist
+-->>-->>
+Skip to content {"props":{"docsUrl":"https://docs.github.com/get-started/accessibility/keyboard-shortcuts"}} {"resolvedServerColorMode":"day"} Navigation Menu Toggle navigation Sign in Product GitHub Copilot Write better code with AI Security Find and fix vulnerabilities Actions Automate any workflow Codespaces Instant dev environments Issues Plan and track work Code Review Manage code changes Discussions Collaborate outside of code Code Search Find more, search less Explore All features Documentation GitHub Skills Blog Solutions By company size Enterprises Small and medium teams Startups By use case DevSecOps DevOps CI/CD View all use cases By industry Healthcare Financial services Manufacturing Government View all industries View all solutions Resources Topics AI DevOps Security Software Development View all Explore Learning Pathways White papers, Ebooks, Webinars Customer Stories Partners Open Source GitHub Sponsors Fund open source developers The ReadME Project GitHub community articles Repositories Topics Trending Collections Enterprise Enterprise platform AI-powered developer platform Available add-ons Advanced Security Enterprise-grade security features GitHub Copilot Enterprise-grade AI features Premium Support Enterprise-grade 24/7 support Pricing Search or jump to... Search code, repositories, users, issues, pull requests... Search Clear Search syntax tips Provide feedback We read every piece of feedback, and take your input very seriously. Include my email address so I can be contacted Cancel Submit feedback Saved searches Use saved searches to filter your results more quickly Name Query To see all available qualifiers, see our documentation . Cancel Create saved search Sign in Sign up Reseting focus You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert {{ message }} bmillham / requestlist Public Notifications You must be signed in to change notification settings Fork 0 Star 0 A test of rust and diesel 0 stars 0 forks Branches Tags Activity Star Notifications You must be signed in to change notification settings Code Issues 0 Pull requests 0 Actions Projects 0 Security Insights Additional navigation options Code Issues Pull requests Actions Projects Security Insights bmillham/requestlist {"props":{"initialPayload":{"allShortcutsEnabled":false,"path":"/","repo":{"id":895318080,"defaultBranch":"master","name":"requestlist","ownerLogin":"bmillham","currentUserCanPush":false,"isFork":false,"isEmpty":false,"createdAt":"2024-11-28T01:28:26.000Z","ownerAvatar":"https://avatars.githubusercontent.com/u/369085?v=4","public":true,"private":false,"isOrgOwned":false},"currentUser":null,"refInfo":{"name":"master","listCacheKey":"v0:1732757586.0","canEdit":false,"refType":"branch","currentOid":"dd53d6c04172e1db2b1678ba777b88c62cd97633"},"tree":{"items":[{"name":"migrations","path":"migrations","contentType":"directory"},{"name":"src","path":"src","contentType":"directory"},{"name":".env_example","path":".env_example","contentType":"file"},{"name":".gitignore","path":".gitignore","contentType":"file"},{"name":"Cargo.toml","path":"Cargo.toml","contentType":"file"},{"name":"diesel.toml","path":"diesel.toml","contentType":"file"}],"templateDirectorySuggestionUrl":null,"readme":null,"totalCount":6,"showBranchInfobar":false},"fileTree":null,"fileTreeProcessingTime":null,"foldersToFetch":[],"treeExpanded":false,"symbolsExpanded":false,"isOverview":true,"overview":{"banners":{"shouldRecommendReadme":false,"isPersonalRepo":false,"showUseActionBanner":false,"actionSlug":null,"actionId":null,"showProtectBranchBanner":false,"publishBannersInfo":{"dismissActionNoticePath":"/settings/dismiss-notice/publish_action_from_repo","releasePath":"/bmillham/requestlist/releases/new?marketplace=true","showPublishActionBanner":false},"interactionLimitBanner":null,"showInvitationBanner":false,"inviterName":null,"actionsMigrationBannerInfo":{"releaseTags":[],"showImmutableActionsMigrationBanner":false,"initialMigrationStatus":null}},"codeButton":{"contactPath":"/contact","isEnterprise":false,"local":{"protocolInfo":{"httpAvailable":true,"sshAvailable":null,"httpUrl":"https://github.com/bmillham/requestlist.git","showCloneWarning":null,"sshUrl":null,"sshCertificatesRequired":null,"sshCertificatesAvailable":null,"ghCliUrl":"gh repo clone bmillham/requestlist","defaultProtocol":"http","newSshKeyUrl":"/settings/ssh/new","setProtocolPath":"/users/set_protocol"},"platformInfo":{"cloneUrl":"https://desktop.github.com","showVisualStudioCloneButton":false,"visualStudioCloneUrl":"https://windows.github.com","showXcodeCloneButton":false,"xcodeCloneUrl":"xcode://clone?repo=https%3A%2F%2Fgithub.com%2Fbmillham%2Frequestlist","zipballUrl":"/bmillham/requestlist/archive/refs/heads/master.zip"}},"newCodespacePath":"/codespaces/new?hide_repo_select=true\u0026repo=895318080"},"popovers":{"rename":null,"renamedParentRepo":null},"commitCount":"3","overviewFiles":[],"overviewFilesProcessingTime":0}},"appPayload":{"helpUrl":"https://docs.github.com","findFileWorkerPath":"/assets-cdn/worker/find-file-worker-1583894afd38.js","findInFileWorkerPath":"/assets-cdn/worker/find-in-file-worker-67668e8c2caa.js","githubDevUrl":null,"enabled_features":{"code_nav_ui_events":false,"overview_shared_code_dropdown_button":false,"react_blob_overlay":false,"copilot_conversational_ux_embedding_update":false,"copilot_smell_icebreaker_ux":true,"copilot_workspace":false,"accessible_code_button":true}}}} master 1 Branch 0 Tags Go to file Code Folders and files Name Name Last commit message Last commit date Latest commit bmillham Added sample .env file Nov 27, 2024 dd53d6c · Nov 27, 2024 History 3 Commits migrations migrations src src .env_example .env_example .gitignore .gitignore Cargo.toml Cargo.toml diesel.toml diesel.toml View all files {"resolvedServerColorMode":"day"} About A test of rust and diesel Activity Stars 0 stars Watchers 1 watching Forks 0 forks Report repository Releases No releases published Packages 0 No packages published Languages Rust 100.0% Footer © 2024 GitHub, Inc. Footer navigation Terms Privacy Security Status Docs Contact Manage cookies Do not share my personal information You can’t perform that action at this time.
+======>
+https://github.com/ChemAI-Lab/molpipx/
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX and Rust. MOLPIPx is a JAX -based library that provides an implementation of PIP models compatible with, FLAX : Neural network library. GPU friendly. Fully differentiable. MSA files to JAX This library translates the MSA files, specifically the _file_.MONO and _file_.POLY files to the corresponding JAX version, _file_mono.py and _file_poly.py .
+The MSA files must be generated before, for more information please see https://github.com/szquchen/MSA-2.0 MSA References: Xie, Z.; Bowman, J.M. Permutationally Invariant Polynomial Basis for Molecular Energy Surface Fitting via Monomial Symmetrization. J. Chem. Theory Comput. 2010, 6, 26-34. Installation Install MOLPIPx using: git clone https://github.com/ChemAI-Lab/molpipx.git cd molpipx
+pip install . MSA-JAX files generation MOLPIPx package includes msa_file_generator , which translates monomial and polynomial files from MSA to JAX and Rust for molecules.
+Check out an example on generating msa files from molpipx import msa_file_generator head_files = 'MOL_<info>_<deg>' path = '<path_to_the_files>' label = '<file_label>' msa_file_generator ( head_files , path , label ) The structure of the library is kept simple, as each molecular system could need individual elements. Models MOLPIPx incorporated PIPs with three main regression models, i.e., linear regression, neural networks and Gaussian processes. This library leverages two main automatic differentiation engines, JAX for
+The Python version and Enzyme-AD for the Rust version improve the simulation of a wide range of chemical systems. Rust Version The Rust version makes use of std::autodiff , an experimental feature of Rust which is currently in the process of upstreaming.
+While upstreaming is in progress, you will need to build our custom fork of Rust which already includes autodiff.
+Instruction for how to do so are available here .
+Once upstreaming completed, you will be able to use any nightly Rust version.
+This tracking issue shows the progress in upstreaming the remaining autodiff pieces. Tutorials Check out our tutorials to get started with MOLPIPx. These tutorials define inputs for different regression approaches, train machine learning models with or without forces, and make predictions. Linear regression with permutationally invariant polynomials (Linear PIP) Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP) Permutationally Invariant Polynomial Neural Networks (PIP-NN) Permutationally Invariant Polynomial Gaussian Process (PIP-GP) Bibtex @misc{molpipx2024,
+      title={MOLPIPx: an end-to-end differentiable package for permutationally invariant polynomials in Python and Rust}, 
+      author={Manuel S. Drehwald and Asma Jamali and Rodrigo A. Vargas-Hernández},
+      year={2024},
+      eprint={2411.17011},
+      archivePrefix={arXiv},
+      primaryClass={physics.chem-ph},
+      url={https://arxiv.org/abs/2411.17011}, 
+}
+
+======>
+https://github.com/ynqa/jnv
+-->>-->>
+Repository files navigation README Code of conduct MIT license jnv is designed for navigating JSON,
+offering an interactive JSON viewer and jq filter editor. Inspired by jid and jiq . Features Interactive JSON viewer and jq filter editor Syntax highlighting for JSON Use jaq to apply jq filter This eliminates the need for users to prepare jq on their own. Important Starting from v0.3.0, the transition from libjq Rust binding j9 to jq clone jaq was made. This change eliminated the need to manage C-related dependencies
+that include external tools like autoconf, thus simplifying the build process.
+However, please note that some filters are not yet supported by jaq.
+For more details, refer to GitHub issue #24 . Please continue to provide feedback regarding this transition. Capable of accommodating various format Input: File, Stdin Data: A JSON or multiple JSON structures
+that can be deserialized with StreamDeserializer ,
+such as JSON Lines Auto-completion for the filter Only supports: Identity Object Identifier-Index Array Index Hint message to evaluate the filter Installation Homebrew See here for more info. brew install jnv Or install via Homebrew Tap: brew install ynqa/tap/jnv MacPorts See here for more info. sudo port install jnv Nix / NixOS See package entry on search.nixos.org for more info. nix-shell -p jnv conda-forge See here for more info. pixi global install jnv # or cat data.json | pixi exec jnv # or conda install jnv Docker Build
+(In the near future, the image will be available on something of registries) docker build -t jnv . And Run
+(The following commad is just an example. Please modify the path to the file you want to mount) docker run -it --rm -v $( pwd ) /debug.json:/jnv/debug.json jnv /jnv/debug.json Cargo cargo install jnv Examples cat data.json | jnv # or jnv data.json Keymap Key Action Ctrl + C Exit jnv Tab jq filter auto-completion ← Move the cursor one character to the left → Move the cursor one character to the right Ctrl + A Move the cursor to the start of the filter Ctrl + E Move the cursor to the end of the filter Backspace Delete a character of filter at the cursor position Ctrl + U Delete all characters of filter ↑ , Ctrl + K Move the cursor one entry up in JSON viewer ↓ , Ctrl + J Move the cursor one entry down in JSON viewer Ctrl + H Move to the last entry in JSON viewer Ctrl + L Move to the first entry in JSON viewer Enter Toggle expand/collapse in JSON viewer Ctrl + P Expand all folds in JSON viewer Ctrl + N Collapse all folds in JSON viewer Alt + B Move the cursor to the previous nearest character within set( . , | , ( , ) , [ , ] ) Alt + F Move the cursor to the next nearest character within set( . , | , ( , ) , [ , ] ) Ctrl + W Erase to the previous nearest character within set( . , | , ( , ) , [ , ] ) Alt + D Erase to the next nearest character within set( . , | , ( , ) , [ , ] ) Ctrl + O Copy current JSON content to clipboard Ctrl + Q Copy current query to clipboard Usage JSON navigator and interactive filter leveraging jq
+
+Usage: jnv [OPTIONS] [INPUT]
+
+Examples:
+- Read from a file:
+        jnv data.json
+
+- Read from standard input:
+        cat data.json | jnv
+
+Arguments:
+  [INPUT]  Optional path to a JSON file. If not provided or if " - " is specified, reads from standard input
+
+Options:
+  -e, --edit-mode < EDIT_MODE > Edit mode for the interface ( ' insert ' or ' overwrite ' ). [default: insert]
+  -i, --indent < INDENT > Number of spaces used for indentation in the visualized data. [default: 2]
+  -n, --no-hint
+          Disables the display of hints.
+  -d, --expand-depth < JSON_EXPAND_DEPTH > Initial depth to which JSON nodes are expanded in the visualization. [default: 3]
+  -s, --limit-length < JSON_LIMIT_LENGTH > Limit length of JSON array in the visualization. [default: 50]
+  -l, --suggestion-list-length < SUGGESTION_LIST_LENGTH > Number of suggestions visible in the list. [default: 3]
+  -h, --help
+          Print help (see more with ' --help ' )
+  -V, --version
+          Print version Stargazers over time
+======>
+https://github.com/01mf02/jaq?tab=readme-ov-file#performance
+-->>-->>
+Repository files navigation README MIT license jaq jaq (pronounced /ʒaːk/, like Jacques 1 ) is a clone of the JSON data processing tool jq .
+jaq aims to support a large subset of jq's syntax and operations. You can try jaq online on the jaq playground .
+Instructions for the playground can be found here . jaq focuses on three goals: Correctness :
+jaq aims to provide a more correct and predictable implementation of jq,
+while preserving compatibility with jq in most cases. Performance :
+I created jaq originally because I was bothered by the long start-up time of jq 1.6 ,
+which amounts to about 50ms on my machine.
+This can be particularly seen when processing a large number of small files.
+Although the startup time has been vastly improved in jq 1.7,
+jaq is still faster than jq on many other benchmarks . Simplicity :
+jaq aims to have a simple and small implementation, in order to
+reduce the potential for bugs and to
+facilitate contributions. I drew inspiration from another Rust program, namely jql .
+However, unlike jql, jaq aims to closely imitate jq's syntax and semantics.
+This should allow users proficient in jq to easily use jaq. Installation Binaries You can download binaries for Linux, Mac, and Windows on the releases page . You may also install jaq using homebrew on macOS or Linux: $ brew install jaq
+$ brew install --HEAD jaq # latest development version Or using scoop on Windows: $ scoop install main/jaq From Source To compile jaq, you need a Rust toolchain.
+See https://rustup.rs/ for instructions.
+(Note that Rust compilers shipped with Linux distributions
+may be too outdated to compile jaq.) Any of the following commands install jaq: $ cargo install --locked jaq
+$ cargo install --locked --git https://github.com/01mf02/jaq # latest development version On my system, both commands place the executable at ~/.cargo/bin/jaq . If you have cloned this repository, you can also build jaq by executing one of the commands in the cloned repository: $ cargo build --release # places binary into target/release/jaq
+$ cargo install --locked --path jaq # installs binary jaq should work on any system supported by Rust.
+If it does not, please file an issue. Examples The following examples should give an impression of what jaq can currently do.
+You should obtain the same outputs by replacing jaq with jq.
+If not, your filing an issue would be appreciated. :)
+The syntax is documented in the jq manual . Access a field: $ echo '{"a": 1, "b": 2}' | jaq '.a'
+1 Add values: $ echo '{"a": 1, "b": 2}' | jaq 'add'
+3 Construct an array from an object in two ways and show that they are equal: $ echo '{"a": 1, "b": 2}' | jaq '[.a, .b] == [.[]]'
+true Apply a filter to all elements of an array and filter the results: $ echo '[0, 1, 2, 3]' | jaq 'map(.*2) | [.[] | select(. < 5)]'
+[0, 2, 4] Read (slurp) input values into an array and get the average of its elements: $ echo '1 2 3 4' | jaq -s 'add / length'
+2.5 Repeatedly apply a filter to itself and output the intermediate results: $ echo '0' | jaq '[recurse(.+1; . < 3)]'
+[0, 1, 2] Lazily fold over inputs and output intermediate results: $ seq 1000 | jaq -n 'foreach inputs as $x (0; . + $x)'
+1 3 6 10 15 [...] Performance The following evaluation consists of several benchmarks that
+allow comparing the performance of jaq, jq, and gojq .
+The empty benchmark runs n times the filter empty with null input,
+serving to measure the startup time.
+The bf-fib benchmark runs a Brainfuck interpreter written in jq,
+interpreting a Brainfuck script that produces n Fibonacci numbers.
+The other benchmarks evaluate various filters with n as input;
+see bench.sh for details. I generated the benchmark data with bench.sh target/release/jaq jq-1.7.1 gojq-0.12.16 | tee bench.json on a Linux system with an AMD Ryzen 5 5500U. 2 I then processed the results with a "one-liner" (stretching the term and the line a bit): jq -rs '.[] | "|`\(.name)`|\(.n)|" + ([.time[] | min | (.*1000|round)? // "N/A"] | min as $total_min | map(if . == $total_min then "**\(.)**" else "\(.)" end) | join("|"))' bench.json (Of course, you can also use jaq here instead of jq.)
+Finally, I concatenated the table header with the output and piped it through pandoc -t gfm . Table: Evaluation results in milliseconds ("N/A" if error or more than 10 seconds). Benchmark n jaq-2.0 jq-1.7.1 gojq-0.12.16 empty 512 300 500 230 bf-fib 13 440 1230 570 defs 100000 60 N/A 1020 upto 8192 0 470 460 reduce-update 16384 10 550 1340 reverse 1048576 40 690 280 sort 1048576 110 530 630 group-by 1048576 500 1920 1500 min-max 1048576 210 320 260 add 1048576 460 630 1300 kv 131072 110 150 230 kv-update 131072 130 540 470 kv-entries 131072 570 1150 730 ex-implode 1048576 520 1110 580 reduce 1048576 770 890 N/A try-catch 1048576 290 320 370 repeat 1048576 140 840 530 from 1048576 320 1010 590 last 1048576 40 240 110 pyramid 524288 340 350 480 tree-contains 23 70 610 210 tree-flatten 17 780 360 10 tree-update 17 700 970 1340 tree-paths 17 440 280 870 to-fromjson 65536 40 360 110 ack 7 520 710 1220 range-prop 128 360 320 230 cumsum 1048576 280 380 450 cumsum-xy 1048576 430 470 710 The results show that
+jaq-2.0 is fastest on 25 benchmarks, whereas
+jq-1.7.1 is fastest on 1 benchmark and
+gojq-0.12.16 is fastest on 3 benchmarks.
+gojq is much faster on tree-flatten because it implements the filter flatten natively instead of by definition. Features Here is an overview that summarises: features already implemented, and features not yet implemented. Contributions to extend jaq are highly welcome. Basics Identity ( . ) Recursion ( .. ) Basic data types (null, boolean, number, string, array, object) if-then-else ( if .a < .b then .a else .b end ) Folding ( reduce .[] as $x (0; . + $x) , foreach .[] as $x (0; . + $x; . + .) ) Error handling ( try ... catch ... ) Breaking ( label $x | f | ., break $x ) String interpolation ( "The successor of \(.) is \(.+1)." ) Format strings ( @json , @text , @csv , @tsv , @html , @sh , @base64 , @base64d ) Paths Indexing of arrays/objects ( .[0] , .a , .["a"] ) Iterating over arrays/objects ( .[] ) Optional indexing/iteration ( .a? , .[]? ) Array slices ( .[3:7] , .[0:-1] ) String slices Operators Composition ( | ) Variable binding ( . as $x | $x ) Pattern  binding ( . as {a: [$x, {("b", "c"): $y, $z}]} | $x, $y, $z ) Concatenation ( , ) Plain assignment ( = ) Update assignment ( |= ) Arithmetic update assignment ( += , -= , ...) Alternation ( // ) Logic ( or , and ) Equality and comparison ( .a == .b , .a < .b ) Arithmetic ( + , - , * , / , % ) Negation ( - ) Error suppression ( ? ) Definitions Basic definitions ( def map(f): [.[] | f]; ) Recursive definitions ( def r: r; r ) Core filters Empty ( empty ) Errors ( error ) Input ( inputs ) Length ( length , utf8bytelength ) Rounding ( floor , round , ceil ) String <-> JSON ( fromjson , tojson ) String <-> integers ( explode , implode ) String normalisation ( ascii_downcase , ascii_upcase ) String prefix/postfix ( startswith , endswith , ltrimstr , rtrimstr ) String whitespace trimming ( trim , ltrim , rtrim ) String splitting ( split("foo") ) Array filters ( reverse , sort , sort_by(-.) , group_by , min_by , max_by ) Stream consumers ( first , last , range , fold ) Stream generators ( range , recurse ) Time ( now , fromdateiso8601 , todateiso8601 ) More numeric filters ( sqrt , sin , log , pow , ...) ( list of numeric filters ) More time filters ( strptime , strftime , strflocaltime , mktime , gmtime , and localtime ) Standard filters These filters are defined via more basic filters.
+Their definitions are at std.jq . Undefined ( null ) Booleans ( true , false , not ) Special numbers ( nan , infinite , isnan , isinfinite , isfinite , isnormal ) Type ( type ) Filtering ( select(. >= 0) ) Selection ( values , nulls , booleans , numbers , strings , arrays , objects , iterables , scalars ) Conversion ( tostring , tonumber ) Iterable filters ( map(.+1) , map_values(.+1) , add , join("a") ) Array filters ( transpose , first , last , nth(10) , flatten , min , max ) Object-array conversion ( to_entries , from_entries , with_entries ) Universal/existential ( all , any ) Recursion ( walk ) I/O ( input ) Regular expressions ( test , scan , match , capture , splits , sub , gsub ) Time ( fromdate , todate ) Numeric filters jaq imports many filters from libm and follows their type signature. Full list of numeric filters defined in jaq Zero-argument filters: acos acosh asin asinh atan atanh cbrt cos cosh erf erfc exp exp10 exp2 expm1 fabs frexp , which returns pairs of (float, integer). gamma ilogb , which returns integers. j0 j1 lgamma log log10 log1p log2 logb modf , which returns pairs of (float, float). nearbyint pow10 rint significand sin sinh sqrt tan tanh tgamma trunc y0 y1 Two-argument filters that ignore . : atan2 copysign drem fdim fmax fmin fmod hypot jn , which takes an integer as first argument. ldexp , which takes an integer as second argument. nextafter nexttoward pow remainder scalb scalbln , which takes as integer as second argument. yn , which takes an integer as first argument. Three-argument filters that ignore . : fma Modules include "path"; import "path" as mod; import "path" as $data; Advanced features jaq currently does not aim to support several features of jq, such as: SQL-style operators Streaming Differences between jq and jaq Numbers jq uses 64-bit floating-point numbers (floats) for any number.
+By contrast, jaq interprets
+numbers such as 0   or -42 as machine-sized integers and
+numbers such as 0.0 or 3e8 as 64-bit floats.
+Many operations in jaq, such as array indexing,
+check whether the passed numbers are indeed integer.
+The motivation behind this is to avoid
+rounding errors that may silently lead to wrong results.
+For example: $ jq  -n '[0, 1, 2] | .[1.0000000000000001]'
+1
+$ jaq -n '[0, 1, 2] | .[1.0000000000000001]'
+Error: cannot use 1.0 as integer
+$ jaq -n '[0, 1, 2] | .[1]'
+1 The rules of jaq are: The sum, difference, product, and remainder of two integers is integer. Any other operation between two numbers yields a float. Examples: $ jaq -n '1 + 2'
+3
+$ jaq -n '10 / 2'
+5.0
+$ jaq -n '1.0 + 2'
+3.0 You can convert an integer to a floating-point number e.g.
+by adding 0.0, by multiplying with 1.0, or by dividing with 1.
+You can convert a floating-point number to an integer by round , floor , or ceil : $ jaq -n '1.2 | [floor, round, ceil]'
+[1, 1, 2] NaN and infinity In jq, division by 0 yields an error, whereas
+in jaq, n / 0 yields nan if n == 0 , infinite if n > 0 , and -infinite if n < 0 .
+jaq's behaviour is closer to the IEEE standard for floating-point arithmetic (IEEE 754). jaq implements a total ordering on floating-point numbers to allow sorting values.
+Therefore, it unfortunately has to enforce that nan == nan .
+(jq gets around this by enforcing that nan < nan is true, yet nan > nan is false,
+which breaks basic laws about total orders.) Like jq, jaq prints nan and infinite as null in JSON,
+because JSON does not support encoding these values as numbers. Assignments Like jq, jaq allows for assignments of the form p |= f .
+However, jaq interprets these assignments differently.
+Fortunately, in most cases, the result is the same. In jq, an assignment p |= f first constructs paths to all values that match p . Only then , it applies the filter f to these values. In jaq, an assignment p |= f applies f immediately to any value matching p .
+Unlike in jq, assignment does not explicitly construct paths. jaq's implementation of assignment likely yields higher performance,
+because it does not construct paths.
+Furthermore, this allows jaq to use multiple outputs of the right-hand side, whereas
+jq uses only the first.
+For example, 0 | (., .) |= (., .+1) yields 0 1 1 2 in jaq,
+whereas it yields only 0 in jq.
+However, {a: 1} | .a |= (2, 3) yields {"a": 2} in both jaq and jq,
+because an object can only associate a single value with any given key,
+so we cannot use multiple outputs in a meaningful way here. Because jaq does not construct paths,
+it does not allow some filters on the left-hand side of assignments,
+for example first , last , limit :
+For example, [1, 2, 3] | first(.[]) |= .-1 yields [0, 2, 3] in jq, but is invalid in jaq.
+Similarly, [1, 2, 3] | limit(2; .[]) |= .-1 yields [0, 1, 3] in jq, but is invalid in jaq.
+(Inconsequentially, jq also does not allow for last .) Folding jq and jaq provide filters reduce xs as $x (init; update) , foreach xs as $x (init; update) , and foreach xs as $x (init; update; project) , where foreach xs as $x (init; update) is equivalent to foreach xs as $x (init; update; .) . In jaq, the output of these filters is defined very simply:
+Assuming that xs evaluates to x0 , x1 , ..., xn , reduce xs as $x (init; update) evaluates to init
+| x0 as $x | update
+| ...
+| xn as $x | update and foreach xs as $x (init; update; project) evaluates to init |
+( x0 as $x | update | project,
+( ...
+( xn as $x | update | project,
+( empty )...) The interpretation of reduce / foreach in jaq has the following advantages over jq: It deals very naturally with filters that yield multiple outputs.
+In contrast, jq discriminates outputs of f ,
+because it recurses only on the last of them,
+although it outputs all of them. Example foreach (5, 10) as $x (1; .+$x, -.) yields 6, -1, 9, 1 in jq, whereas it yields 6, 16, -6, -1, 9, 1 in jaq.
+We can see that both jq and jaq yield the values 6 and -1 resulting from the first iteration (where $x is 5), namely 1 | 5 as $x | (.+$x, -.) .
+However, jq performs the second iteration (where $x is 10) only on the last value returned from the first iteration, namely -1 ,
+yielding the values 9 and 1 resulting from -1 | 10 as $x | (.+$x, -.) .
+jaq yields these values too, but it also performs the second iteration
+on all other values returned from the first iteration, namely 6 ,
+yielding the values 16 and -6 that result from 6 | 10 as $x | (.+$x, -.) . It makes the implementation of reduce and foreach special cases of the same code, reducing the potential for bugs. Miscellaneous Slurping: When files are slurped in (via the -s / --slurp option),
+jq combines the inputs of all files into one single array, whereas
+jaq yields an array for every file.
+This is motivated by the -i / --in-place option,
+which could not work with the behaviour implemented by jq.
+The behaviour of jq can be approximated in jaq;
+for example, to achieve the output of jq -s . a b , you may use jaq -s . <(cat a b) . Cartesian products:
+In jq, [(1,2) * (3,4)] yields [3, 6, 4, 8] , whereas [{a: (1,2), b: (3,4)} | .a * .b] yields [3, 4, 6, 8] .
+jaq yields [3, 4, 6, 8] in both cases. Indexing null :
+In jq, when given null input, .["a"] and .[0] yield null , but .[] yields an error.
+jaq yields an error in all cases to prevent accidental indexing of null values.
+To obtain the same behaviour in jq and jaq, you can use .["a"]? // null or .[0]? // null instead. List updating:
+In jq, [0, 1] | .[3] = 3 yields [0, 1, null, 3] ; that is,
+jq fills up the list with null s if we update beyond its size.
+In contrast, jaq fails with an out-of-bounds error in such a case. Input reading:
+When there is no more input value left,
+in jq, input yields an error, whereas in jaq, it yields no output value. Joining:
+When given an array [x0, x1, ..., xn] ,
+in jq, join(x) converts all elements of the input array to strings and intersperses them with x , whereas
+in jaq, join(x) simply calculates x0 + x + x1 + x + ... + xn .
+When all elements of the input array and x are strings, jq and jaq yield the same output. Contributing Contributions to jaq are welcome.
+Please make sure that after your change, cargo test runs successfully. Acknowledgements This project was funded through the NGI0 Entrust Fund, a fund established by NLnet with financial support from the
+European Commission's Next Generation Internet programme, under the aegis of DG Communications Networks, Content and Technology under grant agreement N o 101069594. jaq has also profited from: serde_json to read and colored_json to output JSON, chumsky to parse and ariadne to pretty-print parse errors, mimalloc to boost the performance of memory allocation, and the Rust standard library, in particular its awesome Iterator ,
+which builds the rock-solid base of jaq's filter execution Footnotes I wanted to create a tool that should be discreet and obliging, like a good waiter.
+And when I think of a typical name for a (French) waiter, to my mind comes "Jacques".
+Later, I found out about the old French word jacquet , meaning "squirrel",
+which makes for a nice ex post inspiration for the name. ↩ The binaries for jq-1.7.1 and gojq-0.12.16 were retrieved from their GitHub release pages. ↩
+======>
+https://github.com/wader/jqjq
+-->>-->>
+Repository files navigation README MIT license jqjq jq implementation of jq Why? It started when researching how to write decoders in jq for fq which ended up involving some AST rewriting and walking and then it escalated a bit. It's also a great way to show that jq is a very expressive, capable and neat language! There is a jqplay snippet with jqjq if you want to play around. Use via jqjq wrapper $ ./jqjq -n ' def f: 1,8; [f,f] | map(.+105) | implode ' " jqjq " $ ./jqjq ' .+. | map(.+105) | implode ' <<< ' [1,8] ' " jqjq " # eval example above using jqjq in jqjq. will take some time. # eval the concatenation of jqjq.jq as a string and the example $ ./jqjq " eval( $( jq -Rs . jqjq.jq ) +.) " <<< ' "eval(\"def f: 1,8; [f,f] | map(.+105) | implode\")" ' " jqjq " # jqjq has a REPL $ ./jqjq --repl > 1,2,3 | . * 2
+2
+4
+6 > " jqjq " | explode | map(.-32) | implode " JQJQ " > " jqjq " | [eval( " explode[] | .-32 " )] | implode " JQJQ " > ^D # run with gojq or jaq $ ./jqjq --jq gojq -n 1+2
+3
+$ ./jqjq --jq jaq -n 1+2
+3 # run 01mf02's adaptation of itchyny's bf.jq running fib.bf $ ./jqjq -n " \" $( cat fib.bf ) \" | $( cat bf.jq ) " " 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233 " Use with jq $ jq -n -L . ' include "jqjq"; eval("def f: 1,8; [f,f] | map(.+105) | implode") ' " jqjq " $ jq -L . ' include "jqjq"; eval("(.+.) | map(.+105) | implode") ' <<< ' [1,8] ' " jqjq " # can be used as path expression (only gojq for now because of jq issue) $ gojq -cn -L . ' include "jqjq"; {a:0, b:1} | eval(".a, .b") += 1 ' { " a " :1, " b " :2} Run tests # run jqjq's tests with jq and jqjq (via jq) $ make test # run jqjq's tests with jqjq (via jaq) $ JQ=jaq make test-jqjq Note that the tests are meant to be used with jq 1.7.1. Progress 123, .123, 1.23, 1.23e2, 1.23e+2, "abc", true, false, null Scalar literals Unicode codepoint escape "\ud83d\ude03" Handle surrogate pairs \ud800 - \udfff , should translate to codepoint. Control code and quote escape "\"\n\r\t\f\b\\\/" "abc \(123)" String interpolation {key: "value"} Object literal {key} {"key"} {$key} {(f): f} {("a","b"): (1,2), c: 2} Multiple key/value outputs {"\("abc")": 123} Key string interpolation {key: 1 | .} Multi value queries [1,2,3] Array literal, collect 1, 2 Comma operator 1 | 2 Pipe operator + , - , * , / , % Arithmetic operators +123 , -1 Unary operators == , != , < , <= , > , >= Comparison operators 123 as $a | ... Binding (1,2,3) as $a | ... Binding per output {a: [123]} as {a: [$v]} Destructuring binding . Identity .a , ."a" , .[1] , .[f] Index .key[123]."key"[f] Suffix expressions .a.b Multi index .a.b? Optional index .a[] Iterate index .[]? Try iterate .[] Iterate .[start:stop] , .[:stop] , .[start:] Array slicing .[{start: 123, stop: 123}] Slice using object Slice and path tracking path(.[1:2]) -> [{"start":1,"end":2}] try f , Shorthand for try f catch empty f? Shorthand for try f catch empty and , or operators not operator if f then 2 else 3 end Conditional if f then 2 end Optional else if f then 2 elif f then 3 end Else if clauses if true,false then "a" else "b" end Multiple condition outputs reduce f as $a (init; update) Reduce outputs from f into one output foreach f as $a (init; update; extract) Foreach outputs of f update state and output extracted value Optional extract f = v Assignment f |= v , f += Update assignment += , -= , *= , /= , %= Arithmetic update assignment eval($expr) (jqjq specific) path(f) Output paths for f input , inputs Builtins / standard library add all , all(cond) , all(gen; cond) any , any(cond) , any(gen; cond) bsearch($target) capture($val) , capture(re; mods) debug (passthrough) debug(msgs) del(f) delpaths($paths) (passthrough) empty (passthrough) endswith($s) env error($v) (passthrough) error (passthrough) explode (passthrough) first(f) first flatten , flatten($depth) from_entries fromjson getpath(path) (passthrough) group , group_by(f) gsub($regex; f) (passthrough) gsub($regex; f; $flags) (passthrough) halt_error , halt_error($exit_code) has($key) (passthrough) implode (passthrough) in(xs) index($i) indices($i) isempty join($s) last(f) last length (passthrough) limit($n; f) map(f) match($regex; $flags) (passthrough) match($val) max , max_by(f) min , min_by(f) nth($n; f); nth($n) paths range($to) , range($from; $to) , range($from; $to; $by) recurse , recurse(f) repeat reverse rindex($i) scalars select(f) setpath (passthrough) sort , sort_by(f) split($s) split($re; flags) splits($re) , splits($re; flags) startswith($s) test($val) test($regex; $flags) (passthrough) to_entries tojson tonumber (passthrough) tostring (passthrough) transpose type (passthrough) unique , unique_by(f) until(cond; next) while(cond; update) with_entries Math functions, sin/0 , ... atan/2 , ... More... def f: . Function declaration def f(lambda): lambda Lambda argument (def f: 123; f) | . Closure function def f: def _f: 123; _f; f Local function def f($binding): $binding Binding arguments def f: f; Recursion .. Recurse input, same as recurse // Alternative operator ?// Alternative destructuring operator $ENV @format "abc \(.)" Format string @base32 @base64 @csv @html @sh @tsv @uri @json @text label $out | break $out Break out include "f" , import "f" Include CLI options --help / -h --null-input / -n --raw-input / -R --slurp / -s --compact-output / -c --raw-output / -r --raw-output0 --join-output / -j --color-output / -C --monochrome-output / -M --tab --indent n --unbuffered --from-file / -f -L directory --arg name value --argjson name text --rawfile name filename --slurpfile name filename --args --jsonargs --run-tests --run-tests [filename] -- More... Non-standard CLI options --jq --lex --parse --repl --no-builtins Host jq jq gojq jqjq Used to work but runs out of memory on my laptop jaq xq Fails on missing debug , maths, jqjq lex returns empty (regexp issues?) Bugs jq's test suite $ ./jqjq --run-tests < ../jq/tests/jq.test | grep passed
+312 of 469 tests passed Note that expected test values are based on stedolan's jq. If you run with a different jq implementation like gojq some tests might fail because of different error messages, support for arbitrary precision integers etc. Design overview jqjq has the common lex, parse, eval design. Lex Lexer gets a string and chews off parts from left to right producing an array of tokens [{<name>: ...}, ...] . Each chew is done by testing regex:s in a priority order to make sure to match longer prefixes first, ex: += is matched before + . For a match a lambda is evaluated, usually {<token-name>: .} , but in some cases like for quoted strings it is a bit more complicated. The lexer also has a stack to keep track of balance of seen ( , ) and \( to properly know how to chop of a string with interpolation into tokens. e.g. is ) a right parenthesis or continuation of a string as in "abc \(123) def" ? You can use ./jqjq --lex '...' to lex and see the tokens. Parse Parser takes an array of tokens and uses a left-to-right (LR) parser with backtracking in combination with precedence climbing for infix operators to not end up in an infinite loop (ex parser rule E -> E + E ). Backtracking is done by outputting empty for non-match and // to try the next rule, ex: a // b // ... // error where a and b are functions that try to match a rule. When a rule has matched it returns an array with the pair [<tokens left>, <ast>] . <ast> uses the same AST design as gojq. You can use ./jqjq --parse '...' to lex and parse and see the AST tree. Eval Eval is done by traversing the AST tree and evaluates each AST node and also keeps track of the current path and environment. Path is used in jq to keep track of current path to where you are in the input. The tracking can be done as long as you only operate on the input and don't create and output new values. I.e path(.a[1]), .b outputs ["a",1] and ["b"] . This is also used to implement assignment and some other operators. Environment is an object with current functions and bindings. Functions have the key name <name>/<arity> and the value is a function AST. Bindings use the key name $<name>/0 and the value is {value: <value>} where value is normal jq value. When evaluating the AST eval function get the current AST node, path and environment and will output zero, one or more arrays with the pair [<path>, <value>] . Path can be [null] if the evaluation produced a "new" value etc so that path tracking is not possible. Problems, TODOs, issues and unknowns Better error messages. The "environment" pass around is not very efficient and also it makes support recursion a bit awkward (called function is injected in the env at call time). "," operator in jq (and gojq) is left associate but for the way jqjq parses it creates the correct parse tree when it's right associate. Don't know why. Suffix with multiple [] outputs values in wrong order. String literal using interpolation that has more than one generator outputs in wrong order. Ex: "\(1,2) \(3,4)" . Non-associative operators like == should fail, ex: 1 == 2 == 3 . Objects are parsed differently compared to gojq. gojq has a list of pipe queries, jqjq will only have one that might be pipe op. Less "passthrough" piggyback on jq features: reduce/foreach via recursive function? similar to if or {} -literal? try/catch via some backtrack return value? change [path, value] to include an error somehow? How to support label/break ? How to support delpaths (usd by del etc). Have to keep paths the same while deleting a group of paths? use sentinel value? work with paths instead? Rewrite AST before eval, currently if and some others do rewrite (optional parts etc) while evaluating. Rethink invalid path handling, current [null] is used as sentinel value. {a:123} | .a |= empty should remove the key. Lookup ident and bindings during parse, ex def f(no_used): 123; f(does_not_exist) and def f: $does_not_exist, does_not_exist; 123 should fail. Add a AST re-write stage between parse and eval? some rewrite done during eval can probably happen before Test arguments, env, $ENV / $ARGS somehow? extend the test format? Refactor to share more between filter mode and REPL (globals etc) Move lookup of env, args etc to builtin_undefined_func Useful references jq - Command-line JSON processor jq's builtin.jq jq Language Description jq simplified grammar gojq - Pure Go implementation of jq jaq - A jq clone focused on correctness, speed, and simplicity xq - Pure rust implementation of jq wsjq - Whitespace interpreter in jq, which can run with jqjq jq wiki: jq as a PEG engine by pkoppstein Precedence climbing Tools and tricks jq -n --debug-dump-disasm '...' show jq byte code jq -n --debug-trace=all '...' show jq byte code run trace jq -n '{a: "hello"} | debug' 2> >(jq -R 'gsub("\u001b\\[.*?m";"") | fromjson' >&2) pretty print debug messages GOJQ_DEBUG=1 go run -tags gojq_debug cmd/gojq/main.go -n '...' run gojq in debug mode fq -n '".a.b" | _query_fromstring' gojq parse tree for string fq -n '{...} | _query_tostring' jq expression string for gojq parse tree For a convenient jq development experience: jq-dash-docset vscode-jq jq-lsp Thanks to stedolan for jq and got me interested in generator/backtracking based languages. pkoppstein for writing about jq and PEG parsing . itchyny for jqjq fixes and gojq from which i learned a lot and is also from where most of jqjq's AST design comes from. Sharing AST design made it easier to compare parser output (ex via fq's _query_fromstring ). gojq also fixes some confusing jq bugs and has better error messages which saves a lot of time. Michael Färber @01mf02 for jaq and where I also learned about precedence climbing. Thalia Archibald @thaliaarchi for correctness fixes, builtins, more CLI arguments, fancy and colorful output and more. License Copyright (c) 2022 Mattias Wadman jqjq is distributed under the terms of the MIT License. See the LICENSE file for license details.
+======>
+https://github.com/jqlang/jq
+-->>-->>
+Repository files navigation README License Security jq jq is a lightweight and flexible command-line JSON processor akin to sed , awk , grep , and friends for JSON data. It's written in portable C and has zero runtime dependencies, allowing you to easily slice, filter, map, and transform structured data. Documentation Official Documentation : jqlang.github.io/jq Try jq Online : jqplay.org Installation Prebuilt Binaries Download the latest releases from the GitHub release page . Docker Image Pull the jq image to start quickly with Docker. Run with Docker Example: Extracting the version from a package.json file docker run --rm -i ghcr.io/jqlang/jq:latest < package.json ' .version ' Example: Extracting the version from a package.json file with a mounted volume docker run --rm -i -v " $PWD : $PWD " -w " $PWD " ghcr.io/jqlang/jq:latest ' .version ' package.json Building from source Dependencies libtool make automake autoconf Instructions git submodule update --init    # if building from git to get oniguruma autoreconf -i                  # if building from git ./configure --with-oniguruma=builtin make clean                     # if upgrading from a version previously built from source make -j8 make check sudo make install Build a statically linked version: make LDFLAGS=-all-static If you're not using the latest git version but instead building a released tarball (available on the release page), skip the autoreconf step, and flex or bison won't be needed. Cross-Compilation For details on cross-compilation, check out the GitHub Actions file and the cross-compilation wiki page . Community & Support Questions & Help: Stack Overflow (jq tag) Chat & Community: Join us on Discord Wiki & Advanced Topics: Explore the Wiki License jq is released under the MIT License . jq 's documentation is
+licensed under the Creative Commons CC BY 3.0 . jq uses parts of the open source C library "decNumber", which is distributed
+under ICU License
+======>
+https://github.com/01mf02/jaq
+-->>-->>
+Repository files navigation README MIT license jaq jaq (pronounced /ʒaːk/, like Jacques 1 ) is a clone of the JSON data processing tool jq .
+jaq aims to support a large subset of jq's syntax and operations. You can try jaq online on the jaq playground .
+Instructions for the playground can be found here . jaq focuses on three goals: Correctness :
+jaq aims to provide a more correct and predictable implementation of jq,
+while preserving compatibility with jq in most cases. Performance :
+I created jaq originally because I was bothered by the long start-up time of jq 1.6 ,
+which amounts to about 50ms on my machine.
+This can be particularly seen when processing a large number of small files.
+Although the startup time has been vastly improved in jq 1.7,
+jaq is still faster than jq on many other benchmarks . Simplicity :
+jaq aims to have a simple and small implementation, in order to
+reduce the potential for bugs and to
+facilitate contributions. I drew inspiration from another Rust program, namely jql .
+However, unlike jql, jaq aims to closely imitate jq's syntax and semantics.
+This should allow users proficient in jq to easily use jaq. Installation Binaries You can download binaries for Linux, Mac, and Windows on the releases page . You may also install jaq using homebrew on macOS or Linux: $ brew install jaq
+$ brew install --HEAD jaq # latest development version Or using scoop on Windows: $ scoop install main/jaq From Source To compile jaq, you need a Rust toolchain.
+See https://rustup.rs/ for instructions.
+(Note that Rust compilers shipped with Linux distributions
+may be too outdated to compile jaq.) Any of the following commands install jaq: $ cargo install --locked jaq
+$ cargo install --locked --git https://github.com/01mf02/jaq # latest development version On my system, both commands place the executable at ~/.cargo/bin/jaq . If you have cloned this repository, you can also build jaq by executing one of the commands in the cloned repository: $ cargo build --release # places binary into target/release/jaq
+$ cargo install --locked --path jaq # installs binary jaq should work on any system supported by Rust.
+If it does not, please file an issue. Examples The following examples should give an impression of what jaq can currently do.
+You should obtain the same outputs by replacing jaq with jq.
+If not, your filing an issue would be appreciated. :)
+The syntax is documented in the jq manual . Access a field: $ echo '{"a": 1, "b": 2}' | jaq '.a'
+1 Add values: $ echo '{"a": 1, "b": 2}' | jaq 'add'
+3 Construct an array from an object in two ways and show that they are equal: $ echo '{"a": 1, "b": 2}' | jaq '[.a, .b] == [.[]]'
+true Apply a filter to all elements of an array and filter the results: $ echo '[0, 1, 2, 3]' | jaq 'map(.*2) | [.[] | select(. < 5)]'
+[0, 2, 4] Read (slurp) input values into an array and get the average of its elements: $ echo '1 2 3 4' | jaq -s 'add / length'
+2.5 Repeatedly apply a filter to itself and output the intermediate results: $ echo '0' | jaq '[recurse(.+1; . < 3)]'
+[0, 1, 2] Lazily fold over inputs and output intermediate results: $ seq 1000 | jaq -n 'foreach inputs as $x (0; . + $x)'
+1 3 6 10 15 [...] Performance The following evaluation consists of several benchmarks that
+allow comparing the performance of jaq, jq, and gojq .
+The empty benchmark runs n times the filter empty with null input,
+serving to measure the startup time.
+The bf-fib benchmark runs a Brainfuck interpreter written in jq,
+interpreting a Brainfuck script that produces n Fibonacci numbers.
+The other benchmarks evaluate various filters with n as input;
+see bench.sh for details. I generated the benchmark data with bench.sh target/release/jaq jq-1.7.1 gojq-0.12.16 | tee bench.json on a Linux system with an AMD Ryzen 5 5500U. 2 I then processed the results with a "one-liner" (stretching the term and the line a bit): jq -rs '.[] | "|`\(.name)`|\(.n)|" + ([.time[] | min | (.*1000|round)? // "N/A"] | min as $total_min | map(if . == $total_min then "**\(.)**" else "\(.)" end) | join("|"))' bench.json (Of course, you can also use jaq here instead of jq.)
+Finally, I concatenated the table header with the output and piped it through pandoc -t gfm . Table: Evaluation results in milliseconds ("N/A" if error or more than 10 seconds). Benchmark n jaq-2.0 jq-1.7.1 gojq-0.12.16 empty 512 300 500 230 bf-fib 13 440 1230 570 defs 100000 60 N/A 1020 upto 8192 0 470 460 reduce-update 16384 10 550 1340 reverse 1048576 40 690 280 sort 1048576 110 530 630 group-by 1048576 500 1920 1500 min-max 1048576 210 320 260 add 1048576 460 630 1300 kv 131072 110 150 230 kv-update 131072 130 540 470 kv-entries 131072 570 1150 730 ex-implode 1048576 520 1110 580 reduce 1048576 770 890 N/A try-catch 1048576 290 320 370 repeat 1048576 140 840 530 from 1048576 320 1010 590 last 1048576 40 240 110 pyramid 524288 340 350 480 tree-contains 23 70 610 210 tree-flatten 17 780 360 10 tree-update 17 700 970 1340 tree-paths 17 440 280 870 to-fromjson 65536 40 360 110 ack 7 520 710 1220 range-prop 128 360 320 230 cumsum 1048576 280 380 450 cumsum-xy 1048576 430 470 710 The results show that
+jaq-2.0 is fastest on 25 benchmarks, whereas
+jq-1.7.1 is fastest on 1 benchmark and
+gojq-0.12.16 is fastest on 3 benchmarks.
+gojq is much faster on tree-flatten because it implements the filter flatten natively instead of by definition. Features Here is an overview that summarises: features already implemented, and features not yet implemented. Contributions to extend jaq are highly welcome. Basics Identity ( . ) Recursion ( .. ) Basic data types (null, boolean, number, string, array, object) if-then-else ( if .a < .b then .a else .b end ) Folding ( reduce .[] as $x (0; . + $x) , foreach .[] as $x (0; . + $x; . + .) ) Error handling ( try ... catch ... ) Breaking ( label $x | f | ., break $x ) String interpolation ( "The successor of \(.) is \(.+1)." ) Format strings ( @json , @text , @csv , @tsv , @html , @sh , @base64 , @base64d ) Paths Indexing of arrays/objects ( .[0] , .a , .["a"] ) Iterating over arrays/objects ( .[] ) Optional indexing/iteration ( .a? , .[]? ) Array slices ( .[3:7] , .[0:-1] ) String slices Operators Composition ( | ) Variable binding ( . as $x | $x ) Pattern  binding ( . as {a: [$x, {("b", "c"): $y, $z}]} | $x, $y, $z ) Concatenation ( , ) Plain assignment ( = ) Update assignment ( |= ) Arithmetic update assignment ( += , -= , ...) Alternation ( // ) Logic ( or , and ) Equality and comparison ( .a == .b , .a < .b ) Arithmetic ( + , - , * , / , % ) Negation ( - ) Error suppression ( ? ) Definitions Basic definitions ( def map(f): [.[] | f]; ) Recursive definitions ( def r: r; r ) Core filters Empty ( empty ) Errors ( error ) Input ( inputs ) Length ( length , utf8bytelength ) Rounding ( floor , round , ceil ) String <-> JSON ( fromjson , tojson ) String <-> integers ( explode , implode ) String normalisation ( ascii_downcase , ascii_upcase ) String prefix/postfix ( startswith , endswith , ltrimstr , rtrimstr ) String whitespace trimming ( trim , ltrim , rtrim ) String splitting ( split("foo") ) Array filters ( reverse , sort , sort_by(-.) , group_by , min_by , max_by ) Stream consumers ( first , last , range , fold ) Stream generators ( range , recurse ) Time ( now , fromdateiso8601 , todateiso8601 ) More numeric filters ( sqrt , sin , log , pow , ...) ( list of numeric filters ) More time filters ( strptime , strftime , strflocaltime , mktime , gmtime , and localtime ) Standard filters These filters are defined via more basic filters.
+Their definitions are at std.jq . Undefined ( null ) Booleans ( true , false , not ) Special numbers ( nan , infinite , isnan , isinfinite , isfinite , isnormal ) Type ( type ) Filtering ( select(. >= 0) ) Selection ( values , nulls , booleans , numbers , strings , arrays , objects , iterables , scalars ) Conversion ( tostring , tonumber ) Iterable filters ( map(.+1) , map_values(.+1) , add , join("a") ) Array filters ( transpose , first , last , nth(10) , flatten , min , max ) Object-array conversion ( to_entries , from_entries , with_entries ) Universal/existential ( all , any ) Recursion ( walk ) I/O ( input ) Regular expressions ( test , scan , match , capture , splits , sub , gsub ) Time ( fromdate , todate ) Numeric filters jaq imports many filters from libm and follows their type signature. Full list of numeric filters defined in jaq Zero-argument filters: acos acosh asin asinh atan atanh cbrt cos cosh erf erfc exp exp10 exp2 expm1 fabs frexp , which returns pairs of (float, integer). gamma ilogb , which returns integers. j0 j1 lgamma log log10 log1p log2 logb modf , which returns pairs of (float, float). nearbyint pow10 rint significand sin sinh sqrt tan tanh tgamma trunc y0 y1 Two-argument filters that ignore . : atan2 copysign drem fdim fmax fmin fmod hypot jn , which takes an integer as first argument. ldexp , which takes an integer as second argument. nextafter nexttoward pow remainder scalb scalbln , which takes as integer as second argument. yn , which takes an integer as first argument. Three-argument filters that ignore . : fma Modules include "path"; import "path" as mod; import "path" as $data; Advanced features jaq currently does not aim to support several features of jq, such as: SQL-style operators Streaming Differences between jq and jaq Numbers jq uses 64-bit floating-point numbers (floats) for any number.
+By contrast, jaq interprets
+numbers such as 0   or -42 as machine-sized integers and
+numbers such as 0.0 or 3e8 as 64-bit floats.
+Many operations in jaq, such as array indexing,
+check whether the passed numbers are indeed integer.
+The motivation behind this is to avoid
+rounding errors that may silently lead to wrong results.
+For example: $ jq  -n '[0, 1, 2] | .[1.0000000000000001]'
+1
+$ jaq -n '[0, 1, 2] | .[1.0000000000000001]'
+Error: cannot use 1.0 as integer
+$ jaq -n '[0, 1, 2] | .[1]'
+1 The rules of jaq are: The sum, difference, product, and remainder of two integers is integer. Any other operation between two numbers yields a float. Examples: $ jaq -n '1 + 2'
+3
+$ jaq -n '10 / 2'
+5.0
+$ jaq -n '1.0 + 2'
+3.0 You can convert an integer to a floating-point number e.g.
+by adding 0.0, by multiplying with 1.0, or by dividing with 1.
+You can convert a floating-point number to an integer by round , floor , or ceil : $ jaq -n '1.2 | [floor, round, ceil]'
+[1, 1, 2] NaN and infinity In jq, division by 0 yields an error, whereas
+in jaq, n / 0 yields nan if n == 0 , infinite if n > 0 , and -infinite if n < 0 .
+jaq's behaviour is closer to the IEEE standard for floating-point arithmetic (IEEE 754). jaq implements a total ordering on floating-point numbers to allow sorting values.
+Therefore, it unfortunately has to enforce that nan == nan .
+(jq gets around this by enforcing that nan < nan is true, yet nan > nan is false,
+which breaks basic laws about total orders.) Like jq, jaq prints nan and infinite as null in JSON,
+because JSON does not support encoding these values as numbers. Assignments Like jq, jaq allows for assignments of the form p |= f .
+However, jaq interprets these assignments differently.
+Fortunately, in most cases, the result is the same. In jq, an assignment p |= f first constructs paths to all values that match p . Only then , it applies the filter f to these values. In jaq, an assignment p |= f applies f immediately to any value matching p .
+Unlike in jq, assignment does not explicitly construct paths. jaq's implementation of assignment likely yields higher performance,
+because it does not construct paths.
+Furthermore, this allows jaq to use multiple outputs of the right-hand side, whereas
+jq uses only the first.
+For example, 0 | (., .) |= (., .+1) yields 0 1 1 2 in jaq,
+whereas it yields only 0 in jq.
+However, {a: 1} | .a |= (2, 3) yields {"a": 2} in both jaq and jq,
+because an object can only associate a single value with any given key,
+so we cannot use multiple outputs in a meaningful way here. Because jaq does not construct paths,
+it does not allow some filters on the left-hand side of assignments,
+for example first , last , limit :
+For example, [1, 2, 3] | first(.[]) |= .-1 yields [0, 2, 3] in jq, but is invalid in jaq.
+Similarly, [1, 2, 3] | limit(2; .[]) |= .-1 yields [0, 1, 3] in jq, but is invalid in jaq.
+(Inconsequentially, jq also does not allow for last .) Folding jq and jaq provide filters reduce xs as $x (init; update) , foreach xs as $x (init; update) , and foreach xs as $x (init; update; project) , where foreach xs as $x (init; update) is equivalent to foreach xs as $x (init; update; .) . In jaq, the output of these filters is defined very simply:
+Assuming that xs evaluates to x0 , x1 , ..., xn , reduce xs as $x (init; update) evaluates to init
+| x0 as $x | update
+| ...
+| xn as $x | update and foreach xs as $x (init; update; project) evaluates to init |
+( x0 as $x | update | project,
+( ...
+( xn as $x | update | project,
+( empty )...) The interpretation of reduce / foreach in jaq has the following advantages over jq: It deals very naturally with filters that yield multiple outputs.
+In contrast, jq discriminates outputs of f ,
+because it recurses only on the last of them,
+although it outputs all of them. Example foreach (5, 10) as $x (1; .+$x, -.) yields 6, -1, 9, 1 in jq, whereas it yields 6, 16, -6, -1, 9, 1 in jaq.
+We can see that both jq and jaq yield the values 6 and -1 resulting from the first iteration (where $x is 5), namely 1 | 5 as $x | (.+$x, -.) .
+However, jq performs the second iteration (where $x is 10) only on the last value returned from the first iteration, namely -1 ,
+yielding the values 9 and 1 resulting from -1 | 10 as $x | (.+$x, -.) .
+jaq yields these values too, but it also performs the second iteration
+on all other values returned from the first iteration, namely 6 ,
+yielding the values 16 and -6 that result from 6 | 10 as $x | (.+$x, -.) . It makes the implementation of reduce and foreach special cases of the same code, reducing the potential for bugs. Miscellaneous Slurping: When files are slurped in (via the -s / --slurp option),
+jq combines the inputs of all files into one single array, whereas
+jaq yields an array for every file.
+This is motivated by the -i / --in-place option,
+which could not work with the behaviour implemented by jq.
+The behaviour of jq can be approximated in jaq;
+for example, to achieve the output of jq -s . a b , you may use jaq -s . <(cat a b) . Cartesian products:
+In jq, [(1,2) * (3,4)] yields [3, 6, 4, 8] , whereas [{a: (1,2), b: (3,4)} | .a * .b] yields [3, 4, 6, 8] .
+jaq yields [3, 4, 6, 8] in both cases. Indexing null :
+In jq, when given null input, .["a"] and .[0] yield null , but .[] yields an error.
+jaq yields an error in all cases to prevent accidental indexing of null values.
+To obtain the same behaviour in jq and jaq, you can use .["a"]? // null or .[0]? // null instead. List updating:
+In jq, [0, 1] | .[3] = 3 yields [0, 1, null, 3] ; that is,
+jq fills up the list with null s if we update beyond its size.
+In contrast, jaq fails with an out-of-bounds error in such a case. Input reading:
+When there is no more input value left,
+in jq, input yields an error, whereas in jaq, it yields no output value. Joining:
+When given an array [x0, x1, ..., xn] ,
+in jq, join(x) converts all elements of the input array to strings and intersperses them with x , whereas
+in jaq, join(x) simply calculates x0 + x + x1 + x + ... + xn .
+When all elements of the input array and x are strings, jq and jaq yield the same output. Contributing Contributions to jaq are welcome.
+Please make sure that after your change, cargo test runs successfully. Acknowledgements This project was funded through the NGI0 Entrust Fund, a fund established by NLnet with financial support from the
+European Commission's Next Generation Internet programme, under the aegis of DG Communications Networks, Content and Technology under grant agreement N o 101069594. jaq has also profited from: serde_json to read and colored_json to output JSON, chumsky to parse and ariadne to pretty-print parse errors, mimalloc to boost the performance of memory allocation, and the Rust standard library, in particular its awesome Iterator ,
+which builds the rock-solid base of jaq's filter execution Footnotes I wanted to create a tool that should be discreet and obliging, like a good waiter.
+And when I think of a typical name for a (French) waiter, to my mind comes "Jacques".
+Later, I found out about the old French word jacquet , meaning "squirrel",
+which makes for a nice ex post inspiration for the name. ↩ The binaries for jq-1.7.1 and gojq-0.12.16 were retrieved from their GitHub release pages. ↩
+======>
+https://github.com/moturus/motor-os
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Motor OS Motūrus project (Motor OS) is a simple,
+fast, and secure operating system built for the cloud.
+Designed specifically for virtualized workloads such as web serving, serverless computing,
+and edge caching, it addresses inefficiencies found in traditional operating systems
+like Linux when running in virtual environments. Motor OS is built entirely in Rust. It supports x64 KVM-based virtual machines
+and can run on Qemu, Cloud Hypervisor, or Alioth VMMs. The system, including
+its libraries and syscalls, is implemented in Rust and optimized for Rust-based client applications. Why? At the moment, most virtualized production workloads run Linux.
+While Linux has many advanced features that in many
+situations mean it is the only reasonable OS choice, there are
+several complications that make it not ideal, in theory,
+for some virtualized workloads: Linux is optimized for baremetal, which leads to inefficiencies
+when it is used inside a VM that is running on a Linux host: duplicate block caches duplicate page table walks the host scheduler can preempt the VCPU holding a spinlock in the VM's kernel Linux is difficult to use: Docker, Nix OS, "serverless", etc. all exist because of Linux's complexity Linux has, historically, not been very secure A new operating system built from ground-up with the focus
+on virtualized workloads can be made much simpler and more
+secure than Linux, while matching or exceeding its
+performance and/or efficiency. What? Motor OS is a microkernel-based operating system, built in Rust, that targets virtualized workloads exclusively.
+It currently supports x64 KVM-based virtual machines, and can run in Qemu, Cloud Hypervisor, or Alioth VMMs. Rust is the language of Motor OS: not only it is implemented in Rust, it also exposes its ABI in Rust, not C. What works Motor OS is under active development, and should not be used for sensitive workloads.
+It is, however, ready for trials/experiments/research. In fact, Motor OS web site is served from inside a couple of Motor OS VMs (proxied via Cloudflare). More specifically, these things work: boots via MBR (Qemu) or PVH (Alioth, Cloud Hypervisor) in 100ms (Alioth) or 200ms (CHV, Qemu) himem micro-kernel scheduling: a simple multi-processor round robin (SMP) in-kernel scheduling is cooperative: the kernel is very small and does not block, so does not need to be preemptible the userspace is preemptible memory management: only 4K pages at the moment stacks are guarded page faults in the userspace work and are properly handled (only stack memory allocations are currently lazy) I/O subsystem (in the userspace) VirtIO-BLK and VirtIO-NET drivers two simple filesystems ( srfs and flatfs ) smoltcp -based networking (TCP only at the moment) max host-guest TCP throughput is about 10Gbps at the moment the userspace: multiple processes, with preemption threads, thread local storage Rust's standard library mostly ported Rust programs that use Rust standard library and do not depend, directly or indirectly, on Unix or Windows FFI,
+will cross-compile for Motor OS and run, subject to "what does not work" below a simple TLS-enabled httpd is provided a simple unix-like shell in the serial console a simle text editor basic commands like free, ps, ls, top, cat, ss, etc. (do ls bin to list all commands) What does not work Most pieces are not yet ready for production use. No security audit has been made.
+More specifically: Filesystem: most Rust std::fs APIs have been implemented as proof-of-concept,
+but are slow (synchronous) and will have to be reimplemented using Motor OS async I/O Networking: DHCP not implemented: static IP addresses only at the moment DNS lookup not implemented yet UDP not implemented yet The ecosystem outside Rust std: "sans-io" crates and crates like rand or rustls can be compiled and used with minor tweaks crates depending on specific async runtimes (e.g. Tokio) will not compile at the moment Tokio Mio will soon be ported crates that are wrappers around native Linux or Windows APIs will not work, obviously How can I build/run it? See docs/build.md . Examples and recipes see docs/recipes/index.md .
+======>
+https://en.wikipedia.org/wiki/Law_of_triviality
+-->>-->>
+Contents move to sidebar hide (Top) 1 Argument 2 Related principles and formulations 3 See also 4 References 5 Further reading 6 External links Toggle the table of contents Law of triviality 21 languages العربية Čeština Ελληνικά Español Euskara فارسی Français हिन्दी עברית Magyar Bahasa Melayu Nederlands 日本語 Português Русский Suomi Svenska தமிழ் Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Special pages Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Focusing on what is irrelevant but easy to understand .mw-parser-output .hatnote{font-style:italic}.mw-parser-output div.hatnote{padding-left:1.6em;margin-bottom:0.5em}.mw-parser-output .hatnote i{font-style:normal}.mw-parser-output .hatnote+link+.hatnote{margin-top:-0.5em}@media print{body.ns-0 .mw-parser-output .hatnote{display:none!important}} "Parkinson's law of triviality" redirects here. Not to be confused with Parkinson's law . The law of triviality is C. Northcote Parkinson 's 1957 argument that people within an organization commonly give disproportionate weight to trivial issues. [ 1 ] Parkinson provides the example of a fictional committee whose job was to approve the plans for a nuclear power plant spending the majority of its time on discussions about relatively minor but easy-to-grasp issues, such as what materials to use for the staff bicycle shed, while neglecting the proposed design of the plant itself, which is far more important and a far more difficult and complex task. The law has been applied to software development and other activities. [ 2 ] The terms bicycle-shed effect , bike-shed effect , and bike-shedding were coined based on Parkinson's example; it was popularized in the Berkeley Software Distribution community by the Danish software developer Poul-Henning Kamp in 1999 [ 3 ] and, due to that, has since become popular within the field of software development generally. Argument [ edit ] A bicycle shed The concept was first presented as a corollary of his broader " Parkinson's law " spoof of management. He dramatizes this "law of triviality" with the example of a committee's deliberations on an atomic reactor, contrasting it to deliberations on a bicycle shed. As he put it: "The time spent on any item of the agenda will be in inverse proportion to the sum [of money] involved." A reactor is so vastly expensive and complicated that an average person cannot understand it (see ambiguity aversion ), so one assumes that those who work on it understand it. However, everyone can visualize a cheap, simple bicycle shed, so planning one can result in endless discussions because everyone involved wants to implement their own proposal and demonstrate personal contribution. [ 4 ] After a suggestion of building something new for the community, like a bike shed, problems arise when everyone involved argues about the details. This is a metaphor indicating that it is not necessary to argue about every little feature based simply on having the knowledge to do so. Some people have commented that the amount of noise generated by a change is inversely proportional to the complexity of the change. [ 3 ] Behavioral research has produced evidence which confirms theories proposed by the law of triviality.   People tend to spend more time on small decisions than they should, and less time on big decisions than they should. A simple explanation is that during the process of making a decision, one has to assess whether enough information has been collected to make the decision. If people make mistakes about whether they have enough information, then they will tend to feel overwhelmed by large and complex matters and stop collecting information too early to adequately inform their big decisions. The reason is that big decisions require collecting information for a long time and working hard to understand its complex ramifications. This leaves more of an opportunity to make a mistake (and stop) before getting enough information. Conversely, for small decisions, where people should devote little attention and act without hesitation, they may inefficiently continue to ponder for too long, partly because they are better able to understand the subject. [ 5 ] Related principles and formulations [ edit ] There are several other principles, well known in specific problem domains, which express a similar sentiment. Wadler's law, named for computer scientist Philip Wadler , [ 6 ] is a principle which asserts that the bulk of discussion on programming-language design centers on syntax (which, for purposes of the argument, is considered a solved problem), as opposed to semantics . Sayre's law is a more general principle, which holds (among other formulations) that "In any dispute, the intensity of feeling is inversely proportional to the value of the issues at stake"; many formulations of the principle focus on academia . See also [ edit ] .mw-parser-output .div-col{margin-top:0.3em;column-width:30em}.mw-parser-output .div-col-small{font-size:90%}.mw-parser-output .div-col-rules{column-rule:1px solid #aaa}.mw-parser-output .div-col dl,.mw-parser-output .div-col ol,.mw-parser-output .div-col ul{margin-top:0}.mw-parser-output .div-col li,.mw-parser-output .div-col dd{page-break-inside:avoid;break-inside:avoid-column} Analysis paralysis Attention inequality Busy work Dunning–Kruger effect Fredkin's paradox Hofstadter's law How many angels can dance on the head of a pin? Jevons paradox List of eponymous laws Omission bias Peter principle Procrastination Narcissism of small differences Sayre's Law Scope neglect Snackwell effect Student syndrome Time management Tyranny of small decisions Zero-risk bias References [ edit ] .mw-parser-output .reflist{margin-bottom:0.5em;list-style-type:decimal}@media screen{.mw-parser-output .reflist{font-size:90%}}.mw-parser-output .reflist .references{font-size:100%;margin-bottom:0;list-style-type:inherit}.mw-parser-output .reflist-columns-2{column-width:30em}.mw-parser-output .reflist-columns-3{column-width:25em}.mw-parser-output .reflist-columns{margin-top:0.3em}.mw-parser-output .reflist-columns ol{margin-top:0}.mw-parser-output .reflist-columns li{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .reflist-upper-alpha{list-style-type:upper-alpha}.mw-parser-output .reflist-upper-roman{list-style-type:upper-roman}.mw-parser-output .reflist-lower-alpha{list-style-type:lower-alpha}.mw-parser-output .reflist-lower-greek{list-style-type:lower-greek}.mw-parser-output .reflist-lower-roman{list-style-type:lower-roman} ^ .mw-parser-output cite.citation{font-style:inherit;word-wrap:break-word}.mw-parser-output .citation q{quotes:"\"""\"""'""'"}.mw-parser-output .citation:target{background-color:rgba(0,127,255,0.133)}.mw-parser-output .id-lock-free.id-lock-free a{background:url("//upload.wikimedia.org/wikipedia/commons/6/65/Lock-green.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-limited.id-lock-limited a,.mw-parser-output .id-lock-registration.id-lock-registration a{background:url("//upload.wikimedia.org/wikipedia/commons/d/d6/Lock-gray-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-subscription.id-lock-subscription a{background:url("//upload.wikimedia.org/wikipedia/commons/a/aa/Lock-red-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .cs1-ws-icon a{background:url("//upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg")right 0.1em center/12px no-repeat}body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-free a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-limited a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-registration a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-subscription a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .cs1-ws-icon a{background-size:contain;padding:0 1em 0 0}.mw-parser-output .cs1-code{color:inherit;background:inherit;border:none;padding:inherit}.mw-parser-output .cs1-hidden-error{display:none;color:var(--color-error,#d33)}.mw-parser-output .cs1-visible-error{color:var(--color-error,#d33)}.mw-parser-output .cs1-maint{display:none;color:#085;margin-left:0.3em}.mw-parser-output .cs1-kern-left{padding-left:0.2em}.mw-parser-output .cs1-kern-right{padding-right:0.2em}.mw-parser-output .citation .mw-selflink{font-weight:inherit}@media screen{.mw-parser-output .cs1-format{font-size:95%}html.skin-theme-clientpref-night .mw-parser-output .cs1-maint{color:#18911f}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .cs1-maint{color:#18911f}} Parkinson, C. Northcote (1958). Parkinson's Law, or the Pursuit of Progress . John Murray. ISBN 0140091076 . ^ Kamp, Poul-Henning (2 October 1999). "Why Should I Care What Color the Bikeshed Is?" . Frequently Asked Questions for FreeBSD 7.X, 8.X, and 9.X . FreeBSD . Retrieved 31 July 2012 . ^ a b Poul-Henning Kamp (2 October 1999). "The Bikeshed email" . phk.freebsd.dk . ^ Forsyth, Donelson R (2009). Group Dynamics (5 ed.). Cengage Learning. p. 317. ISBN 978-0-495-59952-4 . ^ Descamps, Ambroise; Massoni, Sebastien; Page, Lionel (June 2021). "Learning to hesitate" . Experimental Economics . 388 (18): 3939–3947. doi : 10.1007/s10683-021-09718-7 . S2CID 237925345 . In an experiment, we find that participants deviate from optimal information acquisition in a systematic manner. They acquire too much information (when they should only collect little) or not enough (when they should collect a lot). . ^ "Wadler's Law" . HaskellWiki . Retrieved 12 May 2011 . Further reading [ edit ] .mw-parser-output .refbegin{margin-bottom:0.5em}.mw-parser-output .refbegin-hanging-indents>ul{margin-left:0}.mw-parser-output .refbegin-hanging-indents>ul>li{margin-left:0;padding-left:3.2em;text-indent:-3.2em}.mw-parser-output .refbegin-hanging-indents ul,.mw-parser-output .refbegin-hanging-indents ul li{list-style:none}@media(max-width:720px){.mw-parser-output .refbegin-hanging-indents>ul>li{padding-left:1.6em;text-indent:-1.6em}}.mw-parser-output .refbegin-columns{margin-top:0.3em}.mw-parser-output .refbegin-columns ul{margin-top:0}.mw-parser-output .refbegin-columns li{page-break-inside:avoid;break-inside:avoid-column}@media screen{.mw-parser-output .refbegin{font-size:90%}} Karl Fogel, Producing Open Source Software: How to Run a Successful Free Software Project , O'Reilly, 2005, ISBN 0-596-00759-0 , "Bikeshed Effect" pp. 135, 261–268 ( also online ) Grace Budrys, Planning for the nation's health: a study of twentieth-century developments in the United States , Greenwood Press, 1986, ISBN 0-313-25348-X , p. 81 (see extract at Internet Archive ) Bob Burton et al., Nuclear Power, Pollution and Politics , Routledge, 1990, ISBN 0-415-03065-X , p. ix (see extract at Google Books ) Darren Chamberlain et al., Perl Template Toolkit , O'Reilly, 2004, ISBN 0-596-00476-1 , p. 412 (see extract at Google Books ) Donelson R. Forsyth, Group Dynamics , Brooks/Cole, 1990, ISBN 0-534-08010-3 , p. 289 (see extract at Internet Archive ) Henry Bosch, The Director at Risk: Accountability in the Boardroom , Allen & Unwin, 1995, ISBN 0-7299-0325-7 , p. 92 (see extract at Google Books ) Brian Clegg, Crash Course in Personal Development , Kogan Page, 2002, ISBN 0-7494-3832-0 , p. 3 (see extract at Google Books ) Richard M. Hodgetts, Management: Theory, Process, and Practice , Saunders, 1979, ISBN 0-7216-4714-6 , p. 115 (see extract at Google Books ) Journal, v. 37–38 1975–1980 , Chartered Institute of Transport, p. 187 (see extract at Google Books ) Russell D. Archibald, Managing High-Technology Programs and Projects , John Wiley and Sons, 2003, ISBN 0-471-26557-8 , p. 37 (see extract at Google Books ) Kishor Bhagwati, Managing Safety: A Guide for Executives , Wiley-VCH, 2007, ISBN 3-527-60959-8 ,  p. 54 (see extract at Google Books ) Jan Pen , Harmony and Conflict in Modern Society , (Trans. Trevor S. Preston)  McGraw–Hill, 1966 p. 195 (see extract at Internet Archive ) Derek Salman Pugh et al., Great Writers on Organizations , Dartmouth, 1993, ISBN 1-85521-383-4 , p. 116 (see extract at Google Books ) The Federal Accountant v. 13 (September 1963 – June 1964) , Association of Government Accountants, Federal Government Accountants Association, Cornell University Graduate School of Business and Public Administration, p. 16 (see extract at Google Books ) Al Kelly, How to Make Your Life Easier at Work , McGraw–Hill, 1988, ISBN 0-07-034015-3 , p. 127 (see extract at Google Books ) Henry Mintzberg, Power in and Around Organizations: Dynamic Techniques of Winning , Prentice–Hall, 1983, ISBN 0-13-686857-6 , p. 75 (see extract at Google Books ) The Building Services Engineer v.40 1972–1973 , Institution of Heating and Ventilating Engineers (Great Britain), Chartered Institution of Building Services (see extract at Google Books ) Charles Hampden-Turner, Gentlemen and Tradesmen: The Values of Economic Catastrophe ,  Routledge, 1983, ISBN 0-7100-9579-1 , p. 151 (see extract at Google Books ) External links [ edit ] "Why Should I Care What Color the Bikeshed Is?"  (FreeBSD FAQ) Kamp, Poul-Henning (2 October 1999). "Why Should I Care What Color the Bikeshed Is?" . Frequently Asked Questions for FreeBSD 7.X, 8.X, and 9.X . FreeBSD . Retrieved 31 July 2012 . <img src="https://login.wikimedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" width="1" height="1" style="border: none; position: absolute;"> Retrieved from " https://en.wikipedia.org/w/index.php?title=Law_of_triviality&oldid=1240551541 " Categories : Adages 1950s neologisms C. Northcote Parkinson Organizational behavior 1957 introductions Hidden categories: Articles with short description Short description matches Wikidata Use dmy dates from May 2015 Use Oxford spelling from October 2021 This page was last edited on 16 August 2024, at 00:11 (UTC) . Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc. , a non-profit organization. Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view
+======>
+https://old.reddit.com/r/rust/comments/1h1kzdp/rust_diesel_and_mysql_types_help/
+-->>-->>
+Hi all, I'm new to Rust but have done lots of programming in the past. Lately it's mostly been Python.   
+
+   I've decided to take an old legacy collection of Python scripts that access an existing Mysql database and convert those to Rust using Diesel.   
+
+   I can get the basics working but where I'm having a problem is Enum and DateTime mysql types. I've search and searched but can't find any good examples to getting this working.   
+
+   Instead of pasting a bunch of code here I put my project up on github:    https://github.com/bmillham/requestlist   
+
+   For now I'm ignoring all but one table in the existing database to make the code simple. Once I get the enum and datetime problem sorted then I will be adding the other tables and start having fun doing queries and building an Iced app and hopefully eventually replace my current Python based web site with a Rust/Iced based site.   
+
+   Thanks in advance for anyone who can help me!   
+   
+
+======>
+https://github.com/pipelight/pipelight
+-->>-->>
+Repository files navigation README GPL-2.0 license Pipelight - Tiny automation pipelines. Automate your most boring and repetitive tasks. Breaking changes v0.10.0 Breaks log compatibility with anterior versions. 📦 A lightweight tool for CICD Pipelight is a Rust based small(13Mb) cli tool to
+be used from inside a terminal. Define pipelines using typescript, toml, hcl and yaml . Trigger on events: git hooks, file changes... Checkout the Documentation for a much friendly approach
+and a deeper understanding. Define pipelines with a programming language. Fold your bash commands into an object Pipeline{ Step{ Command }} written in Typescript . As long as you know javascript,
+you are ready to go with your favorite syntax flavor. Use a verbose and declarative syntax (Objects API). const my_pipeline = { name : "build_my_website" , steps : [ { name : "clean directory" , commands : [ "rm -rf ./dist" ] , } , { name : "build" , commands : [ "pnpm install" , "pnpm lint" , "pnpm build" ] , } , ] , } ; Use the provided sweet shorthands (Helpers API). const my_pipeline = pipeline ( "build website" , ( ) => [ step ( "clean directory" , ( ) => [ `rm -rf ${ build_dir } ` ] ) , step ( "build" , ( ) => [ "pnpm install" , "pnpm lint" , "pnpm build" ] ) , step ( "send to host" , ( ) => [ `scp -r ${ build_dir } ` ] ) , step ( "do stuffs on host" , ( ) => [ ssh ( "host" , ( ) => [ "systemctl restart nginx" ] ) , ] ) , ] ) ; Define pipelines with a configuration language For your most simple pipelines. Toml [[ pipelines ]] name = " test " [[ pipelines . steps ]] name = " build " commands = [ " pnpm install " , " pnpm build " ]
+
+[[ pipelines . triggers ]] branches = [ " master " , " dev " ] actions = [ " pre-push " , " pre-commit " ] Hcl # A pipeline pipelines = [{
+  name = " test " steps = [{
+    name = " build " commands = [ " pnpm install " , " pnpm build " ]
+  }]
+  triggers = [{
+    branches = [ " master " , " dev " ]
+    actions = [ " pre-push " , " pre-commit " ]
+  }]
+}] Yaml pipelines :
+  - name : test steps :
+      - name : build commands :
+          - pnpm install - pnpm build - triggers :
+      - branches :
+          - master - dev actions :
+          - pre-push - pre-commit Automatic triggers Add automatic triggers to your pipeline. If you want to run tests on file change or deploy to production on push to master. # enable watcher and git hooks. pipelight enable git-hooks
+pipelight enable watcher pipeline . add_trigger ( { branch : [ "master" ] , actions : [ "pre-push" ] , } ) ; 🫦 Pretty and verbose logs Get the pipeline most relevant informations or dive into the steps and commands
+standard outputs. Get the pipeline status, event, execution time... and more. pipelight logs Get a tranparent outputs of every subprocesses. pipelight logs -vvvv 🛠️ Install Important Pipelight can now be installed under MacOs and Windows WSL Checkout the instruction guide for your
+favorite package manager. 🚀 Get started! Create a default configuration file pipelight.ts in your project root
+directory with: pipelight init Try the harmless default pipeline: pipelight run And explore logs: pipelight logs -vvvv Community Reach the community whenever you need support or software improvements. On discord or on telegram at @Areskul or send a mail at areskul@areskul.com . Roadmap Support other configuration languages: Can't tell the difference between them,
+but Rustacean made crates for it. feat: add support for hashicorp hcl feat: add support for apple pkl feat: add support for CNCF kcl Crate: doc: add example for pipelight_utils crate Javascript helpers: refactor: rewrite docker helpers in rust wasm Cli: feat: add a tui interface with ratatui feat: add a live view for processing pipelines Community: feat: add a news page on Documentation website refactor: move out of discord Licensed under GNU GPLv2 Copyright (C) 2023 Areskul
+======>
+https://this-week-in-rust.org/blog/2024/11/20/this-week-in-rust-575/
+-->>-->>
+404 File not found The site configured at this address does not
+        contain the requested file. If this is your site, make sure that the filename case matches the URL
+        as well as any file permissions. For root URLs (like http://example.com/ ) you must provide an index.html file. Read the full documentation for more information about using GitHub Pages . GitHub Status — @githubstatus
+======>
+https://old.reddit.com/r/rust/comments/1h1jj8d/learning_vulkan_and_rust/
+-->>-->>
+There probably have been similar questions asked before, but is it good idea to learn Vulkan with Rust and if so how to do it. What crates to use, what tutorial and videos to watch, is it better to just use C++?   
+
+   I am a decent C++ programmer and have worked with sdl2 and similar before, I have a position in the industry as a C++ dev but I want to learn Rust 'cuz I like everything it brings to the table and while I am learning the language I would like to conquer some of my goals I've never had to (computer graphics).   
+
+   So once again is there a reason to learn vulkan + rust or should I learn Rust with something else and learn vulkan with C++.   
+
+   Thank you for your time :D.    
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h1g8nr/is_bindgen_behaving_correctly_in_this_case/
+-->>-->>
+[SOLVED]   
+
+   I'm generating a rust file containing constants from a C header, and this C header in turn was generated from a Java class. The constants are 64 bits, and originally have the long type (Java) but bindgen is generating a 32-bit type to represent these constants in my current operating system, Windows, which has the 32-bit long type. The curious thing is that this problem does not occur in Linux, where long is 64 bits. In short, bindgen is using the 32-bit long type of my Windows system as the equivalent of the target's long, which is 64 bits. Interestingly, the function signatures use 64-bit integers, but the constants use 32-bit integers! How can I fix this? Bindgen is using std::os::raw::c_ulong to represent long.   
+   
+
+======>
+https://geo-ant.github.io/blog/2024/rust-linear-types-use-once/
+-->>-->>
+error[E0080]: evaluation of `<UseOnce<i32> as std::ops::Drop>::drop::{constant#0}` failed
+  --> src/main.rs:27:9
+   |
+27 |         panic!("UseOnce instance must be consumed!")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the evaluated program panicked at 'UseOnce instance must be consumed!', src/main.rs:27:9
+   |
+   = note: this error originates in the macro `$crate::panic::panic_2021` which comes from the expansion of the macro `panic` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+note: erroneous constant encountered
+  --> src/main.rs:26:9
+   |
+26 | /         const {
+27 | |         panic!("UseOnce instance must be consumed!")
+28 | |         }
+   | |_________^
+
+note: the above error was encountered while instantiating `fn <UseOnce<i32> as std::ops::Drop>::drop`
+   --> /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:574:1
+    |
+574 | pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0080`.
+======>
+https://old.reddit.com/r/rust/comments/1h12ors/fyrox_game_engine_aims_to_release_version_10_in/
+-->>-->>
+Next version of the engine will be the last minor version (0.35) before major release of 1.0 in 2025. I'm collecting feature/improvements requests you'd like to see in the major release. Since the major release requires a lot of polishing, the feature set must be "frozen" and there will be no other opportunity to add new features until the release of 1.0. Any suggestions are welcome.   
+
+======>
+https://old.reddit.com/r/rust/comments/1h1b1po/using_stdautodiff_to_replace_jax/
+-->>-->>
+Hi, I'm happy to share that my group just published the first application using the experimental    std::autodiff    Rust module.    https://github.com/ChemAI-Lab/molpipx/   
+Automatic Differentiation allows applying the chain rule from calculus to code to compute gradients/derivatives. We used it here because Python/JAX requires Just-In-Time (JIT) compilation to achieve good runtime performance, but the JIT times are unbearably slow. JIT times were unfortunately hours or even days in some configurations. Rust's autodiff can compile the equivalent Rust code in ~30 minutes, which of course still isn't great, but at least you only have to do it once and we're working on improving the compile times further. The Rust version is still more limited in features than the Python/JAX one, but once I fully upstreamed autodiff (The current two open PR's here    https://github.com/rust-lang/rust/issues/124509   , as well as some follow-up PRs) I will add some more features, benchmarks, and usage instructions.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h1an20/jaq_20_jq_clone_released/
+-->>-->>
+Today, I released version 2.0 of my jq clone    jaq   , written in Rust. If you do not know it,    jq    is a functional programming language to process JSON data. Compared to its previous stable version, jaq 2.0 adds support for jq's module system and for many syntactic constructs of the jq language. As a result, jaq is now sufficiently compatible with jq that it can run    jqjq   , a jq interpreter written in jq itself!
+I have improved performance as well --- jaq is the fastest jq implementation known to me, see    benchmarks   .   
+
+   For Rustaceans, it might be especially interesting to note that you can embed jaq into your own application; for example    jnv    uses jaq. That means that you can use the jq language via jaq as a scripting language in similar scenarios as e.g. Lua. See    jaq_core    for a small example.
+Furthermore, unlike jq, you can use jaq not only to process JSON, but also custom data types. To do that, you need to implement the    ValT    trait    for your data type, and then you can use jq filters to process your custom data!   
+
+   If you want to give jaq a try, you can go to the    playground   , which uses jaq compiled to WASM.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h19myr/goodbye_c_rust_is_the_future/
+-->>-->>
+TL;DR: because fun and jobs.   
+
+   I started with C++ long ago. On and off, I did Win32 GUI (MFC, oh my...), COM/OLE, some middleware DB access stuff. Then used Boost in some low-level multi-thread/concurrency stuff. Low-latency trading. Then spent many years at a FAANG using C++ close to the OS level, and several years working on Linux Kernel itself (in C, naturally).   
+
+   C++ has been evolving. Template metaprogramming was initially fun; then C++17 was added. Then C++20. New features, many of them lifted from modern languages like Rust, bolted onto the old syntax, creating an ugly monster.   
+
+   I wanted something fresh. So to learn Rust, I spent weekends writing a whole new operating system in Rust (   Motor OS   ; I was somewhat tired of Linux as well). It has been much more fun (still is) than working in C or C++. I could write a lot re: how Rust is superior to C/C++ for OS development, but this is not the point of this post. This is about fun and jobs.   
+
+   So I started looking for Rust jobs. A lot of companies now use Rust and hire Rust engineers. Yes, on the smaller side it's mostly blockchain. But a lot of large big tech companies move their codebases to Rust, either slowly or all-in. For example, Cloudflare is now mostly a Rust shop, I think.   
+
+   Anyway, I found a great Rust SWE job, with a noticeable salary bump, at a great company. Yes, my "domain knowledge" mattered. But my knowledge of Rust (self-taught) was no less useful (I did my coding interviews in Rust).   
+
+   So don't pay (much) attention to posts saying there are no jobs in Rust - there's a lot, at least in the Bay Area (with Bay Area salaries).   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h15md8/goodbye_rust_i_wish_you_success_but_im_back_to_c/
+-->>-->>
+TL,DR: Because jobs.   
+
+   In my 3 year run in Rust I did asynch/multithreaded code, FFI with bindgen, kernel programming without std. It was fun. But fun is over, I started a C++ position 1 month ago.   
+
+   Rust is a superior technology to C++. It has better tools (cargo), better libraries ecosystem (crates.io), it cuts out a lot of crap (no OOP, no exceptions, memory handling, etc), it disciplines you to do the things the right way.   
+
+   But Rust is better in the same way that Betamax was better than VHS, Mastodon is better than Twitter, Dvorak keyboards are better than QWERTY, Esperanto is better than English and Lua is better than Javascript: in communication technologies, adoption and critical mass are 90% of the game and the other 10% are    bikeshedding   , at best. And programming languages are a communication technology, they're means to communicate ideas to other programmers.   
+
+   And the problem with Rust is that it just doesn't have critical mass and, frankly, I don't think it will ever have. Recently, Linus Torvalds complained somewhere that old C dinosaurs don't want to learn Rust. For higher level stuff (e.g.: web backends) Go offers faster iteration cycles than Rust because it has a gentler learning curve and better compile times. Yes, Rust adoption is rising but competing technologies are also getting better (e.g.: safer C++ with better linting tools, JIT JavaScript and WASM engines getting faster) or rising faster (Go).   
+
+   And then there's the elephant in the room: Rust is almost irrelevant for finding jobs. The majority of the Rust programming jobs asks primarily for deep knowledge in specialized technologies: cryptocurrencies/blockchain, finance trading, machine learning/data analysis, obscure network protocols, cybersecurity, etc. In those positions, Rust expertise is, at most, a "nice to have". My point is that you'll never be hired for knowing Rust well but for knowing well the domain.   
+
+   This very same sub-reddit is also part of the problem. I find it crazy that in other programming language subs (e.g.: Golang, C++) the jobs threads are always stickied at the top. I rarely see it in here. It is like "the first rule of Rust jobs is that no one talks about Rust jobs".   
+
+   There is an huge junkyard of technologies that failed to gain broad acceptance, many of them far more revolutionary than Rust (e.g.: Lisp, Smalltalk). I don't see why those technologies' story can be avoided.   
+
+   It is worth mentioning: a big push in advancing programming languages was the support of big corporations. IBM pushed FORTRAN, AT&T pushed C, Microsoft pushed MS-Basic and C#, Sun pushed Java, Google pushed Python, Apple pushed Objective-C and Swift, web browsers pushed Javascript and most big companies pushed C++. I don't see that many strong sponsors firmly behind Rust and pushing for adoption by customers.   
+
+   Edit: yeah, I know I'll be downvoted to oblivion because every sub-reddit is meant to be a circlejerk. No one likes inconvenient truths in reddit. But that is part of my point: a community that insulates itself will never become influential.   
+
+   Edit 2: oh shit! My rant came to the top! Now I feel like a stupid whining child. Well done, guys... That was classy.    Please don't take this post too seriously.   
+   

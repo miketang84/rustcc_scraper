@@ -1,0 +1,1012 @@
+https://github.com/casey/just
+-->>-->>
+Repository files navigation README CC0-1.0 license Table of Contents ↗️ just just is a handy way to save and run project-specific commands. This readme is also available as a book . (中文文档在 这里 ,
+快看过来!) Commands, called recipes, are stored in a file called justfile with syntax
+inspired by make : You can then run them with just RECIPE : $ just test-all cc *.c -o main ./test --all Yay, all your tests passed! just has a ton of useful features, and many improvements over make : just is a command runner, not a build system, so it avoids much of make 's complexity and idiosyncrasies .
+No need for .PHONY recipes! Linux, MacOS, and Windows are supported with no additional dependencies.
+(Although if your system doesn't have an sh , you'll need to choose a different shell .) Errors are specific and informative, and syntax errors are reported along
+with their source context. Recipes can accept command line arguments . Wherever possible, errors are resolved statically. Unknown recipes and
+circular dependencies are reported before anything runs. just loads .env files , making it easy to populate
+environment variables. Recipes can be listed from the command line . Command line completion scripts are available for most popular shells . Recipes can be written in arbitrary languages , like Python or NodeJS. just can be invoked from any subdirectory, not just the directory that
+contains the justfile . And much more ! If you need help with just please feel free to open an issue or ping me on Discord . Feature requests and bug reports are
+always welcome! Installation Prerequisites just should run on any system with a reasonable sh , including Linux, MacOS,
+and the BSDs. On Windows, just works with the sh provided by Git for Windows , GitHub Desktop , or Cygwin . If you'd rather not install sh , you can use the shell setting to use the
+shell of your choice. Like PowerShell: # use PowerShell instead of sh: set shell := [ " powershell.exe" , " -c" ] hello : Write-Host " Hello, world!" …or cmd.exe : # use cmd.exe instead of sh: set shell := [ " cmd.exe" , " /c" ] list : dir You can also set the shell using command-line arguments. For example, to use
+PowerShell, launch just with --shell powershell.exe --shell-arg -c . (PowerShell is installed by default on Windows 7 SP1 and Windows Server 2008 R2
+S1 and later, and cmd.exe is quite fiddly, so PowerShell is recommended for
+most Windows users.) Packages Cross-platform Package Manager Package Command asdf just asdf plugin add just asdf install just <version> Cargo just cargo install just Conda just conda install -c conda-forge just Homebrew just brew install just Nix just nix-env -iA nixpkgs.just npm rust-just npm install rust-just PyPI rust-just pipx install rust-just BSD Operating System Package Manager Package Command FreeBSD pkg just pkg install just Linux Operating System Package Manager Package Command Alpine apk-tools just apk add just Arch pacman just pacman -S just Debian 13 (unreleased) and Ubuntu 24.04 derivatives apt just apt install just Debian and Ubuntu derivatives MPR just git clone https://mpr.makedeb.org/just cd just makedeb -si Debian and Ubuntu derivatives Prebuilt-MPR just You must have the Prebuilt-MPR set up on your system in order to run this command. apt install just Fedora DNF just dnf install just Gentoo Portage guru/dev-build/just eselect repository enable guru emerge --sync guru emerge dev-build/just NixOS Nix just nix-env -iA nixos.just openSUSE Zypper just zypper in just Solus eopkg just eopkg install just Void XBPS just xbps-install -S just Windows Package Manager Package Command Chocolatey just choco install just Scoop just scoop install just Windows Package Manager Casey/Just winget install --id Casey.Just --exact macOS Package Manager Package Command MacPorts just port install just Pre-Built Binaries Pre-built binaries for Linux, MacOS, and Windows can be found on the releases page . You can use the following command on Linux, MacOS, or Windows to download the
+latest release, just replace DEST with the directory where you'd like to put just : curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to DEST For example, to install just to ~/bin : # create ~ /bin mkdir -p ~/bin # download and extract just to ~ /bin/just curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin # add ` ~/bin ` to the paths that your shell searches for executables # this line should be added to your shells initialization file, # e.g. ` ~/.bashrc ` or ` ~/.zshrc ` export PATH="$PATH:$HOME/bin" # just should now be executable just --help Note that install.sh may fail on GitHub Actions, or in other environments
+where many machines share IP addresses. install.sh calls GitHub APIs in order
+to determine the latest version of just to install, and those API calls are
+rate-limited on a per-IP basis. To make install.sh more reliable in such
+circumstances, pass a specific tag to install with --tag . Releases include a SHA256SUM file
+which can be used to verify the integrity of pre-built binary archives. To verify a release, download the pre-built binary archive along with the SHA256SUM file and run: shasum --algorithm 256 --ignore-missing --check SHA256SUMS GitHub Actions just can be installed on GitHub Actions in a few ways. Using package managers pre-installed on GitHub Actions runners on MacOS with brew install just , and on Windows with choco install just . With extractions/setup-just : - uses : extractions/setup-just@v1 with : just-version : 1.5.0 # optional semver specification, otherwise latest Or with taiki-e/install-action : - uses : taiki-e/install-action@just Release RSS Feed An RSS feed of just releases is available here . Node.js Installation just-install can be used to automate
+installation of just in Node.js applications. just is a great, more robust alternative to npm scripts. If you want to
+include just in the dependencies of a Node.js application, just-install will install a local, platform-specific binary as part of the npm install command. This removes the need for every developer to install just independently using one of the processes mentioned above. After installation,
+the just command will work in npm scripts or with npx. It's great for teams
+who want to make the set up process for their project as easy as possible. For more information, see the just-install README file . Backwards Compatibility With the release of version 1.0, just features a strong commitment to
+backwards compatibility and stability. Future releases will not introduce backwards incompatible changes that make
+existing justfile s stop working, or break working invocations of the
+command-line interface. This does not, however, preclude fixing outright bugs, even if doing so might
+break justfiles that rely on their behavior. There will never be a just 2.0. Any desirable backwards-incompatible changes
+will be opt-in on a per- justfile basis, so users may migrate at their
+leisure. Features that aren't yet ready for stabilization are marked as unstable and may
+be changed or removed at any time. Using unstable features produces an error by
+default, which can be suppressed with by passing the --unstable flag, set unstable , or setting the environment variable JUST_UNSTABLE , to any
+value other than false , 0 , or the empty string. Editor Support justfile syntax is close enough to make that you may want to tell your
+editor to use make syntax highlighting for just . Vim and Neovim vim-just The vim-just plugin provides syntax
+highlighting for justfile s. Install it with your favorite package manager, like Plug : call plug#begin ()
+
+Plug ' NoahTheDuke/vim-just ' call plug#end () Or with Vim's built-in package support: mkdir -p ~/.vim/pack/vendor/start cd ~/.vim/pack/vendor/start git clone https://github.com/NoahTheDuke/vim-just.git tree-sitter-just tree-sitter-just is an Nvim Treesitter plugin
+for Neovim. Makefile Syntax Highlighting Vim's built-in makefile syntax highlighting isn't perfect for justfile s, but
+it's better than nothing. You can put the following in ~/.vim/filetype.vim : if exists ( " did_load_filetypes " ) finish endif augroup filetypedetect au BufNewFile , BufRead justfile setf make augroup END Or add the following to an individual justfile to enable make mode on a
+per-file basis: # vim: set ft=make : Emacs just-mode provides syntax
+highlighting and automatic indentation of justfile s. It is available on MELPA as just-mode . justl provides commands for executing and
+listing recipes. You can add the following to an individual justfile to enable make mode on
+a per-file basis: # Local Variables:
+# mode: makefile
+# End: Visual Studio Code An extension for VS Code is available here . Unmaintained VS Code extensions include skellock/vscode-just and sclu1034/vscode-just . JetBrains IDEs A plugin for JetBrains IDEs by linux_china is available here . Kakoune Kakoune supports justfile syntax highlighting out of the box, thanks to
+TeddyDD. Helix Helix supports justfile syntax highlighting
+out-of-the-box since version 23.05. Sublime Text The Just package by nk9 with just syntax and some other tools is
+available on PackageControl . Micro Micro supports Justfile syntax highlighting
+out of the box, thanks to tomodachi94 . Other Editors Feel free to send me the commands necessary to get syntax highlighting working
+in your editor of choice so that I may include them here. Quick Start See the installation section for how to install just on your
+computer. Try running just --version to make sure that it's installed
+correctly. For an overview of the syntax, check out this cheatsheet . Once just is installed and working, create a file named justfile in the
+root of your project with the following contents: recipe-name : echo ' This is a recipe!' # this is a comment another-recipe : @ echo ' This is another recipe.' When you invoke just it looks for file justfile in the current directory
+and upwards, so you can invoke it from any subdirectory of your project. The search for a justfile is case insensitive, so any case, like Justfile , JUSTFILE , or JuStFiLe , will work. just will also look for files with the
+name .justfile , in case you'd like to hide a justfile . Running just with no arguments runs the first recipe in the justfile : $ just echo 'This is a recipe!' This is a recipe! One or more arguments specify the recipe(s) to run: $ just another-recipe This is another recipe. just prints each command to standard error before running it, which is why echo 'This is a recipe!' was printed. This is suppressed for lines starting
+with @ , which is why echo 'This is another recipe.' was not printed. Recipes stop running if a command fails. Here cargo publish will only run if cargo test succeeds: publish : cargo test # tests passed, time to publish! cargo publish Recipes can depend on other recipes. Here the test recipe depends on the build recipe, so build will run before test : build : cc main.c foo.c bar.c -o main test : build . / test sloc : @ echo " `wc -l *.c` lines of code" $ just test cc main.c foo.c bar.c -o main ./test testing… all tests passed! Recipes without dependencies will run in the order they're given on the command
+line: $ just build sloc cc main.c foo.c bar.c -o main 1337 lines of code Dependencies will always run first, even if they are passed after a recipe that
+depends on them: $ just test build cc main.c foo.c bar.c -o main ./test testing… all tests passed! Examples A variety of justfile s can be found in the examples directory and on GitHub . Features The Default Recipe When just is invoked without a recipe, it runs the first recipe in the justfile . This recipe might be the most frequently run command in the
+project, like running the tests: test : cargo test You can also use dependencies to run multiple recipes by default: default : lint build test build : echo Building… test : echo Testing… lint : echo Linting… If no recipe makes sense as the default recipe, you can add a recipe to the
+beginning of your justfile that lists the available recipes: default : just --list Listing Available Recipes Recipes can be listed in alphabetical order with just --list : $ just --list Available recipes: build test deploy lint Recipes in submodules can be listed with just --list PATH ,
+where PATH is a space- or :: -separated module path: $ cat justfile
+mod foo
+$ cat foo.just
+mod bar
+$ cat bar.just
+baz:
+$ just foo bar
+Available recipes:
+    baz
+$ just foo::bar
+Available recipes:
+    baz just --summary is more concise: $ just --summary build test deploy lint Pass --unsorted to print recipes in the order they appear in the justfile : test : echo ' Testing!' build : echo ' Building!' $ just --list --unsorted Available recipes: test build $ just --summary --unsorted test build If you'd like just to default to listing the recipes in the justfile , you
+can use this as your default recipe: default : @ just --list Note that you may need to add --justfile {{justfile()}} to the line above.
+Without it, if you executed just -f /some/distant/justfile -d . or just -f ./non-standard-justfile , the plain just --list inside the recipe
+would not necessarily use the file you provided. It would try to find a
+justfile in your current path, maybe even resulting in a No justfile found error. The heading text can be customized with --list-heading : $ just --list --list-heading $' Cool stuff… \n ' Cool stuff… test build And the indentation can be customized with --list-prefix : $ just --list --list-prefix ···· Available recipes: ····test ····build The argument to --list-heading replaces both the heading and the newline
+following it, so it should contain a newline if non-empty. It works this way so
+you can suppress the heading line entirely by passing the empty string: $ just --list --list-heading ' ' test build Invoking Multiple Recipes Multiple recipes may be invoked on the command line at once: build : make web serve : python3 -m http.server -d out 8000 $ just build serve make web python3 -m http.server -d out 8000 Keep in mind that recipes with parameters will swallow arguments, even if they
+match the names of other recipes: build project : make {{ project }} serve : python3 -m http.server -d out 8000 $ just build serve make: *** No rule to make target `serve'.  Stop. The --one flag can be used to restrict command-line invocations to a single
+recipe: $ just --one build serve error: Expected 1 command-line recipe invocation but found 2. Working Directory By default, recipes run with the working directory set to the directory that
+contains the justfile . The [no-cd] attribute can be used to make recipes run with the working
+directory set to directory in which just was invoked. @ foo : pwd
+
+[ no-cd ] @ bar : pwd $ cd subdir $ just foo / $ just bar /subdir You can override working directory with set working-directory := '…' , whose value
+is relative to the default working directory. set working-directory := ' bar' @ foo : pwd $ pwd /home/bob $ just foo /home/bob/bar Aliases Aliases allow recipes to be invoked on the command line with alternative names: alias b := build build : echo ' Building!' $ just b echo 'Building!' Building! Settings Settings control interpretation and execution. Each setting may be specified at
+most once, anywhere in the justfile . For example: set shell := [ " zsh" , " -cu" ] foo : # this line will be run as `zsh -cu 'ls **/*.txt'` ls ** / *.txt Table of Settings Name Value Default Description allow-duplicate-recipes boolean false Allow recipes appearing later in a justfile to override earlier recipes with the same name. allow-duplicate-variables boolean false Allow variables appearing later in a justfile to override earlier variables with the same name. dotenv-filename string - Load a .env file with a custom name, if present. dotenv-load boolean false Load a .env file, if present. dotenv-path string - Load a .env file from a custom path and error if not present. Overrides dotenv-filename . dotenv-required boolean false Error if a .env file isn't found. export boolean false Export all variables as environment variables. fallback boolean false Search justfile in parent directory if the first recipe on the command line is not found. ignore-comments boolean false Ignore recipe lines beginning with # . positional-arguments boolean false Pass positional arguments. script-interpreter 1.33.0 [COMMAND, ARGS…] ['sh', '-eu'] Set command used to invoke recipes with empty [script] attribute. shell [COMMAND, ARGS…] - Set command used to invoke recipes and evaluate backticks. tempdir string - Create temporary directories in tempdir instead of the system default temporary directory. unstable 1.31.0 boolean false Enable unstable features. windows-powershell boolean false Use PowerShell on Windows as default shell. (Deprecated. Use windows-shell instead. windows-shell [COMMAND, ARGS…] - Set the command used to invoke recipes and evaluate backticks. working-directory 1.33.0 string - Set the working directory for recipes and backticks, relative to the default working directory. Boolean settings can be written as: set NAME Which is equivalent to: set NAME := true Allow Duplicate Recipes If allow-duplicate-recipes is set to true , defining multiple recipes with
+the same name is not an error and the last definition is used. Defaults to false . set allow-duplicate-recipes @ foo : echo foo @ foo : echo bar $ just foo bar Allow Duplicate Variables If allow-duplicate-variables is set to true , defining multiple variables
+with the same name is not an error and the last definition is used. Defaults to false . set allow-duplicate-variables a := " foo" a := " bar" @ foo : echo $a $ just foo bar Dotenv Settings If any of dotenv-load , dotenv-filename , dotenv-path , or dotenv-required are set, just will try to load environment variables from a file. If dotenv-path is set, just will look for a file at the given path, which
+may be absolute, or relative to the working directory. The command-line option --dotenv-path , short form -E , can be used to set or
+override dotenv-path at runtime. If dotenv-filename is set just will look for a file at the given path,
+relative to the working directory and each of its ancestors. If dotenv-filename is not set, but dotenv-load or dotenv-required are
+set, just will look for a file named .env , relative to the working directory
+and each of its ancestors. dotenv-filename and dotenv-path are similar, but dotenv-path is only
+checked relative to the working directory, whereas dotenv-filename is checked
+relative to the working directory and each of its ancestors. It is not an error if an environment file is not found, unless dotenv-required is set. The loaded variables are environment variables, not just variables, and so
+must be accessed using $VARIABLE_NAME in recipes and backticks. For example, if your .env file contains: # a comment, will be ignored DATABASE_ADDRESS=localhost:6379 SERVER_PORT=1337 And your justfile contains: set dotenv-load serve : @ echo " Starting server with database $DATABASE_ADDRESS on port $SERVER_PORT…" . / server --database $DATABASE_ADDRESS --port $SERVER_PORT just serve will output: $ just serve Starting server with database localhost:6379 on port 1337… ./server --database $DATABASE_ADDRESS --port $SERVER_PORT Export The export setting causes all just variables to be exported as environment
+variables. Defaults to false . set export a := " hello" @ foo b : echo $a
+  echo $b $ just foo goodbye hello goodbye Positional Arguments If positional-arguments is true , recipe arguments will be passed as
+positional arguments to commands. For linewise recipes, argument $0 will be
+the name of the recipe. For example, running this recipe: set positional-arguments @ foo bar : echo $0
+  echo $ 1 Will produce the following output: $ just foo hello foo hello When using an sh -compatible shell, such as bash or zsh , $@ expands to
+the positional arguments given to the recipe, starting from one. When used
+within double quotes as "$@" , arguments including whitespace will be passed
+on as if they were double-quoted. That is, "$@" is equivalent to "$1" "$2" …
+When there are no positional parameters, "$@" and $@ expand to nothing
+(i.e., they are removed). This example recipe will print arguments one by one on separate lines: set positional-arguments @ test * args = ' ' : bash -c ' while (( "$#" )); do echo - $1; shift; done' -- " $@" Running it with two arguments: $ just test foo " bar baz " - foo - bar baz Positional arguments may also be turned on on a per-recipe basis with the [positional-arguments] attribute 1.29.0 : [ positional-arguments ] @ foo bar : echo $0
+  echo $ 1 Note that PowerShell does not handle positional arguments in the same way as
+other shells, so turning on positional arguments will likely break recipes that
+use PowerShell. If using PowerShell 7.4 or better, the -CommandWithArgs flag will make
+positional arguments work as expected: set shell := [ ' pwsh.exe' , ' -CommandWithArgs' ] set positional-arguments print-args a b c : Write-Output @($args[ 1. .($args.Count - 1 )]) Shell The shell setting controls the command used to invoke recipe lines and
+backticks. Shebang recipes are unaffected. The default shell is sh -cu . # use python3 to execute recipe lines and backticks set shell := [ " python3" , " -c" ] # use print to capture result of evaluation foos := ` print( " foo " * 4) ` foo : print( " Snake snake snake snake." )
+  print( " {{ foos }} " ) just passes the command to be executed as an argument. Many shells will need
+an additional flag, often -c , to make them evaluate the first argument. Windows Shell just uses sh on Windows by default. To use a different shell on Windows,
+use windows-shell : set windows-shell := [ " powershell.exe" , " -NoLogo" , " -Command" ] hello : Write-Host " Hello, world!" See powershell.just for a justfile that uses PowerShell on all platforms. Windows PowerShell set windows-powershell uses the legacy powershell.exe binary, and is no
+longer recommended. See the windows-shell setting above for a more flexible
+way to control which shell is used on Windows. just uses sh on Windows by default. To use powershell.exe instead, set windows-powershell to true. set windows-powershell := true hello : Write-Host " Hello, world!" Python 3 set shell := [ " python3" , " -c" ] Bash set shell := [ " bash" , " -uc" ] Z Shell set shell := [ " zsh" , " -uc" ] Fish set shell := [ " fish" , " -c" ] Nushell set shell := [ " nu" , " -c" ] If you want to change the default table mode to light : set shell := [ ' nu' , ' -m' , ' light' , ' -c' ] Nushell was written in Rust, and has
+cross-platform support for Windows / macOS and Linux . Documentation Comments Comments immediately preceding a recipe will appear in just --list : # build stuff build : . / bin / build # test stuff test : . / bin / test $ just --list Available recipes: build # build stuff test # test stuff The [doc] attribute can be used to set or suppress a recipe's doc comment: # This comment won't appear [ doc ( ' Build stuff' )] build : . / bin / build # This one won't either [ doc ] test : . / bin / test $ just --list Available recipes: build # Build stuff test Variables and Substitution Variables, strings, concatenation, path joining, and substitution using {{…}} are supported: tmpdir := ` mktemp -d ` version := " 0.2.7" tardir := tmpdir / " awesomesauce-" + version tarball := tardir + " .tar.gz" publish : rm -f {{ tarball }} mkdir {{ tardir }} cp README.md *.c {{ tardir }} tar zcvf {{ tarball }} {{ tardir }} scp {{ tarball }} me@server.com:release / rm -rf {{ tarball }} {{ tardir }} Joining Paths The / operator can be used to join two strings with a slash: foo := " a" / " b" $ just --evaluate foo
+a/b Note that a / is added even if one is already present: foo := " a/" bar := foo / " b" $ just --evaluate bar
+a//b Absolute paths can also be constructed 1.5.0 : foo := / " b" $ just --evaluate foo
+/b The / operator uses the / character, even on Windows. Thus, using the / operator should be avoided with paths that use universal naming convention
+(UNC), i.e., those that start with \? , since forward slashes are not
+supported with UNC paths. Escaping {{ To write a recipe containing {{ , use {{{{ : braces : echo ' I {{{{LOVE}} curly braces!' (An unmatched }} is ignored, so it doesn't need to be escaped.) Another option is to put all the text you'd like to escape inside of an
+interpolation: braces : echo '{{' I {{ LOVE }} curly braces! ' }}' Yet another option is to use {{ "{{" }} : braces : echo ' I {{ "{{" }} LOVE}} curly braces!' Strings Double-quoted strings support escape sequences: carriage-return := " \r " double-quote := " \" " newline := " \n " no-newline := " \ " slash := " \\ " tab := " \t " unicode-codepoint := " \u {1F916}" $ just --evaluate "arriage-return   := " double-quote      := """ newline           := " " no-newline        := "" slash             := "\" tab               := "     " unicode-codepoint := "🤖" The unicode character escape sequence \u{…} 1.36.0 accepts up to
+six hex digits. Strings may contain line breaks: single := ' hello ' double := " goodbye " Single-quoted strings do not recognize escape sequences: escapes := ' \t\n\r\"\\' $ just --evaluate escapes := "\t\n\r\"\\" Indented versions of both single- and double-quoted strings, delimited by
+triple single- or double-quotes, are supported. Indented string lines are
+stripped of a leading line break, and leading whitespace common to all
+non-blank lines: # this string will evaluate to `foo\nbar\n` x := ''' foo bar ''' # this string will evaluate to `abc\n  wuv\nxyz\n` y := """ abc wuv xyz """ Similar to unindented strings, indented double-quoted strings process escape
+sequences, and indented single-quoted strings ignore escape sequences. Escape
+sequence processing takes place after unindentation. The unindentation
+algorithm does not take escape-sequence produced whitespace or newlines into
+account. Strings prefixed with x are shell expanded 1.27.0 : foobar := x ' ~/$FOO/${BAR}' Value Replacement $VAR value of environment variable VAR ${VAR} value of environment variable VAR ${VAR:-DEFAULT} value of environment variable VAR , or DEFAULT if VAR is not set Leading ~ path to current user's home directory Leading ~USER path to USER 's home directory This expansion is performed at compile time, so variables from .env files and
+exported just variables cannot be used. However, this allows shell expanded
+strings to be used in places like settings and import paths, which cannot
+depend on just variables and .env files. Ignoring Errors Normally, if a command returns a non-zero exit status, execution will stop. To
+continue execution after a command, even if it fails, prefix the command with - : foo : - cat foo
+  echo ' Done!' $ just foo cat foo cat: foo: No such file or directory echo 'Done!' Done! Functions just provides a few built-in functions that might be useful when writing
+recipes. All functions ending in _directory can be abbreviated to _dir . So home_directory() can also be written as home_dir() . In addition, invocation_directory_native() can be abbreviated to invocation_dir_native() . System Information arch() — Instruction set architecture. Possible values are: "aarch64" , "arm" , "asmjs" , "hexagon" , "mips" , "msp430" , "powerpc" , "powerpc64" , "s390x" , "sparc" , "wasm32" , "x86" , "x86_64" , and "xcore" . num_cpus() 1.15.0 - Number of logical CPUs. os() — Operating system. Possible values are: "android" , "bitrig" , "dragonfly" , "emscripten" , "freebsd" , "haiku" , "ios" , "linux" , "macos" , "netbsd" , "openbsd" , "solaris" , and "windows" . os_family() — Operating system family; possible values are: "unix" and "windows" . For example: system-info : @ echo " This is an {{ arch () }} machine" . $ just system-info This is an x86_64 machine The os_family() function can be used to create cross-platform justfile s
+that work on various operating systems. For an example, see cross-platform.just file. External Commands shell(command, args...) 1.27.0 returns the standard output of shell script command with zero or more positional arguments args . The shell used to
+interpret command is the same shell that is used to evaluate recipe lines,
+and can be changed with set shell := […] . command is passed as the first argument, so if the command is 'echo $@' ,
+the full command line, with the default shell command shell -cu and args 'foo' and 'bar' will be: 'shell' '-cu' 'echo $@' 'echo $@' 'foo' 'bar' This is so that $@ works as expected, and $1 refers to the first
+argument. $@ does not include the first positional argument, which is
+expected to be the name of the program being run. # arguments can be variables or expressions file := ' /sys/class/power_supply/BAT0/status' bat0stat := shell ( ' cat $1' , file) # commands can be variables or expressions command := ' wc -l' output := shell (command + ' "$1"' , ' main.c' ) # arguments referenced by the shell command must be used empty := shell ( ' echo' , ' foo' ) full := shell ( ' echo $1' , ' foo' ) error := shell ( ' echo $1' ) # Using python as the shell. Since `python -c` sets `sys.argv[0]` to `'-c'`, # the first "real" positional argument will be `sys.argv[2]`. set shell := [ " python3" , " -c" ] olleh := shell ( ' import sys; print(sys.argv[2][::-1])' , ' hello' ) Environment Variables env_var(key) — Retrieves the environment variable with name key , aborting
+if it is not present. home_dir := env_var ( ' HOME' ) test : echo " {{ home_dir }} " $ just /home/user1 env_var_or_default(key, default) — Retrieves the environment variable with
+name key , returning default if it is not present. env(key) 1.15.0 — Alias for env_var(key) . env(key, default) 1.15.0 — Alias for env_var_or_default(key, default) . Invocation Information is_dependency() - Returns the string true if the current recipe is being
+run as a dependency of another recipe, rather than being run directly,
+otherwise returns the string false . Invocation Directory invocation_directory() - Retrieves the absolute path to the current
+directory when just was invoked, before just changed it (chdir'd) prior
+to executing commands. On Windows, invocation_directory() uses cygpath to
+convert the invocation directory to a Cygwin-compatible / -separated path.
+Use invocation_directory_native() to return the verbatim invocation
+directory on all platforms. For example, to call rustfmt on files just under the "current directory"
+(from the user/invoker's perspective), use the following rule: rustfmt : find {{ invocation_directory () }} -name \*.rs -exec rustfmt {} \; Alternatively, if your command needs to be run from the current directory, you
+could use (e.g.): build : cd {{ invocation_directory () }} ; . / some_script_that_needs_to_be_run_from_here invocation_directory_native() - Retrieves the absolute path to the current
+directory when just was invoked, before just changed it (chdir'd) prior
+to executing commands. Justfile and Justfile Directory justfile() - Retrieves the path of the current justfile . justfile_directory() - Retrieves the path of the parent directory of the
+current justfile . For example, to run a command relative to the location of the current justfile : script : {{ justfile_directory () }} / scripts / some_script Source and Source Directory source_file() 1.27.0 - Retrieves the path of the current source file. source_directory() 1.27.0 - Retrieves the path of the parent directory of the
+current source file. source_file() and source_directory() behave the same as justfile() and justfile_directory() in the root justfile , but will return the path and
+directory, respectively, of the current import or mod source file when
+called from within an import or submodule. Just Executable just_executable() - Absolute path to the just executable. For example: executable : @ echo The executable is at: {{ just_executable () }} $ just The executable is at: /bin/just Just Process ID just_pid() - Process ID of the just executable. For example: pid : @ echo The process ID is: {{ just_pid () }} $ just The process ID is: 420 String Manipulation append(suffix, s) 1.27.0 Append suffix to whitespace-separated
+strings in s . append('/src', 'foo bar baz') → 'foo/src bar/src baz/src' prepend(prefix, s) 1.27.0 Prepend prefix to
+whitespace-separated strings in s . prepend('src/', 'foo bar baz') → 'src/foo src/bar src/baz' encode_uri_component(s) 1.27.0 - Percent-encode characters in s except [A-Za-z0-9_.!~*'()-] , matching the behavior of the JavaScript encodeURIComponent function . quote(s) - Replace all single quotes with '\'' and prepend and append
+single quotes to s . This is sufficient to escape special characters for
+many shells, including most Bourne shell descendants. replace(s, from, to) - Replace all occurrences of from in s to to . replace_regex(s, regex, replacement) - Replace all occurrences of regex in s to replacement . Regular expressions are provided by the Rust regex crate . See the syntax documentation for usage
+examples. Capture groups are supported. The replacement string uses Replacement string syntax . trim(s) - Remove leading and trailing whitespace from s . trim_end(s) - Remove trailing whitespace from s . trim_end_match(s, pat) - Remove suffix of s matching pat . trim_end_matches(s, pat) - Repeatedly remove suffixes of s matching pat . trim_start(s) - Remove leading whitespace from s . trim_start_match(s, pat) - Remove prefix of s matching pat . trim_start_matches(s, pat) - Repeatedly remove prefixes of s matching pat . Case Conversion capitalize(s) 1.7.0 - Convert first character of s to uppercase
+and the rest to lowercase. kebabcase(s) 1.7.0 - Convert s to kebab-case . lowercamelcase(s) 1.7.0 - Convert s to lowerCamelCase . lowercase(s) - Convert s to lowercase. shoutykebabcase(s) 1.7.0 - Convert s to SHOUTY-KEBAB-CASE . shoutysnakecase(s) 1.7.0 - Convert s to SHOUTY_SNAKE_CASE . snakecase(s) 1.7.0 - Convert s to snake_case . titlecase(s) 1.7.0 - Convert s to Title Case . uppercamelcase(s) 1.7.0 - Convert s to UpperCamelCase . uppercase(s) - Convert s to uppercase. Path Manipulation Fallible absolute_path(path) - Absolute path to relative path in the working
+directory. absolute_path("./bar.txt") in directory /foo is /foo/bar.txt . canonicalize(path) 1.24.0 - Canonicalize path by resolving symlinks and removing . , .. , and extra / s where possible. extension(path) - Extension of path . extension("/foo/bar.txt") is txt . file_name(path) - File name of path with any leading directory components
+removed. file_name("/foo/bar.txt") is bar.txt . file_stem(path) - File name of path without extension. file_stem("/foo/bar.txt") is bar . parent_directory(path) - Parent directory of path . parent_directory("/foo/bar.txt") is /foo . without_extension(path) - path without extension. without_extension("/foo/bar.txt") is /foo/bar . These functions can fail, for example if a path does not have an extension,
+which will halt execution. Infallible clean(path) - Simplify path by removing extra path separators,
+intermediate . components, and .. where possible. clean("foo//bar") is foo/bar , clean("foo/..") is . , clean("foo/./bar") is foo/bar . join(a, b…) - This function uses / on Unix and \ on Windows, which can
+be lead to unwanted behavior. The / operator, e.g., a / b , which always
+uses / , should be considered as a replacement unless \ s are specifically
+desired on Windows. Join path a with path b . join("foo/bar", "baz") is foo/bar/baz . Accepts two or more arguments. Filesystem Access path_exists(path) - Returns true if the path points at an existing entity
+and false otherwise. Traverses symbolic links, and returns false if the
+path is inaccessible or points to a broken symlink. Error Reporting error(message) - Abort execution and report error message to user. UUID and Hash Generation blake3(string) 1.25.0 - Return BLAKE3 hash of string as hexadecimal string. blake3_file(path) 1.25.0 - Return BLAKE3 hash of file at path as hexadecimal
+string. sha256(string) - Return the SHA-256 hash of string as hexadecimal string. sha256_file(path) - Return SHA-256 hash of file at path as hexadecimal
+string. uuid() - Generate a random version 4 UUID. Random choose(n, alphabet) 1.27.0 - Generate a string of n randomly
+selected characters from alphabet , which may not contain repeated
+characters. For example, choose('64', HEX) will generate a random
+64-character lowercase hex string. Datetime datetime(format) 1.30.0 - Return local time with format . datetime_utc(format) 1.30.0 - Return UTC time with format . The arguments to datetime and datetime_utc are strftime -style format
+strings, see the chrono library docs for details. Semantic Versions semver_matches(version, requirement) 1.16.0 - Check whether a semantic version , e.g., "0.1.0" matches a requirement , e.g., ">=0.1.0" , returning "true" if so and "false" otherwise. XDG Directories 1.23.0 These functions return paths to user-specific directories for things like
+configuration, data, caches, executables, and the user's home directory. These
+functions follow the XDG Base Directory Specification ,
+and are implemented with the dirs crate. cache_directory() - The user-specific cache directory. config_directory() - The user-specific configuration directory. config_local_directory() - The local user-specific configuration directory. data_directory() - The user-specific data directory. data_local_directory() - The local user-specific data directory. executable_directory() - The user-specific executable directory. home_directory() - The user's home directory. Constants A number of constants are predefined: Name Value HEX 1.27.0 "0123456789abcdef" HEXLOWER 1.27.0 "0123456789abcdef" HEXUPPER 1.27.0 "0123456789ABCDEF" @ foo : echo {{ HEX }} $ just foo 0123456789abcdef Attributes Recipes, mod statements, and aliases may be annotated with attributes that change their behavior. Name Type Description [confirm] 1.17.0 recipe Require confirmation prior to executing recipe. [confirm('PROMPT')] 1.23.0 recipe Require confirmation prior to executing recipe with a custom prompt. [doc('DOC')] 1.27.0 module, recipe Set recipe or module's documentation comment to DOC . [extension('EXT')] 1.32.0 recipe Set shebang recipe script's file extension to EXT . EXT should include a period if one is desired. [group('NAME')] 1.27.0 module, recipe Put recipe or module in in group NAME . [linux] 1.8.0 recipe Enable recipe on Linux. [macos] 1.8.0 recipe Enable recipe on MacOS. [no-cd] 1.9.0 recipe Don't change directory before executing recipe. [no-exit-message] 1.7.0 recipe Don't print an error message if recipe fails. [no-quiet] 1.23.0 recipe Override globally quiet recipes and always echo out the recipe. [positional-arguments] 1.29.0 recipe Turn on positional arguments for this recipe. [private] 1.10.0 alias, recipe Make recipe, alias, or variable private. See Private Recipes . [script] 1.33.0 recipe Execute recipe as script. See script recipes for more details. [script(COMMAND)] 1.32.0 recipe Execute recipe as a script interpreted by COMMAND . See script recipes for more details. [unix] 1.8.0 recipe Enable recipe on Unixes. (Includes MacOS). [windows] 1.8.0 recipe Enable recipe on Windows. A recipe can have multiple attributes, either on multiple lines: [ no-cd ]
+[ private ] foo : echo " foo" Or separated by commas on a single line 1.14.0 : [ no-cd , private ] foo : echo " foo" Enabling and Disabling Recipes 1.8.0 The [linux] , [macos] , [unix] , and [windows] attributes are
+configuration attributes. By default, recipes are always enabled. A recipe with
+one or more configuration attributes will only be enabled when one or more of
+those configurations is active. This can be used to write justfile s that behave differently depending on
+which operating system they run on. The run recipe in this justfile will
+compile and run main.c , using a different C compiler and using the correct
+output binary name for that compiler depending on the operating system: [ unix ] run : cc main.c
+  . / a.out
+
+[ windows ] run : cl main.c
+  main.exe Disabling Changing Directory 1.9.0 just normally executes recipes with the current directory set to the
+directory that contains the justfile . This can be disabled using the [no-cd] attribute. This can be used to create recipes which use paths
+relative to the invocation directory, or which operate on the current
+directory. For example, this commit recipe: [ no-cd ] commit file : git add {{ file }} git commit Can be used with paths that are relative to the current directory, because [no-cd] prevents just from changing the current directory when executing commit . Requiring Confirmation for Recipes 1.17.0 just normally executes all recipes unless there is an error. The [confirm] attribute allows recipes require confirmation in the terminal prior to running.
+This can be overridden by passing --yes to just , which will automatically
+confirm any recipes marked by this attribute. Recipes dependent on a recipe that requires confirmation will not be run if the
+relied upon recipe is not confirmed, as well as recipes passed after any recipe
+that requires confirmation. [ confirm ] delete-all : rm -rf * Custom Confirmation Prompt 1.23.0 The default confirmation prompt can be overridden with [confirm(PROMPT)] : [ confirm ( " Are you sure you want to delete everything?" )] delete-everything : rm -rf * Groups Recipes and modules may be annotated with a group name: [ group ( ' lint' )] js-lint : echo ' Running JS linter…' [ group ( ' rust recipes' )]
+[ group ( ' lint' )] rust-lint : echo ' Running Rust linter…' [ group ( ' lint' )] cpp-lint : echo ' Running C++ linter…' # not in any group email-everyone : echo ' Sending mass email…' Recipes are listed by group: $ just --list
+Available recipes:
+    email-everyone # not in any group
+
+    [lint]
+    cpp-lint
+    js-lint
+    rust-lint
+
+    [rust recipes]
+    rust-lint just --list --unsorted prints recipes in their justfile order within each group: $ just --list --unsorted
+Available recipes:
+    (no group)
+    email-everyone # not in any group
+
+    [lint]
+    js-lint
+    rust-lint
+    cpp-lint
+
+    [rust recipes]
+    rust-lint Groups can be listed with --groups : $ just --groups
+Recipe groups:
+  lint
+  rust recipes Use just --groups --unsorted to print groups in their justfile order. Command Evaluation Using Backticks Backticks can be used to store the result of commands: localhost := ` dumpinterfaces | cut -d: -f2 | sed ' s/\/.*// ' | sed ' s/ //g ' ` serve : . / serve {{ localhost }} 8080 Indented backticks, delimited by three backticks, are de-indented in the same
+manner as indented strings: # This backtick evaluates the command `echo foo\necho bar\n`, which produces the value `foo\nbar\n`. stuff := ``` echo foo echo bar ``` See the Strings section for details on unindenting. Backticks may not start with #! . This syntax is reserved for a future
+upgrade. Conditional Expressions if / else expressions evaluate different branches depending on if two
+expressions evaluate to the same value: foo := if " 2" == " 2" { " Good!" } else { " 1984" } bar : @ echo " {{ foo }} " $ just bar Good! It is also possible to test for inequality: foo := if " hello" != " goodbye" { " xyz" } else { " abc" } bar : @ echo {{ foo }} $ just bar xyz And match against regular expressions: foo := if " hello" =~ ' hel+o' { " match" } else { " mismatch" } bar : @ echo {{ foo }} $ just bar match Regular expressions are provided by the regex crate , whose syntax is documented on docs.rs . Since regular expressions
+commonly use backslash escape sequences, consider using single-quoted string
+literals, which will pass slashes to the regex parser unmolested. Conditional expressions short-circuit, which means they only evaluate one of
+their branches. This can be used to make sure that backtick expressions don't
+run when they shouldn't. foo := if env_var ( " RELEASE" ) == " true" { ` get-something-from-release-database ` } else { " dummy-value" } Conditionals can be used inside of recipes: bar foo : echo {{ if foo == " bar" { " hello" } else { " goodbye" } }} Note the space after the final } ! Without the space, the interpolation will
+be prematurely closed. Multiple conditionals can be chained: foo := if " hello" == " goodbye" { " xyz" } else if " a" == " a" { " abc" } else { " 123" } bar : @ echo {{ foo }} $ just bar abc Stopping execution with error Execution can be halted with the error function. For example: foo := if " hello" == " goodbye" { " xyz" } else if " a" == " b" { " abc" } else { error ( " 123" )
+} Which produce the following error when run: error: Call to function `error` failed: 123
+   |
+16 |   error("123") Setting Variables from the Command Line Variables can be overridden from the command line. os := " linux" test : build . / test --test {{ os }} build : . / build {{ os }} $ just ./build linux ./test --test linux Any number of arguments of the form NAME=VALUE can be passed before recipes: $ just os=plan9 ./build plan9 ./test --test plan9 Or you can use the --set flag: $ just --set os bsd ./build bsd ./test --test bsd Getting and Setting Environment Variables Exporting just Variables Assignments prefixed with the export keyword will be exported to recipes as
+environment variables: export RUST_BACKTRACE := " 1" test : # will print a stack trace if it crashes cargo test Parameters prefixed with a $ will be exported as environment variables: test $ RUST_BACKTRACE = " 1" : # will print a stack trace if it crashes cargo test Exported variables and parameters are not exported to backticks in the same scope. export WORLD := " world" # This backtick will fail with "WORLD: unbound variable" BAR := ` echo hello $WORLD ` # Running `just a foo` will fail with "A: unbound variable" a $ A $ B = ` echo $A ` : echo $A $B When export is set, all just variables are exported as environment
+variables. Unexporting Environment Variables 1.29.0 Environment variables can be unexported with the unexport keyword : unexport FOO @ foo : echo $FOO $ export FOO=bar
+$ just foo
+sh: FOO: unbound variable Getting Environment Variables from the environment Environment variables from the environment are passed automatically to the
+recipes. print_home_folder : echo " HOME is: '${HOME}'" $ just HOME is '/home/myuser' Setting just Variables from Environment Variables Environment variables can be propagated to just variables using the functions env_var() and env_var_or_default() . See environment-variables . Recipe Parameters Recipes may have parameters. Here recipe build has a parameter called target : build target : @ echo ' Building {{ target }} …' cd {{ target }} && make To pass arguments on the command line, put them after the recipe name: $ just build my-awesome-project Building my-awesome-project… cd my-awesome-project && make To pass arguments to a dependency, put the dependency in parentheses along with
+the arguments: default : ( build " main" ) build target : @ echo ' Building {{ target }} …' cd {{ target }} && make Variables can also be passed as arguments to dependencies: target := " main" _ build version : @ echo ' Building {{ version }} …' cd {{ version }} && make build : ( _build target) A command's arguments can be passed to dependency by putting the dependency in
+parentheses along with the arguments: build target : @ echo " Building {{ target }} …" push target : ( build target) @ echo ' Pushing {{ target }} …' Parameters may have default values: default := ' all' test target tests = default : @ echo ' Testing {{ target }} : {{ tests }} …' . / test --tests {{ tests }} {{ target }} Parameters with default values may be omitted: $ just test server Testing server:all… ./test --tests all server Or supplied: $ just test server unit Testing server:unit… ./test --tests unit server Default values may be arbitrary expressions, but concatenations or path joins
+must be parenthesized: arch := " wasm" test triple = ( arch + " -unknown-unknown" ) input = ( arch / " input.dat" ) : . / test {{ triple }} The last parameter of a recipe may be variadic, indicated with either a + or
+a * before the argument name: backup + FILES : scp {{ FILES }} me@server.com: Variadic parameters prefixed with + accept one or more arguments and expand
+to a string containing those arguments separated by spaces: $ just backup FAQ.md GRAMMAR.md scp FAQ.md GRAMMAR.md me@server.com: FAQ.md                  100% 1831     1.8KB/s   00:00 GRAMMAR.md              100% 1666     1.6KB/s   00:00 Variadic parameters prefixed with * accept zero or more arguments and
+expand to a string containing those arguments separated by spaces, or an empty
+string if no arguments are present: commit MESSAGE * FLAGS : git commit {{ FLAGS }} -m " {{ MESSAGE }} " Variadic parameters can be assigned default values. These are overridden by
+arguments passed on the command line: test + FLAGS = ' -q' : cargo test {{ FLAGS }} {{…}} substitutions may need to be quoted if they contain spaces. For
+example, if you have the following recipe: search QUERY : lynx https: // www.google.com / ?q= {{ QUERY }} And you type: $ just search " cat toupee " just will run the command lynx https://www.google.com/?q=cat toupee , which
+will get parsed by sh as lynx , https://www.google.com/?q=cat , and toupee , and not the intended lynx and https://www.google.com/?q=cat toupee . You can fix this by adding quotes: search QUERY : lynx ' https://www.google.com/?q= {{ QUERY }} ' Parameters prefixed with a $ will be exported as environment variables: foo $ bar : echo $bar Dependencies Dependencies run before recipes that depend on them: a : b @ echo A b : @ echo B $ just a
+B
+A In a given invocation of just , a recipe with the same arguments will only run
+once, regardless of how many times it appears in the command-line invocation,
+or how many times it appears as a dependency: a : @ echo A b : a @ echo B c : a @ echo C $ just a a a a a
+A
+$ just b c
+A
+B
+C Multiple recipes may depend on a recipe that performs some kind of setup, and
+when those recipes run, that setup will only be performed once: build : cc main.c test-foo : build . / a.out --test foo test-bar : build . / a.out --test bar $ just test-foo test-bar
+cc main.c
+./a.out --test foo
+./a.out --test bar Recipes in a given run are only skipped when they receive the same arguments: build : cc main.c test TEST : build . / a.out --test {{ TEST }} $ just test foo test bar
+cc main.c
+./a.out --test foo
+./a.out --test bar Running Recipes at the End of a Recipe Normal dependencies of a recipes always run before a recipe starts. That is to
+say, the dependee always runs before the depender. These dependencies are
+called "prior dependencies". A recipe can also have subsequent dependencies, which run immediately after the
+recipe and are introduced with an && : a : echo ' A!' b : a && c d echo ' B!' c : echo ' C!' d : echo ' D!' …running b prints: $ just b echo 'A!' A! echo 'B!' B! echo 'C!' C! echo 'D!' D! Running Recipes in the Middle of a Recipe just doesn't support running recipes in the middle of another recipe, but you
+can call just recursively in the middle of a recipe. Given the following justfile : a : echo ' A!' b : a echo ' B start!' just c
+  echo ' B end!' c : echo ' C!' …running b prints: $ just b echo 'A!' A! echo 'B start!' B start! echo 'C!' C! echo 'B end!' B end! This has limitations, since recipe c is run with an entirely new invocation
+of just : Assignments will be recalculated, dependencies might run twice, and
+command line arguments will not be propagated to the child just process. Shebang Recipes Recipes that start with #! are called shebang recipes, and are executed by
+saving the recipe body to a file and running it. This lets you write recipes in
+different languages: polyglot : python js perl sh ruby nu python : #!/usr/bin/env python3 print ( ' Hello from python! ' ) js : #!/usr/bin/env node console . log ( ' Greetings from JavaScript! ' ) perl : #!/usr/bin/env perl print " Larry Wall says Hi! \n " ; sh : #!/usr/bin/env sh hello= ' Yo ' echo " $hello from a shell script! " nu : #! / usr / bin / env nu
+  let hello = ' Hola' echo $ " ($hello) from a nushell script!" ruby : #!/usr/bin/env ruby puts " Hello from ruby! " $ just polyglot Hello from python! Greetings from JavaScript! Larry Wall says Hi! Yo from a shell script! Hola from a nushell script! Hello from ruby! On Unix-like operating systems, including Linux and MacOS, shebang recipes are
+executed by saving the recipe body to a file in a temporary directory, marking
+the file as executable, and executing it. The OS then parses the shebang line
+into a command line and invokes it, including the path to the file. For
+example, if a recipe starts with #!/usr/bin/env bash , the final command that
+the OS runs will be something like /usr/bin/env bash /tmp/PATH_TO_SAVED_RECIPE_BODY . Shebang line splitting is operating system dependent. When passing a command
+with arguments, you may need to tell env to split them explicitly by using
+the -S flag: run : #! / usr / bin / env -S bash -x
+  ls Windows does not support shebang lines. On Windows, just splits the shebang
+line into a command and arguments, saves the recipe body to a file, and invokes
+the split command and arguments, adding the path to the saved recipe body as
+the final argument. For example, on Windows, if a recipe starts with #! py ,
+the final command the OS runs will be something like py C:\Temp\PATH_TO_SAVED_RECIPE_BODY . Script Recipes Recipes with a [script(COMMAND)] 1.32.0 attribute are run as
+scripts interpreted by COMMAND . This avoids some of the issues with shebang
+recipes, such as the use of cygpath on Windows, the need to use /usr/bin/env , and inconsistences in shebang line splitting across Unix OSs. Recipes with an empty [script] attribute are executed with the value of set script-interpreter := […] 1.33.0 , defaulting to sh -eu . The body of the recipe is evaluated, written to disk in the temporary
+directory, and run by passing its path as an argument to COMMAND . The [script(…)] attribute is unstable, so you'll need to use set unstable ,
+set the JUST_UNSTABLE environment variable, or pass --unstable on the
+command line. Safer Bash Shebang Recipes If you're writing a bash shebang recipe, consider adding set -euxo pipefail : foo : #!/usr/bin/env bash set -euxo pipefail hello= ' Yo ' echo " $hello from Bash! " It isn't strictly necessary, but set -euxo pipefail turns on a few useful
+features that make bash shebang recipes behave more like normal, linewise just recipe: set -e makes bash exit if a command fails. set -u makes bash exit if a variable is undefined. set -x makes bash print each script line before it's run. set -o pipefail makes bash exit if a command in a pipeline fails. This is bash -specific, so isn't turned on in normal linewise just recipes. Together, these avoid a lot of shell scripting gotchas. Shebang Recipe Execution on Windows On Windows, shebang interpreter paths containing a / are translated from
+Unix-style paths to Windows-style paths using cygpath , a utility that ships
+with Cygwin . For example, to execute this recipe on Windows: echo : #! / bin / sh
+  echo " Hello!" The interpreter path /bin/sh will be translated to a Windows-style path using cygpath before being executed. If the interpreter path does not contain a / it will be executed without
+being translated. This is useful if cygpath is not available, or you wish to
+pass a Windows-style path to the interpreter. Setting Variables in a Recipe Recipe lines are interpreted by the shell, not just , so it's not possible to
+set just variables in the middle of a recipe: foo : x := "hello" # This doesn't work! echo {{x}} It is possible to use shell variables, but there's another problem. Every
+recipe line is run by a new shell instance, so variables set in one line won't
+be set in the next: foo : x=hello && echo $x # This works! y=bye
+  echo $y # This doesn't, `y` is undefined here! The best way to work around this is to use a shebang recipe. Shebang recipe
+bodies are extracted and run as scripts, so a single shell instance will run
+the whole thing: foo : #!/usr/bin/env bash set -euxo pipefail x=hello echo $x Sharing Environment Variables Between Recipes Each line of each recipe is executed by a fresh shell, so it is not possible to
+share environment variables between recipes. Using Python Virtual Environments Some tools, like Python's venv ,
+require loading environment variables in order to work, making them challenging
+to use with just . As a workaround, you can execute the virtual environment
+binaries directly: venv : [ -d foo ] || python3 -m venv foo run : venv . / foo / bin / python3 main.py Changing the Working Directory in a Recipe Each recipe line is executed by a new shell, so if you change the working
+directory on one line, it won't have an effect on later lines: foo : pwd # This `pwd` will print the same directory… cd bar
+  pwd # …as this `pwd`! There are a couple ways around this. One is to call cd on the same line as
+the command you want to run: foo : cd bar && pwd The other is to use a shebang recipe. Shebang recipe bodies are extracted and
+run as scripts, so a single shell instance will run the whole thing, and thus a pwd on one line will affect later lines, just like a shell script: foo : #!/usr/bin/env bash set -euxo pipefail cd bar pwd Indentation Recipe lines can be indented with spaces or tabs, but not a mix of both. All of
+a recipe's lines must have the same type of indentation, but different recipes
+in the same justfile may use different indentation. Each recipe must be indented at least one level from the recipe-name but
+after that may be further indented. Here's a justfile with a recipe indented with spaces, represented as · , and
+tabs, represented as → . set windows-shell := [ " pwsh" , " -NoLogo" , " -NoProfileLoadTime" , " -Command" ] set ignore-comments list-space directory : ··#!pwsh
+··foreach ($item in $(Get-ChildItem {{directory}} )) {
+····echo $item.Name
+··}
+··echo " " # indentation nesting works even when newlines are escaped list-tab directory : → @foreach ($item in $(Get-ChildItem {{directory}} )) { \
+→ → echo $item.Name \
+→ }
+→ @echo " " PS > just list - space ~
+Desktop
+Documents
+Downloads
+
+PS > just list - tab ~
+Desktop
+Documents
+Downloads Multi-Line Constructs Recipes without an initial shebang are evaluated and run line-by-line, which
+means that multi-line constructs probably won't do what you want. For example, with the following justfile : conditional :
+  if true; then
+    echo 'True!'
+  fi The extra leading whitespace before the second line of the conditional recipe
+will produce a parse error: $ just conditional error: Recipe line has extra leading whitespace | 3 |         echo 'True!' |     ^^^^^^^^^^^^^^^^ To work around this, you can write conditionals on one line, escape newlines
+with slashes, or add a shebang to your recipe. Some examples of multi-line
+constructs are provided for reference. if statements conditional : if true ; then echo ' True!' ; fi conditional : if true ; then \
+    echo ' True!' ; \
+  fi conditional : #!/usr/bin/env sh if true ; then echo ' True! ' fi for loops for : for file in ` ls . ` ; do echo $file; done for : for file in ` ls . ` ; do \
+    echo $file; \
+  done for : #!/usr/bin/env sh for file in ` ls . ` ; do echo $file done while loops while : while ` server-is-dead ` ; do ping -c 1 server; done while : while ` server-is-dead ` ; do \
+    ping -c 1 server; \
+  done while : #!/usr/bin/env sh while ` server-is-dead ` ; do ping -c 1 server done Outside Recipe Bodies Parenthesized expressions can span multiple lines: abc := ( ' a' + ' b' + ' c' ) abc2 := ( ' a' + ' b' + ' c' )
+
+foo param=( ' foo' + ' bar' ):
+  echo {{ param }} bar : ( foo ' Foo' )
+  echo ' Bar!' Lines ending with a backslash continue on to the next line as if the lines were
+joined by whitespace 1.15.0 : a := ' foo' + \ ' bar' foo param1 \
+  param2= ' foo' \
+  *varparam= ' ' : dep1 \
+                (dep2 ' foo' )
+  echo {{ param1 }} {{ param2 }} {{ varparam }} dep1 : \ # this comment is not part of the recipe body echo ' dep1' dep2 \
+  param:
+    echo ' Dependency with parameter {{ param }} ' Backslash line continuations can also be used in interpolations. The line
+following the backslash must be indented. recipe : echo ' {{ \ "This interpolation " + \ "has a lot of text." \ }}' echo ' back to recipe body' Command Line Options just supports a number of useful command line options for listing, dumping,
+and debugging recipes and variables: $ just --list Available recipes: js perl polyglot python ruby $ just --show perl perl: #!/usr/bin/env perl print "Larry Wall says Hi!\n"; $ just --show polyglot polyglot: python js perl sh ruby Some command-line options can be set with environment variables. For example: $ export JUST_UNSTABLE=1 $ just Is equivalent to: $ just --unstable Consult just --help to see which options can be set from environment
+variables. Private Recipes Recipes and aliases whose name starts with a _ are omitted from just --list : test : _test-helper . / bin / test _ test-helper : . / bin / super-secret-test-helper-stuff $ just --list Available recipes: test And from just --summary : $ just --summary test The [private] attribute 1.10.0 may also be used to hide recipes or
+aliases without needing to change the name: [ private ] foo : [ private ] alias b := bar bar : $ just --list Available recipes: bar This is useful for helper recipes which are only meant to be used as
+dependencies of other recipes. Quiet Recipes A recipe name may be prefixed with @ to invert the meaning of @ before each
+line: @ quiet : echo hello
+  echo goodbye @ # all done! Now only the lines starting with @ will be echoed: $ just quiet hello goodbye # all done ! All recipes in a Justfile can be made quiet with set quiet : set quiet foo : echo " This is quiet" @ foo2 : echo " This is also quiet" The [no-quiet] attribute overrides this setting: set quiet foo : echo " This is quiet" [ no-quiet ] foo2 : echo " This is not quiet" Shebang recipes are quiet by default: foo : #!/usr/bin/env bash echo ' Foo! ' $ just foo Foo! Adding @ to a shebang recipe name makes just print the recipe before
+executing it: @ bar : #!/usr/bin/env bash echo ' Bar! ' $ just bar #!/usr/bin/env bash echo 'Bar!' Bar! just normally prints error messages when a recipe line fails. These error
+messages can be suppressed using the [no-exit-message] 1.7.0 attribute. You may find this especially useful with a recipe that wraps a tool: git * args : @ git {{ args }} $ just git status fatal: not a git repository (or any of the parent directories): .git error: Recipe `git` failed on line 2 with exit code 128 Add the attribute to suppress the exit error message when the tool exits with a
+non-zero code: [ no-exit-message ] git * args : @ git {{ args }} $ just git status fatal: not a git repository (or any of the parent directories): .git Selecting Recipes to Run With an Interactive Chooser The --choose subcommand makes just invoke a chooser to select which recipes
+to run. Choosers should read lines containing recipe names from standard input
+and print one or more of those names separated by spaces to standard output. Because there is currently no way to run a recipe that requires arguments with --choose , such recipes will not be given to the chooser. Private recipes and
+aliases are also skipped. The chooser can be overridden with the --chooser flag. If --chooser is not
+given, then just first checks if $JUST_CHOOSER is set. If it isn't, then
+the chooser defaults to fzf , a popular fuzzy finder. Arguments can be included in the chooser, i.e. fzf --exact . The chooser is invoked in the same way as recipe lines. For example, if the
+chooser is fzf , it will be invoked with sh -cu 'fzf' , and if the shell, or
+the shell arguments are overridden, the chooser invocation will respect those
+overrides. If you'd like just to default to selecting recipes with a chooser, you can
+use this as your default recipe: default : @ just -- choose Invoking justfile s in Other Directories If the first argument passed to just contains a / , then the following
+occurs: The argument is split at the last / . The part before the last / is treated as a directory. just will start
+its search for the justfile there, instead of in the current directory. The part after the last slash is treated as a normal argument, or ignored
+if it is empty. This may seem a little strange, but it's useful if you wish to run a command in
+a justfile that is in a subdirectory. For example, if you are in a directory which contains a subdirectory named foo , which contains a justfile with the recipe build , which is also the
+default recipe, the following are all equivalent: $ (cd foo && just build) $ just foo/build $ just foo/ Additional recipes after the first are sought in the same justfile . For
+example, the following are both equivalent: $ just foo/a b $ (cd foo && just a b) And will both invoke recipes a and b in foo/justfile . Imports One justfile can include the contents of another using import statements. If you have the following justfile : import 'foo/bar.just' a : b
+  @echo A And the following text in foo/bar.just : b : @ echo B foo/bar.just will be included in justfile and recipe b will be defined: $ just b B $ just a B A The import path can be absolute or relative to the location of the justfile
+containing it. A leading ~/ in the import path is replaced with the current
+users home directory. Justfiles are insensitive to order, so included files can reference variables
+and recipes defined after the import statement. Imported files can themselves contain import s, which are processed
+recursively. When allow-duplicate-recipes is set, recipes in parent modules override
+recipes in imports. In a similar manner, when allow-duplicate-variables is
+set, variables in parent modules override variables in imports. Imports may be made optional by putting a ? after the import keyword: import? 'foo/bar.just' Missing source files for optional imports do not produce an error. Modules 1.19.0 A justfile can declare modules using mod statements. mod statements were stabilized in just 1.31.0 . In earlier
+versions, you'll need to use the --unstable flag, set unstable , or set the JUST_UNSTABLE environment variable to use them. If you have the following justfile : mod bar a :
+  @echo A And the following text in bar.just : b : @ echo B bar.just will be included in justfile as a submodule. Recipes, aliases, and
+variables defined in one submodule cannot be used in another, and each module
+uses its own settings. Recipes in submodules can be invoked as subcommands: $ just bar b B Or with path syntax: $ just bar::b B If a module is named foo , just will search for the module file in foo.just , foo/mod.just , foo/justfile , and foo/.justfile . In the latter two cases,
+the module file may have any capitalization. Module statements may be of the form: mod foo 'PATH' Which loads the module's source file from PATH , instead of from the usual
+locations. A leading ~/ in PATH is replaced with the current user's home
+directory. PATH may point to the module source file itself, or to a directory
+containing the module source file with the name mod.just , justfile , or .justfile . In the latter two cases, the module file may have any
+capitalization. Environment files are only loaded for the root justfile, and loaded environment
+variables are available in submodules. Settings in submodules that affect
+environment file loading are ignored. Recipes in submodules without the [no-cd] attribute run with the working
+directory set to the directory containing the submodule source file. justfile() and justfile_directory() always return the path to the root
+justfile and the directory that contains it, even when called from submodule
+recipes. Modules may be made optional by putting a ? after the mod keyword: mod? foo Missing source files for optional modules do not produce an error. Optional modules with no source file do not conflict, so you can have multiple
+mod statements with the same name, but with different source file paths, as
+long as at most one source file exists: mod? foo 'bar.just'
+mod? foo 'baz.just' Modules may be given doc comments which appear in --list output 1.30.0 : # foo is a great module! mod foo $ just --list Available recipes: foo ... # foo is a great module! Modules are still missing a lot of features, for example, the ability to depend
+on recipes and refer to variables in other modules. See the module improvement tracking issue for more information. Hiding justfile s just looks for justfile s named justfile and .justfile , which can be
+used to keep a justfile hidden. Just Scripts By adding a shebang line to the top of a justfile and making it executable, just can be used as an interpreter for scripts: $ cat > script << EOF #!/usr/bin/env just --justfile foo: echo foo EOF $ chmod +x script $ ./script foo echo foo foo When a script with a shebang is executed, the system supplies the path to the
+script as an argument to the command in the shebang. So, with a shebang of #!/usr/bin/env just --justfile , the command will be /usr/bin/env just --justfile PATH_TO_SCRIPT . With the above shebang, just will change its working directory to the
+location of the script. If you'd rather leave the working directory unchanged,
+use #!/usr/bin/env just --working-directory . --justfile . Note: Shebang line splitting is not consistent across operating systems. The
+previous examples have only been tested on macOS. On Linux, you may need to
+pass the -S flag to env : #! / usr / bin / env -S just -- justfile default : echo foo Formatting and dumping justfile s Each justfile has a canonical formatting with respect to whitespace and
+newlines. You can overwrite the current justfile with a canonically-formatted version
+using the currently-unstable --fmt flag: $ cat justfile # A lot of blank lines some-recipe: echo "foo" $ just --fmt --unstable $ cat justfile # A lot of blank lines some-recipe: echo "foo" Invoking just --fmt --check --unstable runs --fmt in check mode. Instead of
+overwriting the justfile , just will exit with an exit code of 0 if it is
+formatted correctly, and will exit with 1 and print a diff if it is not. You can use the --dump command to output a formatted version of the justfile to stdout: $ just --dump > formatted-justfile The --dump command can be used with --dump-format json to print a JSON
+representation of a justfile . Fallback to parent justfile s If a recipe is not found in a justfile and the fallback setting is set, just will look for justfile s in the parent directory and up, until it
+reaches the root directory. just will stop after it reaches a justfile in
+which the fallback setting is false or unset. As an example, suppose the current directory contains this justfile : set fallback foo : echo foo And the parent directory contains this justfile : bar : echo bar $ just bar Trying ../justfile echo bar bar Avoiding Argument Splitting Given this justfile : foo argument : touch {{ argument }} The following command will create two files, some and argument.txt : $ just foo " some argument.txt " The users shell will parse "some argument.txt" as a single argument, but when just replaces touch {{argument}} with touch some argument.txt , the quotes
+are not preserved, and touch will receive two arguments. There are a few ways to avoid this: quoting, positional arguments, and exported
+arguments. Quoting Quotes can be added around the {{argument}} interpolation: foo argument : touch ' {{ argument }} ' This preserves just 's ability to catch variable name typos before running,
+for example if you were to write {{argument}} , but will not do what you want
+if the value of argument contains single quotes. Positional Arguments The positional-arguments setting causes all arguments to be passed as
+positional arguments, allowing them to be accessed with $1 , $2 , …, and $@ , which can be then double-quoted to avoid further splitting by the shell: set positional-arguments foo argument : touch " $1" This defeats just 's ability to catch typos, for example if you type $2 instead of $1 , but works for all possible values of argument , including
+those with double quotes. Exported Arguments All arguments are exported when the export setting is set: set export foo argument : touch " $argument" Or individual arguments may be exported by prefixing them with $ : foo $ argument : touch " $argument" This defeats just 's ability to catch typos, for example if you type $argument , but works for all possible values of argument , including those
+with double quotes. Configuring the Shell There are a number of ways to configure the shell for linewise recipes, which
+are the default when a recipe does not start with a #! shebang. Their
+precedence, from highest to lowest, is: The --shell and --shell-arg command line options. Passing either of
+these will cause just to ignore any settings in the current justfile. set windows-shell := [...] set windows-powershell (deprecated) set shell := [...] Since set windows-shell has higher precedence than set shell , you can use set windows-shell to pick a shell on Windows, and set shell to pick a shell
+for all other platforms. Timestamps just can print timestamps before each recipe commands: recipe : echo one
+  sleep 2 echo two $ just --timestamp recipe
+[07:28:46] echo one
+one
+[07:28:46] sleep 2
+[07:28:48] echo two
+two By default, timestamps are formatted as HH:MM:SS . The format can be changed
+with --timestamp-format : $ just --timestamp recipe --timestamp-format '%H:%M:%S%.3f %Z'
+[07:32:11:.349 UTC] echo one
+one
+[07:32:11:.350 UTC] sleep 2
+[07:32:13:.352 UTC] echo two
+two The argument to --timestamp-format is a strftime -style format string, see
+the chrono library docs for details. Changelog A changelog for the latest release is available in CHANGELOG.md .
+Changelogs for previous releases are available on the releases page . just --changelog can also be used to make a just binary print its changelog. Miscellanea Re-running recipes when files change watchexec can re-run any command
+when files change. To re-run the recipe foo when any file changes: watchexec just foo See watchexec --help for more info, including how to specify which files
+should be watched for changes. Running tasks in parallel GNU parallel can be used to run tasks concurrently: parallel : #! / usr / bin / env -S parallel --shebang --ungroup --jobs {{ num_cpus () }} echo task 1 start; sleep 3 ; echo task 1 done
+  echo task 2 start; sleep 3 ; echo task 2 done
+  echo task 3 start; sleep 3 ; echo task 3 done
+  echo task 4 start; sleep 3 ; echo task 4 done Shell Alias For lightning-fast command running, put alias j=just in your shell's
+configuration file. In bash , the aliased command may not keep the shell completion functionality
+described in the next section. Add the following line to your .bashrc to use
+the same completion function as just for your aliased command: complete -F _just -o bashdefault -o default j Shell Completion Scripts Shell completion scripts for Bash, Elvish, Fish, Nushell, PowerShell, and Zsh
+are available release archives . The just binary can also generate the same completion scripts at runtime
+using just --completions SHELL : $ just --completions zsh > just.zsh Please refer to your shell's documentation for how to install them. macOS Note: Recent versions of macOS use zsh as the default shell. If you use
+Homebrew to install just , it will automatically install the most recent copy
+of the zsh completion script in the Homebrew zsh directory, which the built-in
+version of zsh doesn't know about by default. It's best to use this copy of the
+script if possible, since it will be updated whenever you update just via
+Homebrew. Also, many other Homebrew packages use the same location for
+completion scripts, and the built-in zsh doesn't know about those either. To
+take advantage of just completion in zsh in this scenario, you can set fpath to the Homebrew location before calling compinit . Note also that Oh
+My Zsh runs compinit by default. So your .zshrc file could look like this: # Init Homebrew, which adds environment variables eval " $( brew shellenv ) " fpath=( $HOMEBREW_PREFIX /share/zsh/site-functions $fpath ) # Then choose one of these options: # 1. If you're using Oh My Zsh, you can initialize it here # source $ZSH/oh-my-zsh.sh # 2. Otherwise, run compinit yourself # autoload -U compinit # compinit Man Page just can print its own man page with just --man . Man pages are written in roff , a venerable markup
+language and one of the first practical applications of Unix. If you have groff installed you can view the man
+page with just --man | groff -mandoc -Tascii | less . Grammar A non-normative grammar of justfile s can be found in GRAMMAR.md . just.sh Before just was a fancy Rust program it was a tiny shell script that called make . You can find the old version in contrib/just.sh . Global and User justfile s If you want some recipes to be available everywhere, you have a few options. Global Justfile just --global-justfile , or just -g for short, searches the following paths,
+in-order, for a justfile: $XDG_CONFIG_HOME/just/justfile $HOME/.config/just/justfile $HOME/justfile $HOME/.justfile You can put recipes that are used across many projects in a global justfile to
+easily invoke them from any directory. User justfile tips You can also adopt some of the following workflows. These tips assume you've
+created a justfile at ~/.user.justfile , but you can put this justfile at any convenient path on your system. Recipe Aliases If you want to call the recipes in ~/.user.justfile by name, and don't mind
+creating an alias for every recipe, add the following to your shell's
+initialization script: for recipe in `just --justfile ~/.user.justfile --summary`; do alias $recipe="just --justfile ~/.user.justfile --working-directory . $recipe" done Now, if you have a recipe called foo in ~/.user.justfile , you can just type foo at the command line to run it. It took me way too long to realize that you could create recipe aliases like
+this. Notwithstanding my tardiness, I am very pleased to bring you this major
+advance in justfile technology. Forwarding Alias If you'd rather not create aliases for every recipe, you can create a single alias: alias .j='just --justfile ~/.user.justfile --working-directory .' Now, if you have a recipe called foo in ~/.user.justfile , you can just type .j foo at the command line to run it. I'm pretty sure that nobody actually uses this feature, but it's there. ¯\_(ツ)_/¯ Customization You can customize the above aliases with additional options. For example, if
+you'd prefer to have the recipes in your justfile run in your home directory,
+instead of the current directory: alias .j='just --justfile ~/.user.justfile --working-directory ~' Node.js package.json Script Compatibility The following export statement gives just recipes access to local Node module
+binaries, and makes just recipe commands behave more like script entries in
+Node.js package.json files: export PATH := " ./node_modules/.bin:" + env_var ( ' PATH' ) Paths on Windows On Windows, functions that return paths will return \ -separated paths. When
+not using PowerShell or cmd.exe these paths should be quoted to prevent the \ s from being interpreted as character escapes: ls : echo ' {{ absolute_path ( " ." ) }} ' Remote Justfiles If you wish to include a mod or import source file in many justfiles without needing to duplicate it, you can use an optional mod or import ,
+along with a recipe to fetch the module source: import ? ' foo.just' fetch : curl https: // raw.githubusercontent.com / casey / just / master / justfile > foo.just Given the above justfile , after running just fetch , the recipes in foo.just will be available. Alternatives and Prior Art There is no shortage of command runners! Some more or less similar alternatives
+to just include: make : The Unix build tool
+that inspired just . There are a few different modern day descendents of the
+original make , including FreeBSD Make and GNU Make . task : A YAML-based command runner written
+in Go. maid : A Markdown-based command runner
+written in JavaScript. microsoft/just : A JavaScript-based
+command runner written in JavaScript. cargo-make : A command runner for
+Rust projects. mmake : A wrapper around make with a number
+of improvements, including remote includes. robo : A YAML-based command runner written in
+Go. mask : A Markdown-based command runner
+written in Rust. makesure : A simple and portable command
+runner written in AWK and shell. haku : A make-like command runner
+written in Rust. Contributing just welcomes your contributions! just is released under the maximally
+permissive CC0 public
+domain dedication and fallback license, so your changes must also be released
+under this license. Getting Started just is written in Rust. Use rustup to install a Rust toolchain. just is extensively tested. All new features must be covered by unit or
+integration tests. Unit tests are under src , live alongside the code
+being tested, and test code in isolation. Integration tests are in the tests
+directory and test the just binary from the outside by invoking just on a given justfile and set of
+command-line arguments, and checking the output. You should write whichever type of tests are easiest to write for your feature
+while still providing good test coverage. Unit tests are useful for testing new Rust functions that are used internally
+and as an aid for development. A good example are the unit tests which cover
+the unindent() function ,
+used to unindent triple-quoted strings and backticks. unindent() has a bunch
+of tricky edge cases which are easy to exercise with unit tests that call unindent() directly. Integration tests are useful for making sure that the final behavior of the just binary is correct. unindent() is also covered by integration tests
+which make sure that evaluating a triple-quoted string produces the correct
+unindented value. However, there are not integration tests for all possible
+cases. These are covered by faster, more concise unit tests that call unindent() directly. Existing integration tests are in two forms, those that use the test! macro
+and those that use the Test struct directly. The test! macro, while often
+concise, is less flexible and harder to understand, so new tests should use the Test struct. The Test struct is a builder which allows for easily invoking just with a given justfile , arguments, and environment variables, and
+checking the program's stdout, stderr, and exit code . Contribution Workflow Make sure the feature is wanted. There should be an open issue about the
+feature with a comment from @casey saying that
+it's a good idea or seems reasonable. If there isn't, open a new issue and
+ask for feedback. There are lots of good features which can't be merged, either because they
+aren't backwards compatible, have an implementation which would
+overcomplicate the codebase, or go against just 's design philosophy. Settle on the design of the feature. If the feature has multiple possible
+implementations or syntaxes, make sure to nail down the details in the
+issue. Clone just and start hacking. The best workflow is to have the code you're
+working on in an editor alongside a job that re-runs tests whenever a file
+changes. You can run such a job by installing cargo-watch with cargo install cargo-watch and running just watch test . Add a failing test for your feature. Most of the time this will be an
+integration test which exercises the feature end-to-end. Look for an
+appropriate file to put the test in in tests , or add a new file
+in tests and add a mod statement importing that file in tests/lib.rs . Implement the feature. Run just ci to make sure that all tests, lints, and checks pass. Open a PR with the new code that is editable by maintainers. PRs often
+require rebasing and minor tweaks. If the PR is not editable by maintainers,
+each rebase and tweak will require a round trip of code review. Your PR may
+be summarily closed if it is not editable by maintainers. Incorporate feedback. Enjoy the sweet feeling of your PR getting merged! Feel free to open a draft PR at any time for discussion and feedback. Hints Here are some hints to get you started with specific kinds of new features,
+which you can use in addition to the contribution workflow above. Adding a New Attribute Write a new integration test in tests/attributes.rs . Add a new variant to the Attribute enum. Implement the functionality of the new attribute. Run just ci to make sure that all tests pass. Janus Janus is a tool for checking whether a change
+to just breaks or changes the interpretation of existing justfile s. It
+collects and analyzes public justfile s on GitHub. Before merging a particularly large or gruesome change, Janus should be run to
+make sure that nothing breaks. Don't worry about running Janus yourself, Casey
+will happily run it for you on changes that need it. Minimum Supported Rust Version The minimum supported Rust version, or MSRV, is current stable Rust. It may
+build on older versions of Rust, but this is not guaranteed. New Releases New releases of just are made frequently so that users quickly get access to
+new features. Release commit messages use the following template: Release x.y.z
+
+- Bump version: x.y.z → x.y.z
+- Update changelog
+- Update changelog contributor credits
+- Update dependencies
+- Update version references in readme Frequently Asked Questions What are the idiosyncrasies of Make that Just avoids? make has some behaviors which are confusing, complicated, or make it
+unsuitable for use as a general command runner. One example is that under some circumstances, make won't actually run the
+commands in a recipe. For example, if you have a file called test and the
+following makefile: test : . / test make will refuse to run your tests: $ make test make: `test' is up to date. make assumes that the test recipe produces a file called test . Since this
+file exists and the recipe has no other dependencies, make thinks that it
+doesn't have anything to do and exits. To be fair, this behavior is desirable when using make as a build system, but
+not when using it as a command runner. You can disable this behavior for
+specific targets using make 's built-in .PHONY target name ,
+but the syntax is verbose and can be hard to remember. The explicit list of
+phony targets, written separately from the recipe definitions, also introduces
+the risk of accidentally defining a new non-phony target. In just , all
+recipes are treated as if they were phony. Other examples of make 's idiosyncrasies include the difference between = and := in assignments, the confusing error messages that are produced if you
+mess up your makefile, needing $$ to use environment variables in recipes,
+and incompatibilities between different flavors of make . What's the relationship between Just and Cargo build scripts? cargo build scripts have a pretty
+specific use, which is to control how cargo builds your Rust project. This
+might include adding flags to rustc invocations, building an external
+dependency, or running some kind of codegen step. just , on the other hand, is for all the other miscellaneous commands you
+might run as part of development. Things like running tests in different
+configurations, linting your code, pushing build artifacts to a server,
+removing temporary files, and the like. Also, although just is written in Rust, it can be used regardless of the
+language or build system your project uses. Further Ramblings I personally find it very useful to write a justfile for almost every
+project, big or small. On a big project with multiple contributors, it's very useful to have a file
+with all the commands needed to work on the project close at hand. There are probably different commands to test, build, lint, deploy, and the
+like, and having them all in one place is useful and cuts down on the time you
+have to spend telling people which commands to run and how to type them. And, with an easy place to put commands, it's likely that you'll come up with
+other useful things which are part of the project's collective wisdom, but
+which aren't written down anywhere, like the arcane commands needed for some
+part of your revision control workflow, to install all your project's
+dependencies, or all the random flags you might need to pass to the build
+system. Some ideas for recipes: Deploying/publishing the project Building in release mode vs debug mode Running in debug mode or with logging enabled Complex git workflows Updating dependencies Running different sets of tests, for example fast tests vs slow tests, or
+running them with verbose output Any complex set of commands that you really should write down somewhere, if
+only to be able to remember them Even for small, personal projects it's nice to be able to remember commands by
+name instead of ^Reverse searching your shell history, and it's a huge boon to
+be able to go into an old project written in a random language with a
+mysterious build system and know that all the commands you need to do whatever
+you need to do are in the justfile , and that if you type just something
+useful (or at least interesting!) will probably happen. For ideas for recipes, check out this project's justfile ,
+or some of the justfile s out in the wild . Anyways, I think that's about it for this incredibly long-winded README. I hope you enjoy using just and find great success and satisfaction in all
+your computational endeavors! 😸
+
+======>
+https://old.reddit.com/u/matklad
+-->>-->>
+For the record, "most of things would be unsafe", is not the reason why TigerBeetle choose Zig
+over Rust. It's quite a bit more subtle than that: This all has to do with specific context! For other things, we'd chose Rust. In our context, the benefits of Rust are relatively less important. The drawbacks of Zig are also less important. But the benefits of Zig are more important. The most important aspect of our context is our peculiar object model. It's not static: we
+allocate different amounts of things at runtime depending on the CLI arguments, there are zero
+actual global statics. But it is also not dynamic: after startup, zero allocation happens. There
+isn't even a real malloc implementation in process: for startup, we mmap some pages (with MMAP_POPULATE ) and throw them into a simple arena, which is never shrunk, but also never grows after startup. The core benefit of Rust is memory safety. With respect to spatial memory safety, Zig and Rust
+are mostly equivalent, and both are massive improvements over C/C++. You can maybe even argue
+that, spatially, Zig is safer than Rust, because it tracks alignment much better. Which is
+somewhat niche, but in TigerBeetle we have alignment restrictions all the time, so we actually
+use this particular feature a lot. With respect to temporal memory safety, of course Rust is much better. Zig is not temporally
+mememory safe. But if you don't have free in your address space, than the hardest problems of
+temporal memory safety go away. You still have easy problems, like returning a pointer to a local
+variable, using pointer to a temporary after the end of full expression, iterator invalidation,
+or swapping active enum variant while borrowing the other (the thing that breaks Ada). They
+don't really come up all that often in our team (of the top of my head, I remember one aliasing
+bug that slipped into main, and a couple of issues which were caught during code review). Additionally, because we are the lowest-level data store in the system, we really care about
+our code being correct, rather than mere memory safe. For this reason, we have some pretty
+advanced testing setup, with whole-system fuzzing and loads of assertions. It is not
+impossible, but quiet unlikely that some memory safety issue would slip through, and, in our
+context, it wouldn't be much worse than "just a bug" slipping through. To say this more
+forcefully: yes, I am saying that, with excellent testing, there's less benefits in
+compiler-enforced memory safety. But I am also claiming that the bar for excellent testing is
+very, very high, and is unreasonable for "normal" projects. Another huuuge aspect of Rust is thread safety (or rather, managed thread unsafety, where you can
+declare parts of your program as not thread-safe and get a whole-program guarantee that they
+aren't actually used from multiple threads). But TigerBeetle is single-threaded by design (I'll
+leave it at that, if you are curious, read about this database design ;0) ). Other than unsafety, the main drawback of Zig is that its unstable, but we have a bunch of Zig
+and Rust experts on our team, so keeping our own code up-to-date isn't a big issue, and we don't
+have any 3rd party dependencies, so we only have to update our code. The two principled benefits of Zig for us are simplicity and directness, and comptime. Recall
+that due to 1., we end up having a very peculiar object model, where nothing is created or
+destroyed, and instead existing objects are juggled around. And everything is highly asynchronous!
+So, instead of, eg, spawning a future, what we end up doing is, for each sub-system,
+pre-allocating fixed arrays of heterogenous subsystem-specific async tasks, and yielding pointers
+to the memory of those tasks to our io-uring based runtime. That internally uses intrusive data
+structures to manage a dynamic set of tasks without allocation. And when a task is ready, of
+course is needs access to the state of the system to modify it. And there are many tasks in
+flight. I am 100% sure that this object graph just isn't representable directly in Rust --- there's a
+whole bunch of aliasing everywhere. I am maybe 40% sure that it is at all possible to represent something like that in Rust. I guess you could lift all the context to the function that ends
+up running the main loop, and then pass that context explicitly to every callback, and then maybe
+for "spawned" things you want to keep them separate, with some sort of bitset for dynamically
+tracking whether stuff is currently in use? No sure, I haven't seen things of this shape in Rust,
+attempting a mini-rusty-beetle is on my todo list! But I am 80% sure that even if there is a safe expression for the architecture, it'll be pretty
+painful to work with, due to extra lifetimes. As I like to put it, Zig punishes you when you
+allocate (b/c you need to thread the allocator parameter everywhere, and calling defer is on
+you), while Rust punishes you when you avoid allocations (b/c you need to thread lifetimes
+everywhere). But there's an escape valve in Rust --- you almost always can box your way out of
+lifetime hell. But you can't use this valve if you don't allocate! In contrast, Zig allows us to pretty much just code what we want, without thinking how to prove
+to the compiler that the code is sound with respect to aliasing, leaning instead on generative
+testing to verify that code is sound with respect to functional properties. In general,
+TigerBeetle is tricky --- consensus + nearly-byzantine storage is a lot of essential
+complexity. This stuff is super fiddly. So, cognitively, it's easier to work with very concrete
+things like arrays and numbers, rather than with type-heavy abstractions. This is a big thing
+about TigerBeetle: we are building a closed, finite-in-size code base which relies on tight
+coupling and doesn't try to make re-usable abstractions. The second big benefit of Zig is comptime. Because we allocate stuff only at the startup, we have
+a very important task of counting how much of each kind of stuff do we need. It is directly
+expressible with comptime, where you just parametrize everything with a comptime config, and then
+derive various things. With where Rust is today, perhaphs this could be encoded in
+const-generics, but that's going to be some pretty-ugly trait-level programming, while Zig keeps
+everything first order and in the same language. Again, no free lunch -- the flip side here is
+that most compilation errors in Zig are instantiation time, and that's pretty horrible if you
+are building semver-guarded abstractions, but we don't! There's also one specific place where we lean onto compile-time meta-progarmming quite a lot,
+when we explode a bunch of declarative Zig structs into much larger set of LSM trees on disk, in
+an ORM of sorts. That's a minor point though. Like, we wouldn't be able to do that as nicely in
+Rust, but that's a small part of TigerBeetle overall, so it probably doesn't matter much.
+======>
+https://old.reddit.com/r/rust/comments/1ged5d3/linker_conflict_on_cargo_workspace/
+-->>-->>
+I think I have a linker conflict happening in my cargo workspace.
+Some context:   
+
+   My workspace consists of 3 crates: 
+-    engine   : Rust crate that calls a C++ application via ffi
+-     engine_rs   : complete rust port of the above
+-    ffi_test   : Crate to compare the output of the above   
+
+   engine_rs    uses    opencv-rs    and    openvino-rs    with latest versions.   
+
+   engine    C++ code uses    opencv    and a older version    openvino    . I have shared object files for this openvino version locally inside this crate   
+
+   In    ffi_test    when I run test separately, for each engine, it works :thumbsup_tone1: .
+The issue happens when I run both engines at the same time:
+   
+Error: openvino_finder: OpenVINO version is too old (see https://github.com/intel/openvino-rs/issues/143): 2022.1.0-7019-cdb9bec7210-releases/2022/1")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test rs_engine_test ... FAILED
+test cpp_engine_test ... ok
+   
+
+   Rust    engine_rs    is trying to use the older    openvino    lib that comes in    engine    crate, even though they are separate crates.
+I have    openvino-rs     with    runtime-linking     enabled. That's the furthest I got   
+
+   engine    build.rs:
+```rust   
+
+   [cfg(all(target_os = "linux", target_arch = "x86_64"))]   
+
+   fn linux_x86_64_main() {
+    let cpp_engine = cmake::Config::new("./engine")
+        .no_build_target(true) // Skip    make install   
+        .build();   
+
+   println!("cargo:warning=engine output:{}", cpp_engine.display());
+println!("cargo:rustc-link-search={}/build", cpp_engine.display());
+println!("cargo:rustc-link-lib=engine");
+
+println!("cargo:rustc-link-search=native=fid_engine/engine/external/openvino/lib");
+println!("cargo:rustc-link-lib=dylib=openvino");
+println!("cargo:rustc-link-lib=dylib=tbb");
+
+println!("cargo:rerun-if-changed=engine/CMakeLists.txt");
+   
+
+   }
+```   
+
+   engine_rs    build.rs:
+```rust   
+
+   [cfg(all(target_os = "linux", target_arch = "x86_64"))]   
+
+   fn linux_x86_64_main() {
+    println!("cargo:rustc-link-search=native=/usr/lib");
+    println!("cargo:rustc-link-lib=openvino_c");
+    println!("cargo:rustc-link-lib=openvino");
+    println!("cargo:rustc-link-lib=tbb");
+    println!("cargo:rustc-link-lib=opencv_core");
+    println!("cargo:rustc-link-lib=opencv_dnn");
+    println!("cargo:rustc-link-lib=opencv_imgproc");
+    println!("cargo:rustc-link-lib=opencv_imgcodecs");
+}
+```   
+
+   What are my options here?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gdp4tx/figured_out_a_clever_way_to_do_bounds_checking/
+-->>-->>
+Let's say you have a 2D array grid and you want to find the left (or top, right, bottom) neighbor coordinates of a cell if it exists. That is, if the neighbor is not in the grid, return    None   , otherwise return the neighbor's    x    and    y    coordinates. Previously I was doing it like this:   
+
+   fn get_neighbor(x: usize, y: usize, dx: isize, dy: isize, width: usize, height: usize) -> Option<(usize, usize)> {
+  let nx = x as isize + dx;
+  let ny = y as isize + dy;
+
+  if nx >= 0 && nx < width as isize && ny >= 0 && ny < height as isize {
+    Some((nx as usize, ny as usize))
+  } else {
+    None
+  }
+}
+   
+
+   Makes sense. Indexes into an array are usize, but to check the left neighbor,    dx    has to be signed. As a result, 6 casts in total need to be performed, and 4 boolean checks. I was trying to get rid of the casts, and came up with this:   
+
+   fn get_neighbor(x: usize, y: usize, dx: isize, dy: isize, width: usize, height: usize) -> Option<(usize, usize)> {
+  let nx = x.wrapping_add_signed(dx);
+  let ny = y.wrapping_add_signed(dy);
+
+  if nx < width && ny < height {
+    Some((nx, ny))
+  } else {
+    None
+  }
+}
+   
+
+   Does this technique have a name? I've never seen it before, but I think it should basically always work? My grid sizes are like 5 columns wide and 20 rows tall, and I usually am only checking the left, right, top, or bottom neighbors, so    dx    and    dy    are generally always either -1, 0, or 1.   
+
+   The idea is that you get two bounds checks for free because instead of the coordinate becoming negative, it wraps around over to    usize::MAX (18446744073709551615)   . And then you can also get rid of two boolean checks because going off the grid to the left wraps all the way around and then    18446744073709551611 < 5    obviously fails (and you of course never need to check if a    usize    is positive, since it's guaranteed to be).   
+
+   It seems a bit hacky, and I'm not sure if there's something I'm missing, or is this a valid optimization? Seems to get rid of 6 casts and 2 if checks.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ge6y8d/quiz_do_you_think_this_should_compile/
+-->>-->>
+I was recently surprised to run across this problem. This very simple piece of code doesn't compile due to the familiar "cannot borrow    buffet    as immutable because it is also borrowed as mutable" error E0502. Rust Playground:    https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=0c1cc672a5919a38ff2123d1b3bbec97   
+
+   fn main() {
+    let mut buffet = Vec::new();
+    drink(&mut buffet, eat(&buffet));
+}
+
+fn eat(_slice: &[u8]) -> i32 {
+    42
+}
+
+fn drink(_slice: &mut [u8], _count: i32) {}
+   
+
+   Here,    eat    consumes the borrowed buffet and returns a value, a simple int, that    does not depend on the borrowed data at all   . Now, since all function arguments have to be evaluated before    drink    can be called, I expected this to compile. After all, a simple int doesn't interfere with the mut borrow of    buffet    in the first argument. The obvious lowering is   
+
+   let arg2 = eat(&buffet);
+drink(&mut buffet, arg2);
+   
+
+   and in fact this does compile fine. You can also get the original code to work by swapping the order of the arguments to    drink   . Anyway, probably not a compiler bug, but a surprising limitation of the borrow checker.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ge7ljp/marking_external_functions_as_sideeffect_free/
+-->>-->>
+Is it possible to tell rustc that it's okay to eliminate calls to a C function if the results of that call aren't used?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ge4u9g/how_to_avoid_seemingly_unnecessary_indirection/
+-->>-->>
+I find myself using this pattern sometimes:   
+
+   struct Test;
+
+impl Test
+{
+    pub fn outer_fn(&self, callback: impl Fn())
+    {
+        self.inner_fn(callback);
+    }
+
+    fn inner_fn(&self, callback: impl Fn())
+    {
+        callback();
+    }
+}
+   
+
+   Where    outer_fn    is visible to users of type    Test   , but some of the work is offloaded to    inner_fn    internally, and    inner_fn    is the one that actually wants to call the callback. This is all well and good until    outer_fn    wants to call    inner_fn    twice:   
+
+   pub fn outer_fn(self, callback: impl Fn())
+{
+    self.inner_fn(callback);
+
+    self.inner_fn(callback);
+}
+   
+
+   Leading to:   
+
+   5  |     pub fn outer_fn(self, callback: impl Fn())
+   |                           -------- move occurs because `callback` has type `impl Fn()`, which does not implement the `Copy` trait
+6  |     {
+7  |         self.inner_fn(callback);
+   |                       -------- value moved here
+8  |
+9  |         self.inner_fn(callback);
+   |                       ^^^^^^^^ value used here after move
+   
+
+   I don't want to require the callback to be    Copy   . The easiest solution I can see here is to pass a reference to    inner_fn   :   
+
+   pub fn outer_fn(&self, callback: impl Fn())
+{
+    self.inner_fn(&callback);
+
+    self.inner_fn(&callback);
+}
+   
+
+   However, conceptually this seems like a superfluous indirection. Presumably it won't make any difference in terms of performance if    inner_fn    gets inlined, but I assume it can if not. Also, the problem compounds if    inner_fn    calls    inner_fn_2   .   
+
+   What's the real solution here? I don't want to require    callback    to be    Copy   , and I need to be able to call    callback    an arbitrary number of times. Sometimes I need    FnMut    callbacks as well.   
+   
+
+======>
+https://blog.iggy.rs/posts/technology-radar-and-currrent-goals/
+-->>-->>
+Iggy.rs message streaming blog iggy.rs | Iggy.rs - Technology Radar & current goals . Posted on 2024-10-28 by Piotr Gankiewicz Table of Contents Technology Radar Current goals Replication S3 storage OpenTelemetry Optimizations io_uring Technology Radar Quite recently (a few days ago), Iggy has been listed on Technology Radar by Thoughtworks - a well-known technology consulting company. If you're not familiar with the Technology Radar, it's essentially an opinionated set (updated twice a year and subscribed by the thousands of developers worldwide) of the tools, platforms, frameworks, techniques etc. which you may want to try out & explore in your IT projects. Everything is split into the different categories, depending on the maturity or popularity of the particular tool. As you can see, we were put right into the assess bucket (next to such renowned solutions such as e.g. FoundationDB ) - being the projects which are worth exploring & understanding how they might affect your enterprise. Frankly speaking, we weren't expecting this at all, and from our perspective, it's quite of an accomplishment . Besides gaining an additional amount of trust & recognition, it has led us to another conclusion - someone out there we don't know yet about (maybe even one of their customers) is using/experimenting with Iggy :) And if you are (or will be) one of such persons, please hop onto our Discord and share your invaluable feedback with us! Now, given the recent publication and increased activity within our OSS community building the core streaming server & SDKs in multiple programming languages, it's worth mentioning what are the current goals for Iggy. Current goals Replication Without a doubt, being able to run your infrastructure (which processes & stores the data) as a cluster, gives much more confidence and greatly impacts the overall reliability. We've started experimenting with the replication over half a year ago already by implementing the basic, Raft based consensus algorithm for the simple message streaming server. At the same time, we were researching the other possible solutions, after we've finally decided to move on with Viewstamped Replication (in its revisited form ), which was successfully used by e.g. TigerBeetle . Long story short - the deterministic leader election , allows us to go for ring topology and chain replication of our data - it's excellent for high throughput, which is very important for us. Moreover, VSR can be run completely in memory , providing us an opportunity to work independently both on the consensus and the storage and how to link these two together, to form a bulletproof storage fault model. Below is our very first draft for the initial implementation of VSR. S3 storage A few months ago, we did implement an optional archiver for the server state log & streaming data (messages etc.) which supports any S3 compatible storage (just pick up your favorite cloud provider). The configuration is as simple as this example: [ data_maintenance . archiver ] # Enables or disables the archiver process. enabled = true # Kind of archiver to use. Available options: "disk", "s3". kind = "s3" [ data_maintenance . archiver . disk ] # Path for storing the archived data on disk. path = "local_data/archive" [ data_maintenance . archiver . s3 ] # Access key ID for the S3 bucket. key_id = "123" # Secret access key for the S3 bucket key_secret = "secret" # Name of the S3 bucket. bucket = "iggy" # Endpoint of the S3 region. endpoint = "http://localhost:9000" # Region of the S3 bucket. region = "eu-west-1" # Temporary directory for storing the data before uploading to S3. tmp_upload_dir = "local_data/s3_tmp" By making use of S3, you could almost infinitely (and very cheaply) store your data - for the need of additional backups, being compliant with law regulations etc. However, there's one catch - in order to read the data stored with S3, you'd need to download it from the cloud and restart your server. And this is where things will change in the future - we're planning to implement a dedicated S3 storage, for both, writing and reading the data in real-time if needed. You could think of the following analogy to the different kinds of cache storages in your PC. L1 - data available directly from the server RAM (super fast writes/reads) L2 - data stored on your servers disks (still very, very fast with NVME SSD gen4 or 5) L3 - S3 storage, still fast for the typical use-cases which do not require a very stable, microsecond level latencies Each of these storage layers could be optionally enabled or disabled . You can already decide if and how much memory to use for caching the messages. With S3 tiered storage in place, you could e.g. treat your server's SSD as a sort of ring buffer for keeping the most recent data (easily millions or billions of messages, depending on their size) and only fetch the ones from S3, when you need something very old. Or, you could just ignore your server's RAM & SSD, and do all the writes and reads directly on S3, and still remain blazingly fast (just like Quickwit ). OpenTelemetry Speaking of the Quickwit, we've also implemented a support for OpenTelemetry logs & traces for the server. Since our SDK already uses the logging & tracing libraries, we thought that adding such a feature on the server, could help you gain even better, real-time observability into what's happening under the hood. # OpenTelemetry configuration [ telemetry ] # Enables or disables telemetry. enabled = false # Service name for telemetry. service_name = "iggy" # OpenTelemetry logs configuration [ telemetry . logs ] # Transport for sending logs. Options: "grpc", "http". transport = "grpc" # Endpoint for sending logs. endpoint = "http://localhost:7281/v1/logs" # OpenTelemetry traces configuration [ telemetry . traces ] # Transport for sending traces. Options: "grpc", "http". transport = "grpc" # Endpoint for sending traces. endpoint = "http://localhost:7281/v1/traces" And just like with S3 storage, it's merely a beginning - one of the members on our Discord had already thought of extending this implementation by propagating the trace context (via existing message headers metadata) between the clients & server in order to get full understanding of the distributed systems and its dependencies, which could be further visualized by tools like Zipkin or Jaeger . Optimizations Improved messages batching, keeping the indexes & time indexes in a single file, making use of mmap or directIO for the data storage processing, rkyv for zero-copy (de)serialization , keeping open the file descriptors and lots of other minor improvements - all these low hanging fruits (or at least some of them), will hopefully build up to making Iggy even more performant & resource effective than it already is. To start the Iggy server, you just need to wait for a few milliseconds, and the RAM consumption is within a range ~20 MB, which is already over an order of magnitude lower than when compared to Kafka. io_uring This will certainly require to have its own blog post, as there's so much to talk about. We did experiment with Monoio (which, in its basic form without additonal enhancements allowed us to reach over 15 GB/s reads when compared to 10-12 GB/s for Tokio that we currently use), we also might experiment with Glommio , yet, most likely, we might build our own io_uring backend to fully utilize all its features. Yes, at this point you might call us crazy ( io_uring won't happen before we release the first version of the VSR clustering anyway), but if you want to tick all the possible boxes, it's hard to find a generic framework that will meet your demands, especially when mixed altogether with VSR clustering, thread-per-core & shared-nothing design (if will turn out to be suitable), zero-copy deserialization libraries and other things we might even not be aware of yet. To innovate, one must experiment , and although we do all these things in our spare time, it's been an exciting journey so far (and lots of experience gained in the meantime) for all of our team members building something fresh, from the very ground up, and regardless of the final outcome, we already know it was all worth it :)
+======>
+https://rust-analyzer.github.io/thisweek/2024/10/28/changelog-257.html
+-->>-->>
+Sponsor Docs Blog Changelog Changelog #257 Oct 28, 2024 Commit: 3b3a87f Release: 2024-10-28 ( v0.3.2162 ) A Note on Windows Artifacts The next release will stop including .gz artifacts for Windows.
+These are harder to use than the .zip ones, which should be used instead. New Features #18294 (first contribution) support Option in "Wrap/Unwrap return type". #18362 , #18370 (first contribution) support "Go to definition" on range operators and patterns. #18359 (first contribution) add option to not start the server on initialization. #18264 implement mixed-site hygiene. #18404 , #18408 implement pull model for diagnostics. #18349 render aliased type documentation when alias doesn’t have any. #18418 split macro-error diagnostic so users can ignore parts of it. Fixes #18407 (first contribution) fix formatting on welcome page. #18376 add text edits to more inlay hints. #18361 fix token downmapping failing for include! inputs. #18254 nail destructuring assignment down once and for all. #18337 don’t show private items from modules nested in blocks in completions. #18360 improve completions for extern blocks. #18371 fix parsing of use bounds. #18388 Fix checking for false labelDetailsSupport value. #18395 add missing target_has_atomic and target_has_atomic_load_store cfg flags. #18390 prevent public re-exports of private items. #18417 correctly handle #"" before the 2024 edition. #18419 put leading | in patterns under OrPat . #18415 mark "Remove dbg! " as a quick fix for better prioritization. #18366 fix Markdown display in status bar message. #18399 respect config to disable native diagnostics. #18386 don’t crash when local time offset is unavailable. Internal Improvements #18372 (first contribution) switch CI from bors to merge queues. #18373 merge separate inlay hints targeting the same range. #18391 log original syntax on panic. #18394 , #18396 pretty-print Config in "Status" command. #18402 improve proc macro error message for failed build scripts. #18410 invert token iteration order in macro mapping. #17954 update rustc-hash to version 2. #18392 swap query call order in file_item_tree_query to help with caching issue. #18409 only construct a resolver during macro descension when needed. #18368 add test for LSIF macro-generated constants. #18405 update changelog generation for merge queues. Ferrous Systems & contributors rss src sponsor
+======>
+https://old.reddit.com/r/rust/comments/1geb3zw/wheres_the_tracking_for_the_other_diagnostic/
+-->>-->>
+So I just found out that the ability to have custom error messages (in the form of the diagnostic attribute) was stabilized which is entirely what I've always wanted as a crate developer. But it seems like right now you can only do it for "unimplemented traits" errors. I was hoping to get this for unresolved imports (telling the user if we moved a module or struct somewhere) or functions that no longer exist/shouldn't be called (the reason I want the latter is admittedly for what    negative trait impls    are meant to solve, but that's been in tracking for close to 5 years and it seems like something like this will get done much quicker). But forgetting my use case, I'm more interested in what else is in store.   
+
+   I tried to find the tracking issues for what else could be done with this but Github's search is returning a lot of other results and it's hard to narrow down anything specific.   
+   
+
+======>
+https://quic.video/blog/to-wasm
+-->>-->>
+published 10/24/2024 To WASM, or not to WASM I’m losing sleep over whether the web client should be written in Rust or TypeScript.
+I need your opinion, my beautiful little rubber duckies. you irl Frontend But first, I’m going to spew my own opinion.
+The UI layer will absolutely be written in TypeScript using a flavor-of-the-month web framework.
+I’m not going to use Yew or any other React clone written in Rust. Why?
+It’s pretty simple, I need frontend contributors.
+I don’t think it’s fair to ask a frontend savant to learn Rust and deal with the restrictions imposed by the language.
+Unpopular opinion: a UI should be flashy and not safe . Additionally, JavaScript web frameworks are more mature and used in production.
+I’m not suggesting that you can’t use a Rust frontend library, just that they won’t be nearly as polished or feature complete. “@kixelated ur dumb” if you disagree. My plan is to create a <moq-karp> custom element that abstracts away the underlying implementation; similar to the <video> tag.
+Then you can use whatever frontend framework you want to interface with the UI-less element. What is up for debate is the language used to power the media experience behind this custom element.
+And yes, there’s going to be a LOT of links to MDN in this post. Background Before we get started, let’s talk about the code that has already been written. moq-rs is a Rust library that handles networking and media containers. moq-js is a TypeScript library that does networking, media containers, encoding/decoding, and capture/rendering. It also contains this blog post because splitting the library from the website was too difficult for me. moq-wasm is a Rust proof-of-concept that uses WebAssembly to decode and render media. It barely works. The decision that needs to be made is whether to continue with moq-js or switch to moq-wasm .
+Can you help me decide? One of my
+slides from Demuxed 2024 . Shame you couldn’t make it. Threads I know “thread” is a spooky word to Javascript developers, but the library will need to run in multiple threads: Main Thread WebWorker Thread AudioWorklet Thread The Main Thread needs to initialize the WebWorker and AudioWorklet of course.
+Unfortunately, AudioContext also requires the main thread for some reason.
+This is a bit frustrating because we will occasionally need to reinitialize it too, like when changing the audio frequency (or device?). The WebWorker Thread will perform any networking, decoding/encoding, and rendering.
+This is done via WebTransport , WebCodecs , and OffscreenCanvas , respectively.
+Our application code doesn’t need to be fast because the heavy processing (ex. encoding) is handled by browser APIs. Finally, the AudioWorklet Thread is a nightmare.
+In order to render audio with minimal latency, you use an AudioWorklet that runs on the audio thread.
+This is completely sandboxed and triggers a callback every ~2ms to request the next 128 audio samples. Main Thread Let’s cover the easiest decision first. The small amount of code backing the custom element should be written in TypeScript.
+It will initialize the WebWorker , AudioContext , and AudioWorklet .
+The custom element API will be a simple shim that performs a postMessage to the worker. The benefit of TypeScript here is that it’s simple.
+It also means we can offload the slow WASM initialization to the background.
+In theory, we could even establish the connection to the MoQ server while the WASM module is loading. WebWorker Thread Now this decision is trickier. WASM in a WebWorker makes a lot of sense because the worker is in a sandbox already.
+An API that you use to communicate with a WebWorker will be very similar to an API that you use to communicate with a WASM module. My biggest concern is the performance.
+WASM will undoubtedly be slower even when written in the 🦀 language. Why?
+Well one thing you can do with WebWorkers but can’t do with WASM yet is a zero-copy .
+That means every byte received over the network (WebTransport) would need to be copied to WASM and then immediately copied back to decode (WebCodecs).
+We might even need to perform another copy to and from in order to render each frame, although fortunately I think this can be avoided thanks to WebCodecs’ hardware offload. But, am I being paranoid and over-optimizing?
+Almost certainly.
+There are other reasons to keep the worker in TypeScript, again for more contributions and faster startup times.
+Not to mention that interfacing with JavaScript from Rust is still pretty dreadful as there are some things, like callbacks, that don’t translate well. But if written in Rust, then much of the code would be shareable with native apps.
+We would still use native APIs to perform networking, encoding, and rendering, but the logic would be the same.
+Surely there’s justification for a more complicated but reusable web library? Another “@kixelated ur dumb” in chat please. WebWorklet Thread Finally, my least favorite component: audio .
+I barely understand how beeps and boops are encoded into bytes and samples.
+But I do know how to output audio samples on the web, and it’s painful. You have been spooked by the Pumpkin of AudioWorklet . Recite the words “I dare not touch it” three times or
+you will be 👻🎃 CURSED 🎃👻 with accelerated toenail growth. To achieve minimum latency, you need to create an AudioWorklet that runs on a dedicated audio thread.
+You can think of it like an WebWorker but even more sandboxed.
+This worklet runs a callback every ~2ms to gather the next 128 audio samples. So we first need to get decoded audio samples to this AudioWorklet.
+There is a postMessage API but apparently the lowest latency approach is to code a ring buffer… in JavaScript.
+I’m not kidding, you use SharedArrayBuffer and Atomics in a language that doesn’t even have a dedicated integer type.
+Fun fact: number is secretly a float64 , so math gets wonky above 2^53 unless you use a BigInt . Right now, we render the samples unmodified.
+However, in the future, we’ll need to perform some audio processing for features like echo cancellation and AI voice changers (gotta raise funding somehow).
+This part seems miserable to do in JavaScript as it involves UInt8Array and DataView , which are suprisingly terrible APIs.
+I’m sure there are audio processing libraries written in Rust or C/C++ that we could leverage instead. From my limited research, it does seem possible to run WASM inside of an AudioWorklet .
+However, SharedArrayBuffer and Atomics are not yet supported in WASM so some additional latency is unavoidable.
+But I imagine postMessage only incurs a few milliseconds most and it likley doesn’t matter when the network jitter buffer is already closer to 100 milliseconds. In fact, this might be a great problem turned solution, because SharedArrayBuffer requires quite annoying CORS settings that would be nice to remove.
+This might be lifted in the future but I wouldn’t hold my breath.
+It’s also just a huge headache to interface with a fixed size SharedArrayBuffer given the uneven arrival over the network. So I’m definitely leaning towards Rust here.
+“@kixelated ur dumb” Decision Time I’m leaning towards Rust for the WebWorker and AudioWorklet threads, and using TypeScript for the UI and Main thread.
+What do you think? thonking Good luck leaving a comment on this blog post.
+I haven’t bothered to code that feature yet.
+So instead join the Discord .
+You already know what to type.
+======>
+https://old.reddit.com/r/rust/comments/1ge1l0o/why_doesnt_x_get_moved_here_should_the_last/
+-->>-->>
+fn main() {
+    let x = 5;
+    {
+        let x = x * 2;
+        println!("inner scope {x}");
+    }
+    println!("outer scope {x}");
+}
+   
+
+   -- Output -- inner scope 10 outer scope 5   
+
+   // edit   
+
+   You guys are right. Integers have the Copy trait. Tried it with a String and it didn't compile:    Snippet   
+
+   Snippet with cloning    (compiles)   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gef1of/comparing_performance_of_native_windows_vs_wsl2/
+-->>-->>
+Lately I've been tinkering with my Windows 11 desktop and WSL2, and decided to compare the performance of Windows 11 (using the new Dev Drive feature) and WSL2 Ubuntu for various cargo tasks. I cloned    https://github.com/casey/just    locally and ran benchmarks using    hyperfine   . I was surprised by the results, and just wanted to share them in case anyone else is in a similar position wondering if using WSL2 is worth it on Windows. Note: I used a    --prepare 'cargo clean'    in the hyperfine commands so things were cleaned up before runs.   
+
+   System Specifications   
+
+   Windows 11 Environment:   
+
+   
+   OS: Windows 11 Home x86_64 (Kernel: WIN32_NT 10.0.22631.4391)   
+   Shell: PowerShell 7.4.5   
+   CPU: AMD Ryzen 3 3200G with Radeon Vega Graphics (4 cores) @ 4.00 GHz   
+   Memory: 48 GiB   
+   Disk (F:\): ReFS Dev Drive   
+   
+
+   WSL2 Ubuntu Environment:   
+
+   
+   OS: Ubuntu 24.04 x86_64 (Kernel: Linux 5.15.146.1-microsoft-standard-WSL2)   
+   Shell: Bash   
+   CPU: AMD Ryzen 3 3200G with Radeon Vega Graphics (4 cores) @ 3.60 GHz   
+   Memory: Allocated 22.45 GiB   
+   Disk (/): ext4   
+   
+
+   Benchmark Results   
+
+   I tested    fd   ,    rg   , and various    cargo    commands.   
+
+   | Task                   | Windows 11 (Dev Drive ReFS) | WSL2 Ubuntu        |
+|------------------------|-----------------------------|--------------------|
+| fd test                | 52.1 ms ± 3.2 ms            | 8.5 ms ± 2.1 ms    |
+| rg --ignore-case test  | 85.7 ms ± 2.8 ms            | 5.7 ms ± 0.8 ms    |
+| cargo clean            | 144.9 ms ± 7.4 ms           | 54.9 ms ± 1.8 ms   |
+| cargo fetch            | 395.3 ms ± 23.8 ms          | 130.2 ms ± 4.6 ms  |
+| cargo check            | 31.145 s ± 0.320 s          | 19.053 s ± 0.087 s |
+| cargo build            | 52.921 s ± 0.812 s          | 30.821 s ± 0.774 s |
+| cargo build --release  | 136.448 s ± 1.406 s         | 76.850 s ± 0.410 s |
+   
+
+   WSL2 Ubuntu outperformed Windows 11 across all the tasks tested, with WSL2 being nearly twice as fast or better. Even using the Dev Drive, which is supposed to optimize performance for development workloads, Windows 11 falls behind.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1geb3m2/cubecl_03_released_rocmhip_spirv_support_for/
+-->>-->>
+CubeCL 0.3 introduces a new runtime and an enhanced compiler, now extending GPU support to AMD with the `rocm` runtime and `HIP` C++ interface. This allows us to leverage our CUDA-optimized compiler, with minor adjustments, to bring performance gains directly to AMD GPUs as well. The next step involves implementing Matrix-Multiply Accumulate (MMA) in this runtime, which will significantly boost kernel performance.   
+
+   Previously, AMD support was available only through the `wgpu` runtime, limited to WebGPU’s restrictions, which excluded half precision and MMA support. With this release, we now have a new compiler capable of generating `SPIR-V` directly from the CubeCL IR. Running via the `wgpu` runtime, this addition enables lower precisions and MMA on a wider range of GPUs.   
+
+   We’ve also revamped the macro system, expanding CubeCL’s Rust syntax support and introducing further `comptime` optimizations. Profiling kernels has been simplified, just set an environment variable to gain insights into your application/model performance.    
+
+   This release includes numerous enhancements to matrix multiplication kernels, pushing performance to cuBLAS levels.This is the ultimate performance test, making sure CubeCL can match the performance of the well crafted cuBLAS kernels, but on any GPU. We're actively refining these kernels for even better performance and adaptability to a range of GPU architectures, including those without MMA support.   
+
+   https://preview.redd.it/uff5hlyjujxd1.png?width=1000&format=png&auto=webp&s=13053b20b4edf569f181fbda61806683432204ec   
+
+   I want to extend a special thanks to the community for their invaluable contributions to this release! Few projects aim to combine optimal performance, flexibility, and portability within a unified (and practical) API like CubeCL. Rust continues to prove itself well-suited for high-performance computing, and with ongoing community support, it has the potential to become the go-to platform!   
+
+   Release Notes:    https://github.com/tracel-ai/cubecl/releases/tag/v0.3.0   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1ge959g/when_does_rust_fail_to_track_alignment/
+-->>-->>
+A few months ago    u/matklad    (rust-analyzer) wrote   
+
+   
+   You can maybe even argue that, spatially, Zig is safer than Rust, because it tracks alignment much better.   
+   
+
+   Can anyone give an example, showing how Rust's tracking of alignment is lacking?   
+   

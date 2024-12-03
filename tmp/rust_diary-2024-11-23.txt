@@ -1,0 +1,270 @@
+https://github.com/embive/embive
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license Embive (Embedded RISC-V) Embive is a low-level sandboxing library focused on the embedding of untrusted code for constrained environments. As it interprets RISC-V bytecode, multiple languages are supported out of the box by Embive (Rust, C, C++, Zig, TinyGo, etc.). By default, it doesn’t require external crates, dynamic memory allocation or the standard library ( no_std & no_alloc ). Embive is designed for any error during execution to be recoverable, allowing the host to handle it as needed.
+As so, no panics should occur on release builds, despite the bytecode being executed. Currently, it supports the RV32I[M] unprivileged instruction set (M extension enabled by default). Templates The following templates are available for programs that run inside Embive: Rust template C/C++ Template Example use embive :: { engine :: { Engine , Config , SYSCALL_ARGS } , memory :: Memory , register :: Register } ; /// A simple syscall example. Check [`engine::SyscallFn`] for more information. fn syscall ( nr : i32 , args : & [ i32 ; SYSCALL_ARGS ] , memory : & mut Memory ) -> Result < i32 , i32 > { println ! ( "Syscall nr: {}, Args: {:?}" , nr, args ) ; match nr { 1 => Ok ( args [ 0 ] + args [ 1 ] ) , // Add two numbers (arg[0] + arg[1]) 2 => match memory . load ( args [ 0 ] as u32 ) { // Load from RAM (arg[0]) Ok ( val ) => Ok ( i32 :: from_le_bytes ( val ) ) , // RISC-V is little endian Err ( _ ) => Err ( 1 ) , } , _ => Err ( 2 ) , } } fn main ( ) { // "10 + 20" using syscalls (load from ram and add two numbers) let code = & [ 0x93 , 0x08 , 0x20 , 0x00 , // li   a7, 2      (Syscall nr = 2) 0x13 , 0x05 , 0x10 , 0x00 , // li   a0, 1      (a0 = 1) 0x13 , 0x15 , 0xf5 , 0x01 , // slli a0, a0, 31 (a0 << 31) (0x80000000) 0x73 , 0x00 , 0x00 , 0x00 , // ecall           (Syscall, load from arg0) 0x93 , 0x08 , 0x10 , 0x00 , // li   a7, 1      (Syscall nr = 1) 0x13 , 0x05 , 0x40 , 0x01 , // li   a0,20      (a0 = 20) 0x73 , 0x00 , 0x00 , 0x00 , // ecall           (Syscall, add two args) 0x73 , 0x00 , 0x10 , 0x00 // ebreak          (Halt) ] ; let mut ram = [ 0 ; 1024 ] ; // Store value 10 at RAM address 0 (0x80000000) ram [ .. 4 ] . copy_from_slice ( & u32 :: to_le_bytes ( 10 ) ) ; // Create engine config let config = Config { syscall_fn : Some ( syscall ) , .. Default :: default ( ) } ; // Create engine let mut engine = Engine :: new ( code , & mut ram , config ) . unwrap ( ) ; // Run it engine . run ( ) . unwrap ( ) ; // Check the result assert_eq ! ( engine.registers ( ) .get ( Register :: A0 as usize ) .unwrap ( ) , 0 ) ; assert_eq ! ( engine.registers ( ) .get ( Register :: A1 as usize ) .unwrap ( ) , 30 ) ; } Roadmap Fully support RV32G (RV32IMAFDZicsr_Zifencei) RV32I Base Integer Instruction Set M Extension (Multiplication and Division Instructions) Zifencei Implemented as a no-operation as it isn't applicable (Single HART, no cache, no memory-mapped devices, etc.). Zicsr At least the unprivileged CSRs F Extension (Single-Precision Floating-Point Instructions) D Extension (Double-Precision Floating-Point Instructions) A Extension (Atomic Instructions) System Calls Function calls from interpreted to native code Resource limiter Yield the engine after a configurable amount of instructions are executed. CI/CD Incorporate more tests into the repository and create test automations for PRs Bytecode optimization (AOT and JIT) Allow in-place JIT and AOT compilation to a format easier to parse. Less bit-shifting, faster instruction matching, etc. Should be kept as close as possible to native RISC-V bytecode. Callbacks Function calls from native to interpreted code. Macros for converting native functions to system calls / callbacks Use Rust type-system instead of only allowing i32 arguments / results Support C Extension (Compressed Instructions) This is a maybe, but good to keep in mind while developing other features (especially AOT/JIT). Minimum supported Rust version (MSRV) Embive is guaranteed to compile on stable Rust 1.81 and up. License Embive is licensed under either of Apache License, Version 2.0 ( LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0 ) MIT license ( LICENSE-MIT or http://opensource.org/licenses/MIT ) at your option. Contribution Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
+======>
+https://github.com/jnz/q3vm
+-->>-->>
+Repository files navigation README Code of conduct GPL-2.0 license Q3VM Readme A lightweight (single file: vm.c ) embeddable interpreter/Virtual Machine (VM) for compiled bytecode files ( .qvm ) based on good old C-language input ( .c ). A complete C compiler to generate .qvm files is included (LCC). The interpreter is based on the Quake III Arena virtual machine (hence the name q3vm) but the interpreter is not tied to Quake III Arena and can be used for any kind of project. For example code that needs to run in a sandbox. ___   _______     ____  __
+ / _ \ |___ /\ \   / /  \/  |
+| | | |  |_ \ \ \ / /| |\/| |
+| |_| |____) | \ V / | |  | |
+ \__\_______/   \_/  |_|  |_|
+ 
+ vm.c / vm.h Jan Zwiener, 2018-2024. Mail: jan@zwiener.org Read the excellent introduction to the Q3VM by Fabien Sanglard: http://fabiensanglard.net/quake3/qvm.php Gif: compiling a simple hello world example ( main.c ) and run it with the virtual machine interpreter q3vm . Installation The vm.c and vm.h files can be
+dropped into an existing C project and compiled along with it. Implement
+the 4 callback functions in your project: Com_malloc , Com_free , Com_Error and systemCalls . Features Small and lightweight (one .c file to include without dependencies) Battle-tested (20 years of use in Quake III Arena) VM and LCC forked from the well maintained ioquake3 code base Tool tested (static code analysis, test coverage, Valgrind) No need to learn a new scripting language (e.g. Lua) Static type checking in the language (C) Static memory allocation in C, no unpredictable garbage collector Plan B: you can always go back to native code, as .c files are the input Great tool landscape for C. Use the tools that are available for C Computed gotos are used to speed up the interpreter if you compile with GCC (see benchmark section) Much faster than the Triseism Q3VM interpreter (see benchmark section) Use Cases Sandbox for code you don't fully trust (e.g. download the bytecode from a web server) Mods for hobby game engines There are many virtual machines, but not many are so small, with static typing and no garbage collector Learn about virtual machines in general, but directly have a C compiler available for the virtual machine Sandbox for embedded applications, e.g. plug-ins for IoT applications on microcontrollers (bounded CPU time, bounded memory area, restrict access to peripheral devices) There is also a historical value: learn about the Quake III engine Quick Intro Two things are required: The interpreter A bytecode binary .qvm file Run: > q3vm.exe bytecode.qvm The q3vm.exe standalone interpreter is not required, it is more of a demo
+application.  You can easily add the interpreter as a single .c file to your
+project ( vm.c and the header vm.h ).  Call VM_Create and VM_Call to run
+the bytecode in your application: #include "vm.h" vm_t vm ; int result ; VM_Create ( & vm , "my test" , pointerToByteCodeBuffer , sysCall ); result = VM_Call ( & vm , 12345 ); VM_Free ( & vm ); The pointerToByteCodeBuffer is some memory location where the bytecode is
+located. You can e.g. load it from a file and store it in a byte array. See main.c for an example implementation. Data can be exchanged with the bytecode by the return value (result) and
+arguments to VM_Call . Here just a 12345 is passed to the bytecode. It is up
+to the vmMain function in the bytecode what to do with that value.  You can pass
+more (up to 12) optional arguments to the bytecode:
+e.g. VM_Call(&vm, 0, 1, 2, 3, 4) . The sysCall is a callback function that you define so that the interpreter
+can call native functions from your code. E.g. a logging function or some time
+critical function that you don't want to implement in the bytecode. Again,
+check main.c for an example. Also check the section How to add a custom
+native function for more information. A few callback functions are required, read the section Callback functions
+required in host application for more information. And normally you should also check if VM_Create returns 0 (i.e. everything is
+OK). Folder structure ├─ bin/             LCC compiler and q3asm linker output binaries
+│  ├─ linux/        Linux target folder for LCC compiler and q3asm linker
+│  └─ win32/        Precompiled lcc.exe and q3asm.exe for Windows
+├─ build/           Temp. directory for object files
+├─ doxygen/         Doxygen config and API documentation output
+├─ example/         Example "hello world" firmware project (bytecode.qvm)
+├─ lcc/             The LCC compiler (compile .c files to .asm files)
+├─ msvc/            Microsoft Visual Studio 2015 project file for q3vm
+├─ q3asm/           Linker: link the LCC .asm files to a .qvm bytecode file
+├─ src/             q3vm standalone console application source code
+│  └─ vm/           The core VM source, copy that folder into your project
+└─ test/            Test environment API Documentation Call make doxygen to autogenerate the API documentation in the doxygen/html directory. Doxygen is required as well as the dot command (part of graphviz).
+Install it with sudo apt-get install doxygen graphviz on Debian or Ubuntu. > make doxygen But you can also read vm.h directly for the API documentation. Build VM/interpreter On Linux : > make On Windows : Use the Visual Studio 2015 project q3vm.sln in the msvc subfolder. Or install MinGW64 and add the MinGW64 bin\ directory to your path.
+So that you have gcc.exe and mingw32-make.exe available at the command prompt. https://www.mingw-w64.org/downloads/ Compile with: > mingw32-make Build example bytecode firmware Windows : The LCC compiler (lcc.exe) is included in the ./bin/win32 directory.
+You need make (mingw32-make) from the MinGW64 installation in
+your path. The Makefile calls LCC and q3asm to generate bytecode.qvm : cd example
+mingw32-make If you don't want to use make, you can do the steps from the make file
+manually at the command line. Compile every .c source code with LCC : > lcc -S -Wf-target=bytecode -Wf-g YOUR_C_CODE.c This will create .asm output files. Then link the .asm files with q3asm (based on a bytecode.q3asm
+linker script): > q3asm -f bytecode The output of q3asm is a .qvm file that you can run with q3vm. Linux : Build LCC: > make lcc Build q3asm > make q3asm Build the example bytecode: > make example/bytecode.qvm Callback functions required in host application malloc and free : The following functions are required in the host application for
+memory allocation: void * Com_malloc ( size_t size , vm_t * vm , vmMallocType_t type );
+    {
+        ( void ) vm ;
+        ( void ) type ; return malloc ( size );
+    } void Com_free ( void * p , vm_t * vm , vmMallocType_t type )
+    {
+        ( void ) vm ;
+        ( void ) type ; free ( p );
+    } The host can simply call malloc and free or use a custom memory allocation
+function or use static memory (e.g. in an embedded application). Each VM only
+calls Com_malloc once per malloc type. This can be used as a help for the static memory
+allocation in an embedded environment without malloc() and free() . Error handling : The following function needs to be implemented in the host application: void Com_Error ( vmErrorCode_t level , const char * error )
+    { fprintf ( stderr , "Err (%i): %s\n" , level , error ); exit ( level );
+    } The error id is given by the vmErrorCode_t parameter. The error string describes
+what went wrong.  It is up to the host application how to deal with the error.
+In this simple example we just print the error string and exit the application.
+The error code is stored in the vm_t::lastError variable. How to add a custom native function Let's say we want to add a native function to convert a string to an integer: stringToInt .  We want to add the function to our virtual machine (step 1) and
+call it from our example code (step 2).  (Note: there is already the atoi function in
+the bytecode, but this is just an example on how to call atoi as a native
+function and deal with address translation). Step 1) Add the native function to the host application Open src/main.c and modify the systemCalls function. Add case -5: for the
+new native function. We just use the next free id (here -5) as an identifier.
+The identifier will be important in step 2.  The first argument
+for stringToInt is the address of a string. The address is in the virtual
+machine address space, so we can't directly use that argument ( args[1] ) for
+the native call to atoi . There is a helper macro that will translate the
+address for use: VMA . We need to give VMA the pointer argument from the
+bytecode and the virtual machine context ( vm ) to translate it.
+The function VM_MemoryRangeValid makes sure that the memory range is valid. This is e.g.
+important for the memcpy call, so that the VM cannot write outside of
+the sandbox memory.
+It is also possible to call the VM recursively again with VM_Call . /* Call native functions from the bytecode: */ int systemCalls ( vm_t * vm , int * args )
+    { const int id = -1 - args [ 0 ]; switch ( id )
+        { case -1 : /* PRINTF */ return printf ( "%s" , ( const char * ) VMA ( 1 , vm )); case -2 : /* ERROR */ return fprintf ( stderr , "%s" , ( const char * ) VMA ( 1 , vm )); case -3 : /* MEMSET */ if ( VM_MemoryRangeValid ( args [ 1 ] /*addr*/ , args [ 3 ] /*len*/ , vm ) == 0 )
+            { memset ( VMA ( 1 , vm ), args [ 2 ], args [ 3 ]);
+            } return args [ 1 ]; case -4 : /* MEMCPY */ if ( VM_MemoryRangeValid ( args [ 1 ] /*addr*/ , args [ 3 ] /*len*/ , vm ) == 0 && VM_MemoryRangeValid ( args [ 2 ] /*addr*/ , args [ 3 ] /*len*/ , vm ) == 0 )
+            { memcpy ( VMA ( 1 , vm ), VMA ( 2 , vm ), args [ 3 ]);
+            } return args [ 1 ]; case -5 : /* stringToInt */ // < NEW !!! return atoi ( VMA ( 1 , vm )); // < NEW !!! default : fprintf ( stderr , "Bad system call: %i\n" , id );
+        } return 0 ;
+    } Step 2) Tell the bytecode about this function Now we need to tell our example project about this new function strintToInt .
+Open example/g_syscalls.asm and add the last line. The identifier -5 is
+important for the mapping. code
+
+equ trap_Printf             -1
+equ trap_Error              -2
+equ memset                  -3
+equ memcpy                  -4
+equ stringToInt             -5 Step 3) Perform an example call to strintToInt Edit example/main.c and add the function declaration: int stringToInt ( const char * a ); And call it somewhere from the vmMain function: char * myStr = "1234" ; printf ( "\"%s\" -> %i\n" , myStr , stringToInt ( myStr )); Compile everything: > make && make example/bytecode.qvm And run it: > ./q3vm example/bytecode.qvm Original comments by John Carmack John Carmack's .plan for Nov 03, 1998: I had been working under the assumption that Java was the right way to go, but recently I reached a better conclusion. The programming language for QuakeArena mods is interpreted ANSI C. (well, I am dropping the double data type, but otherwise it should be pretty conformant) The game will have an interpreter for a virtual RISC-like CPU. This should have a minor speed benefit over a byte-coded, stack based java interpreter. Loads and stores are confined to a preset block of memory, and access to all external system facilities is done with system traps to the main game code, so it is completely secure. The tools necessary for building mods will all be freely available: a modified version of LCC and a new program called q3asm. LCC is a wonderful project - a cross platform, cross compiling ANSI C compiler done in under 20K lines of code. Anyone interested in compilers should pick up a copy of "A retargetable C compiler: design and implementation" by Fraser and Hanson. You can't link against any libraries, so every function must be resolved. Things like strcmp, memcpy, rand, etc. must all be implemented directly. I have code for all the ones I use, but some people may have to modify their coding styles or provide implementations for other functions. It is a fair amount of work to restructure all the interfaces to not share pointers between the system and the games, but it is a whole lot easier than porting everything to a new language. The client game code is about 10k lines, and the server game code is about 20k lines. The drawback is performance. It will probably perform somewhat like QC. Most of the heavy lifting is still done in the builtin functions for path tracing and world sampling, but you could still hurt yourself by looping over tons of objects every frame. Yes, this does mean more load on servers, but I am making some improvements in other parts that I hope will balance things to about the way Q2 was on previous generation hardware. There is also the amusing avenue of writing hand tuned virtual assembly assembly language for critical functions. I think this is The Right Thing. Static code analysis Call make analysis and make valgrind to check the VM with: clang static code analysis (scan-build) cppcheck Valgrind clang-format Run the following command to reformat a file according to the coding style: > clang-format -i -style=file input.c Debugging Build vm.c with #define DEBUG_VM in vm.h to enable more checks and debug
+functions. Call VM_Debug() to enable debug printfs.  This
+requires the symbol file of the .qvm : the .map file in the same directory
+as the .qvm . The .map file is automatically generated for each .qvm . Call at the end of a session VM_VmProfile_f(vm) to see a VM usage summary. Benchmarks Time to run test/test.qvm . Smaller numbers are better (multiple runs, smallest number used). Interpreter Time Default Interpreter 3.063 s w. computed gotos 1.771 s Native executable 0.307 s Environment: Ubuntu 17.10 GCC: 7.2.0-8ubuntu3.2 CPU: Intel(R) Core(TM) i5-3320M CPU @ 2.60GHz Version Git hash: 8e46048f475a53f99f9e6656e030835b6011f2ca Date: 2018.08.31 Command line: time ./q3vm test/test.qvm
+time ./test/test_native Benchmark vs. Triseism Q3 interpreter (seismiq executable). Testfirmware: test/example_test.qvm Smaller numbers are better (multiple runs, smallest number used). Interpreter Time Q3VM 1.222 s Triseism project 10.903 s Ubuntu 17.10 GCC: 7.2.0-8ubuntu3.2 CPU: Intel(R) Core(TM) i5-3320M CPU @ 2.60GHz Version Git hash: bb4848c25b2b95c08b9aa03bb6ac46ef4948d900 Version History v1.3 - q3asm from ioquake3 added v1.2 - Debug features enabled (compile with -DDEBUG_VM ) v1.1 - LCC from ioquake3 added TODO Known limitations, bugs, missing features: The Quake III Arena JIT compiler (e.g. for x86) is not added. LICENSE See COPYING.txt for details on the license. Basically the Quake III Arena
+GPL 2 source code license has been inherited. Be aware that LCC has its own non-commercial license which is described in
+lcc/COPYRIGHT. Further information http://fabiensanglard.net/quake3/qvm.php http://users.suse.com/~lnussel/talks/fosdem_talk_2013_q3.pdf Credits This project is based on the Quake 3 and ioquake3 source: https://github.com/id-Software/Quake-III-Arena (id Software) https://github.com/ioquake/ioq3 https://icculus.org/projects/triseism/triseism.html Computed gotos are used: https://eli.thegreenplace.net/2012/07/12/computed-goto-for-efficient-dispatch-tables
+
+======>
+https://shuttle.rs/cch
+-->>-->>
+C hristmas Code Hunt 2024 powered by > what Shuttle's Christmas Code Hunt, (inspired by Advent of Code), invites you to solve challenges using Rust in a fun and relaxed environment. In each challenge, you'll implement HTTP endpoints that respond with the challenge's solution. It is a great way to get started with Rust and Shuttle! > why Participating gives you get the chance to improve your Rust skills, build new friendships with like minded Rustaceans and enjoy the run up to the holidays! > when The first challenge will be released on December 2nd, 2024 at 12:00 UTC. A total of 7 challenges will be released throughout the month of December. Signup and a warmup challenge will be released at the end of November. > prizes Completion of all 7 challenges by December 31st, 2024 at 23:59 UTC will make you eligible for the prize pool, so no need to rush. More details coming soon! Click here to sign up
+======>
+https://old.reddit.com/r/rust/comments/1gxyrah/making_deno_ffi_easy/
+-->>-->>
+I'm having a lot of issues with Deno FFI and wanted to hear some opinions on how I could improve my dev experience... (Deno FFI in that I am loading a Rust library to then use in JS with a proper JS API).   
+
+   I know    deno-bindgen    exists, but it seems abandoned - is there any good library I can use?     
+
+   This is my current solution which is very clunky and likely not maintainable (Especially since I often get some very weird issues due to lifetimes etc) :   
+
+   Rust:   
+
+   use std::ffi::CString;
+
+use xyz::{image::Image, item::{component::ItemDisplayNameComponent, Item}, pack::Pack, vio::{Buildable, Identifier, SemVer}};
+
+fn pack_ref<'a>(pointer: *mut Pack) -> &'a mut Pack {
+    assert!(!pointer.is_null(), "Received a null pointer");
+    unsafe { &mut *pointer }
+}
+
+#[no_mangle]
+pub fn create_pack(id: *mut i8) -> *mut Pack {
+    unsafe {
+        let mut pack = Pack::new("sample", CString::from_raw(id).to_str().unwrap(), "sample", SemVer::current(), "sample", "./sample", "./sample", Image::new("./violin_rs.png"), None);
+
+        Box::into_raw(Box::new(pack))
+    }
+}
+
+#[no_mangle]
+pub fn gen_pack(pointer: *mut Pack) {
+    unsafe {
+        let mut pack = Box::from_raw(pointer);
+
+        pack.generate();
+    }
+}
+   
+
+   JS:   
+
+   import * as xyz from "./xyz/mod.ts";
+
+const pack: xyz.Pack = new xyz.Pack(
+  "XYZ Name",
+  "XYZ Description",
+  "XYZ Author",
+  "...",
+  "./devbp",
+  "./devrp",
+  "./xyz.png"
+);
+
+pack.generate();
+   
+
+   It's all just horrible, is there maybe some library to make my life easier?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gxm414/embive_a_lowlevel_sandboxing_library_for_riscv/
+-->>-->>
+https://crates.io/crates/embive   
+
+   Embive is a RISC-V interpreter that I'm developing in my spare time.   
+It started as a necessity of a WebAssembly alternative that was no_std and no_alloc, targeted mostly for microcontrollers.     
+
+   Q3VM    was a huge inspiration for this project. I wanted something like it, but without the language/toolchain constraints. Using RISC-V bytecode means we can take advantage of its support by most of the standard compilers.   
+
+   You can check the roadmap on its    github    repository; there you'll also find templates for developing C/C++ and Rust programs to run inside Embive.   
+
+   The project is still quite in its infancy, but I'm confident enough to release it to the public. All the currently supported instructions are being tested with the official RISC-V testing suite.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gy8kv8/reactive_library/
+-->>-->>
+Is there any reactive library for rust like RxJs for JavaScript ?   
+I like the concept of observables. To be informed, if some value changes.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gxxqh1/advanced_physical_rust_book/
+-->>-->>
+Hey, I'm a 3rd year university student and recently my eyes started getting sore after spending 10+ hours daily looking into screens, so recently I've started looking into ways to lower that. At the same time I'd love to deepen my Rust knowledge. I've already read the online Rust book, so my question is...   
+
+   Do you have any recommendations for a physical Rust programming book for intermediate/advanced? Tha harder the better, I like to challenge my knowledge.    
+
+   Also, currently I'm starting to look into system development (in C for now due to school). I know there is that Rust OS tutorial, but (to my knowledge) that's online only. So if your recommendation is some kind of low level programming, that would be epic, but any topic will do.
+Thanks in advance!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gyapv0/how_can_i_implement_lual_newmetatable_in_rust/
+-->>-->>
+It seems that the mlua crate doesn't have a single function that is the equivalent of    luaL_newmetatable   .   
+
+   The docs for this function say   
+
+   
+   If the registry already has the key    tname   , returns 0. Otherwise, creates a new table to be used as a metatable for userdata, adds to this new table the pair    __name = tname   , adds to the registry the pair    [tname] = new table   , and returns 1.   
+
+   In both cases, the function pushes onto the stack the final value associated with    tname    in the registry.   
+   
+
+   I think the following might be the equivalent of    luaL_newmetatable(L, "tname");   , but I would like a second opinion from mlua users here.
+   
+let userdata_table = lua.create_table()?;
+userdata_table.set("__name", "tname");
+   
+
+   Even if this code more or less correct, I am not sure if it would push the value    
+
+   I am also not sure how to check if the registry already contains a given key. I thought    named_registry_key    might work, but this function requires that you provide the type. This does not seem to be    quite    the same as what    luaL_newmetatable    does, as it seems that can check for registry keys regardless of type.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gyddc7/async_fn_primitive_type/
+-->>-->>
+I tried to send Futures through a channel between threads and that won’t work right now because DSTs aren’t thread safe. If there was a sized type for async functions, then I could put that for the channel generic and it would all work.    
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gy35hz/recommended_frameworks_for_a_server_sqlite/
+-->>-->>
+For context, PocketBase is a Go framework that uses SQLite to produce portable backends. Basically your entire server + database in a single executable. This makes it easy to host wherever, for extremely cheap.   
+
+   If I want to do the same in Rust, what does the community recommend as the tech stack? It's been about 2 years since I've written much Rust, and I can see a lot of options but it's hard to know what's production ready, what's active, etc.   
+   
+
+======>
+https://github.com/Anush008/fastembed-rs
+-->>-->>
+Repository files navigation README Apache-2.0 license FastEmbed-rs 🦀 Rust implementation of @qdrant/fastembed 🍕 Features Supports synchronous usage. No dependency on Tokio. Uses @pykeio/ort for performant ONNX inference. Uses @huggingface/tokenizers for fast encodings. Supports batch embeddings generation with parallelism using @rayon-rs/rayon . The default model is Flag Embedding, which is top of the MTEB leaderboard. 🔍 Not looking for Rust? Python 🐍: fastembed Go 🐳: fastembed-go JavaScript 🌐: fastembed-js 🤖 Models Text Embedding BAAI/bge-small-en-v1.5 - Default sentence-transformers/all-MiniLM-L6-v2 mixedbread-ai/mxbai-embed-large-v1 Qdrant/clip-ViT-B-32-text - pairs with the image model clip-ViT-B-32-vision for image-to-text search Click to see full List BAAI/bge-large-en-v1.5 BAAI/bge-small-zh-v1.5 BAAI/bge-base-en-v1.5 sentence-transformers/all-MiniLM-L12-v2 sentence-transformers/paraphrase-MiniLM-L12-v2 sentence-transformers/paraphrase-multilingual-mpnet-base-v2 nomic-ai/nomic-embed-text-v1 nomic-ai/nomic-embed-text-v1.5 intfloat/multilingual-e5-small intfloat/multilingual-e5-base intfloat/multilingual-e5-large Alibaba-NLP/gte-base-en-v1.5 Alibaba-NLP/gte-large-en-v1.5 Sparse Text Embedding prithivida/Splade_PP_en_v1 - Default Image Embedding Qdrant/clip-ViT-B-32-vision - Default Qdrant/resnet50-onnx Qdrant/Unicom-ViT-B-16 Qdrant/Unicom-ViT-B-32 Reranking BAAI/bge-reranker-base BAAI/bge-reranker-v2-m3 jinaai/jina-reranker-v1-turbo-en jinaai/jina-reranker-v2-base-multiligual 🚀 Installation Run the following command in your project directory: cargo add fastembed Or add the following line to your Cargo.toml: [ dependencies ] fastembed = " 3 " 📖 Usage Text Embeddings use fastembed :: { TextEmbedding , InitOptions , EmbeddingModel } ; // With default InitOptions let model = TextEmbedding :: try_new ( Default :: default ( ) ) ? ; // With custom InitOptions let model = TextEmbedding :: try_new ( InitOptions :: new ( EmbeddingModel :: AllMiniLML6V2 ) . with_show_download_progress ( true ) , ) ? ; let documents = vec ! [ "passage: Hello, World!" , "query: Hello, World!" , "passage: This is an example passage." , // You can leave out the prefix but it's recommended "fastembed-rs is licensed under Apache  2.0" ] ; // Generate embeddings with the default batch size, 256 let embeddings = model . embed ( documents , None ) ? ; println ! ( "Embeddings length: {}" , embeddings.len ( ) ) ; // -> Embeddings length: 4 println ! ( "Embedding dimension: {}" , embeddings [ 0 ] .len ( ) ) ; // -> Embedding dimension: 384 Image Embeddings use fastembed :: { ImageEmbedding , ImageInitOptions , ImageEmbeddingModel } ; // With default InitOptions let model = ImageEmbedding :: try_new ( Default :: default ( ) ) ? ; // With custom InitOptions let model = ImageEmbedding :: try_new ( ImageInitOptions :: new ( ImageEmbeddingModel :: ClipVitB32 ) . with_show_download_progress ( true ) , ) ? ; let images = vec ! [ "assets/image_0.png" , "assets/image_1.png" ] ; // Generate embeddings with the default batch size, 256 let embeddings = model . embed ( images , None ) ? ; println ! ( "Embeddings length: {}" , embeddings.len ( ) ) ; // -> Embeddings length: 2 println ! ( "Embedding dimension: {}" , embeddings [ 0 ] .len ( ) ) ; // -> Embedding dimension: 512 Candidates Reranking use fastembed :: { TextRerank , RerankInitOptions , RerankerModel } ; let model = TextRerank :: try_new ( RerankInitOptions :: new ( RerankerModel :: BGERerankerBase ) . with_show_download_progress ( true ) , ) ? ; let documents = vec ! [ "hi" , "The giant panda (Ailuropoda melanoleuca), sometimes called a panda bear, is a bear species endemic to China." , "panda is animal" , "i dont know" , "kind of mammal" , ] ; // Rerank with the default batch size let results = model . rerank ( "what is panda?" , documents , true , None ) ? ; println ! ( "Rerank result: {:?}" , results ) ; Alternatively, local model files can be used for inference via the try_new_from_user_defined(...) methods of respective structs. ✊ Support To support the library, please consider donating to our primary upstream dependency, ort - The Rust wrapper for the ONNX runtime. ⚙️ Under the hood It's important we justify the "fast" in FastEmbed. FastEmbed is fast because of: Quantized model weights. ONNX Runtime which allows for inference on CPU, GPU, and other dedicated runtimes. No hidden dependencies via Huggingface Transformers. 📄 LICENSE Apache 2.0 © 2024
+======>
+https://old.reddit.com/r/rust/comments/1gy17jx/shuttle_christmas_code_hunt_2024_aocstyle_rust/
+-->>-->>
+At Shuttle, we are hosting Christmas Code Hunt again for 2024 on our new and improved platform. Inspired by Advent of Code, you’ll be able to solve challenges using Rust in a relaxed environment. In each challenge, you'll implement HTTP endpoints that respond with the challenge's solution. There will additionally be prize pool for users who complete all of them!    
+
+   For more information and how to apply, click here:    https://shuttle.dev/cch   
+
+   We are looking forward to seeing all of you - don't hesitate to invite your friends!   
+   
+======>
+https://old.reddit.com/r/rust/comments/1gy4n8i/how_feasible_is_the_just_use_arc_and_clone/
+-->>-->>
+I have heard this piece of advice plenty of times in response to "you can't iterate quickly or prototype in Rust". I am wondering, however, how reasonable that is?    
+
+   I am now reading the Rust book and got to the chapter on lifetimes. Not gonna lie, it's rough, but given that I'm learning Rust for fun, I can take my time.    
+
+   My gut feeling is that cutting corners like this is just delaying the understanding of the language, but maybe that's what Rust developers commonly do?   
+   
+
+======>
+https://github.com/rust-lang/rust/pull/133349
+-->>-->>
+rust-lang / rust Public Notifications You must be signed in to change notification settings Fork 12.8k Star 98.8k Code Issues 5k+ Pull requests 628 Actions Projects 7 Security Insights Additional navigation options Code Issues Pull requests Actions Projects Security Insights New issue Have a question about this project? Sign up for a free GitHub account to open an issue and contact its maintainers and the community. Sign up for GitHub By clicking “Sign up for GitHub”, you agree to our terms of service and privacy statement . We’ll occasionally send you account related emails. Already on GitHub? Sign in to your account Jump to bottom Stabilize the 2024 edition #133349 Merged bors merged 1 commit into rust-lang : master from ehuss : stabilize-2024 Nov 23, 2024 Merged Stabilize the 2024 edition #133349 bors merged 1 commit into rust-lang : master from ehuss : stabilize-2024 Nov 23, 2024 +308 −334 Conversation 9 Commits 1 Checks 6 Files changed 116 Conversation This file contains bidirectional Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters. Learn more about bidirectional Unicode characters Show hidden characters Copy link Contributor ehuss commented Nov 22, 2024 This stabilizes the 2024 edition for Rust 1.85, scheduled to be released on February 20, 2025. 🎉 cc tracking issue: #117258 There is a fair amount of follow-up work after this that I am working on (various docs, cargo, rustfmt, etc.), and this is will unblock those other changes. Sorry, something went wrong. 42 JSorngard, marc2332, younghyun1, WilliamTakeshi, Rajil1213, its-laika, nitkach, bstrie, Luracasmus, tuguzT, and 32 more reacted with hooray emoji 37 joshtriplett, Kobzol, Scripter17, adriandelgado, chriskrycho, LukeMathWalker, sunshowers, estebank, zslayton, jieyouxu, and 27 more reacted with heart emoji 68 cynecx, Noratrieb, joshtriplett, Kobzol, compiler-errors, Scripter17, clubby789, adriandelgado, tgross35, MarcusDunn, and 58 more reacted with rocket emoji All reactions 42 reactions 37 reactions 68 reactions rustbot assigned chenyukang Nov 22, 2024 Copy link Collaborator rustbot commented Nov 22, 2024 r? @chenyukang rustbot has assigned @chenyukang . They will have a look at your PR within the next two weeks and either review your PR or reassign to another reviewer. Use r? to explicitly pick a reviewer All reactions Sorry, something went wrong. rustbot added PG-exploit-mitigations Project group: Exploit mitigations S-waiting-on-review Status: Awaiting review from the assignee but also interested parties. T-compiler Relevant to the compiler team, which will review and decide on the PR/issue. T-rustdoc Relevant to the rustdoc team, which will review and decide on the PR/issue. labels Nov 22, 2024 Copy link Collaborator rustbot commented Nov 22, 2024 Some changes occurred in tests/ui/sanitizer cc @rust-lang/project-exploit-mitigations, @rcvalle All reactions Sorry, something went wrong. compiler-errors approved these changes Nov 22, 2024 View reviewed changes compiler-errors assigned compiler-errors and unassigned chenyukang Nov 22, 2024 traviscross assigned traviscross and unassigned compiler-errors Nov 22, 2024 traviscross added
+  the A-edition-2024 Area: The 2024 edition label Nov 22, 2024 This comment has been minimized. Sign in to view ehuss force-pushed the stabilize-2024 branch
+    from 3c4f1b4 to 31c9222 Compare November 22, 2024 19:08 rustbot added
+  the A-run-make Area: port run-make Makefiles to rmake.rs label Nov 22, 2024 Copy link Collaborator rustbot commented Nov 22, 2024 This PR modifies tests/run-make/ . If this PR is trying to port a Makefile run-make test to use rmake.rs, please update the run-make port tracking issue so we can track our progress. You can either modify the tracking issue directly, or you can comment on the tracking issue and link this PR. cc @jieyouxu All reactions Sorry, something went wrong. Stabilize the 2024 edition 31c9222 Copy link Contributor traviscross commented Nov 22, 2024 • edited Loading On the edition team, we couldn't be more pleased with how things have worked out.  Huge thanks to all item owners, reviewers, and to @ehuss for his invaluable work. It's time to put the edition on the train for release. @bors r=traviscross,compiler-errors p=10 5 m-ou-se, Nadrieril, compiler-errors, bstrie, and simonsan reacted with heart emoji All reactions 5 reactions Sorry, something went wrong. Copy link Contributor bors commented Nov 22, 2024 📌 Commit 31c9222 has been approved by traviscross,compiler-errors It is now in the queue for this repository. All reactions Sorry, something went wrong. bors added S-waiting-on-bors Status: Waiting on bors to run and complete tests. Bors will change the label on completion. and removed S-waiting-on-review Status: Awaiting review from the assignee but also interested parties. labels Nov 22, 2024 Copy link Contributor bors commented Nov 22, 2024 ⌛ Testing commit 31c9222 with merge f5be3ca1e35bbd504b3dea531dd15377c535f287... All reactions Sorry, something went wrong. Copy link Contributor bors commented Nov 23, 2024 ☀️ Test successful - checks-actions Approved by: traviscross,compiler-errors Pushing f5be3ca to master... All reactions Sorry, something went wrong. bors added
+  the merged-by-bors This PR was explicitly merged by bors. label Nov 23, 2024 Hide details View details bors merged commit f5be3ca into rust-lang : master Nov 23, 2024 7 checks passed rustbot added this to the 1.85.0 milestone Nov 23, 2024 This was referenced Nov 23, 2024 Stabilize noop_waker #133089 Open Stabilize let chains in the 2024 edition #132833 Open Copy link Collaborator rust-timer commented Nov 23, 2024 Finished benchmarking commit ( f5be3ca ): comparison URL . Overall result: no relevant changes - no action needed @rustbot label: -perf-regression Instruction count This benchmark run did not return any relevant results for this metric. Max RSS (memory usage) Results (secondary 3.2%) This is a less reliable metric that may be of interest but was not used to determine the overall result at the top of this comment. mean range count Regressions ❌ (primary) - - 0 Regressions ❌ (secondary) 3.2% [3.2%, 3.2%] 1 Improvements ✅ (primary) - - 0 Improvements ✅ (secondary) - - 0 All ❌✅ (primary) - - 0 Cycles This benchmark run did not return any relevant results for this metric. Binary size This benchmark run did not return any relevant results for this metric. Bootstrap : 796.567s -> 794.975s (-0.20%) Artifact size : 336.13 MiB -> 336.16 MiB (0.01%) All reactions Sorry, something went wrong. traviscross added relnotes Marks issues that should be documented in the release notes of the next release. and removed T-rustdoc Relevant to the rustdoc team, which will review and decide on the PR/issue. labels Nov 23, 2024 rustbot mentioned this pull request Nov 23, 2024 Tracking issue for release notes of #133349: Stabilize the 2024 edition #133364 Open 3 tasks Sign up for free to join this conversation on GitHub .
+    Already have an account? Sign in to comment Reviewers compiler-errors compiler-errors approved these changes Assignees traviscross Labels A-edition-2024 Area: The 2024 edition A-run-make Area: port run-make Makefiles to rmake.rs merged-by-bors This PR was explicitly merged by bors. PG-exploit-mitigations Project group: Exploit mitigations relnotes Marks issues that should be documented in the release notes of the next release. S-waiting-on-bors Status: Waiting on bors to run and complete tests. Bors will change the label on completion. T-compiler Relevant to the compiler team, which will review and decide on the PR/issue. Projects None yet Milestone 1.85.0 Development Successfully merging this pull request may close these issues. 8 participants Add this suggestion to a batch that can be applied as a single commit. This suggestion is invalid because no changes were made to the code. Suggestions cannot be applied while the pull request is closed. Suggestions cannot be applied while viewing a subset of changes. Only one suggestion per line can be applied in a batch. Add this suggestion to a batch that can be applied as a single commit. Applying suggestions on deleted lines is not supported. You must change the existing code in this line in order to create a valid suggestion. Outdated suggestions cannot be applied. This suggestion has been applied or marked resolved. Suggestions cannot be applied from pending reviews. Suggestions cannot be applied on multi-line comments. Suggestions cannot be applied while the pull request is queued to merge. Suggestion cannot be applied right now. Please check back later.

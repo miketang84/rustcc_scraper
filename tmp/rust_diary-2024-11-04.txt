@@ -1,0 +1,455 @@
+https://github.com/tomoikey/refined_type
+-->>-->>
+Repository files navigation README Code of conduct MIT license Refined Type refined_type is a library developed for Rust. It enhances your types, making them more robust and expanding the
+range of guarantees your applications can statically ensure. You can create various rules for a certain type, such as phone numbers, addresses, times, and so on.
+Once you have established the rules, you can easily combine them.
+Specifically, if you create rules for 'non-empty strings' and 'strings composed only of alphabets,' you do not need to
+redefine a new rule for 'non-empty strings composed only of alphabets'.
+All rules can be arbitrarily combined and extended as long as the target type matches. Enjoy a wonderful type life! Installation cargo add refined_type Get Started As an example, let's convert from JSON to a struct. // define a struct for converting from JSON. # [ derive ( Debug , Deserialize ) ] struct Human { name : NonEmptyString , age : MinMaxU8 < 18 , 80 > , friends : NonEmptyVec < String > , } // In the 1st example, all fields satisfy the rule, causing the conversion from JSON to succeed. fn get_started_simple_example ( ) -> anyhow :: Result < ( ) > { let json = json ! { { "name" : "john" , "age" : 20 , "friends" : [ "tom" , "taro" ] } } . to_string ( ) ; let human = serde_json :: from_str :: < Human > ( & json ) ? ; assert_eq ! ( human.name.into_value ( ) , "john" ) ; assert_eq ! ( human.age.into_value ( ) , 20 ) ; assert_eq ! ( human.friends.into_value ( ) , vec! [ "tom" , "taro" ] ) ; Ok ( ( ) ) } // In the 2nd example, while `name` does not satisfy the rule, `age` and `friends` do, causing the conversion from JSON to fail. fn get_started_empty_name_example ( ) -> anyhow :: Result < ( ) > { let json = json ! { { "name" : "" , "age" : 20 , "friends" : [ "tom" , "taro" ] } } . to_string ( ) ; // because `name` is empty assert ! ( serde_json::from_str::< Human > ( &json ) .is_err ( ) ) ; Ok ( ( ) ) } // In the 3rd example, while `age` does not satisfy the rule, `name` and `friends` do, causing the conversion from JSON to fail. fn get_started_outbound_age_example ( ) -> anyhow :: Result < ( ) > { let json = json ! { { "name" : "john" , "age" : 100 , "friends" : [ "tom" , "taro" ] } } . to_string ( ) ; // because `age` is not in the range of 18 to 80 assert ! ( serde_json::from_str::< Human > ( &json ) .is_err ( ) ) ; Ok ( ( ) ) } // In the 4th example, while `friends` does not satisfy the rule, `name` and `age` do, causing the conversion from JSON to fail. fn get_started_empty_vec_example ( ) -> anyhow :: Result < ( ) > { let json = json ! { { "name" : "john" , "age" : 20 , "friends" : [ ] } } . to_string ( ) ; // because `friends` is empty assert ! ( serde_json::from_str::< Human > ( &json ) .is_err ( ) ) ; Ok ( ( ) ) } Compose Rules As mentioned earlier, it is possible to combine any rules as long as the target types match.
+In the example below, there are standalone rules for 'strings containing Hello' and 'strings containing World'.
+Since their target type is String, combining them is possible.
+I have prepared something called Rule Composer ( And , Or , Not ).
+By using Rule Composer, composite rules can be easily created. 1: And Rule Composer And Rule Composer is a rule that satisfies both of the two rules.
+It is generally effective when you want to narrow down the condition range. type Target = Refined < And ! [ EvenRuleU8 , MinMaxRuleU8 < 0 , 100 > ] > ; fn and_example ( ) -> Result < ( ) , Error < u8 > > { let target = Target :: new ( 50 ) ? ; assert_eq ! ( target.into_value ( ) , 50 ) ; let target = Target :: new ( 51 ) ; assert ! ( target.is_err ( ) ) ; Ok ( ( ) ) } 2: Or Rule Composer Or Rule Composer is a rule that satisfies either of the two rules.
+It is generally effective when you want to expand the condition range. type Target = Refined < Or ! [ LessRuleU8 < 10 >, GreaterRuleU8 < 50 > ] > ; fn or_example ( ) -> Result < ( ) , Error < u8 > > { let target = Target :: new ( 5 ) ? ; assert_eq ! ( target.into_value ( ) , 5 ) ; let target = Target :: new ( 10 ) ; assert ! ( target.is_err ( ) ) ; let target = Target :: new ( 50 ) ; assert ! ( target.is_err ( ) ) ; let target = Target :: new ( 51 ) ? ; assert_eq ! ( target.into_value ( ) , 51 ) ; Ok ( ( ) ) } 3: Not Rule Composer Not Rule Composer is a rule that does not satisfy a specific condition.
+It is generally effective when you want to discard only certain situations. type Target = Refined < Not < EqualRuleU8 < 50 > > > ; fn not_example ( ) -> Result < ( ) , Error < u8 > > { let target = Target :: new ( 49 ) ? ; assert_eq ! ( target.into_value ( ) , 49 ) ; let target = Target :: new ( 50 ) ; assert ! ( target.is_err ( ) ) ; let target = Target :: new ( 51 ) ? ; assert_eq ! ( target.into_value ( ) , 51 ) ; Ok ( ( ) ) } Number MinMax MinMax is a type that signifies the target exists between a certain number and another number. type Age = MinMaxU8 < 18 , 80 > ; fn min_max_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 18 ) ? ; assert_eq ! ( age.into_value ( ) , 18 ) ; let age = Age :: new ( 80 ) ? ; assert_eq ! ( age.into_value ( ) , 80 ) ; let age = Age :: new ( 17 ) ; assert ! ( age.is_err ( ) ) ; let age = Age :: new ( 81 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } Less Less is a type that signifies the target is less than a certain number. type Age = LessU8 < 80 > ; fn less_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 79 ) ? ; assert_eq ! ( age.into_value ( ) , 79 ) ; let age = Age :: new ( 80 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } Greater Greater is a type that signifies the target is greater than a certain number. type Age = GreaterU8 < 18 > ; fn greater_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 19 ) ? ; assert_eq ! ( age.into_value ( ) , 19 ) ; let age = Age :: new ( 18 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } Equal Equal is a type that signifies the target is equal to a certain number. type Age = EqualU8 < 18 > ; fn equal_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 18 ) ? ; assert_eq ! ( age.into_value ( ) , 18 ) ; let age = Age :: new ( 19 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } LessEqual LessEqual is a type that signifies the target is less than or equal to a certain number. type Age = LessEqualU8 < 80 > ; fn less_equal_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 79 ) ? ; assert_eq ! ( age.into_value ( ) , 79 ) ; let age = Age :: new ( 80 ) ? ; assert_eq ! ( age.into_value ( ) , 80 ) ; let age = Age :: new ( 81 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } GreaterEqual GreaterEqual is a type that signifies the target is greater than or equal to a certain number. type Age = GreaterEqualU8 < 18 > ; fn greater_equal_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 19 ) ? ; assert_eq ! ( age.into_value ( ) , 19 ) ; let age = Age :: new ( 18 ) ? ; assert_eq ! ( age.into_value ( ) , 18 ) ; let age = Age :: new ( 17 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } Range Range is a type that signifies the target exists between a certain number and another number. type Age = RangeU8 < 18 , 80 > ; fn range_example ( ) -> Result < ( ) , Error < u8 > > { let age = Age :: new ( 17 ) ; assert ! ( age.is_err ( ) ) ; let age = Age :: new ( 18 ) ? ; assert_eq ! ( age.into_value ( ) , 18 ) ; let age = Age :: new ( 79 ) ? ; assert_eq ! ( age.into_value ( ) , 79 ) ; let age = Age :: new ( 80 ) ; assert ! ( age.is_err ( ) ) ; Ok ( ( ) ) } Iterator refined_type has several useful refined types for Iterators. ForAll ForAll is a rule that applies a specific rule to all elements in the Iterator. fn example_11 ( ) -> anyhow :: Result < ( ) > { let vec = vec ! [ "Hello" .to_string ( ) , "World" .to_string ( ) ] ; let for_all_ok = ForAllVec :: < NonEmptyStringRule > :: new ( vec . clone ( ) ) ? ; assert_eq ! ( vec, for_all_ok.into_value ( ) ) ; let vec = vec ! [ "Hello" .to_string ( ) , "" .to_string ( ) ] ; let for_all_err = ForAllVec :: < NonEmptyStringRule > :: new ( vec . clone ( ) ) ; assert ! ( for_all_err.is_err ( ) ) ; Ok ( ( ) ) } Exists Exists is a rule that applies a specific rule to at least one element in the Iterator. fn example_12 ( ) -> anyhow :: Result < ( ) > { let vec = vec ! [ "Hello" .to_string ( ) , "" .to_string ( ) ] ; let exists_ok = ExistsVec :: < NonEmptyStringRule > :: new ( vec . clone ( ) ) ? ; assert_eq ! ( vec, exists_ok.into_value ( ) ) ; let vec = vec ! [ "" .to_string ( ) , "" .to_string ( ) ] ; let exists_err = ExistsVec :: < NonEmptyStringRule > :: new ( vec . clone ( ) ) ; assert ! ( exists_err.is_err ( ) ) ; Ok ( ( ) ) } Head Head is a rule that applies a specific rule to the first element in the Iterator. fn example_13 ( ) -> anyhow :: Result < ( ) > { let table = vec ! [ ( vec! [ "good morning" .to_string ( ) , "" .to_string ( ) ] , true ) , // PASS ( vec! [ "hello" .to_string ( ) , "hello" .to_string ( ) ] , true ) , // PASS ( vec! [ ] , false ) , // FAIL ( vec! [ "" .to_string ( ) ] , false ) , // FAIL ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) ] , false ) , // FAIL ] ; for ( value , ok ) in table { let head = HeadVec :: < NonEmptyStringRule > :: new ( value . clone ( ) ) ; assert_eq ! ( head.is_ok ( ) , ok ) ; } Ok ( ( ) ) } Last Last is a rule that applies a specific rule to the last element in the Iterator. fn example_14 ( ) -> anyhow :: Result < ( ) > { let table = vec ! [ ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) ] , true ) , // PASS ( vec! [ "good morning" .to_string ( ) , "hello" .to_string ( ) ] , true ) , // PASS ( vec! [ ] , false ) , // FAIL ( vec! [ "" .to_string ( ) ] , false ) , // FAIL ( vec! [ "hello" .to_string ( ) , "" .to_string ( ) ] , false ) , // FAIL ] ; for ( value , ok ) in table { let last = LastVec :: < NonEmptyStringRule > :: new ( value . clone ( ) ) ; assert_eq ! ( last.is_ok ( ) , ok ) ; } Ok ( ( ) ) } Tail Tail is a rule that applies a specific rule to all elements except the first element in the Iterator. fn example_15 ( ) -> anyhow :: Result < ( ) > { let table = vec ! [ ( vec! [ "hey" .to_string ( ) , "hello" .to_string ( ) , "world" .to_string ( ) ] , true ) , ( vec! [ "hey" .to_string ( ) , "hello" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "hey" .to_string ( ) , "" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "hey" .to_string ( ) , "" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) , "world" .to_string ( ) ] , true ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) , "" .to_string ( ) ] , false ) , ] ; for ( value , ok ) in table { let tail = TailVec :: < NonEmptyStringRule > :: new ( value . clone ( ) ) ; assert_eq ! ( tail.is_ok ( ) , ok ) ; } Ok ( ( ) ) } Init Init is a rule that applies a specific rule to all elements except the last element in the Iterator. fn example_16 ( ) -> anyhow :: Result < ( ) > { let table = vec ! [ ( vec! [ "hey" .to_string ( ) , "hello" .to_string ( ) , "world" .to_string ( ) ] , true ) , ( vec! [ "hey" .to_string ( ) , "hello" .to_string ( ) , "" .to_string ( ) ] , true ) , ( vec! [ "hey" .to_string ( ) , "" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "hey" .to_string ( ) , "" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) , "" .to_string ( ) ] , false ) , ] ; for ( value , ok ) in table { let init = InitVec :: < NonEmptyStringRule > :: new ( value . clone ( ) ) ; assert_eq ! ( init.is_ok ( ) , ok ) ; } Ok ( ( ) ) } Index Index is a rule that applies a specific rule to the element at a specific index in the Iterator. fn example_17 ( ) -> anyhow :: Result < ( ) > { let table = vec ! [ ( vec! [ "good morning" .to_string ( ) , "hello" .to_string ( ) ] , true ) , ( vec! [ "good morning" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) ] , true ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) ] , false ) , ] ; for ( value , expected ) in table { let refined = IndexVec :: < 1 , NonEmptyStringRule > :: new ( value . clone ( ) ) ; assert_eq ! ( refined.is_ok ( ) , expected ) ; } Ok ( ( ) ) } Reverse Reverse is a rule that applies a specific rule to all elements in the Iterator in reverse order. fn example_18 ( ) -> Result < ( ) , Error < Vec < i32 > > > { let table = vec ! [ ( vec! [ "good morning" .to_string ( ) , "hello" .to_string ( ) ] , true ) , ( vec! [ "good morning" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) ] , true ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) ] , false ) , ] ; for ( value , expected ) in table { let refined = Reverse :: < IndexRuleVec < 0 , NonEmptyStringRule > > :: new ( value . clone ( ) ) ; assert_eq ! ( refined.is_ok ( ) , expected ) ; } Ok ( ( ) ) } Skip Skip is a rule that applies a specific rule to the elements of the Iterator while skipping the elements according
+to SkipOption . fn example_19 ( ) -> Result < ( ) , Error < Vec < i32 > > > { let table = vec ! [ ( vec! [ "hey" .to_string ( ) , "hello" .to_string ( ) , "world" .to_string ( ) ] , true ) , ( vec! [ "hey" .to_string ( ) , "hello" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "hey" .to_string ( ) , "" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "hey" .to_string ( ) , "" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) , "world" .to_string ( ) ] , true ) , ( vec! [ "" .to_string ( ) , "hello" .to_string ( ) , "" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) , "world" .to_string ( ) ] , false ) , ( vec! [ "" .to_string ( ) , "" .to_string ( ) , "" .to_string ( ) ] , false ) , ] ; for ( value , ok ) in table { let init = SkipVec :: < NonEmptyStringRule , SkipFirst < _ > > :: new ( value . clone ( ) ) ; assert_eq ! ( init.is_ok ( ) , ok ) ; } Ok ( ( ) ) } if you need more skip option, you can define it like this. pub struct NoSkip < T > { _phantom_data : std :: marker :: PhantomData < T > , } impl < ITEM > SkipOption for NoSkip < ITEM > { type Item = ITEM ; type Accumulator = ( ) ; fn should_skip ( _ : usize , _ : Option < & mut Self :: Accumulator > , _ : & Self :: Item ) -> bool { false } } Length You can impose constraints on objects that have a length, such as String or Vec . LengthMinMax LengthMinMax is a type that signifies the target has a length between a certain number and another number. fn length_min_max_example ( ) -> Result < ( ) , Error < String > > { type Password = LengthMinMax < 5 , 10 , String > ; let password = Password :: new ( "123456" . to_string ( ) ) ? ; assert_eq ! ( password.into_value ( ) , "123456" ) ; let password = Password :: new ( "1234" . to_string ( ) ) ; assert ! ( password.is_err ( ) ) ; let password = Password :: new ( "12345678901" . to_string ( ) ) ; assert ! ( password.is_err ( ) ) ; Ok ( ( ) ) } LengthGreater LengthGreater is a type that signifies the target has a length greater than a certain number. fn length_greater_example ( ) -> Result < ( ) , Error < String > > { type Password = LengthGreater < 5 , String > ; let password = Password :: new ( "123456" . to_string ( ) ) ? ; assert_eq ! ( password.into_value ( ) , "123456" ) ; let password = Password :: new ( "1234" . to_string ( ) ) ; assert ! ( password.is_err ( ) ) ; Ok ( ( ) ) } LengthLess LengthLess is a type that signifies the target has a length less than a certain number. fn length_less_example ( ) -> Result < ( ) , Error < String > > { type Password = LengthLess < 10 , String > ; let password = Password :: new ( "123456" . to_string ( ) ) ? ; assert_eq ! ( password.into_value ( ) , "123456" ) ; let password = Password :: new ( "12345678901" . to_string ( ) ) ; assert ! ( password.is_err ( ) ) ; Ok ( ( ) ) } LengthEqual LengthEqual is a type that signifies the target has a length equal to a certain number. fn length_equal_example ( ) -> Result < ( ) , Error < String > > { type Password = LengthEqual < 5 , String > ; let password = Password :: new ( "12345" . to_string ( ) ) ? ; assert_eq ! ( password.into_value ( ) , "12345" ) ; let password = Password :: new ( "1234" . to_string ( ) ) ; assert ! ( password.is_err ( ) ) ; Ok ( ( ) ) } Custom Length You can define a length for any type. Therefore, if you want to implement a length that is not provided
+by refined_type , you can easily do so using LengthDefinition . # [ derive ( Debug , PartialEq ) ] struct Hello ; impl LengthDefinition for Hello { fn length ( & self ) -> usize { 5 } } fn custom_length_example ( ) -> Result < ( ) , Error < Hello > > { let hello = Refined :: < LengthEqualRule < 5 , Hello > > :: new ( Hello ) ? ; assert_eq ! ( hello.into_value ( ) , Hello ) ; Ok ( ( ) ) } JSON refined_type is compatible with serde_json . This ensures type-safe communication and eliminates the need to write
+new validation processes. All you need to do is implement a set of rules once and implement serde ’s Serialize and Deserialize . Serialize # [ derive ( Debug , Eq , PartialEq , Deserialize , Serialize ) ] struct Human2 { name : NonEmptyString , age : u8 , } fn example_9 ( ) -> anyhow :: Result < ( ) > { let john = Human2 { name : NonEmptyString :: new ( "john" . to_string ( ) ) ? , age : 8 , } ; let actual = json ! ( john ) ; let expected = json ! { { "name" : "john" , "age" : 8 } } ; assert_eq ! ( actual, expected ) ; Ok ( ( ) ) } Deserialize fn example_10 ( ) -> anyhow :: Result < ( ) > { let json = json ! { { "name" : "john" , "age" : 8 } } . to_string ( ) ; let actual = serde_json :: from_str :: < Human2 > ( & json ) ? ; let expected = Human2 { name : NonEmptyString :: new ( "john" . to_string ( ) ) ? , age : 8 , } ; assert_eq ! ( actual, expected ) ; Ok ( ( ) ) }
+======>
+https://github.com/zlfn/rust-gb/releases
+-->>-->>
+02 Nov 19:59 zlfn v0.1.0-alpha.0 693fdb0 Compare Choose a tag to compare Could not load tags Nothing to show {{ refName }} default Loading View all tags 0.1.0-alpha Pre-release Pre-release First Alpha Release! The ROM build process has stabilized to some extent, allowing us to reveal the first alpha release of Rust-GB! You can find it in crates.io and docs.rs Features The features you can test at the moment are as follows. io::GbStream : A print stream that allows you to print characters on GameBoy screen. Including familiar print! and println! macros. io::Joypad : A struct that allows you check GameBoy key input. mmio : This is a module that makes it easy to Memory Map IO using VolAddress . Note that the distinction between Safe and Unsafe is not yet accurate. If you think Unsafe is Safe enough, or if you find a Undefined Behavior in the mmio area specified as Safe , I would appreciate it if you could report it to issue :) drawing : This is a drawing library that uses GBDK's All Points Addressable (APA) mode. By default, it is recommended not to use it in the long run because the side effects are too large and slow, but it's not bad to use for simple testing. gbdk_c : Provides incomplete binding for GBDK-2020 Caution The compilation process is still very, very unstable! In particular, there are many features that cannot be used in core , For external crates, most of them are still unavailable. We're trying to work it out, but it's going to take a long time... You can only run the compiler on Linux x64 platforms. It is also libc dependent, so it may not run if it is not in the latest distribution or in special cases. Versioning Since new features and document modifications are still very frequent, we will follow the following versioning principles for the time being. This is because the minor version can become too large if we keep the semantic versioning as it is. X.Y.Z-alpha.W X : 0 until the build is sufficiently stabilized. Y : It goes up one by one as a new module or big feature is added. Z : It goes up when we fix a bug or add a new feature to an existing module. alpha : We're going to keep it for a while. This is because it is not very suitable for production or big projects. W : It goes up when modifying documents or modifying the build process & compiler (It does not affect existing code.) Assets 2 Loading 5 AntonioBerna, caass, semi-yu, minsusun, and widberg reacted with heart emoji All reactions 5 reactions 5 people reacted
+======>
+https://docs.rs/rust-gb/latest/gb/
+-->>-->>
+Crate gb Copy item path Settings Help Summary Source Expand description § A crate for GameBoy (Color) development. Rust-GB is a both toolchain and library for compiling Rust code into
+Nintendo GameBoy. It compiles Rust code into valid GameBoy ROM through
+LLVM-CBE and GBDK-2020. § Install the compiler Install a Rust-GB compiler with cargo install .
+You must use Rust nightly version with you are playing with Rust-GB because it uses a lot of
+experimental and unstable features. In addition, due to limited size issues, external dependencies required by Rust-GB could not be
+uploded to crates.io, so you have to clone the repository to install a compiler. git clone https://github.com/zlfn/rust-gb.git
+git checkout tags/v0.1.0-alpha.2
+cd rust-gb
+cargo install --path . --features compiler compiler feature is required when installing the Rust-GB compiler.
+If not, binary will not be installed. Also, note that avr-gcc , avr-libc , sdcc , rust-src are required. You need to install
+them to your system before running the compiler. # Example for Ubuntu
+sudo apt install gcc-avr avr-libc sdcc
+rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu § Note Right now, you can’t run the Rust-GB compiler other than Linux x64. This is because the
+GameBoy compilation process requires some “external binaries”. We’re going to solve this problem in
+the future by packaging Rust-GB compiler for a platform-specific package manager ( winget , homebrew , pacman etc.) § Setup a project Rust-GB ROM project have to provide all the right default settings so cargo build will just work.
+Most recommended way to do this is cloning rust-gb-template repository. git clone https://github.com/zlfn/rust-gb-template.git This repository contains minimum files to be compiled GameBoy ROM properly. § Compile your project By executing the cargo build-rom command inside you GameBoy ROM project, you can compile the
+Rust code into GameBoy ROM. The command creates two directories: out and ext . out : In this directory, all intermediates generated during the compilation process
+(LLVM-IR, C, ASM etc.) and the final result out.gb are generated. ext : GameBoy ROM builds require external binaries (SDCC, LLVM-CBE) and dependency files.
+By default, the Rust-GB compiler contains these files, but when compile GameBoy ROM, it needs
+to be copied to the file system. This directory contains those external dependency files. § Execute your ROM The final result, out.gb , is located in the out directory. This file can be run using the
+GameBoy emulator or real GameBoy (Color / Advance). The most recommended emulator is bgb . However, unless there is a
+major problem, any GameBoy emulator should be able to run the out.gb file. § Library features color —  GameBoy Color feature This feature enables GameBoy Color only features.
+Such as VRAM bank or color palette. Since the compiler does not yet support compilation in to GameBoy Color ROM,
+this will not actually work. prototype —  Prototype feature This feature enables the prototype APIs of Rust-GB.
+Because it’s a prototype, it won’t work properly. § Binary features compiler —  Feature for compiler This feature needed to enabled when you install Rust-GB compiler with cargo install . DO NOT enable this feature in your GameBoy ROM package. It will cause compile error.
+This is because the Rust-GB compiler cannot be compiled for ATMega328 target. Modules § drawing All Points Addressable (APA) mode drawing library. gbdk_c Direct access API to GBDK extern functions. io Helpers for GameBoy I/O. including buttons, texts, and else. mmio Memory Map IO address for the GameBoy components. Macros § print Prints to the GameBoy screen.
+If you’ve ever used print! macro in std , you’ll familiar with this. println Prints to the GameBoy screen, with a newline.
+If you’ve ever used println! macro in std , you’ll familiar with this.
+
+======>
+https://www.reddit.com/r/rust/comments/1fhdi28/i_compiled_rust_code_to_nintendo_gameboy/
+-->>-->>
+TheSilentFreeway • 2mo ago • This is awesome. I'm trying to learn more low-level concepts so I can keep up in discussions about Rust's design as a language. Could I ask you to explain this post a bit more? Gameboy has a sm83 CPU (a variation of 8-bit z80), but this is not a target of Rust. I think I understand this part; we don't have a compiler which translates Rust into machine code for the sm83. Therefore, I transformed Rust into C code via LLVM-CBE, re-compiled it into SDCC, and linked it to the Game Boy library. (GBDK-2020) This part loses me pretty quickly. I understand LLVM to be a set of tools which act as an intermediate step between machine code and some higher-level language. So I'm guessing you used these tools to translate Rust into an intermediary form, then translated that intermediary form into C? Google tells me that SDCC is the Small Device C Compiler, a set of compilers which target multiple architectures including the Z80. Simple enough, I think I get that part. The whole concept of linking is pretty arcane to me. I probably didn't pay enough attention during my C courses in university. The last bit about GBDK-2020 is difficult for me to understand. Would you recommend any resources to learn about linking? Reply reply quavan • 2mo ago • LLVM has an intermediate representation that it uses to perform optimizations and then compile to a final representation using one of its supported backends. LLVM compilers like rustc, clang, etc output LLVM IR and pass it to LLVM. LLVM-CBE is a backend for LLVM that outputs C instead of the typical machine code. Linking is the process of joining several binary object files into a single executable or library file. Like if you have a binary file with the compiled code for some library, that binary code is then joined with yours and other libraries into the one executable. GBDK-2020 is many things, but among other things it contains a set of libraries that are helpful for Gameboy development. So the code from those libraries is linked into the final output executable file, in this case a ROM. Reply reply zlfn • 2mo ago • Edited 2mo ago • I'm still in my first year of undergraduate school, and I don't know exactly everything, but I'll explain it to the best of my knowledge. Rust compiler can emit LLVM-IR (Intermediate Representation) as a frontend of LLVM. In normal cases (In x86 computers), This will passed to LLVM x86 backend and compiled to x86 binary. The problem is LLVM does not have a backend for z-80 or sm-83. (There are a few, but they are all too old to use.) But There is a LLVM-CBE which can compile C codes from LLVM-IR (Julia team made it, but I'm not sure why they made it.) and there is a C compiler for sm83 (SDCC, Small Device C Compiler) This means that the Rust code can be compiled to a valid sm83 assembly after the Rust Compiler -> LLVM-CBE -> SDCC process. However, sm-83 assembly alone is difficult to make Game Boy work. Of course It's possible, But it is practically impossible to compile Rust into complex assemblies, in-line assemblies must be written, which requires a high degree of understanding of Game Boy hardware itself. GBDK is used here, GBDK has many prewritten assembly functions that helps development of GameBoy ROM and it is much stable than my assembly codes. Additionally, it also has a built-in boilerplate that needed to use it in the actual Game Boy. (Game Boy reads the Nintendo logo of the data area as a mechanism to prevent unauthorized games) So build the generated assembly file into a real ROM file using GBDK's linker tool and build chain, so that Rust can call GBDK functions with the "extern" keyword. In this process, it is necessary to specify SDCC's calling convention in the middle C file, For this, I written a tree-sitter parser and replace functions names that linked by Rust's `#[link_name="functionname __attributes"]` macro. As u/quavan mentioned, linking is the task of writing the assembly functions of GBDK to the ROM file along with the ASM file generated from Rust. Reply reply 4 more replies 4 more replies More replies More replies
+
+======>
+https://github.com/bykof/hoard_chunker
+-->>-->>
+Repository files navigation README MIT license hoard_chunker hoard_chunker is designed to efficiently split large files into smaller, manageable
+chunks and reassemble them when needed. This functionality is particularly useful for handling massive datasets,
+facilitating easier processing, storage, or transfer for backups. Features: Backup: Backup files from input_dir into output_dir and chunk them with FastCDC . Restore: Restore chunks from input_dir into output_dir to backed up files. Setup Clone the Repository: git clone https://github.com/bykof/hoard_chunker.git cd hoard_chunker Build the Project: cargo build --release Usage Usage: hoard_chunker [OPTIONS] [COMMAND]
+
+Commands:
+  backup   
+  restore help Print this message or the help of the given subcommand(s)
+
+Options:
+  -a, --average-size < AVERAGE_SIZE > -t, --threads < THREADS > -l, --log-level < LOG_LEVEL > -h, --help                         Print help -V, --version                      Print version Backup hoard_chunker backup --input-path < INPUT_PATH > --output-path < OUTPUT_PATH > --input-path < INPUT_PATH > (path files that need to be backed up)
+--output-path < OUTPUT_PATH > (where to put the chunks) Restore hoard_chunker restore --input-path < INPUT_PATH > --output-path < OUTPUT_PATH > --input-path < INPUT_PATH > (path to chunks and metadata.json)
+--output-path < OUTPUT_PATH > (where to restore) Contributing Contributions are welcome! Feel free to submit a pull request or open an issue if you find a bug or have suggestions for
+improvements. License This project is licensed under the MIT License. See the LICENSE file for details. Contact For any issues, questions, or feature requests, feel free to open an issue in the GitHub repository.
+======>
+https://old.reddit.com/r/rust/comments/1gil59d/tell_me_why_my_selfmade_crate_is_terrible_and/
+-->>-->>
+Description   
+
+   I wanted to create a crate that would allow for type-based validation and make my programs safer at runtime, so I made a crate called    refined_type   . It supports things like numeric types constrained to specific ranges, arrays that meet certain conditions, non-empty strings, and more.
+I’ve also included features to easily compose validation rules together.   
+
+   URLs   
+
+   
+   GitHub:    https://github.com/tomoikey/refined_type   
+   Docs:    https://docs.tomoikey.com/quickstart   
+   crates.io:    https://crates.io/crates/refined_type   
+   
+
+   The appeal of    refined_type   
+
+   By combining it with    serde   , you can validate JSON or YAML based on types.   
+
+   Example   
+
+   MinMax    type   
+
+   MinMax    is a type that signifies the target exists between a certain number and another number.   
+
+   rust
+type Age = MinMaxU8<18, 80>;
+   
+```rust
+fn min_max_example() -> Result<(), Error<u8>> {
+    let age = Age::new(18)?;
+    assert_eq!(age.into_value(), 18);   
+
+   let age = Age::new(80)?;
+assert_eq!(age.into_value(), 80);
+
+let age = Age::new(17);
+assert!(age.is_err());
+
+let age = Age::new(81);
+assert!(age.is_err());
+Ok(())
+   
+
+   }
+```   
+
+   ForAll    type   
+
+   ForAll    is a rule that applies a specific rule to all elements in the Iterator.   
+
+   ```rust
+fn for_all_example() -> anyhow::Result<()> {
+    let vec = vec!["Hello".to_string(), "World".to_string()];
+    let for_all_ok = ForAllVec::<NonEmptyStringRule>::new(vec.clone())?;
+    assert_eq!(vec, for_all_ok.into_value());   
+
+   let vec = vec!["Hello".to_string(), "".to_string()];
+let for_all_err = ForAllVec::<NonEmptyStringRule>::new(vec.clone());
+assert!(for_all_err.is_err());
+Ok(())
+   
+
+   }
+```   
+
+   Define complex type   
+
+   We can create types with complex conditions using    And   ,    Or   , and    Not   .   
+
+   ```rust
+type Target = Refined<
+    Or![
+        And![
+            MinMaxRuleU8<0, 50>,
+            EvenRuleU8,
+            Not<Or![EqualRuleU8<10>, EqualRuleU8<20>]>
+        ],
+        And![
+            MinMaxRuleU8<60, 100>,
+            OddRuleU8,
+            Not<Or![EqualRuleU8<75>, EqualRuleU8<85>]>
+        ]
+    ]   
+
+   
+   ;
+   
+   rust
+fn complex_rule_example() -> Result<(), Error<u8>> {
+    let target = Target::new(0)?;
+    assert_eq!(target.into_value(), 0);   
+   
+
+   let target = Target::new(2)?;
+assert_eq!(target.into_value(), 2);
+
+let target = Target::new(10);
+assert!(target.is_err());
+
+let target = Target::new(20);
+assert!(target.is_err());
+
+let target = Target::new(50)?;
+assert_eq!(target.into_value(), 50);
+
+let target = Target::new(60);
+assert!(target.is_err());
+
+let target = Target::new(61)?;
+assert_eq!(target.into_value(), 61);
+
+let target = Target::new(75);
+assert!(target.is_err());
+
+let target = Target::new(85);
+assert!(target.is_err());
+
+let target = Target::new(100);
+assert!(target.is_err());
+
+let target = Target::new(101);
+assert!(target.is_err());
+
+Ok(())
+   
+
+   }
+```   
+   
+
+
+======>
+https://old.reddit.com/r/rust/comments/1gj9the/crosscompile_aarch64unknownlinuxgnu_to/
+-->>-->>
+I did read that for cross-compiling from Windows to Linux, you need to supply the    rust-lld    linker in the Cargo config; but (un?)fortunately my situation does not seem to be that simple.   
+
+   On Ubuntu, I installed    musl    and    musl-dev   . This means that I have    aarch64-linux-musl-gcc    in my    $PATH    and    should    have the required libraries. However, when I try to    cargo build --target aarch64-unknown-linux-musl   , I see this:   
+
+   ``   
+error: failed to run custom build command for   rquickjs-sys v0.6.2`   
+
+   Caused by:
+  process didn't exit successfully:    /opt/surrealdb/target/debug/build/rquickjs-sys-f5cc455b87df8099/build-script-build    (exit status: 101)
+  --- stdout
+  cargo:rerun-if-changed=build.rs
+  cargo:rerun-if-env-changed=CARGO_FEATURE_BINDGEN
+  cargo:rerun-if-env-changed=CARGO_FEATURE_UPDATE_BINDINGS
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_BYTECODE
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_GC
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_GC_FREE
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_FREE
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_LEAKS
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_MEM
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_OBJECTS
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_ATOMS
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_SHAPES
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_MODULE_RESOLVE
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_PROMISE
+  cargo:rerun-if-env-changed=CARGO_FEATURE_DUMP_READ_OBJECT
+  Applying patch patches/error_column_number.patch
+  can't find file to patch at input line 5
+  Perhaps you used the wrong -p or --strip option?
+  The text leading up to this was:   
+
+   
+
+   |diff --git a/Makefile b/Makefile
+  |index 0270a6a..1c78547 100644
+  |--- a/Makefile
+  |+++ b/Makefile   
+
+   
+
+   No file to patch.  Skipping patch.
+  1 out of 1 hunk ignored
+  patching file cutils.c
+  patching file cutils.h
+  patching file quickjs-atom.h
+  patching file quickjs-opcode.h
+  patching file quickjs.c
+  patching file quickjs.h
+  patching file tests/test_line_column.js
+  Applying patch patches/get_function_proto.patch
+  patching file quickjs.c
+  Hunk #1 succeeded at 2222 (offset 7 lines).
+  patching file quickjs.h
+  Applying patch patches/check_stack_overflow.patch
+  patching file quickjs.c
+  Hunk #1 succeeded at 1622 (offset 32 lines).
+  Applying patch patches/infinity_handling.patch
+  patching file quickjs.c
+  Hunk #1 succeeded at 10391 (offset 105 lines).
+  Hunk #2 succeeded at 43407 (offset 317 lines).
+  Hunk #3 succeeded at 49735 (offset 317 lines).
+  Bindings for target: aarch64-unknown-linux-gnu   
+
+   --- stderr
+  Ubuntu clang version 18.1.3 (1ubuntu1)
+  Target: aarch64-unknown-linux-gnu
+  Thread model: posix
+  InstalledDir:
+  Found candidate GCC installation: /../lib/gcc/aarch64-linux-gnu/11
+  Found candidate GCC installation: /../lib/gcc/aarch64-linux-gnu/13
+  Selected GCC installation: /../lib/gcc/aarch64-linux-gnu/13
+  Candidate multilib: .;@m64
+  Selected multilib: .;@m64
+  ignoring nonexistent directory "/usr/include/clang/18.1.3/include/"
+  ignoring nonexistent directory "/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include"
+  ignoring nonexistent directory "/include"
+  #include "..." search starts here:
+  #include <...> search starts here:
+   /usr/local/include
+   /usr/include/aarch64-linux-gnu
+   /usr/include
+  End of search list.
+  /usr/include/stdio.h:34:10: fatal error: 'stddef.h' file not found
+  thread 'main' panicked at /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rquickjs-sys-0.6.2/build.rs:351:39:
+  Unable to generate bindings: ClangDiagnostic("/usr/include/stdio.h:34:10: fatal error: 'stddef.h' file not found\n")
+  note: run with    RUST_BACKTRACE=1    environment variable to display a backtrace
+warning: build failed, waiting for other jobs to finish...
+```   
+
+   A few things stand out to me:   
+
+   
+   It's using Clang instead of the totally available GCC. Do I need to manually specify    cc   ?   
+   stddef.h    is most definitively included in musl. But, just to make sure, I went to verify:   
+   
+
+   ```   
+
+   dpkg -L musl-dev | grep -i stddef   
+
+   /usr/include/aarch64-linux-musl/stddef.h
+```   
+
+   Sure enough. Technically, everything    should    be present. I made sure the target is also installed:   
+
+   ```   
+
+   rustup target list --installed   
+
+   aarch64-unknown-linux-gnu
+aarch64-unknown-linux-musl
+```   
+
+   So... what exactly am I missing here?   
+
+   Thanks and kind regards!   
+   
+
+======>
+https://www.howtogeek.com/why-you-should-learn-rust/
+-->>-->>
+{
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": "1",
+                  "name": "Home",
+                  "item": "https://www.howtogeek.com/"
+            },
+                        {
+                "@type": "ListItem",
+                "position":"2",
+                "name": "Programming",
+                "item": "https://www.howtogeek.com/category/programming/"
+            },                        {
+                "@type": "ListItem",
+                "position":"3",
+                "name": "Why You Should Learn Rust, Especially If You&#039;re New to Programming",
+                "item": "https://www.howtogeek.com/why-you-should-learn-rust/"
+            }            ]
+        } Why You Should Learn Rust, Especially If You're New to Programming Programming By Jason Dookeran Published 19 hours ago Thread 2 Your changes have been saved Email is sent Email has already been sent close Please verify your email address. Send confirmation email close You’ve reached your account maximum for followed topics. Manage Your List Follow Followed Follow with Notifications Follow Unfollow Share Facebook X LinkedIn Reddit Flipboard Copy link Email Link copied to clipboard Programming Related The Quickest, Easiest Ways to Add Apps to a BOOX Tablet I Tried Running Ubuntu on My Phone, Here's How It Went 6 Reasons I Ditched Streaming and Listen to Music Offline Instead Sign in to your How-To Geek account Ground Picture / Shutterstock Rust is not just another programming language — it's a way of seeing code differently. If you've never seen code before and are only now learning about languages from the base level, you should learn Rust because it teaches you how to write "safe" code. Why You Should Learn Rust If you're new to coding and have checked out the recipe manager app we built previously , you'll know that Rust can be a very powerful programming language. Rust is a relatively new language designed for building efficient and reliable applications . It combines the best parts of existing languages with elements that make it portable yet lightweight. So, why should a beginner consider learning Rust? It's a very straightforward language that doesn't hide much of what it does under weird syntaxes. Moreover, a beginner can easily pick up Rust and figure it out on the fly without going through a long learning period. It's designed to offer a robust language that doesn't have a steep learning curve. However, the biggest reason a beginner should learn Rust is also the reason many experienced programmers picked the language up. Rust instills solid coding habits in a programmer from the start. Some industry standards exist that self-taught coders are unaware of until they're in a work environment. Learning Rust helps to instill those behaviors from the get-go. What Makes Rust Great for Beginners Africa Studio / Shutterstock Rust might be a new language, but it's already developed quite a following among developers because of how it approaches code. For a beginner, that means that there are many resources out there that can help you when you encounter something you've never seen before. Among the things that make Rust easier to learn for a beginner include: Deep Error Message Logging Have you ever noticed how some compilers give you errors but don't give you a proper idea of what the error means? When I coded a game in Unity using ChatGPT , I ran into a few of those. With Rust, you don't feel stifled or lost when you get an error message. It's straightforward and even suggests the best use of your code. Other languages would be more approachable if they started doing this. Strict But Supportive Compiler Compilers turn code from a programming language into machine code that the system can run. Some compilers operate like an Amazon warehouse house supervisor, rapping you on your knuckles whenever you make a mistake. Rust's compiler is more like a teacher, telling you what you did wrong and offering helpful suggestions to get your code working. No Manual Memory Management One of the things I downright hated about C++ was memory management, but Rust has none of that. Instead, Rust teaches you how to use its ownership system, which automatically allocates memory in RAM for the program elements. It's quick and straightforward without requiring you to understand the details of memory allocation. Supportive Community When I started with Rust, I was unsure if I wanted to learn a new language, partially because I thought I'd ask stupid questions and get yelled at by more experienced devs. It turns out the Rust community is actually quite supportive. If you don't know something and post about it, you'll likely get a response that points you to the right answer, even if it's been asked before. A Tool for Experienced Developers, Too While there are compelling reasons for whether you should learn Rust as a beginner or not, there are just as many benefits for someone with some development experience. Automatic Memory Management and Built-In Safety The thing that stood out the most to me when I started learning Rust was how easy it was to manage memory and how few memory leaks there were, even when I knew very little about the language at the start. Rust's overarching goal to make a "safe" language removes issues like buffer overruns and null pointer references through its borrowing system. It also has a borrow-checker to make sure you don't accidentally screw up your memory locations. Highly Optimized Code That’s Easy to Write Most developers know that writing optimized code usually means sacrificing an intelligible language for something closer to bare metal, like C. Thanks to how Rust's compiler works, you don't need to sacrifice a choice of language to produce efficient, responsive programs. The language uses traits and pattern matching alongside a robust struct and enum system that seems like an upgrade to the C family of languages. How to Get Started Learning Rust Lucas Gouveia / How-To Geek | Yurich / Shutterstock Unlike me, most people don't have fifteen months to dedicate to a deep dive into a language. However, whether you're a beginner or an expert, here are a few excellent resources you can use to learn Rust quickly: Rust's Official Website The official Rust website is great for getting an idea of what Rust is about and installing it on your system. It also has tutorials on integrating it with your favorite IDE. (I use VS Code specifically for Rust projects now, and you can even set it up to be totally portable ). The Rust Programming Language If you're old-school and prefer learning a language from a book, The Rust Programming Language (also known as The Rust Book) is one of the best-written resources about the language. Rustlings If you're more of a hands-on developer, you should check out a GitHub project called Rustlings . The project gives you a few simple Rust programs that'll teach you the language basics right in the terminal. Build Your Own Rust Projects One of the most significant issues for beginner developers is ending up in tutorial hell, where they just follow one tutorial after another without designing anything themselves. Building your own Rust projects and uploading them to GitHub is sometimes even better than a resume. Is It Worth It to Learn Rust? Although Python and JavaScript are more accessible and widespread, Rust offers some of the best fundamental knowledge any programmer can have. Beginners learn about safe coding practices from the start and don't have to worry about memory leaks. Experienced developers get the flexibility of an easily read language alongside the speed of a low-level language. While becoming a Rust developer can be lucrative , it's more than just landing a well-paying programming job. The principles a beginner learns from Rust make it easier to navigate other languages. If I were a beginner all over again, I'd jump at the chance to learn Rust because of all the bad habits it cuts off right from the start. Programming Apps & Web Apps Your changes have been saved Email is sent Email has already been sent close Please verify your email address. Send confirmation email close You’ve reached your account maximum for followed topics. Manage Your List Follow Followed Follow with Notifications Follow Unfollow .hidden-poll {display: none} Readers like you help support How-To Geek. When you make a purchase using links on our site, we may earn an affiliate commission. Read More . Close window.websiteUser = null;
+        window.batchSize = 26;
+        window.childBatchSize = 6;
+        window.allowNewComments  = true
+        window.sortOrder = 'ASC';
+                    window.sortOrder = 'RECOMMENDED'; Thread 2 Sign in to your How-To Geek account We want to hear from you! Share your opinions in the thread below and remember to keep it respectful. Reply / Post Images Attachment(s) Please respect our community guidelines . No links, inappropriate language, or spam. Your comment has not been saved Send confirmation email Sort by: Popular Oldest Newest Giovanni Giovanni Giovanni #OU797719 Copy Member Since 2024-11-04 Number of Posts 1 I'm quite surprised by this article. Rust is notoriously NOT an easy language to pick up quickly and it's certainly not recommended to beginners. The fact that it "doesn't hide much of what it does" is exactly the reason why it's a so complex language to learn, because it doesn't abstract away things from the developer, giving him the responsability to understand and manage low level details (like memory management through the borrow checker) . I'm not sure what "weird syntaxes" is supposed to mean, but Rust doesn't have a simple syntax on the contrary it is quite complex and verbose. Rust do have an extremely high steep learning curve, which is exactly the opposite of what the author is trying to say. Rust is by all means a great language, but it's certainly NOT for beginners. 2024-11-04 01:40:02 Upvote 1 Downvote Reply Keagan Keagan Keagan #II346719 Copy Member Since 2024-11-04 Number of Posts 1 As another comment here points out, Rust is absolutely not for beginners. While I love Rust because it is an awesome language indeed, never in a million years would I recommend it to a programmer just starting out because it will definitely scare them away. Contrary to what this article states, Rust has a notoriously steep learning curve and a lot of features that can easily overwhelm a beginner. The syntax is also quite verbose and not too easy on the eyes. If you're new to programming, rather learn and get comfortable with the concepts in a simple low-level language like C or even Zig before trying Rust. 2024-11-04 03:27:19 Upvote Downvote Reply Terms Privacy Feedback Recommended How to Create a Professional Cover Letter in Microsoft Word Microsoft Word Set the right impression from the start. 2 days ago Why an iPad Should Be Your First Apple Device iPad The iPad offers power and flexibility at a reasonable price. 2 2 days ago Linux Built-In Tools Are So Powerful, You Build a Database With Them. Here's How Linux & macOS Terminal Get to know these common tools and manage your tasks at the same time. 3 21 hours ago Why You Should Be Using Aliases in the Linux Terminal Linux & macOS Terminal Even if you're aware of them, make sure you're using them to their full extent. 12 3 days ago I Upgraded From an iPhone 13 to an iPhone 16: Here's What I Noticed Apple iPhone What's it like living with the iPhone 16? 7 3 days ago Do This to Get the Most Out of Your T-Mobile Plan T-Mobile Don't miss out on these benefits. 23 hours ago Desktop Mobile Delaying Your Windows Updates? You Probably Shouldn't 7 hours ago How to Fix Windows 11 Freezing on Startup 7 hours ago 6 Ways to Find and Replace Text in the Linux Terminal 15 hours ago See More How to Change Your Action Button Based on Focus Mode 14 hours ago Samsung's One UI is Android How It Should Be 15 hours ago What Is the Apple SIM? 16 hours ago See More Trending Now What Is MUBI, and Is a Subscription Worth the Money? The Best Keyboards of 2024 Android 15 is Boring (And That Might Not Be a Bad Thing)
+======>
+https://old.reddit.com/r/rust/comments/1giqx43/rustgb_a_crate_for_gameboy_development_with_rust/
+-->>-->>
+https://www.reddit.com/r/rust/comments/1fhdi28/i_compiled_rust_code_to_nintendo_gameboy/   
+I posted a simple idea of compiling from Rust to Game Boy ROM two months ago.   
+
+   At that time, the complexity of the build process was too high and you couldn't actually test my project. but I worked on the project further for the past two months and finally released a first alpha release to crates.io!   
+
+   Also there is a cute Game Boy Ferris logo.   
+
+   I love ferris   
+
+   
+   crates.io   
+   docs.rs   
+   GitHub release   
+   
+
+   If you follow the brief description on    docs.rs    , you can use Rust to create simple Game Boy ROMs!   
+
+   There are still only simple features, but we're going to gradually add a lot of features.   
+
+   I hope you have a fun time, If you have any feedback, I would appreciate it if you could leave it :)   
+   
+
+
+======>
+https://old.reddit.com/r/rust/comments/1gj22t4/why_cant_i_use_intof32_to_allow_multiplication_of/
+-->>-->>
+Basically why doesn't this work ? The compilation error doesn't help me much.     
+
+   enum Direction {
+    Left,
+    Right
+}
+
+impl Into<f32> for Direction {
+    fn into(self) -> f32 {
+        match self {
+            Direction::Left => 1.,
+            Direction::Right => -1.,
+        }
+    }
+}
+
+fn main() {
+    let dir = Direction::Left;
+    // Also tried calling dir.into() with no success here
+    let res: f32 = 10.*dir;
+}
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gisk02/what_is_the_least_painful_way_to_ship_a_rust_tool/
+-->>-->>
+I wrote a rust tool which takes a few files as input and gives an output file. It is pure rust with no external dependencies. It is not interactive, it's really just    cargo run file1 file2 file3 output    when I use it.   
+
+   I want my colleagues to be able to use it, but anything involving a command line will not be acceptable. So I thought I'd try to pack it as wasm: Have a super simple web page that allows the user to upload the necessary input files into memory that is accessible to the wasm application, click on "Do the thing!", have the rust application do its thing and then download the result. I am not looking for pretty or reactive or whatever. I am looking to bundle a command line tool in a way that my colleagues can begrudgingly use it and which causes me the least amount of pain possible.   
+
+   As I understand it, this should be entirely possible and I'm completely fine to read the documentation and figure things out, but I'm unsure where to start. I would like to avoid big libraries (and definitely anything related to npm). I would like to avoid anything JS related as much as possible, as I have very little experience and next to no motivation to learn. I also have no interest in doing this in a proper client/server fashion: the computations (which are somewhat expensive) need to happen on the user's device.   
+
+   I'm finding a lot of projects which seem to be waaaaay overkill for my use case and introducing a lot of overhead for me. I also find a lot of info from around six years ago, which I fear might be outdated. Any hints for directions I should consider would be very much appreciated.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gjbdsi/new_online_rust_introduction_for_c_programmers/
+-->>-->>
+We recently added a chapter on iterators to our new book, *Rust for C-Programmers*. While the book is still in its early stages, it already serves as a compact, practical introduction to Rust for those with some programming experience. The text has undergone multiple refinement passes using various AI tools, resulting in high-quality explanations that are precise, concise, and written in clear, correct technical English. This approach aims to make the content easier and faster to read and understand—even for non-native English speakers—than many other Rust resources.   
+
+   In terms of content and examples, our book is aligned with other Rust resources, including the official Rust book. Human proofreading and testing of all examples are ongoing and may take some time, but our priority is to ensure the accuracy of Rust’s core concepts. Minor errors in advanced topics will be addressed promptly as they’re identified.   
+
+   This book is intended for readers already familiar with fundamental (systems) programming concepts and who may have some exposure to C. For complete beginners or those with minimal experience in “easy” languages like Python, we recommend starting with the official Rust book or similar introductory resources.   
+
+   The online version, generated with the Rust *mdbook* tool, is currently accessible at    https://rust-for-c-programmers.salewskis.de/    , though the URL may change in the future. Originally, we considered a domain name that reflected the book’s title, but we decided against it to avoid any misleading associations with official status and potential legal issues with the Rust Foundation.   
+
+   We plan to add more chapters to the online version in the coming months, but the actual progress will depend on public interest and other factors. The source text is not yet available on GitHub or similar platforms, as previous experiences showed limited constructive contributions but numerous unmotivated forks and clones, possibly created by bots. For reporting issues, please use traditional email.   
+
+   Whether this content will eventually be converted into a printed book is still uncertain. We do not anticipate significant demand for a physical version, especially while the online content remains freely accessible.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gj8msm/roast_me_i_build_a_backuprestore_tool_to_chunk/
+-->>-->>
+Hi guys,   
+
+   I would like to hear some feedback from experienced rust programmers for my new project:   
+
+   https://github.com/bykof/hoard_chunker   
+
+   The project should traverse paths in a given input directory and chunk all files with fastcdc into a specific output directory. Otherwise it can collect all chunks again from a former file and restore it into a specific output directory.   
+
+   I started with Rust 2 months ago. I programmed in C++, Go, Python, Java already, but this Ownership thing drove me crazy at some points :)   
+
+   Hope you can give me some constructive feedback on my code.   
+   
+

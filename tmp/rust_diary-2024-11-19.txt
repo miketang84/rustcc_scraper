@@ -1,0 +1,569 @@
+https://github.com/TageDan/terminal-renderer
+-->>-->>
+Repository files navigation README A terminal 3D renderer. Supports loading of .obj files. Run Clone the repository and run cargo run --release -- -p path_to_my_obj_file -o --chars ' ' . o e @ Example result: terminal-renderer.mp4 Features: 3D rendering Colors (not for .obj files, only manual meshes, atm) Camera movement character sets optional octree optimisation. (have created weird lines but should work now) printing triangle count Help message: Usage: terminal-renderer [OPTIONS] --path <PATH>
+
+Options:
+  -p, --path <PATH>         Path to the .obj file
+  -c                        Option to list the number of triangles instead of rendering
+      --chars [<CHARS>...]  Characters to use for different light levels [low..high]
+  -o                        Enables octree optimisation
+  -h, --help                Print help
+  -V, --version             Print version Can also be used as lib by adding the following lines to your Cargo.toml file: [dependencies]
+glam = "0.29.2"
+terminal-renderer = {git="https://github.com/TageDan/terminal-renderer"} Future improvements: Alternative lightning types. Texture loading. (re-export glam Vec3 maybe) Write doc comments :D Fix weird lines caused by octree Change camera controls (maybe)
+======>
+https://tagedan.github.io/posts/terminal_rendering.html
+-->>-->>
+Create a 3D-Terminal Renderer Author: Tage Danielsson Date: 2024-11-05 Introduction When me and Felicia set out to
+build a 3D-terminal game we needed, of course, a 3D renderer! So I started to create one.
+In this blog post I will show you how to build one yourself, from scratch. General Idea The general idea is that we will shot a ray through a pixel on
+our screen (in our case a position in the terminal), then we will calculate what triangle
+in a mesh that ray will hit and lastly we will draw the color of the triangle
+to the screen (using ansi-codes for coloring the characters in the terminal). Setup Make sure that you have rust and cargo installed .
+Then run Cargo new terminal-renderer Then setup your folder structure like this: terminal-renderer
++ -- Cargo.toml + -- src |   + -- lib.rs |   + -- main.rs |   + -- math |   |   + -- mod.rs |   + -- renderer |   |   + -- mod.rs Then add the dependencies ( term_size and vec3-rs ) to the Cargo.toml file: [dependencies] vec3-rs = "0.1.6" # Vector operations term_size = "0.3.2" # Getting terminal size Add includes to lib.rs pub mod renderer; pub mod math; Rays through screen As mentioned before we want to "shoot" rays through every pixel on the screen.
+Theese rays will be represented as a origin point and a ray direction. We start by
+creating a struct for this in the math module and implement a new function for it . // math/mod.rs use vec3_rs::Vector3; pub struct Ray { pub origin: Vector3< f64 >, pub dir: Vector3< f64 >,
+} impl Ray { pub fn new (origin: Vector3< f64 >, dir: Vector3< f64 >) -> Self { Self {
+            origin,
+            dir,
+        }
+    }
+} Then we need to iterate over the pixels on the screen
+and construct a ray going through the pixel from a fixed origin some distance behind.
+To do this we will create a struct called Screen that will hold the height,
+width and focus distance. Screen will also be the struct for which
+we define all the rendering methods later. // renderer/mod.rs use term_size; pub struct Screen {
+    w: usize ,
+    h: usize ,
+    focus_dist: f64 ,
+} impl Screen { pub fn new (focus_dist: f64 ) -> Self { let mut screen = Self {
+            w: 0 ,
+            h: 0 ,
+            focus_dist,
+        };
+
+        screen. update_size (); println! ( "\x1b[?25l" ); // Hide cursor println! ( "\x1b[2J" ); // Clear terminal return screen;
+    } pub fn update_size (& mut self ) { if let Some (s) = term_size:: dimensions () { self .w = s. 0 ; self .h = s. 1 ;
+        }
+    }
+} The ansi codes "\x1b[?25l" and "\x1b[2J" hides the cursor and clears
+the terminal respectively.
+You will see more of theese types of codes later. Note that focus_dist is what determines the feild of view (fov).
+A lower focus distance will give a higher feild of view as
+shown by the image below: We will also need a struct which hold the position of our origin.
+We will call this struct Camera and later we will add a rotation to it aswell. // renderer/mod.rs use vec3_rs::Vector3; pub struct Camera { pub pos: Vector3< f64 >,
+} impl Camera < f64 > { pub fn new (pos: Vector3< f64 >) -> Self { Self {
+            pos,
+        }
+    }
+} Now we can finally create our render method for the Screen struct. // renderer/mod.rs use crate::math; impl Screen { pub fn render (& self , camera: &Camera) { for row in 0 .. self .h { for col in 0 .. self .w { let ray_o = camera.pos; // Ray Origin let row = (row as f64 / self .h as f64 ) * 2 . - 1 .; // Scale from -1 to +1 let col = (col as f64 / self .w as f64 ) * 2 . - 1 .; // --||-- // Ray let ray = math::Ray:: new (ray_o, Vector3:: new (col, row, self .focus_dist));
+              }
+          }
+      }
+} Okay, we have now constructed our rays, they will have the same origin as the camera and
+will have the direction of the column and row it is shooting through.
+Note that the focus distance is the z-coordinate of the direction and
+that we scale the screen coordinates from -1 to 1; Adding Triangles All Right we have constructed our Ray s but they have nothing to hit at
+the moment. For this we're going to define a Triangle Struct and a Mesh Struct // math/mod.rs use crate::math; use std::rc::Rc; pub struct Tri { pub v0: Vector3< f64 >, pub v1: Vector3< f64 >, pub v2: Vector3< f64 >,
+} pub struct Mesh { pub tris: Rc<[Tri]>,
+} impl Tri { pub fn new (v0: Vector3< f64 >, v1: Vector3< f64 >, v2: Vector3< f64 >) -> Self { Self { v0, v1, v2 }
+    }
+} impl Mesh { pub fn new (tris: Vec <Tri>) -> Self { Self { tris: tris. into () }
+    }
+} We will also add a Mesh as a parameter to the render function and loop
+through the triangles for each Ray to determine which one it hits. // renderer/mod.rs impl Screen { pub fn render (& self , camera: &Camera, mesh: &math::Mesh) { for row in 0 .. self .h { for col in 0 .. self .w { let ray_o = camera.pos; // Ray Origin let row = (row as f64 / self .h as f64 ) * 2 . - 1 .; // Scale from -1 to +1 let col = (col as f64 / self .w as f64 ) * 2 . - 1 .; // --||-- // Ray let ray = math::Ray:: new (ray_o, Vector3:: new (col, row, self .focus_dist)); // Get hit triangle and distance to hit let (hit_tri, distance) = { let mut hit_tri = None ; let mut dist = f64 ::MAX; for tri in mesh.tris. iter () { if let Some (d) = tri. hit (ray) { if d < dist {
+                                dist = d;
+                                hit_tri = Some (tri);
+                            };
+                        };
+                    }
+                    (hit_tri, dist)
+                  };
+
+              }
+          }
+      }
+} Okey, we now have a loop that will calculate the hit triangle and the distance to the hit.
+But we used a method hit on our triangle which we haven't defined yet. Determining triangle hit We will now define the before mentioned hit method. It will be an implementation of the möller-trumbore algorithm for this we will use something called the barycentric coordinates to determine a triangle hit.
+Barycentric coordinates is a way of representing coordinates in terms
+of the areas of each triangle formed by the coordinate and the opposite side of the triangle.
+Like in the picture below This type of coordinate is useful because it helps us check if a ray
+hits the triangle by first checking where the ray hit's the plane of the triangle and
+then that none of the barycentric coordinates are negative
+(A negative area would mean that the point is outside of the triangle)
+This method is called the möller-trumbore algorithm. You can read more about it here // math/mod.rs impl Tri { // Möller-Trumbore algo (https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection.html) pub fn hit (& self , ray: &Ray) -> Option < f64 > { let e1 = self .v1 - self .v0; let e2 = self .v2 - self .v0; let p = ray.dir. cross (&e2); let det = e1. dot (&p); const EPSILON: f64 = 0.001 ; // If determinant is close to zero the ray and triangle are parallel if det. abs () < EPSILON { return None ;
+        } let inv_det = 1 . / det; let t = ray.origin - self .v0; let u = t. dot (&p) * inv_det; if u < 0 . || u > 1 . { return None ;
+        }; let q = t. cross (&e1); let v = ray.dir. dot (&q) * inv_det; if (v < 0 . || u + v > 1 .) { return None ;
+        } let t = e2. dot (&q) * inv_det; return Some (t);
+    }
+
+} This solution is derived from the equation of the point using barycentric
+coordinates (P = A + u(B-A)+ v(C-A)) and the parametarised equation of the line
+(P = O + tD). See Wikipedia and Scratchapixel to learn more. But that's it for the hit function. Save pixel colors to buffer Now we will go back to the render function and save the color of
+the closest hit trangle to a buffer. // renderer/mod.rs impl Screen { pub fn render (& self , camera: &Camera, mesh: &math::Mesh) { // Init buffer let buffer = Vec :: with_capacity ( self .w * self .h); for row in 0 .. self .h { for col in 0 .. self .w { let ray_o = camera.pos; // Ray Origin let row = (row as f64 / self .h as f64 ) * 2 . - 1 .; // Scale from -1 to +1 let col = (col as f64 / self .w as f64 ) * 2 . - 1 .; // --||-- // Ray let ray = math::Ray:: new (ray_o, Vector3:: new (col, row, self .focus_dist)); // Get hit triangle and distance to hit let (hit_tri, distance) = { let mut hit_tri = None ; let mut dist = f64 ::MAX; for tri in mesh.tris. iter () { if let Some (d) = tri. hit (&ray) { if d < dist {
+                                dist = d;
+                                hit_tri = Some (tri);
+                            };
+                        };
+                    }
+                    (hit_tri, dist)
+                }; if let Some (t) = hit_tri { // push to buffer buffer. push (t.color);
+                } else {
+                    buffer. push (Vector3:: new ( 0 ., 0 ., 0 .));
+                }
+            }
+        }
+    }
+} For this we need to add a color feild to our triangle struct // math/mod.rs pub struct Tri { pub v0: Vector3< f64 >, pub v1: Vector3< f64 >, pub v2: Vector3< f64 >, pub color: Vector3< f64 >,
+} impl Tri { pub fn new (v0: Vector3< f64 >, v1: Vector3< f64 >, v2: Vector3< f64 >, color: Vector3< f64 >) -> Self { Self { v0, v1, v2, color }
+    }
+} Showing buffer To show the buffer we will add a flush method on the screen
+struct and call it at the end of the render function. // renderer/mod.rs impl Screen { pub fn render (& self , camera: &Camera, mesh: &math::Mesh) { let mut buffer = Vec :: with_capacity ( self .w * self .h); for row in 0 .. self .h { for col in 0 .. self .w { let ray_o = camera.pos; // Ray Origin let row = (row as f64 / self .h as f64 ) * 2 . - 1 .; // Scale from -1 to +1 let col = (col as f64 / self .w as f64 ) * 2 . - 1 .; // --||-- // Ray let ray = math::Ray:: new (ray_o, Vector3:: new (col, row, self .focus_dist)); // Get hit triangle and distance to hit let (hit_tri, distance) = { let mut hit_tri = None ; let mut dist = f64 ::MAX; for tri in mesh.tris. iter () { if let Some (d) = tri. hit (&ray) { if d < dist {
+                                dist = d;
+                                hit_tri = Some (tri);
+                            };
+                        };
+                    }
+                    (hit_tri, dist)
+                }; if let Some (t) = hit_tri {
+                    buffer. push (t.color);
+                } else {
+                    buffer. push (Vector3:: new ( 0 ., 0 ., 0 .));
+                }
+            }
+        } self . flush (&buffer);
+    } pub fn flush (& self , buffer: &[Vector3< f64 >]) { print! ( "\x1b[H" ); // Move curor Home for row in 0 .. self .h { for col in 0 .. self .w { let color = buffer[row * self .w + col]; print! ( "\x1b[48;2;{r};{g};{b}m " ,
+                    r = color. get_x () as u8 ,
+                    g = color. get_y () as u8 ,
+                    b = color. get_z () as u8 )
+            } print! ( "\r\n" );
+        } print! ( "\x1b[48;2;255;255;255m" );
+    }
+} The flush starts by moving the cursor "home" (to the upper left corner) by printing the
+ansi code "\x1b[H" to the terminal, "\x1b" is a escape character and
+"[H" moves the cursor home. We then iterate through the buffer and prints a space with the rigth color.
+To set the color we also use ansi-codes, "[48" means that we will set the background
+color, ";2" means that the color will be rgb and then we can set the rgb-values
+using string formatting. To learn more about terminal colors, This stac-overflow conversation is a great resource. After each row we also print "\r\n" to move to the next line. Test it To test the program add a screen, camera and mesh to your main function
+and run render on the screen. // main.rs use vec3_rs::Vector3; fn main () { let screen = terminal_renderer::renderer::Screen:: new ( 0.1 ); let camera = terminal_renderer::renderer::Camera:: new (Vector3:: new ( 0 ., 0 ., - 2 .)); use terminal_renderer::math::Tri as T; let mesh = vec! [T:: new (
+        Vector3:: new ( 0 ., - 5 ., 0 .),
+        Vector3:: new ( 10 ., 5 ., 0 .),
+        Vector3:: new ( 0 ., 5 ., 0 .),
+        Vector3:: new ( 255 ., 255 ., 0 .),
+    )]; let mesh = terminal_renderer::math::Mesh:: new (mesh);
+    screen. render (&camera, &mesh);
+} And then run the program.
+You should see this in your terminal. A flat triangle! ... Simple shading To do some simple shading we will compare theray direction to the triangle normal.
+If the angle is large we will darken the color,
+If we are looking straight at it we will include the full color.
+We will also darken far away points creating a sort of fog effect. // renderer/mod.rs // in render method if let Some (t) = hit_tri { let normal = t. normal (); let inv_dir = ray.dir * - 1 .; let a = normal. angle (&ray.dir). min (normal. angle (&inv_dir)); let f = 1.0 - a. abs () / PI; const RENDER_DIST: f64 = 75 .; let color = t.color * f * ((RENDER_DIST - distance) / RENDER_DIST). max ( 0 .);
+    buffer. push (color);
+} else {
+    buffer. push (Vector3:: new ( 0 ., 0 ., 0 .));
+} To really see this effect clearly we will need a more complicated shape.
+Let's make a rotating triangle! // main.rs use vec3_rs::Vector3; fn main () { let screen = terminal_renderer::renderer::Screen:: new ( 1 .); let camera = terminal_renderer::renderer::Camera:: new (Vector3:: new ( 0 ., 0 ., - 6 .)); use terminal_renderer::math::Tri as T; let mut t : f64 = 0.0 ; loop {
+        t += 0.01 ; let mesh = vec! [T:: new (
+            Vector3:: new (-t. cos () * 5 ., - 5 ., -t. sin () * 5 .),
+            Vector3:: new ( 0 ., 5 ., 0 .),
+            Vector3:: new (t. cos () * 5 ., - 5 ., t. sin () * 5 .),
+            Vector3:: new ( 0 ., 255 ., 0 .),
+        )]; let mesh = terminal_renderer::math::Mesh:: new (mesh);
+        screen. render (&camera, &mesh);
+    }
+} Run this and you should see a rotating triangle with some simple shading. Conclusion In this post we have learned how to build a simple 3D-renderer for the terminal.
+In the next blog-post I will
+build a 3D-file loader so that we can load files and view them in the terminal.
+We will also add camera rotation so that we can move and rotate the camera around a scene. Source code at this point Our 3D-Terminal Game
+======>
+https://github.com/TermTrack/TermTrack
+-->>-->>
+Repository files navigation README MIT license TermTrack A terminal-rendered 3D platforming/maze game with focus on speedrunning and custom level creation termtrack.mp4 Requirements You will need a terminal to play this game. But all teminals are not created the same. For the moment we recommend that you use windows-terminal availible in the microsoft store (further testing will be done in the future) Install Windows Install the zip-folder from the releases section or using the link: https://tagedan.github.io/TermTrack/TERMTRACK_WINDOWS.zip Extract it into a folder of your choice. Linux Install the zip-folder from the releases section or using the link: https://tagedan.github.io/TermTrack/TERMTRACK_LINUX.zip Extract it into a folder of your choice. Run In the extracted "TermTrack" folder run: example/TermTrack > termtrack level_pack_0 where level_pack_0 can be substituted for the name of the folder containing the levels you want to play. From source Unfortunaly, due to the need of a secret salt to validate the leaderboard you cannot build this project from source and expect it to work with the leaderboard. We are working on a seperate branch where the leaderboard will instead be local and therefore can be built from source. Level Layout/Creation A level is represented by a textfile with the format level_name.txt (or any other file extention, everything up until the last '.' will be the level name)
+To build a level you write characters that will represent the grid of the actual level. There are 8 grid-types at the moment, these are: 'S' (start grid) 'E' (end grid) 'X' (wall) 'x' (half-wall / stair) 'v' (spike) '.' (floor) ' ' (hole) 'e' (enemy / angry-pixel spawn) There is also the floor seperator represented by a new row containing only sep after wich the next floor can be built. Example_level.txt: XXX
+XSX
+XvX
+X.X
+XxX
+XXX
+sep
+XXXXXXX
+X....EX
+X.XXXXX
+X.X
+X X
+XXX This level will have two floors with the lower floor containing the start and the stair to the second floor as well as a spike between them and the upper floor containing the end.
+To then play the lavel you need to put it into a folder next to termtrack.exe and then run: TermTrack > termtrack < level_folder_name > replacing <level_folder_name> with the name of your folder. Known bugs Lazy error handling of network-requests leads to game crashing when offline.
+Leaderboard validation is faulty.
+Terminal focus can be hard to regain when lost.
+Music crackling on high load. Future plans Standalone Leaderboard Enemy sound Level Editor Discord Bot 3D-object file loader Support If you have any questions, please look at the github-discussions tab to see if it has already been answered or start a new discussion. Contributing Feel free to create a issue if you have a feature that you would like to see implemented. You are also free to fork the project and make a pr if you have made an improvement. Acknowledgements abbfelarb - Owner TageDan - Owner GustavPetterssonBjorklund - For suggesting security actions https://patorjk.com/software/taag/ - for generating the title-art The Rust programming language and The terminal :) - for making this possible
+======>
+http://Loco.rs
+-->>-->>
+It’s time to make Rust your super-power. Using Rust with Loco is super easy. With a simple request lifecycle, code generators, productivity
+            toolkits and more. $ cargo loco generate scaffold post title:string content:text added: "src/controllers/post.rs"
+injected: "src/controllers/mod.rs"
+injected: "src/app.rs"
+... $ cargo loco start ▄     ▀
+                                 ▀  ▄
+                  ▄       ▀     ▄  ▄ ▄▀
+                                    ▄ ▀▄▄
+                        ▄     ▀    ▀  ▀▄▀█▄
+                                          ▀█▄
+▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄ ▀▀█
+ ██████  █████   ███ █████   ███ █████   ███ ▀█
+ ██████  █████   ███ █████   ▀▀▀ █████   ███ ▄█▄
+ ██████  █████   ███ █████       █████   ███ ████▄
+ ██████  █████   ███ █████   ▄▄▄ █████   ███ █████
+ ██████  █████   ███  ████   ███ █████   ███ ████▀
+   ▀▀▀██▄ ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀ ██▀
+       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+                https://loco.rs environment: development database: automigrate logger: disabled compilation: debug modes: server listening on localhost:5150
+======>
+https://github.com/loco-rs/loco
+-->>-->>
+Repository files navigation README Code of conduct Apache-2.0 license Security Welcome to Loco 🚂 Loco is Rust on Rails. English · 中文 · Français · Portuguese (Brazil) ・ 日本語 What's Loco? Loco is strongly inspired by Rails. If you know Rails and Rust, you'll feel at home. If you only know Rails and new to Rust, you'll find Loco refreshing. We do not assume you know Rails. For a deeper dive into how Loco works, including detailed guides, examples, and API references, check out our documentation website . Features of Loco: Convention Over Configuration: Similar to Ruby on Rails, Loco emphasizes simplicity and productivity by reducing the need for boilerplate code. It uses sensible defaults, allowing developers to focus on writing business logic rather than spending time on configuration. Rapid Development: Aim for high developer productivity, Loco’s design focuses on reducing boilerplate code and providing intuitive APIs, allowing developers to iterate quickly and build prototypes with minimal effort. ORM Integration: Model your business with robust entities, eliminating the need to write SQL. Define relationships, validation, and custom logic directly on your entities for enhanced maintainability and scalability. Controllers : Handle web requests parameters, body, validation, and render a response that is content-aware. We use Axum for the best performance, simplicity, and extensibility. Controllers also allow you to easily build middlewares, which can be used to add logic such as authentication, logging, or error handling before passing requests to the main controller actions. Views: Loco can integrate with templating engines to generate dynamic HTML content from templates. Background Jobs: Perform compute or I/O intensive jobs in the background with a Redis backed queue, or with threads. Implementing a worker is as simple as implementing a perform function for the Worker trait. Scheduler: Simplifies the traditional, often cumbersome crontab system, making it easier and more elegant to schedule tasks or shell scripts. Mailers: A mailer will deliver emails in the background using the existing loco background worker infrastructure. It will all be seamless for you. Storage: In Loco Storage, we facilitate working with files through multiple operations. Storage can be in-memory, on disk, or use cloud services such as AWS S3, GCP, and Azure. Cache: Loco provides an cache layer to improve application performance by storing frequently accessed data. So see more Loco features, check out our documentation website . Getting Started cargo install loco
+cargo install sea-orm-cli # Only when DB is needed Now you can create your new app (choose " SaaS app"). ❯ loco new
+✔ ❯ App name ? · myapp
+✔ ❯ What would you like to build ? · SaaS app (with DB and user auth)
+✔ ❯ Select a DB Provider · Sqlite
+✔ ❯ Select your background worker type · Async (in-process tokio async tasks)
+✔ ❯ Select an asset serving configuration · Client (configures assets for frontend serving)
+
+🚂 Loco app generated successfully in:
+myapp/ Now cd into your myapp and start your app: $ cargo loco start
+
+                      ▄     ▀
+                                ▀  ▄
+                  ▄       ▀     ▄  ▄ ▄▀
+                                    ▄ ▀▄▄
+                        ▄     ▀    ▀  ▀▄▀█▄
+                                          ▀█▄
+▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄ ▀▀█
+██████  █████   ███ █████   ███ █████   ███ ▀█
+██████  █████   ███ █████   ▀▀▀ █████   ███ ▄█▄
+██████  █████   ███ █████       █████   ███ ████▄
+██████  █████   ███ █████   ▄▄▄ █████   ███ █████
+██████  █████   ███  ████   ███ █████   ███ ████▀
+  ▀▀▀██▄ ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀ ██▀
+      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+                https://loco.rs
+
+listening on port 5150 Powered by Loco SpectralOps - various services powered by Loco
+framework Nativish - app backend powered by Loco framework Contributors ✨ Thanks goes to these wonderful people:
+======>
+https://github.com/soehrl/tracing-tape/wiki/Getting-Started
+-->>-->>
+Getting Started Jump to bottom Simon Oehrl edited this page Nov 14, 2024 · 4 revisions Getting Started Setup Preparing an application for tracing using the tracing-tape format is straightforward.
+First, you need to add the dependencies tracing , tracing_subscriber , and tracing-tape-recorder to your application using: cargo add tracing tracing-subscriber tracing-tape-recorder The tracing-tape-recorder builds on the tracing_subscriber crate which basically provides a flexible way to forward traces to multiple endpoints using layers.
+For more information, see its documentation .
+All that is left to do is to create a subscriber with the TapeRecorder layer and set it as the global default subscriber: use tracing :: trace_span ; use tracing_subscriber :: { fmt , layer :: SubscriberExt , Registry } ; use tracing_tape_recorder :: TapeRecorder ; let subscriber = Registry :: default ( ) . with ( TapeRecorder :: default ( ) ) ; let guard = tracing :: subscriber :: set_default ( subscriber ) ; // ... drop ( guard ) ; That's it, all traces will now be recorded to a file called {crate_name}-{timestamp}.tape in the current working directory. Note: it is preferred to use set_default instead of set_global_default to ensure the subsriber is dropped when the guard goes out of scope.
+See #7 for more information. Simple Example Let's assume we have the followig (somewhat trivial) program for calculating a bunch of Fibonacci numbers: fn fib ( n : u64 ) -> u64 { if n == 0 || n == 1 { n } else { fib ( n - 1 ) + fib ( n - 2 ) } } fn main ( ) { for i in 0 .. 20 { let result = fib ( i ) ; } } In order to trace it's execution, we can modify the program as follows: use tracing :: trace_span ; use tracing_subscriber :: { fmt , layer :: SubscriberExt , Registry } ; use tracing_tape_recorder :: TapeRecorder ; # [ tracing :: instrument ] fn fib ( n : u64 ) -> u64 { if n == 0 || n == 1 { trace_span ! ( "base case" ) . in_scope ( || n ) } else { trace_span ! ( "recursion" ) . in_scope ( || fib ( n - 1 ) + fib ( n - 2 ) ) } } fn main ( ) { let subscriber = Registry :: default ( ) . with ( TapeRecorder :: default ( ) ) . with ( fmt :: Layer :: default ( ) ) ; let guard = tracing :: subscriber :: set_default ( subscriber ) ; let result = fib ( 20 ) ; tracing :: info! ( result, fib = 20 , "calculated fib" ) ; drop ( guard ) ; } Notice the #[tracing::instrument] attribute on the fib function which automatically creates a span for each invocation of the function that automatically captures its arguments.
+Additionally, I added trace_span! calls to create spans for the base case and the recursive case and log messages to capture the result of the calculation using the tracing::info! macro.
+For more information on how you can use the tracing crate, have a look at its documentation . Trace Deck Trace Deck is the GUI for viewing trace files.
+It can be installed locally using cargo install trace-deck or you can use the web application deployed at https://trace-deck.oehrl.dev .
+Trace files can be loaded by either dragging them into the application or, when installed locally, using the trace-deck <filename> command.
+After loading the trace you are greeted with the following view: The following section will describe the individual panes in more detail. Tape Timeline In the middle of the window, you can find the Tape Timeline which shows a flame graph of all recorded spans.
+You can drag the timeline using the left mouse button and zoom in and out using your mouse wheel or by doing a pinch gesture on your trackpad.
+The currently visible range is displayed at the top of the timeline and is additionally visualized in the global timeline .
+Changing the visible tine span here also affects the shown log messages .
+Hovering a span displays additional information such as its duration and parameters.
+Clicking a span with the left mouse button selects it and displays its information in the details pane . Global Timeline The global timeline is located at the bottom of the window and displays all loaded tapes and highlights the currently visible range in the tape timeline . Log Messages On the right of the window you can find the log messages that occurred within the current the currently visible time range. Callsites The callsite pane can be found in the top right and displays all types of log messages and spans.
+Selecting a callsite will reveal more information in the details pane . Details The details pane can be found in the bottom left of the window and displays information based in the currently selected item. Callsite Details When selecting a callsite the details pane will show information about the source code location and the associated fields.
+You can also change the color of callsites here.
+For spans it also shows additional statistics and a button that will plot the span durations in a new window. Span Duration Plot Span duration plots are opened using the Plot button in the details pane of the corresponding callsite.
+It shows a bar plot of all spans of the corresponding type within the currently selected time range.
+Clicking on a bar will change the currently selected time range to its duration.
+This way, you can click on an outlier in this plot and see what caused this in the tape timeline . Advanced Multiple Threads When spans are recorded on multiple threads the tape timeline will show a separate row for each thread.
+Currently, thread names are not yet recorded ( example using multiple threads ). Multiple Tapes You can load multiple tape file simultaneously by dragging multiple files into the trace-deck window or calling the trace-deck command with multiple files.
+In that case, the global timeline will show an overview of all tape time ranges and the application will open a timeline and message pane for all tapes.
+The individual timelines are synced, it is easy to correlate the events of multiple applications which can be very useful for client/server applications.
+Such an example configuration can be found in the examples folder ( fib_server , fib_client ). Toggle table of contents Pages 2 Loading Home Loading Getting Started Getting Started Setup Simple Example Trace Deck Tape Timeline Global Timeline Log Messages Callsites Details Callsite Details Span Duration Plot Advanced Multiple Threads Multiple Tapes Clone this wiki locally
+======>
+https://github.com/soehrl/tracing-tape
+-->>-->>
+Repository files navigation README Tracing Tape Dead-simple debugging and profiling of (distributed) Rust applications using the tracing crate.
+Record trace files and view them within within seconds without complex setup or configuration. Setup Add the following dependencies to your application: cargo add tracing tracing-subscriber tracing-tape-recorder Add the following code to your application: use tracing :: trace_span ; use tracing_subscriber :: { fmt , layer :: SubscriberExt , Registry } ; use tracing_tape_recorder :: TapeRecorder ; let subscriber = Registry :: default ( ) . with ( TapeRecorder :: default ( ) ) ; let guard = tracing :: subscriber :: set_default ( subscriber ) ; // ... drop ( guard ) ; Running your application will now generate a {name}-{timestamp}.tape file in the current working directory. Note: it is preferred to use set_default instead of set_global_default to ensure the subsriber is dropped when the guard goes out of scope.
+See #7 for more information. Viewing Tape Files You can use the trace-deck application to view the recorded tape files either by running trace-deck filename.tape or by dragging the files into the window.
+You can load multiple files simultaneously which can be useful for analyzing workflows across multiple applications (e.g., client-server interactions).
+Have a look at the getting started guide . Crates tracing-tape: defines the format of the tape files. tracing-tape-recorder: records trace events to tape files. tracing-tape-parser: parses recorded tape files. trace-deck: GUI application for viewing tape files. Known Issues Currently there is no way, to configure the tape recorder ( #6 , #8 ). Recent data is lost when the tape recorder is not properly dropped ( #7 ). Loading large tape files can be slow ( #9 ). Recording tape files will occasionally cause lag spikes ( #10 ).
+======>
+https://github.com/tokio-rs/tracing
+-->>-->>
+Repository files navigation README MIT license Security Website | Chat | Documentation (master branch) The master branch is the pre-release, development version of tracing . Please see the v0.1.x branch for the versions of tracing released to crates.io. Overview tracing is a framework for instrumenting Rust programs to collect
+structured, event-based diagnostic information. tracing is maintained by the
+Tokio project, but does not require the tokio runtime to be used. Usage In Applications In order to record trace events, executables have to use a collector
+implementation compatible with tracing . A collector implements a way of
+collecting trace data, such as by logging it to standard output. tracing-subscriber 's fmt module provides
+a collector for logging traces with reasonable defaults. Additionally, tracing-subscriber is able to consume messages emitted by log -instrumented
+libraries and modules. To use tracing-subscriber , add the following to your Cargo.toml : [ dependencies ] tracing = " 0.1 " tracing-subscriber = " 0.3 " Then create and install a collector, for example using init() : use tracing :: info ; use tracing_subscriber ; fn main ( ) { // install global collector configured based on RUST_LOG env var. tracing_subscriber :: fmt :: init ( ) ; let number_of_yaks = 3 ; // this creates a new event, outside of any spans. info ! ( number_of_yaks, "preparing to shave yaks" ) ; let number_shaved = yak_shave :: shave_all ( number_of_yaks ) ; info ! ( all_yaks_shaved = number_shaved == number_of_yaks, "yak shaving completed." ) ; } Using init() calls set_global_default() so this collector will be used
+as the default in all threads for the remainder of the duration of the
+program, similar to how loggers work in the log crate. For more control, a collector can be built in stages and not set globally,
+but instead used to locally override the default collector. For example: use tracing :: { info , Level } ; use tracing_subscriber ; fn main ( ) { let collector = tracing_subscriber :: fmt ( ) // filter spans/events with level TRACE or higher. . with_max_level ( Level :: TRACE ) // build but do not install the subscriber. . finish ( ) ; tracing :: collect :: with_default ( collector , || { info ! ( "This will be logged to stdout" ) ; } ) ; info ! ( "This will _not_ be logged to stdout" ) ; } Any trace events generated outside the context of a collector will not be collected. This approach allows trace data to be collected by multiple collectors
+within different contexts in the program. Note that the override only applies to the
+currently executing thread; other threads will not see the change from with_default. Once a collector has been set, instrumentation points may be added to the
+executable using the tracing crate's macros. In Libraries Libraries should only rely on the tracing crate and use the provided macros
+and types to collect whatever information might be useful to downstream consumers. use std :: { error :: Error , io } ; use tracing :: { debug , error , info , span , warn , Level } ; // the `#[tracing::instrument]` attribute creates and enters a span // every time the instrumented function is called. The span is named after // the function or method. Parameters passed to the function are recorded as fields. # [ tracing :: instrument ] pub fn shave ( yak : usize ) -> Result < ( ) , Box < dyn Error + ' static > > { // this creates an event at the DEBUG level with two fields: // - `excitement`, with the key "excitement" and the value "yay!" // - `message`, with the key "message" and the value "hello! I'm gonna shave a yak." // // unlike other fields, `message`'s shorthand initialization is just the string itself. debug ! ( excitement = "yay!" , "hello! I'm gonna shave a yak." ) ; if yak == 3 { warn ! ( "could not locate yak!" ) ; // note that this is intended to demonstrate `tracing`'s features, not idiomatic // error handling! in a library or application, you should consider returning // a dedicated `YakError`. libraries like snafu or thiserror make this easy. return Err ( io :: Error :: new ( io :: ErrorKind :: Other , "shaving yak failed!" ) . into ( ) ) ; } else { debug ! ( "yak shaved successfully" ) ; } Ok ( ( ) ) } pub fn shave_all ( yaks : usize ) -> usize { // Constructs a new span named "shaving_yaks" at the TRACE level, // and a field whose key is "yaks". This is equivalent to writing: // // let span = span!(Level::TRACE, "shaving_yaks", yaks = yaks); // // local variables (`yaks`) can be used as field values // without an assignment, similar to struct initializers. let span = span ! ( Level :: TRACE , "shaving_yaks" , yaks ) ; let _enter = span . enter ( ) ; info ! ( "shaving yaks" ) ; let mut yaks_shaved = 0 ; for yak in 1 ..=yaks { let res = shave ( yak ) ; debug ! ( yak, shaved = res.is_ok ( ) ) ; if let Err ( ref error ) = res { // Like spans, events can also use the field initialization shorthand. // In this instance, `yak` is the field being initialized. error ! ( yak, error = error.as_ref ( ) , "failed to shave yak!" ) ; } else { yaks_shaved += 1 ; } debug ! ( yaks_shaved ) ; } yaks_shaved } [ dependencies ] tracing = " 0.1 " Note: Libraries should NOT install a collector by using a method that calls set_global_default() , as this will cause conflicts when executables try to
+set the default later. In Asynchronous Code To trace async fn s, the preferred method is using the #[instrument] attribute: use tracing :: { info , instrument } ; use tokio :: { io :: AsyncWriteExt , net :: TcpStream } ; use std :: io ; # [ instrument ] async fn write ( stream : & mut TcpStream ) -> io :: Result < usize > { let result = stream . write ( b"hello world \n " ) . await ; info ! ( "wrote to stream; success={:?}" , result.is_ok ( ) ) ; result } Special handling is needed for the general case of code using std::future::Future or blocks with async / await , as the
+following example will not work: async { let _s = span . enter ( ) ; // ... } The span guard _s will not exit until the future generated by the async block is complete.
+Since futures and spans can be entered and exited multiple times without them completing,
+the span remains entered for as long as the future exists, rather than being entered only when
+it is polled, leading to very confusing and incorrect output.
+For more details, see the documentation on closing spans . This problem can be solved using the Future::instrument combinator: use tracing :: Instrument ; let my_future = async { // ... } ; my_future . instrument ( tracing :: info_span! ( "my_future" ) ) . await Future::instrument attaches a span to the future, ensuring that the span's lifetime
+is as long as the future's. Under the hood, the #[instrument] macro performs the same explicit span
+attachment that Future::instrument does. Supported Rust Versions Tracing is built against the latest stable release. The minimum supported
+version is 1.63. The current Tracing version is not guaranteed to build on Rust
+versions earlier than the minimum supported version. Tracing follows the same compiler support policies as the rest of the Tokio
+project. The current stable Rust compiler and the three most recent minor
+versions before it will always be supported. For example, if the current stable
+compiler version is 1.69, the minimum supported version will not be increased
+past 1.66, three minor versions prior. Increasing the minimum supported compiler
+version is not considered a semver breaking change as long as doing so complies
+with this policy. Getting Help First, see if the answer to your question can be found in the API documentation.
+If the answer is not there, there is an active community in
+the Tracing Discord channel . We would be happy to try to answer your
+question. Last, if that doesn't work, try opening an issue with the question. Contributing 🎈 Thanks for your help improving the project! We are so happy to have
+you! We have a contributing guide to help you get involved in the Tracing
+project. Project layout The tracing crate contains the primary instrumentation API, used for
+instrumenting libraries and applications to emit trace data. The tracing-core crate contains the core API primitives on which the rest of tracing is
+instrumented. Authors of trace subscribers may depend on tracing-core , which
+guarantees a higher level of stability. Additionally, this repository contains several compatibility and utility
+libraries built on top of tracing . Some of these crates are in a pre-release
+state, and are less stable than the tracing and tracing-core crates. The crates included as part of Tracing are: tracing-futures : Utilities for instrumenting futures .
+( crates.io | docs ) tracing-macros : Experimental macros for emitting trace events (unstable). tracing-attributes : Procedural macro attributes for automatically
+instrumenting functions. ( crates.io | docs ) tracing-log : Compatibility with the log crate (unstable). tracing-serde : A compatibility layer for serializing trace data with serde (unstable). tracing-subscriber : Collector implementations, and utilities for
+implementing and composing Collector s.
+( crates.io | docs ) tracing-tower : Compatibility with the tower ecosystem (unstable). tracing-appender : Utilities for outputting tracing data, including a file appender
+and non-blocking writer. ( crates.io | docs ) tracing-error : Provides SpanTrace , a type for instrumenting errors with
+tracing spans tracing-flame ; Provides a layer for generating flame graphs based on
+tracing span entry / exit events. tracing-journald : Provides a layer for recording events to the
+Linux journald service, preserving structured data. Related Crates In addition to this repository, here are also several third-party crates which
+are not maintained by the tokio project. These include: tracing-timing implements inter-event timing metrics on top of tracing .
+It provides a subscriber that records the time elapsed between pairs of tracing events and generates histograms. tracing-honeycomb Provides a layer that reports traces spanning multiple machines to honeycomb.io . Backed by tracing-distributed . tracing-distributed Provides a generic implementation of a layer that reports traces spanning multiple machines to some backend. tracing-actix-web provides tracing integration for the actix-web web framework. tracing-actix provides tracing integration for the actix actor
+framework. axum-insights provides tracing integration and Application insights export for the axum web framework. tracing-gelf implements a subscriber for exporting traces in Greylog
+GELF format. tracing-coz provides integration with the coz causal profiler
+(Linux-only). tracing-bunyan-formatter provides a layer implementation that reports events and spans in bunyan format, enriched with timing information. tide-tracing provides a tide middleware to trace all incoming requests and responses. color-spantrace provides a formatter for rendering span traces in the
+style of color-backtrace color-eyre provides customized panic and eyre report handlers for eyre::Report for capturing span traces and backtraces with new errors and
+pretty printing them. spandoc provides a proc macro for constructing spans from doc comments inside of functions. tracing-wasm provides a Collector / Subscriber implementation that reports
+events and spans via browser console.log and User Timing API ( window.performance ) . tracing-web provides a layer implementation of level-aware logging of events
+to web browsers' console.* and span events to the User Timing API ( window.performance ) . test-log takes care of initializing tracing for tests, based on
+environment variables with an env_logger compatible syntax. tracing-unwrap provides convenience methods to report failed unwraps on Result or Option types to a Collector . diesel-tracing provides integration with diesel database connections. tracing-tracy provides a way to collect Tracy profiles in instrumented
+applications. tracing-elastic-apm provides a layer for reporting traces to Elastic APM . tracing-etw provides a layer for emitting Windows ETW events. sentry-tracing provides a layer for reporting events and traces to Sentry . tracing-forest provides a subscriber that preserves contextual coherence by
+grouping together logs from the same spans during writing. tracing-loki provides a layer for shipping logs to Grafana Loki . tracing-logfmt provides a layer that formats events and spans into the logfmt format. tracing-chrome provides a layer that exports trace data that can be viewed in chrome://tracing . reqwest-tracing provides a middleware to trace reqwest HTTP requests. tracing-cloudwatch provides a layer that sends events to AWS CloudWatch Logs. clippy-tracing provides a tool to add, remove and check for tracing::instrument . (if you're the maintainer of a tracing ecosystem crate not in this list,
+please let us know!) Note: that some of the ecosystem crates are currently unreleased and
+undergoing active development. They may be less stable than tracing and tracing-core . External Resources This is a list of links to blog posts, conference talks, and tutorials about
+Tracing. Blog Posts Diagnostics with Tracing on the Tokio blog, August 2019 Production-Grade Logging in Rust Applications , November 2020 Custom Logging in Rust using tracing and tracing-subscriber , part 1 and part 2 , October 2021 Instrumenting Axum projects , August 2023 Talks Bay Area Rust Meetup talk and Q&A , March 2019 RustConf 2019 talk and slides , August 2019 Are we observable yet? @ RustyDays talk and slides , August 2020 Crabs with instruments! , September 2021 Help us expand this list! If you've written or spoken about Tracing, or
+know of resources that aren't listed, please open a pull request adding them. License This project is licensed under the MIT license . Contribution Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in Tracing by you, shall be licensed as MIT, without any additional
+terms or conditions.
+======>
+https://github.com/Surasia/infinite-rs
+-->>-->>
+Repository files navigation README Unlicense license MIT license infinite-rs Simple and fast deserialization library for Halo Infinite. This crate currently is in early-development. Please let me know via Github issues about any issues you encounter using this project. Documentation Documentation on this project can be found at docs.rs . Examples/Usage Getting Started: Loading a Module file Modules are the file format that store "tags" in Halo Infinite. These files are used to store all the assets in the game, including models, textures, metadata, and more. infinite-rs provides a simple interface to load these tags, starting with loading the module files themselves. use infinite_rs :: { ModuleFile , Result } ; fn load_modules ( ) -> Result < ( ) > { // Create new instance of a Module file. // These are the main archive files used in Halo Infinite. let mut module = ModuleFile :: new ( ) ; // Reads to the module file given a file path. // Note: the path can be anything that implements AsRef<Path>. module . read ( "C:/XboxGames/Halo Infinite/Content/deploy/any/globals-rtx-new.module" ) ? ; Ok ( ( ) ) } Loading a tag file After we have loaded a module file, we can now use the read_tag function to load a specific tag by index from the module file. This populates the data_stream and tag_info properties in a module entry that we can use later. The read_tag_from_id function is also available to load a tag by its global ID, returning the index in which it was found in the module file. use infinite_rs :: { ModuleFile , Result } ; fn load_tags ( ) -> Result < ( ) > { let mut module = ModuleFile :: new ( ) ; module . read ( "C:/XboxGames/Halo Infinite/Content/deploy/any/globals-rtx-new.module" ) ? ; // Load a specific tag from the module file. let tag_index = 0 ; module . read_tag ( tag_index ) ? ; // We can now access the data stream and tag info. let tag_data = module . files [ tag_index as usize ] . data_stream . as_ref ( ) . unwrap ( ) ; let tag_info = module . files [ tag_index as usize ] . tag_info . as_ref ( ) . unwrap ( ) ; Ok ( ( ) ) } Creating a custom structure and reading it infinite-rs also allows you to read data directly into structures, using the read_metadata function. This functionality requires the derive feature. Defining Structures To define a structure that can be read from a tag data stream, you must first derive the TagStructure trait. To ensure proper padding and alignment, you can use the data attribute to specify the size of the structure in bytes. Each field also must contain a data attribute specifying the offset in bytes from the start of the structure. Tip Padding between fields are automatically calculated. Any data between two offsets are skipped. use infinite_rs_derive :: TagStructure ; use infinite_rs :: tag :: types :: common_types :: { AnyTag , FieldReference , } ; # [ derive ( Default , Debug , TagStructure ) ] # [ data ( size ( 0x88 ) ) ] // Size can be any u64 value. struct MaterialTag { # [ data ( offset ( 0x00 ) ) ] // Offset can be any u64 value within the range of the size. any_tag : AnyTag , # [ data ( offset ( 0x10 ) ) ] material_shader : FieldReference , } Reading structures use infinite_rs_derive :: TagStructure ; use infinite_rs :: tag :: types :: common_types :: { AnyTag , FieldReference , } ; use infinite_rs :: { ModuleFile , Result } ; # [ derive ( Default , Debug , TagStructure ) ] # [ data ( size ( 0x88 ) ) ] // Size can be any u64 value. struct MaterialTag { # [ data ( offset ( 0x00 ) ) ] // Offset can be any u64 value within the range of the size. any_tag : AnyTag , # [ data ( offset ( 0x10 ) ) ] material_shader : FieldReference , } fn load_tags ( ) -> Result < ( ) > { let mut module = ModuleFile :: new ( ) ; module . read ( "C:/XboxGames/Halo Infinite/Content/deploy/any/globals-rtx-new.module" ) ? ; // We now want to find the material tags in the module file. let material_indices = module . files . iter ( ) . enumerate ( ) . filter ( | ( _ , file ) | file . tag_group == "mat " ) . map ( | ( index , _ ) | index ) . collect :: < Vec < _ > > ( ) ; // And for each material tag, we want to read the metadata associated. for index in material_indices { // We first have to populate data_stream and tag_info. module . read_tag ( index as u32 ) ? ; let mut mat = MaterialTag :: default ( ) ; // We pass in our structure as a generic parameter. module . files [ index ] . read_metadata ( & mut mat ) ? ; // We can now access the fields in our structure. // For instance, `any_tag.internal_struct.tag_id` is always equal to the tag id of our file. assert_eq ! ( module.files [ index ] .tag_id, mat.any_tag.internal_struct.tag_id ) ; } Ok ( ( ) ) } Credits libinfinite by Coreforge, which this project is mostly based on. Reclaimer by Gravemind2401, which helped me get familiar with Blam file formats. AusarDocs by Shockfire, a very useful resource on Ausar/Slipspace file formats. Kraken by Wolvenkit team, a re-implementation of Oodle Kraken, removing the need for any binary blobs being required for decompression. TagFramework by Codename Atriox, which was a common reference point for Slipspace internals. red4lib by rfuzzo, acting as the main inspiration for this project. HIRT by urium1186, which was very useful in debugging and verifying output from this project.
+======>
+https://github.com/spastorino/dynosaur
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license dynosaur lets you use dynamic dispatch on traits with async fn and
+methods returning impl Trait . # [ dynosaur :: dynosaur ( DynNext ) ] trait Next { type Item ; async fn next ( & mut self ) -> Self :: Item ; } The macro above generates a type called DynNext which can be used like this: async fn dyn_dispatch ( iter : & mut DynNext < ' _ , i32 > ) { while let Some ( item ) = iter . next ( ) . await { println ! ( "- {item}" ) ; } } let a = [ 1 , 2 , 3 ] ; dyn_dispatch ( DynNext :: from_mut ( & mut a . into_iter ( ) ) ) . await ; The general rule is that anywhere you would write dyn Trait (which would
+result in a compiler error), you instead write DynTrait . Methods returning impl Trait box their return types when dispatched
+dynamically, but not when dispatched statically. License Licensed under either of Apache License, Version 2.0 or MIT license at your option. Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in
+this crate by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without
+any additional terms or conditions.
+
+======>
+https://old.reddit.com/r/rust/comments/1gusxz0/recommend_next_thing_to_learn_in_rust/
+-->>-->>
+I am a Python Backend Programmer and I've learn basic Rust and I think understanded some Rust's concepts.
+I really love Rust and want to stick with Rust and get a Rust job later.
+I can do some simple web(Axum, Rocket..) and a simple CLI tool already.   
+
+   What should I learn and go deeper next ? There are a lot of thing I can go with Rust but I really can't choose one now.
+I don't want to go with Web3, BlockChain... because I think it's all scam.   
+
+   Thanks for you recommendation and sorry for my bad English.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gv2pia/cpu_emulator/
+-->>-->>
+I'm trying to write a cpu emulator.
+Currently im iterating a Vec<Instruction> where the instruction is an enum:
+   
+enum Instruction {
+    nop,
+    mov(RegisterId, RegisterId),
+    ...
+}
+   
+
+   the RegisterId encodes the register and the access (low byte, high byte, word) in one byte.   
+
+   
+match self.code[self.ip]{
+    nop => self.ip += 1,
+    mov(id1, id2) => {
+        self.set_reg(id1, self.get_reg(id2))
+    },
+    ...
+}
+   
+on my machine i get about 300million instructions per second.   
+
+   I was thinking about writing some sort of jit compiler but i need to be able to precisely tick the emulated cpu instruction by instruction, because i want to run multiple in parallel and in sync. So that doesnt work   
+
+   Are there tricks to write something like that more efficiently?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gv5u7q/terminal_renderer/
+-->>-->>
+I was rebuilding a simple terminal renderer used in my game    TermTrack    because I wanted to create a series of blog post to show people how to create one themselves (first post    here   ). When implementing object loading I got carried away optimizing since I got frustrated by the lag while rendering larger objects. About a week later and now I've got a somewhat finished 3D-file viewer for the terminal. Check it out here:    https://github.com/TageDan/terminal-renderer   
+
+   It's actually much faster then the one we used in our game btw, so I will soon be updating the game to use it aswell.   
+
+   Also this was my first time implementing an octree, something I was scared off because I've heard trees can be pretty hard to do in rust due to the recursive nature. Luckily it wasn't too much off a pain but I kinda winged it for the implementation so any feedback from those more talented would be appreciated.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1guycdf/who_is_using_locors_in_production/
+-->>-->>
+Hi Rustaceans,   
+
+   I’m considering using    Loco.rs    for my backend, but since it’s relatively new, I’m curious about its readiness for production. Are there any companies or projects actively using    Loco.rs    in production? If so, I’d love to hear your experiences regarding its stability, performance, and ecosystem maturity.   
+
+   Thanks in advance for sharing insights—this will help me decide whether to adopt it for my project!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gv0arl/tracing_tape_simple_application_tracing/
+-->>-->>
+Hey everybody,   
+
+   I recently published my first set of crates based on the    tracing ecosystem   . The project can be found    here    and consists of a simple    binary format   , an easy-to-use    trace recorder   , and a    trace viewer    which can also be accessed    online   .   
+
+   trace-deck: A trace viewer for the tracing-tape format   
+
+   The main design goals of the project are:   
+
+   
+   simplicity   : Recording traces should be dead simple and should not require a complicated setup.   
+   low overhead   : Writing traces should be fast to be usable in high-performance real-time applications.   
+   multi-process support   : Debugging client-server applications can be tricky. The    trace-deck    viewer allows loading trace files generated by multiple applications simultaneously and aligns them properly.   
+   
+
+   The project was really tailored to my specific needs and it is still very early in its development. For example, the recorder cannot be configured yet. However, maybe it is useful for some of you as well. You can have a look at the    getting started guide    for more information.   
+
+   Feedback is of course highly appreciated.   
+
+   Cheers!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1guw9pw/my_first_rust_crate_infiniters/
+-->>-->>
+Hi, for the past few months I've been working on a small crate that reads (in a sense, deserializes) the binary asset format that the video game "Halo Infinite" uses as a practical way to learn Rust. It's now in a state where I think I'm comfortable sharing it, and I'd appreciate any suggestions that I can use to improve my code. Most of the logic in the library is simply reading binary data and decompressing it accordingly, but I've had some issues trying to abstract it to create an actually usable API- I would say it currently isn't user friendly.   
+
+   Here's a link to the repo:    https://github.com/Surasia/infinite-rs    and docs are available at    https://docs.rs/infinite-rs   
+
+   edit: spelling   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gvblzb/asyncdrop_is_in_nightly_what_now/
+-->>-->>
+I just noticed AsyncDrop is in nightly!   
+
+   Links:
+-    async_drop function   
+-    AsyncDrop trait   
+
+   This is incredibly exciting for me as a big structured concurrency enthusiast. I'm wondering - could this finally enable implementing a safe async equivalent of    thread::scope    for async contexts? (Though I realize futures can be abandoned before completion, so maybe not?)   
+
+   What aspects of AsyncDrop are you all excited about? Has anyone spotted interesting usages in libraries yet (whether behind nightly flags or feature-gated)?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1guwjho/why_does_str_implement_asrefosstr/
+-->>-->>
+I've read that    OsStr    stores characters in platform specific representations, which is not necessarily UTF-8 (e.g., on Windows it should be UCS-2). However, I also notice that    str    implements    AsRef<OsStr>   , which suggests the underlying bytes of    str    can be directly "viewed as"    OsStr   . How is this possible?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gv47xa/call_for_testing_use_async_fn_in_dyn_traits_with/
+-->>-->>
+I've been working on    dynosaur    with Santiago Pastorino, a crate that extends ordinary Rust traits that have    async fn    or    -> impl Trait    methods with support for dynamic dispatch. You can use it like this:   
+
+   ```rust   
+
+   [dynosaur::dynosaur(DynNext)]   
+
+   trait Next {
+    type Item;
+    async fn next(&mut self) -> Self::Item;
+}   
+
+   async fn dyn   dispatch(iter: &mut DynNext<'   , i32>) {
+    while let Some(item) = iter.next().await {
+        println!("- {item}");
+    }
+}   
+
+   let a = [1, 2, 3];
+dyn_dispatch(DynNext::from_mut(&mut a.into_iter())).await;
+```   
+
+   This differs from the    #[async_trait]    crate in that it allows the trait to support fully static dispatch without the overhead of boxing. When using dynamic dispatch, however, your returned futures are boxed.   
+
+   If you have a use for this, please give it a try! I expect to announce it more officially on the Rust blog at some point, but I would like to get some testing and feedback first. Please file any issues you find on the repo:    https://github.com/spastorino/dynosaur   .   
+   
+
+======>
+https://bjorn3.github.io/2024/11/14/progress-report-nov-2024.html
+-->>-->>
+Progress report on rustc_codegen_cranelift (November 2024) Nov 14, 2024 There has been a fair bit of progress since the last progress report ! There have been 383 commits since the last progress report. You can find a precompiled version of cg_clif at https://github.com/bjorn3/rustc_codegen_cranelift/releases/tag/dev or in the rustc-codegen-cranelift-preview rustup component if you want to try it out. Achievements in the past eight months ABI There have been significant improvements in the ABI compatibility between the Cranelift and LLVM backends. Most of these improvements affect the Rust ABI across all targets, but some only affect a single platform. In the latter case I will mention them under the section of the respective target. One of the improvements is a partial fix to the Rust ABI where rustc depended on LLVM inventing a calling convention when more values are returned than fit in the registers reserved for returning values by the native calling convention. It is hard for the Cranelift backend to match whatever calling convention was invented by LLVM. For the GCC backend, it is likely impossible to match the convention. #1523 : Update abi-cafe issue wasmtime#9250 : Cranelift: Incorrect abi for i128, i128 return value on x86_64 sysv issue wasmtime#9509 : Cranelift: Correctly handle abi calculation for multi-part arguments rust#131211 : Return values larger than 2 registers using a return area pointer rust#132729 : Make fn_abi_sanity_check a bit stricter wasmtime#8875 : Various cleanups to the ABI handling code wasmtime#8903 : Various cleanups to the ABI handling code (part 1) wasmtime#9253 : Couple of cleanups to the ABI computation wasmtime#9258 : Remove StructArgument support from the arm64, riscv64 and s390x backends wasmtime#9267 : Couple of improvements to the abi handling code (part 3) wasmtime#9284 : Couple of improvements to the abi handling code (part 4) wasmtime#9287 : Make the Tail call conv follow the system call conv for the return area ptr issue wasmtime#9510 : Cranelift: Remove support for implicitly adding a return area pointer wasmtime#9511 : Gate support for implicit return area pointers behind an option Windows raw-dylib support for Windows has been implemented by @dpaoliello and @ChrisDenton. This was the last blocker before distributing cg_clif as rustup component for Windows. Thanks a lot to both for all the work! issue #1345 : Implement raw-dylib for Windows ar_archive_writer#15 : Add the ability to create PE import libraries (thanks @dpaoliello!) ar_archive_writer#17 : Add support for creating archives with members from an import library (thanks @dpaoliello!) ar_archive_writer#23 : Make the null import descriptor name unique to the import library (thanks @ChrisDenton!) rust#128206 : Make create_dll_import_lib easier to implement rust#129164 : Use ar_archive_writer for writing COFF import libs on all backends (thanks @ChrisDenton!) 322c2f6 : Sync ar_archive_writer to LLVM 18.1.3 #1524 : Add support for raw-dylib (thanks @dpaoliello!) rust#128939 : Distribute rustc_codegen_cranelift for Windows #1537 : Don’t panic about debug info for Arm64 Windows unwind info (thanks @dpaoliello!) macOS Support for calling variadic functions has long been a blocker for arm64 macOS support. While Rust doesn’t support defining variadic functions, it does need to be able to call several variadic functions like ioctl . As Cranelift doesn’t have native variadic function support, I have been hacking in support in cg_clif by taking advantage of the fact that in most calling conventions variadic arguments are passed the exact same way as regular arguments, so I could cast the defined function signature of the callee to one which lists all variadic arguments as regular arguments. On arm64 Apple however decided to force all variadic arguments to be passed on the stack 1 . As a concequence of this, the hack cg_clif used doesn’t work. A couple months back first contributor @beetrees opened a PR which adds another hack on top of the existing hack to add enough dummy arguments to force the actual variadic arguments to be passed on the stack as they should be. In the future I would like to add native support for variadic functions to Cranelift, but until then this hack unblocked support for arm64 macOS. It is now available as rustup component too. #1515 : enable abi-cafe tests on aarch64-apple-darwin (thanks @lqd!) #1500 : Fix varargs support on aarch64-apple-darwin (thanks @beetrees!) rust#127177 : Distribute rustc_codegen_cranelift for arm64 macOS object#702 : Reverse the order of emitting relocations on MachO 253436c : Better parsing of #[section_name] on Mach-O f340c81 : Statically enable a couple of target features always enabled on arm64 macOS Performance I recently ran the rustc-perf benchmark suite on cg_clif first the first time in a very long time. The results were pretty bad with many benchmarks showing significant regressions compared to cg_llvm. After comparing profiler output between cg_clif and cg_llvm, it became quite clear why the regressions happened: When nightly rustc switched to using lld by default on Linux, this was only done when using the LLVM backend. The reason for this was that Cranelift didn’t yet use TLSDESC on arm64 and lld only supports the TLSDESC thread local storage implementation. This was fixed later, but rustc was never changed to allow lld with cg_clif until I opened a PR a couple of days ago. The next nightly showed much better benchmark results with most benchmarks being 10-50% faster. A couple of secondary benchmarks still showed some non-trivial regressions, but all of them are pathological code. Still I did look further into the coercions benchmark. This showed significantly more time spent writing the object file than compiling to clif ir. Turns out I forgot to wrap the File to which the object file is written in a BufWriter , so it did a ton of tiny writes. Adding the BufWriter completely fixed the regressions on this benchmark. Moral of the story: Benchmark more often. In any case some work is being done on making it easier to do local benchmarks and in the future getting https://perf.rust-lang.org to routinely benchmark cg_clif and compare it against cg_llvm. One of the GSoC projects was adding a faster register allocator to Cranelift. This was successfully done and @d-sonuga (who worked on this) has shown quite promising benchmark results on their blog. Cranelift only started to support selecting this new register allocator a couple of days ago, and it hasn’t made it to a stable release of Cranelift yet. Because of this I haven’t benchmarked it myself yet. Benchmark results. (warning: very long images) Left: before these changes. Right: after these changes. #1489 : Translate MIR to clif ir in parallel with parallel rustc #1541 : Use a BufWriter in emit_module to reduce syscall overhead #1542 : Disable clif ir verifier by default rust#132774 : Use lld with non-LLVM backends wasmtime#7201 : aarch64: Implement TLSDESC for TLS GD accesses (thanks @afonso360!) https://d-sonuga.netlify.app/gsoc/regalloc-iii/ wasmtime#9611 : Cranelift: add option to use new single-pass register allocator. Inline assembly A couple of improvements to inline assembly support this time. #1481 : Allow MaybeUninit in input and output of inline assembly (thanks @taiki-e!) cba05a7 : Support naked functions SIMD A whole bunch of new vendor intrinsics were implemented by contributors. #1488 : add the llvm.x86.sse42.crc32.32.32 intrinsic (thanks @folkertdev!) #1490 : add all llvm.x86.sse42.crc32. . intrinsics (thanks @folkertdev!) #1491 : add llvm.x86.avx2.permd intrinsic (thanks @folkertdev!) 8f1d41e : Implement _rdtsc x86 vendor intrinsic #1495 : add llvm.x86.sse2.cvtps2dq (thanks @folkertdev!) c48b010 : Implement x86 _mm_sqrt_ss vendor intrinsic #1533 : aarch64 neon intrinsics: vmaxq_f32, vminq_f32, vaddvq_f32, vrndnq_f32 (thanks @tjamaan) Challenges SIMD While core::simd is fully supported through emulation using scalar operations, many platform specific vendor intrinsics in core::arch are not supported. This has been improving though with the most important x86_64 and arm64 vendor intrinsics implemented. If your program uses any unsupported vendor intrinsics you will get a compile time warning and if it actually gets reached, the program will abort with an error message indicating which intrinsic is unimplemented. Please open an issue if this happens. issue #171 : std::arch SIMD intrinsics Cleanup during stack unwinding on panics Cranelift currently doesn’t have support for cleanup during stack unwinding. I’m working on implementing this and integrating it with cg_clif. Until this is fixed panic::catch_unwind() will not work and panicking in a single thread will abort the entire process just like panic=abort would. This also means you will have to use -Zpanic-abort-tests in combination with setting panic = "abort" if you want a test failure to not bring down the entire test harness. issue wasmtime#1677 : Support cleanup during unwinding ABI There are still several remaining ABI compatibility issues with LLVM. On arm64 Linux there is a minor incompatibility with the C ABI, but the Rust ABI works just fine. On arm64 macOS there are several ABI incompatibilities that affect the Rust ABI too, so mixing cg_clif and cg_llvm there isn’t recommended yet. And on x86_64 Windows there is also an incompatibility around return values involving i128. I’m slowly working on fixing these. issue #1525 : Tracking issue for abi-cafe failures Contributing Contributions are always appreciated. Feel free to take a look at good first issues and ping me (@bjorn3) for help on either the relevant github issue or preferably on the rust lang zulip if you get stuck. https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms#Update-code-that-passes-arguments-to-variadic-functions ↩
+======>
+https://old.reddit.com/r/rust/comments/1gv508j/how_exactly_does_python_and_rust_work_together/
+-->>-->>
+Hi all.   
+
+   I'm an absolute Rust noob, and a self-taught Python coder. I don't work as a developer and have no CS background, just started learning Rust for fun. I recently discovered that you can integrate faster Rust programs into simpler Python scripts.    
+
+   I'm curious about the underlying mechanics of this process. I understand that Python essentially serves as an interface that "glues together" multiple C++ files. So, it would make sense to me to write functions in C++ that interact with the C++ files that comprise Python. However, how does Rust achieve this? Does it convert Python objects into Rust data types? I know you can compile a Rust program into a binary that can accept and process command-line arguments. Is Python essentially doing that?   
+
+   Would love to get your takes on that, and If anyone knows of any good articles on this topic, I'd be eager to read them.   
+   
+
+======>
+https://www.rustfinity.com/
+-->>-->>
+Rust compiler in your browser We built an integrated compiler in the browser so that you can focus on writing code than setting up the environment. Start coding Endless Rust problems So many Rust problems to solve. You'll never run out of Rust problems to solve. New problems are added constantly. Start solving problems Lessons and tutorials A step-by-step guide to learn Rust. We have lessons and tutorials to help you learn Rust from scratch. Start learning Be the First to Know Subscribe Rust compiler in your browser We built an integrated compiler in the browser so that you can focus on writing code than setting up the environment. Start coding Endless Rust problems So many Rust problems to solve. You'll never run out of Rust problems to solve. New problems are added constantly. Start solving problems Lessons and tutorials A step-by-step guide to learn Rust. We have lessons and tutorials to help you learn Rust from scratch. Start learning Rust compiler in your browser We built an integrated compiler in the browser so that you can focus on writing code than setting up the environment. Start coding
+======>
+https://seanmonstar.com/blog/hyper-in-curl-needs-a-champion/
+-->>-->>
+seanmonstar About Sponsor Blog Nov 19 2024 # hyper in curl Needs a Champion tl;dr - hyper in curl is nearly complete, but it needs a champion. Without a partner actively engaged that wants to enable and ship, it’s now on the path for being deprecated and removed. It needs a champion, a backing vendor or distro. Will that be you? Why would you put a hyper in a curl? Why would you? Memory safety. Company after company , product after product , report after report . Memory un -safety. Causes. Serious. Issues. curl is everywhere . Billions of installations. It’s likely all humans accessing the internet use curl. A self-analysis of curl finds that half of curl’s vulnerabilities are C mistakes . Memory safety. As I said when when we told the world about it : Considering how much curl is used, this was an opportunity to make the internet safer. hyper is the most mature HTTP library written in Rust. By making hyper a possible HTTP backend for curl, the code used for the most ubiquituous protocol could be made safer. Certainly true for HTTP/1, even more so with the much bigger (code-wise) HTTP/2 and HTTP/3. So, why do this? Oh, right. Ahem. Memory safety . Most of the work is done Let me back up a little. In 2020, we started exploring the idea . I designed and built a C API for hyper . Daniel refactored curl to allow for HTTP backends, and integrated hyper . We got it nearly complete. Adventurous tinkerers were able to build and use it on their personal machines. Over 95% of curl’s large test suite was passing. I gave a talk for curl up 2022 about the progress. 1 We’re ready to finished, technically. Over the finish line Funding for an engineer to complete the work is available. But the upkeep of the feature isn’t free, in both the curl and hyper repositories. Because of that, and without a commited organization wanting to ship it, it’s planned to be removed at the start of 2025. So, what exactly could change that? What is needed? Champion required A champion, if you want it. 2 A backing vendor or distro that wants to enable and actively use the backend. A launch partner. Many people know what it’s like to work on a large new feature, ask people to try it out, and everyone is too busy, assuming someone else will. A launch partner actively tests it and provides feedback. There’s more incentive to partner than ever, as we see companies successfully make code safer . And this project is so close, adopting now can have a large impact compared to the remaining effort. Reach out to me if you want this to happen. Sooner rather than later. Let’s make the internet safer! Recently, a few more things have been improved on hyper’s side. For instance, @nnethercote and @jsha significantly improved the C docs , and  @hjr3 added HTTP/1.1 trailers support that curl needed. ↩ People always end up doing exactly what they want. There’s a loud rewrite-it-in-Rust sub-community. Here’s an opportunity. Actions show what people actually want. ↩ 09:48am #rust #hyper #curl #memory-safety My name is Sean McArthur, and here I blabber on about Rust, networking, open source, and a better web. Subscribe via RSS or Email Sponsor my OSS work //serve random sponsor
+        (function(){
+            var sponsors = [
+                {
+                    'link': '/sponsor?ref=sidebar',
+                    'img': 'https://www.gravatar.com/avatar/dfb248d98bc7c238fccd5aad53624eab.png',
+                    'text': 'Sponsor my OSS work'
+                },
+                {
+                    'link': 'https://masto.ai/@seanmonstar',
+                    'img': 'https://www.gravatar.com/avatar/dfb248d98bc7c238fccd5aad53624eab.png',
+                    'text': 'Follow @seanmonstar@masto.ai'
+                },
+                {
+                    'link': 'https://bsky.app/profile/seanmonstar.com',
+                    'img': 'https://www.gravatar.com/avatar/dfb248d98bc7c238fccd5aad53624eab.png',
+                    'text': '@seanmonstar.com on Bluesky'
+                }
+            ];
+            var randIndex = Math.floor(Math.random() * sponsors.length);
+            var sponsorDiv = document.getElementById('spon'),
+                sponLink = sponsorDiv.getElementsByTagName('a')[0],
+                sponImg = sponsorDiv.getElementsByTagName('img')[0],
+                sponSpan = sponsorDiv.getElementsByTagName('span')[0];
+            sponLink.href = sponsors[randIndex].link;
+            sponSpan.innerHTML = sponImg.alt = sponLink.title = sponsors[randIndex].text;
+            sponImg.src = sponsors[randIndex].img;
+        })(); © 2008-2024 Sean McArthur RSS

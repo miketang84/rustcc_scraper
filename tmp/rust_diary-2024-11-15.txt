@@ -1,0 +1,606 @@
+https://github.com/samarthsushi/randomart
+-->>-->>
+Triple(Div(Add(Cos(Sin(Number(-0.14320678))), Add(Sin(Cos(Add(Sqrt(Mult(Sin(Sqrt(Exp(Exp(Sin(Cos(Mix(Sin(Cos(Number(0.12987673))), Sin(Mix(Y, X, Y, X)), Cos(Sin(Number(0.3420633))), Mult(Add(Number(-0.36049306), X), Sqrt(Number(-0.599079)))))))))), Exp(Mult(Sin(Sqrt(Exp(Add(Mix(Mult(Sin(Number(-0.06430453)), Cos(Y)), Sin(Sqrt(X)), Add(Sin(Number(-0.77358544)), Cos(X)), Sin(X)), Exp(Exp(Sin(Number(-0.5174536)))))))), Cos(Mult(Sqrt(Cos(Mult(Div(Cos(Number(0.63296735)), Cos(X)), Div(Sin(Y), Y)))), Sin(Sin(X)))))))), Exp(Sin(Mult(Sin(Mult(Mult(Sin(Y), Cos(Cos(Sin(Cos(Cos(Number(-0.37934446))))))), Cos(Exp(Exp(Cos(Mult(Sqrt(Number(-0.059450567)), Sin(Number(-0.36224186))))))))), Sin(Cos(Sqrt(Cos(Mix(Cos(Cos(Sin(X))), Cos(Mult(Cos(Number(-0.48298764)), Sin(Y))), Add(Cos(Sqrt(X)), Add(Mult(X, Y), Sin(Number(-0.26007593)))), Sin(Sin(Div(X, Y)))))))))))))), Number(-0.82172287))), Cos(Cos(Exp(Sin(Exp(Exp(Sin(Sin(Cos(Cos(Sin(Cos(Div(Exp(Sin(Div(X, Y))), Cos(Exp(Cos(X))))))))))))))))), Div(Sin(Mult(Cos(Cos(Cos(Cos(Sin(Div(Sin(Mult(Mix(Add(Cos(Mult(Sqrt(Cos(Number(-0.9423096))), Sqrt(Y))), Mix(Mult(Sin(Cos(X)), Div(Cos(Y), Div(X, Y))), Sqrt(Cos(Sin(X))), Y, Exp(Sin(Sin(X))))), Mult(Sin(Mix(Exp(Mult(Number(-0.6048886), X)), Cos(Cos(X)), Cos(Mult(Number(-0.24840617), Y)), Cos(Div(X, Number(-0.9156963))))), Y), Cos(Mix(Div(Add(Mix(Number(0.6295861), Y, X, X), Div(Number(-0.6863682), X)), Add(Mix(Number(-0.8771587), X, Y, Number(-0.08063704)), Cos(X))), Mix(Sqrt(Cos(X)), Exp(Exp(Y)), Cos(Mult(Y, X)), Mult(Sqrt(Number(0.36463416)), Add(X, Y))), Cos(Exp(Sin(Number(-0.5906637)))), Cos(Add(Sin(Y), Mix(Y, Y, Number(-0.04321611), Y))))), Mult(Div(Sin(Sin(Exp(X))), Sin(Cos(Sin(Y)))), Cos(Div(Cos(Div(Y, Y)), Exp(Sqrt(X)))))), Add(Sin(Cos(Sin(Sin(Sin(Number(-0.8430877)))))), Sin(Cos(Cos(Cos(Cos(Y)))))))), Sqrt(Cos(Sin(Number(-0.74280447)))))))))), Sin(Mult(Cos(Mult(Div(Cos(Sin(Sin(Cos(Exp(Sin(Cos(Div(Mix(Number(-0.87980515), Y, Number(-0.13424402), X), Sin(Y))))))))), Cos(Div(X, Sin(Sin(Exp(Sqrt(Cos(Cos(Sin(X)))))))))), Mix(Sqrt(Cos(X)), Exp(Cos(X)), Sin(Sin(Div(Cos(Cos(Cos(Sin(Cos(Cos(Number(-0.41278386))))))), Mult(Add(Exp(Cos(Y)), Mix(Mult(Exp(Cos(Number(0.50737107))), Cos(Sin(X))), Sin(Mix(Sin(X), Sin(Y), Sqrt(X), Y)), Sin(Exp(Exp(Y))), Number(0.6915655))), Exp(Cos(Cos(Sin(Cos(X))))))))), Mult(Sin(Mult(Mix(Exp(Sin(Cos(Exp(Div(X, Number(-0.48297864)))))), Exp(Add(Sqrt(Sin(Sin(Number(-0.73748004)))), Exp(Sin(Sin(Number(-0.58256185)))))), Sin(Mult(Mix(Exp(Div(Y, X)), Exp(Cos(X)), Div(Exp(X), Mix(Y, Y, Number(-0.20308536), Number(0.1147809))), Cos(Mix(X, X, Y, Y))), Add(Mix(Cos(Y), Sqrt(X), Cos(X), Y), Cos(Cos(Number(0.7991773)))))), Mix(Sin(Div(Add(Sin(X), Add(X, Y)), Sin(Sin(Y)))), Cos(Sqrt(Div(Add(Y, Y), Div(Number(-0.0010092854), X)))), Sin(Div(Sin(Div(Number(-0.65613955), Y)), Sin(Cos(Number(0.10976398))))), Mult(Mult(Mult(Sin(Y), Add(Y, Y)), Sin(Sin(X))), Exp(Cos(Exp(Y)))))), Cos(Div(Mix(Exp(Sin(Sin(Y))), Sin(Sin(Div(X, Number(0.68613243)))), Number(-0.36142647), Y), Sin(Div(Sin(Y), Add(Exp(X), Cos(Y)))))))), Mix(Exp(Mix(Sin(Exp(Sin(Div(Cos(Number(0.24319816)), Cos(Number(0.8917732)))))), Add(Cos(Cos(Mix(Cos(Y), Sin(Y), Div(X, Y), Cos(X)))), Add(Sin(Sqrt(Sqrt(Number(-0.40626276)))), Cos(Y))), Sin(Add(Cos(Cos(Mix(X, X, X, X))), Sqrt(Cos(Sqrt(Y))))), Cos(Cos(Mix(Sin(Mix(Y, Number(0.85710704), Number(0.7470633), X)), Y, Sin(Mult(X, Y)), Number(0.77673066)))))), Cos(Sin(Sin(Cos(Cos(Exp(Add(Number(-0.3877203), Y))))))), Cos(Exp(Sin(Exp(Mult(Div(Sin(Y), Div(Y, X)), Cos(Add(Y, Number(-0.6602052)))))))), Exp(Sin(Sqrt(Add(Sin(Cos(Cos(X))), Add(Exp(Div(Number(0.014931679), Number(0.81021035))), Sin(Cos(Y)))))))))))), Sin(Div(Cos(Add(Sin(Sin(Cos(Cos(Cos(Exp(Sin(Sin(Y)))))))), Sin(Sqrt(Cos(Exp(Mult(Sin(Sin(Sin(Y))), Mult(Exp(Exp(Number(0.8102975))), Div(Exp(Y), Cos(Y)))))))))), Mult(Cos(Sin(X)), Cos(Div(Cos(Cos(Sin(Number(0.72053754)))), X))))))))), Cos(Sqrt(X))), Mix(Cos(Mult(Div(Mix(Sin(Sin(Sqrt(Sin(Number(0.3495475))))), Mix(Mult(Cos(Mult(Sqrt(Sin(Mult(Mult(Cos(Sin(Number(0.34913957))), Cos(Add(Mult(Sin(X), Sin(Y)), Cos(Exp(Number(0.47822368)))))), Sin(Add(Sqrt(Sin(Sqrt(X))), Sin(Sin(Sin(X)))))))), Cos(Number(-0.028246045)))), Cos(Cos(Sin(Mult(Cos(Sin(Div(Cos(Cos(Cos(X))), Cos(Mult(Cos(X), Sin(X)))))), Sin(Sqrt(Mix(Exp(Cos(Sin(X))), Sin(Div(Sqrt(X), Div(Number(-0.30690622), X))), Sin(Div(Add(Number(-0.03772956), Y), Cos(Y))), Sin(Mult(Cos(Number(0.004562497)), Mix(X, X, X, Y))))))))))), Number(-0.064306915), Cos(Sin(X)), Sin(Cos(Mult(Sin(X), Mult(Div(Div(Sin(Mix(Mult(Mix(Mult(X, Number(-0.109950125)), Sin(X), Sqrt(X), Sin(Y)), Exp(Exp(Y))), Mix(Mult(Div(X, Y), Mult(X, Y)), Cos(Cos(Y)), Sin(Exp(Y)), Add(Sin(Y), Sqrt(Number(0.23427069)))), Sin(Div(Sin(Number(-0.4689204)), Div(Y, X))), Sin(Div(Cos(Number(-0.8679805)), Add(Number(-0.002910018), X))))), Exp(Mult(Add(Cos(Sin(Number(0.102455854))), Div(Mult(Y, Y), Sin(Y))), Cos(Exp(Mult(Y, Y)))))), Y), Cos(Y)))))), Mix(Exp(Sin(Div(Mix(Sin(Mult(Div(Sin(Cos(Mix(Div(X, Y), Cos(Y), Cos(X), Sqrt(Y)))), Add(Exp(Mix(Exp(Number(-0.4068365)), Mix(X, Y, Y, Number(0.755504)), Sin(Number(0.11176741)), Cos(Y))), Sqrt(Div(Mult(X, X), Exp(Number(0.97167003)))))), Mult(Sqrt(Cos(Add(Sin(X), Add(Y, Y)))), Sqrt(Mix(Div(Y, Mult(X, Y)), Div(Add(X, Y), Sin(X)), Mult(Mult(X, Y), Div(X, X)), Add(Cos(Y), Mult(Number(-0.5059426), X))))))), Cos(Add(Add(Sin(Cos(Sin(Cos(Number(0.83246505))))), Mult(Cos(Mix(Div(X, Number(-0.5473858)), Y, Cos(Y), Sin(Number(0.773656)))), Cos(Mult(Mult(Number(0.0025657415), X), Sqrt(Y))))), Mix(Sqrt(Exp(Cos(Cos(X)))), Mult(Cos(Sin(Cos(X))), Sin(Sqrt(Sin(Number(0.1543473))))), Mult(Sqrt(Div(Sin(Y), Mix(Number(-0.7793821), X, Number(0.048429012), Y))), Cos(Sin(Mix(X, Y, Number(-0.23055542), Y)))), Exp(Cos(Cos(Div(X, X))))))), Cos(Div(Sin(Cos(Add(Exp(Sin(X)), Cos(Cos(X))))), Sin(Cos(Div(Cos(Mult(Number(-0.8323845), Y)), Mult(Div(Y, Number(0.24268878)), Cos(X))))))), Div(Cos(Exp(Sin(Number(-0.2940383)))), Exp(Cos(Sin(Sin(Div(Cos(Number(0.99999774)), Sin(X)))))))), Mult(Cos(Sqrt(Sin(Exp(Number(0.7527125))))), Add(Cos(Sin(Add(Exp(Sin(Mix(Y, X, Number(0.52192676), X))), Sin(Exp(Sqrt(Number(-0.25843805))))))), Sin(Mult(Sqrt(Mix(Sqrt(Exp(Y)), Exp(Cos(Y)), Sin(Mix(Y, Y, X, Y)), Cos(Add(Y, X)))), Cos(Cos(Cos(Cos(Y))))))))))), Mult(Mult(Div(Mult(Add(Mult(Sin(Cos(Cos(Sin(Sqrt(Number(0.032577157)))))), Cos(Cos(Div(Cos(Add(Y, X)), Cos(Cos(Number(0.7970786))))))), Sin(Mix(Sin(Sin(Cos(Add(Y, Y)))), Sqrt(Exp(Cos(Sin(X)))), X, Mult(Div(Add(Sqrt(X), Cos(Y)), Div(Sin(X), Sin(Number(0.514042)))), Cos(Cos(Sin(Y))))))), Cos(Cos(Mix(Sin(Sin(Add(Sin(X), Exp(Y)))), Mix(Cos(Mix(Cos(X), Cos(X), Exp(Number(-0.25490594)), X)), Sqrt(Exp(Sin(Y))), Sqrt(Cos(Div(Y, X))), Sqrt(Sin(Div(Y, X)))), Exp(Add(Exp(Cos(Y)), Cos(Cos(Number(-0.14494854))))), Cos(Sqrt(Mult(Cos(Y), Mult(Number(0.81304383), Y)))))))), Sqrt(Cos(Add(Cos(Cos(Sin(Sqrt(Cos(Y))))), Exp(Exp(Cos(Sin(Sin(Y))))))))), Sin(Cos(Add(Div(Mix(X, Exp(X), Cos(Add(Cos(Cos(X)), Mult(Exp(Y), Exp(Y)))), Cos(Y)), Div(X, Sqrt(Sin(Mix(Cos(Number(0.4647845)), Sin(Number(0.025944114)), X, Sqrt(X)))))), Mult(Sin(Add(Sqrt(Sin(Number(0.21214855))), Y)), Exp(Sqrt(Cos(Sqrt(Exp(Y)))))))))), Div(Sin(Mult(Exp(Sin(Exp(Cos(Cos(X))))), Cos(Sin(Div(Div(Exp(Sin(Add(X, Number(0.52490675)))), Mix(Sin(Exp(X)), Mult(Number(0.6354016), Cos(Y)), Sin(Div(Y, X)), Sqrt(Cos(Y)))), Mult(Cos(Add(Mix(Y, X, Number(0.30799115), X), Cos(Y))), Sin(Sin(Div(X, X))))))))), Sin(Div(Cos(Sin(Exp(Exp(Cos(Sin(Sin(Number(0.7638055)))))))), Cos(Div(Number(0.050186753), Sin(Exp(Cos(Div(Exp(Y), Cos(Y))))))))))), Mult(Sin(Number(-0.55209196)), Sin(Exp(Mult(Sin(Exp(Cos(X))), Number(-0.15098155))))), Sin(Sin(Sin(Sin(Div(Cos(Cos(Mult(Cos(Add(Cos(X), Cos(Number(0.1645664)))), Add(Exp(Mult(X, Number(-0.015077531))), Sin(Exp(Number(0.30891848))))))), Y)))))), Sin(Cos(Add(Sin(Div(Sin(Exp(Sqrt(Sin(Cos(Sin(Sin(X))))))), Mult(Cos(Cos(Sin(Mix(Mult(Sin(Number(-0.9504867)), Sin(Number(0.18398857))), Cos(Add(X, Number(0.7596531))), Cos(Y), Div(Cos(X), Sin(Y)))))), Sin(Sin(Y))))), Sin(Cos(Cos(Sin(X)))))))), Add(Mix(Sin(Cos(Mix(Cos(Add(Mult(Mult(Exp(Mult(Div(Cos(Y), Mult(X, X)), Cos(Div(Number(-0.07320893), Y)))), Cos(Mix(Sin(Add(Number(0.97120214), Number(-0.015099168))), Sin(Mult(X, X)), Sin(Cos(Y)), Sin(Cos(Number(0.5798764)))))), Add(Add(Sin(Cos(Cos(Number(-0.5964972)))), Cos(Cos(Y))), Sin(Add(Cos(Cos(Y)), Exp(Div(Number(0.64816475), X)))))), Cos(Exp(Mult(Exp(Sin(Mix(X, X, Y, Y))), Cos(Cos(Exp(Y)))))))), Mix(Sin(Cos(Cos(Exp(Sin(Sin(Sin(Number(0.2052474)))))))), Cos(Add(Sqrt(Cos(Cos(Div(Div(Y, Y), Exp(X))))), Exp(Sin(Sin(Add(Mix(Y, Number(-0.0098260045), X, Y), Exp(X))))))), Mix(Number(0.944718), X, Mix(X, Cos(Sin(Exp(Mix(Mult(X, X), Sin(Y), Cos(X), Sqrt(Number(0.88337076)))))), X, Div(Sqrt(Number(-0.2770806)), Mix(Cos(Cos(Mix(Y, Number(-0.5339681), X, Number(-0.19174957)))), Exp(Exp(Sin(X))), Mix(Number(-0.447838), Mix(Add(Number(-0.8230066), Y), Add(Number(0.7873901), Number(0.64973223)), Cos(Y), Mix(Y, X, X, Y)), Sin(Div(Number(-0.6289691), Number(0.6278701))), Sin(Number(0.708887))), Exp(Div(Mix(Number(0.46761763), Number(-0.22412986), X, X), Sin(Number(-0.18312687))))))), Add(Y, Cos(Y))), Cos(Mult(Sqrt(Cos(Add(Cos(Sin(Number(0.5492463))), Div(Cos(Y), Exp(X))))), Div(Sin(Sin(Exp(Div(Number(-0.038919747), X)))), Cos(Cos(Sin(Exp(Y)))))))), Cos(Exp(Sqrt(Exp(Cos(Div(Y, Exp(Mult(Number(-0.24781406), Number(-0.4888149))))))))), Sin(Cos(Sin(Div(Mult(Sin(Sin(Add(X, Number(0.6833426)))), Mult(Mult(Y, Exp(Number(-0.615209))), Sin(Sin(X)))), Mult(Sqrt(Sqrt(Cos(X))), Cos(Cos(Mult(X, X))))))))))), Cos(Mix(Cos(Sin(Cos(Cos(Cos(Cos(X)))))), Cos(Div(Exp(Cos(Cos(Sqrt(Mix(Sqrt(Mult(Number(0.44387162), Number(-0.5749948))), Add(Exp(Y), Cos(Number(-0.6119069))), Cos(Add(Y, X)), Cos(Sin(X))))))), Number(-0.9596319))), Number(0.23736715), Cos(Sin(Sin(Mult(X, Exp(Sin(Sin(Div(Mult(Y, X), Sin(Number(-0.052057028)))))))))))), Cos(Sin(Sin(Sin(Div(Mix(Cos(X), Sqrt(Sin(Sin(Sin(Cos(Y))))), Sin(Sin(Sqrt(Exp(Cos(Number(0.8709527)))))), Number(-0.92868245)), Mult(Sin(X), Sin(Mult(Div(Cos(Mult(X, Number(0.4355904))), Sin(Cos(Y))), Sin(Div(Sin(Number(0.2802844)), Mix(Number(-0.83142304), Number(0.617736), X, Number(0.7274498)))))))))))), Div(Sin(Cos(Mix(Cos(Div(Sqrt(Exp(Mult(Cos(Exp(X)), Exp(Sqrt(Y))))), Exp(Mult(Sin(Cos(Sqrt(X))), Mult(Cos(Sin(Number(-0.61841726))), Mult(Sin(Y), Sqrt(Number(0.41551423)))))))), Cos(Mix(Cos(Cos(Cos(Mix(Number(-0.07645905), Exp(Y), Mix(X, Y, Number(-0.58819205), Number(0.5839802)), Cos(X))))), Exp(Y), Add(Mult(Mix(Sqrt(Sin(Number(-0.46542597))), Add(X, Add(Y, Y)), Add(Sin(X), Div(Y, Number(-0.21287918))), Sin(Cos(X))), Sin(X)), Add(Mult(Mult(Sin(X), Cos(Number(-0.43943208))), Div(Exp(Y), Cos(Number(0.45012224)))), Cos(Sin(Add(Number(0.7323346), X))))), Cos(Mix(Mix(Cos(Mult(Y, X)), Mult(X, Sin(X)), Cos(Cos(Y)), Sin(Mix(Number(0.20066547), Y, X, Number(-0.09153783)))), Mult(Add(Exp(Y), Mix(Number(0.32048595), Y, X, Y)), Mix(Div(Y, Y), Cos(X), Div(X, X), Mult(Y, X))), Sin(Sin(Cos(X))), Y)))), Mix(Cos(Sin(Div(Cos(Sin(Sqrt(X))), Cos(Y)))), Sin(Cos(Sqrt(Cos(Mix(Cos(Y), Sin(X), Y, Mult(Y, Y)))))), Exp(Sin(Mix(Mix(Cos(Cos(Y)), Div(Sin(Number(0.14871824)), Sin(Y)), Add(Exp(X), Add(Y, Y)), Number(-0.94822216)), Mix(Sin(Exp(Y)), Sin(Div(Y, Y)), Cos(Div(Y, X)), Y), Cos(Add(Number(0.40875208), Exp(Number(-0.042478323)))), Cos(Sin(Number(-0.031902194)))))), Exp(Y)), Cos(Sin(Mix(Sin(Cos(Number(-0.10499954))), Cos(Cos(Exp(Exp(Y)))), Exp(Sin(Cos(Cos(Y)))), Cos(Add(Y, Add(Sin(X), Cos(X)))))))))), Mult(Cos(Sin(Add(Sin(Sqrt(Sqrt(Cos(Cos(Sin(X)))))), Div(Sin(Cos(Div(Sin(Number(0.22065699)), Sin(Cos(Number(0.74862957)))))), Number(0.7524036))))), Number(-0.37149942)))), Exp(Cos(Cos(Y))))), Cos(Sin(Sin(Y))))), Mix(Sin(Cos(Div(Sin(Div(Sin(Cos(Y)), Sin(Mix(Mix(Sin(Exp(Exp(Cos(Mix(Mult(Cos(X), Mix(Number(0.5934701), X, Y, X)), Cos(Sin(Y)), Sin(Sin(X)), Add(Div(Y, Y), Y)))))), Sin(Cos(Sin(Sin(Cos(Y))))), Cos(Sin(Sin(X))), Sqrt(X)), Mix(Mix(X, Sin(Cos(Add(Mix(Exp(Exp(Y)), X, Exp(Cos(Y)), Sin(Sin(Number(-0.9456918)))), Div(Mix(Sqrt(Y), Mix(X, X, Number(-0.78852916), Number(-0.17267483)), Mix(Y, Y, X, X), Cos(Y)), Sin(Cos(Number(-0.8741473))))))), Exp(Cos(Mult(Sin(Div(Exp(Number(0.22395623)), Add(Number(-0.3532501), Y))), Cos(Cos(Sin(X)))))), Mix(Sin(Exp(Cos(Sin(Mult(X, Y))))), Exp(Mult(Sin(Sin(Sqrt(X))), Add(Sqrt(Sin(Number(-0.18035722))), Mult(Cos(X), Cos(X))))), Cos(Sin(Cos(Mult(Mix(Number(0.86577857), Y, Y, X), Cos(Number(-0.6594358)))))), Y)), Y, Cos(Cos(Number(0.5229447))), Mix(Sin(Div(Cos(Sin(Cos(Sqrt(X)))), Cos(Sin(Sin(Sqrt(Number(-0.103687644))))))), Sin(Mix(Exp(Sin(Add(Add(X, X), Sin(Y)))), Cos(Number(-0.28975892)), Sin(Exp(Sin(Cos(Number(0.98677516))))), Exp(Cos(Cos(Exp(Number(-0.470249))))))), Add(Mix(Cos(Sin(Div(Mult(X, X), Cos(Number(-0.5741714))))), Sin(Add(Sin(Div(X, Y)), Y)), Cos(Mix(Sqrt(Div(Y, X)), Cos(Sin(Number(-0.96921295))), Add(Mult(X, X), Exp(Number(0.6879387))), Sin(Cos(Number(-0.06764853))))), Sin(Sin(Cos(Cos(Number(-0.4187088)))))), Add(Cos(Cos(Div(Cos(X), Div(X, X)))), Div(Cos(Sin(Sin(X))), Cos(Mult(Mult(Y, Y), Sqrt(Number(0.3062575))))))), Sin(Sin(Cos(Sin(X)))))), Cos(Sqrt(Cos(Cos(Exp(Number(0.24036384)))))), Cos(Add(Sin(Sin(Number(-0.5450039))), Sin(X))))))), Mix(Sqrt(Cos(Sin(Sin(Sin(Y))))), Div(Cos(Sin(Y)), Cos(Add(Sqrt(Cos(Cos(Exp(Cos(Cos(Number(-0.16056913))))))), Y))), Mix(Cos(Sqrt(X)), Cos(Mult(Sin(Div(Number(0.33157992), Sin(Sin(Sin(Sin(Div(Exp(X), Div(X, X)))))))), Cos(Add(Sin(Mult(Add(Add(Mult(Div(Number(-0.2154535), Y), Cos(Y)), Sin(Cos(Y))), Div(Sin(Cos(Y)), Sin(Sin(Y)))), Cos(Cos(Cos(Add(Y, Number(0.14503872))))))), Mix(Exp(Sin(Cos(Mult(Mix(X, Number(-0.4516794), X, Number(0.89927673)), X)))), Cos(Number(0.65038323)), Sin(Cos(Div(Mult(Mix(X, X, Y, Number(-0.791076)), Div(Number(-0.07804692), Number(0.7185346))), Add(Div(Number(0.38050663), Number(-0.57676524)), Cos(X))))), Sqrt(Sin(Mix(Exp(Div(Y, X)), Sin(Cos(Y)), Cos(Exp(Y)), Cos(Mult(Y, Number(-0.18346393))))))))))), Cos(Cos(Cos(Sqrt(Sqrt(Sin(Div(Exp(Exp(Exp(Y))), Cos(Add(Sin(X), Mult(X, Number(-0.7582235))))))))))), Sqrt(Cos(Add(Sin(Cos(Number(-0.48211753))), Sin(Cos(Sin(Exp(Cos(Exp(Exp(Y))))))))))), Add(Mix(Number(-0.59193516), Sin(Sin(Exp(Sqrt(Div(Mult(Mix(Sin(Sin(X)), Cos(Add(X, X)), Cos(Sin(X)), Sin(Y)), Exp(Sin(Sqrt(Number(-0.37427878))))), Cos(Sin(Sin(Cos(X))))))))), Exp(Add(Mult(Sin(Y), Exp(Cos(Sin(Add(Y, Y))))), Sqrt(Sin(Sin(Mix(Cos(Sqrt(Mult(Y, X))), Mult(Cos(Number(-0.74629235)), Cos(Exp(Y))), Div(Cos(Cos(Y)), Sqrt(Y)), Sin(Sin(Sqrt(Number(-0.4606545)))))))))), Sin(Cos(X))), Mix(X, Div(Mult(Sqrt(Cos(Cos(Sin(Sqrt(Exp(X)))))), Number(0.06035924)), Cos(Y)), Sin(Sqrt(Mult(Cos(Cos(X)), Mult(Cos(Cos(Sin(Exp(Sin(Y))))), Add(Cos(Cos(Sin(Cos(X)))), Cos(Cos(Sqrt(Add(Number(-0.71127474), Y))))))))), Sqrt(Mult(Sin(Sqrt(Cos(Sin(Mult(Mix(Div(X, Number(-0.13324112)), Add(X, X), Add(Y, Number(-0.51584125)), Sin(X)), Y))))), Sin(Sin(Div(Exp(Mult(Div(Cos(X), Cos(Y)), Add(Sin(Y), Exp(X)))), Cos(Sin(Mix(Add(Y, X), Sin(Number(-0.67880726)), Div(Y, X), Add(Number(-0.57505476), X))))))))))))))), Cos(Cos(Cos(Sin(Sin(Sin(Sin(Add(Sin(Mix(Y, X, Cos(Sin(Cos(Mix(Sin(Y), Add(Number(0.65507483), Y), Sin(Number(-0.9894132)), Sin(Y))))), Cos(Add(Mult(Cos(Cos(Number(0.19391227))), Cos(Mix(Y, Number(0.19417083), X, X))), Add(Sin(Sin(X)), Cos(Mult(X, X))))))), Sin(Sqrt(Cos(Cos(Mult(X, Sin(Exp(Number(0.64459777)))))))))))))))), Sin(Mix(Y, Cos(Sin(Cos(Mix(Sin(Cos(Mult(Sin(Sin(Mix(Mix(X, Mult(Cos(Y), Sin(Y)), Add(X, Exp(Y)), Add(Sqrt(Number(0.48107958)), Mult(X, X))), Add(Cos(Exp(X)), Sin(Sin(Y))), Div(Mult(Cos(Y), Exp(Y)), Div(Cos(X), Sin(Y))), Sin(Exp(Div(Y, X)))))), Y))), Sin(Exp(Sin(Sin(Sin(Mult(Exp(Sin(Mix(X, X, Y, Y))), Sin(Div(Sin(X), Exp(X))))))))), Div(Mult(Div(Cos(Mix(Cos(Sin(Sin(Cos(Number(-0.19622135))))), Y, Y, Sin(Sin(Mix(Sin(X), Cos(Y), Sin(X), Add(Number(-0.07689148), Number(0.19692588))))))), Exp(Div(Div(Sin(Cos(Sin(Number(0.004932761)))), Add(Y, Cos(Mix(Number(0.84725547), Y, Y, Number(0.1958046))))), Cos(Sin(Sqrt(Cos(X))))))), Mix(Sqrt(Number(-0.04027897)), X, Sin(Sin(Sin(Exp(Cos(Div(X, Number(-0.9133847))))))), Div(Exp(Cos(Cos(Sin(Sin(Y))))), Sqrt(Mix(Number(-0.08670664), X, Div(Mult(Cos(Y), Exp(Number(-0.5727257))), Cos(Div(X, Y))), Cos(Add(Cos(Number(0.7861527)), Add(X, X)))))))), Exp(Sin(Sin(Div(Sin(Add(Add(Cos(Y), Cos(Number(-0.17198682))), Cos(Sqrt(Number(-0.9646359))))), Sin(Sqrt(Mult(Sin(Y), Add(Number(0.9888084), X))))))))), Exp(Mult(Sin(Sqrt(Div(Add(Mult(Div(Sqrt(Number(0.3537501)), Cos(Number(0.3001616))), Y), Add(Cos(Cos(Number(-0.7373171))), Sin(Y))), Sqrt(Cos(Sqrt(Cos(X))))))), X)))))), Sin(Sqrt(Cos(Sin(Cos(Cos(Div(Mult(Mult(Div(X, Mult(Sin(Add(Number(0.6632433), Y)), Mix(Cos(Y), Add(Number(-0.49911207), X), Cos(X), Cos(Number(-0.81166095))))), Exp(X)), Sin(Mix(Sqrt(Cos(Cos(Y))), Cos(Exp(Mult(Number(-0.21213251), Y))), Mix(Exp(Cos(Y)), Exp(Mult(Y, Y)), Div(Mult(X, Y), Cos(Number(0.038701415))), Cos(Sin(Number(0.83962953)))), Div(Cos(Sin(Number(-0.63057184))), Cos(Cos(Y)))))), Mult(Sin(Mult(Add(Div(Cos(Number(-0.38629252)), Mix(X, Y, Y, X)), Add(Cos(Number(0.9263333)), Mult(Y, Number(-0.62272906)))), Cos(Exp(Sin(Y))))), Sin(Mult(Div(Sin(Add(X, Number(-0.68700856))), Sin(Div(X, X))), Sin(Sin(Sin(X))))))))))))), Add(Cos(Mix(Mult(Sin(Mix(Exp(Add(Cos(Sqrt(Cos(Add(Sqrt(X), Number(0.3543434))))), Cos(Sqrt(Add(Cos(Sin(Y)), Sin(Sqrt(Number(-0.5828701)))))))), Exp(Div(Cos(Add(Cos(Cos(Exp(Y))), Sin(Cos(Cos(Number(0.056019068)))))), Sin(Sin(Exp(Sqrt(Number(-0.24269682))))))), Sin(Mix(Exp(Cos(Cos(Div(Mix(Number(-0.3485222), X, Y, Y), Cos(X))))), Y, Sin(Cos(Exp(Sin(Sin(Y))))), Sin(Mult(Cos(Mix(Div(X, Y), Cos(X), Exp(Number(0.33842492)), Add(X, Y))), Sin(Add(Cos(Y), Div(Y, Number(0.9116055)))))))), Sqrt(Cos(Sin(Sin(Cos(Mult(Div(Number(-0.80568063), Number(0.6912154)), Sin(X))))))))), Cos(Mult(Sqrt(Sin(Cos(Cos(Cos(Mix(Mix(X, Number(-0.2530492), Number(-0.052922726), Y), Exp(Number(0.13713562)), Cos(Y), Mix(Number(-0.2388376), Number(-0.9496919), Number(-0.3593567), Number(-0.62272346)))))))), Sin(Mix(Cos(Cos(X)), Mix(Sin(Number(0.81479096)), Exp(Div(Cos(Add(Y, Y)), Y)), Cos(Sqrt(Add(Mult(X, Y), Cos(X)))), Sin(Sin(Exp(Cos(X))))), Sin(Cos(Cos(Mix(Sin(Number(-0.9390233)), Div(Number(0.033102274), Number(-0.9761268)), Number(0.61303484), Cos(X))))), Mix(Sin(Y), Sin(Sin(Sin(Exp(X)))), Sin(Exp(Y)), Add(Sin(Cos(Sin(X))), Div(Sin(Div(Number(0.87449336), Number(-0.5972011))), Cos(Mix(Number(0.35999036), Number(-0.8804752), Y, Y)))))))))), Sin(Sqrt(Cos(Y))), X, Mult(Sqrt(Sqrt(Exp(X))), Mult(Sin(Cos(Sin(Add(Cos(Cos(Sin(Sqrt(Number(-0.050644934))))), Div(Add(Cos(Cos(Number(-0.6347277))), Cos(Exp(Y))), Sin(Cos(Div(Y, Y)))))))), X)))), Cos(Number(0.1404506))))), Cos(Sqrt(Sin(Sin(Sqrt(Mult(Mix(Add(Mult(Sin(Sin(Sin(Add(Sin(Sin(X)), Sqrt(Cos(X)))))), Sin(Sqrt(Sin(Exp(Sin(Add(Number(0.41177797), Number(-0.8347945)))))))), Cos(Cos(Exp(Cos(Sin(Add(Mult(Number(0.1145432), Number(-0.08312094)), Sin(Y)))))))), Mult(Mult(Sqrt(Cos(Div(Sqrt(Mult(Exp(Y), Exp(Y))), Mult(Mix(Mult(Number(0.2157197), X), Sin(Y), Sqrt(Y), Mult(Number(-0.37020934), X)), Exp(Sin(X)))))), Sin(Mix(Cos(Add(Cos(Mix(Y, X, Number(-0.2876191), X)), X)), Cos(Add(Exp(Cos(X)), Sin(Sqrt(X)))), Sin(Mult(Sin(Sqrt(Y)), Add(Sin(X), Mix(X, Y, Y, Y)))), Exp(Cos(Sin(Sin(Y))))))), Mix(Sin(Cos(Mix(Cos(Add(Sin(Y), Cos(Y))), Sin(Sin(Y)), Cos(Sin(Sin(Number(0.3515575)))), Sqrt(Number(-0.35058212))))), Sin(Mix(Sin(Number(0.11452341)), Sin(Cos(Sin(Div(Number(-0.244488), X)))), Sin(Cos(Cos(Sin(Y)))), Sin(Sin(Add(Sin(Number(-0.7298197)), Mult(X, Y)))))), Cos(Sin(Number(0.17072177))), X)), Mult(Y, Exp(Add(X, Add(Cos(Mult(Cos(Number(-0.69769335)), Exp(Mult(Y, X)))), Mult(Cos(Mult(Mult(Number(0.120052814), Number(-0.11341834)), Div(Y, Number(0.4210354)))), Exp(Mix(Sin(Y), Div(Y, Y), Cos(Number(0.4464395)), Cos(X)))))))), Sqrt(Exp(Cos(Sin(Sin(Sin(Sin(Cos(Y))))))))), Cos(Cos(Sin(Sin(Cos(Add(Div(Cos(Cos(Number(-0.6713137))), Cos(Mix(Y, Y, Number(0.7867204), Number(-0.81227815)))), X))))))))))))), Sin(Cos(Sin(Sin(Sin(Mix(Cos(Cos(Div(Sin(Sin(Mix(Sqrt(Div(Cos(Cos(X)), Sin(Add(Y, X)))), Cos(Mix(Sqrt(Cos(X)), Mult(Number(-0.85110164), Exp(Y)), Add(Mix(X, Y, Y, Y), Cos(X)), Div(Mix(Number(0.40844977), Y, Number(-0.33420676), Number(-0.29338688)), Div(X, Number(0.32558942))))), Cos(Cos(Sin(Sin(Number(-0.509833))))), Div(Mult(Cos(Mult(X, Y)), Cos(Sin(Number(0.9400883)))), Mix(Sin(Mult(Y, Y)), Exp(Mult(X, X)), Mult(Mix(Number(-0.51896966), Number(-0.21270794), X, X), Mix(Y, X, Y, Number(0.36942196))), Sqrt(Sin(Number(0.07482827)))))))), Cos(Cos(Div(Add(Cos(X), Sin(Cos(Sin(X)))), Sin(Sqrt(Mix(Cos(Number(-0.71121716)), Sin(Y), Mix(X, Number(-0.70973265), Number(-0.8225516), Y), Sin(Number(0.019764543))))))))))), X, Exp(Add(X, Add(Sqrt(Mult(Sin(Sin(Sin(Sin(Mult(X, X))))), Cos(Cos(Add(Mix(Cos(Y), Cos(X), Cos(Number(0.65322125)), Sin(X)), Cos(Cos(Number(-0.85839695)))))))), Mult(Add(Mix(Cos(Sin(Y)), Sqrt(Sqrt(Exp(Cos(X)))), Cos(Cos(Mix(Add(Number(0.72308826), Number(0.65712035)), Sin(Y), Sin(Y), Div(Y, Y)))), Cos(Cos(Sqrt(Y)))), Sqrt(Sqrt(Sin(Sqrt(Sin(Number(0.88247526))))))), Exp(Exp(Cos(Sin(Sin(Add(Number(0.9214587), Number(-0.33683997))))))))))), Cos(Cos(Sin(Sin(Cos(Cos(Number(-0.32478553))))))))))))), Mix(Cos(Add(Y, Exp(Exp(Mult(Add(Cos(Sin(Cos(Add(Add(Add(Sin(Add(Cos(X), Mix(X, X, X, Number(-0.5659093)))), Cos(Sin(Cos(Number(-0.24634367))))), Add(Sin(Cos(Sin(Y))), Cos(Cos(Sin(X))))), Y)))), Sin(Cos(Sqrt(Sqrt(Sqrt(Y)))))), Cos(Sin(Cos(Sin(Cos(Sin(Sin(Cos(Add(Number(0.9574189), Cos(Number(-0.5263555)))))))))))))))), Sqrt(Sqrt(Cos(Sin(Sin(Cos(Sin(Sin(Div(Add(Sqrt(Mult(Sin(Div(Sin(Number(0.44231117)), Exp(X))), Sin(X))), Exp(Div(Mult(Sqrt(Y), Mult(Exp(Number(-0.5057694)), Sqrt(Number(0.1781007)))), Sin(Sin(Sin(X)))))), Add(Div(Div(Sin(Add(Sin(X), Sin(Number(0.39516246)))), Cos(Cos(Sin(Number(0.5324826))))), X), Sin(Sin(Sqrt(Sin(Mix(Y, X, Y, Number(-0.08513969)))))))))))))))), Mult(Cos(Exp(X)), Div(Y, Mix(Sin(Cos(Sin(Number(-0.8000852)))), Sqrt(Sqrt(Div(Cos(Exp(Div(X, Add(Sqrt(Sin(Sin(Sqrt(Sqrt(X))))), Sin(Exp(Div(Mix(Cos(Y), Cos(Number(-0.53036886)), Cos(Y), Cos(Y)), Mult(Cos(Y), Sin(Number(-0.3313613)))))))))), Mult(Cos(Y), Sin(Mix(Number(0.12652946), Sin(Sin(Sin(X))), Cos(Mult(Sin(Sin(Div(Sin(Y), Sin(Y)))), Mix(Div(Sin(Cos(X)), Sin(X)), Mix(Cos(Cos(Number(0.53654385))), Add(Sin(X), Sin(Y)), Sin(Div(X, Y)), Sin(Sin(Number(0.82944465)))), Sin(Sin(Mult(Number(0.32553697), Y))), Cos(Sin(Div(X, Number(0.15278625))))))), Mix(Number(-0.34005803), Mult(Cos(Mult(Cos(Mix(Y, Y, X, Number(-0.6285552))), Sqrt(Div(X, X)))), Cos(Cos(Cos(Cos(Number(0.063637614)))))), Mix(Div(Div(Cos(Cos(Y)), Mult(Cos(Number(0.86710715)), Cos(X))), Add(Exp(X), Sin(Cos(X)))), Div(Mult(Div(Exp(Y), Sqrt(Y)), Div(X, Mult(X, X))), Sqrt(Sqrt(Sqrt(Y)))), Cos(Sin(Number(-0.5801364))), Mix(Cos(Sqrt(Cos(Y))), Sin(Cos(Mix(Y, Number(-0.7305194), X, X))), Cos(Cos(Cos(Number(-0.36816114)))), Y)), Mix(Exp(Mult(Cos(Cos(Y)), Exp(Mix(X, X, X, Number(0.911221))))), Sqrt(Sin(Exp(Exp(X)))), Sin(Cos(Cos(Sqrt(X)))), Mult(Cos(Exp(Mult(Y, X))), Cos(Mix(Div(Y, X), Number(-0.16653204), Sin(Y), Cos(Y)))))))))))), X, Exp(Add(Exp(Div(Sqrt(Cos(Cos(Sin(Add(Cos(Cos(Add(X, X))), X))))), Sqrt(Add(Number(0.5408325), Sin(Div(Cos(Sin(Mult(Cos(Number(-0.0048134923)), Cos(Number(0.29158628))))), X)))))), Cos(Cos(Sqrt(Sin(Add(Sin(Sin(Cos(Y))), Cos(Div(Sin(Sqrt(Cos(Number(-0.18105245)))), Cos(Sin(Sin(X))))))))))))))), Mix(Mult(Sin(Y), Sin(Mult(Sin(Mult(Sin(Mix(Div(Sin(Cos(Mix(Add(Sin(Sin(Number(-0.49157864))), Sin(Sin(Y))), Cos(Cos(Cos(Number(-0.033185363)))), Sqrt(Sin(Cos(Number(0.5512737)))), Mult(Sin(Mult(Y, X)), Sin(Sin(Number(-0.092920005))))))), Div(Sqrt(Mix(Mix(Sin(Number(-0.58630705)), Sin(Sqrt(Number(-0.85498893))), Cos(Sqrt(Y)), Exp(Cos(Number(-0.59395146)))), Sin(Exp(Cos(X))), Cos(Div(Cos(Number(0.82890105)), Mix(Y, Number(0.54296076), X, Y))), Cos(Mult(Div(X, Y), Div(Number(0.11185467), Y))))), Sqrt(Sqrt(Sin(Exp(Cos(Number(-0.78901434)))))))), Exp(Sin(Mix(Add(Add(Cos(Sqrt(Y)), Sin(Sqrt(Y))), Sqrt(Sin(Div(Y, Number(-0.1351577))))), Number(-0.09597337), Cos(Cos(Sin(Sin(X)))), Mult(Mix(Exp(Sqrt(Number(-0.8210181))), Add(Number(0.96317446), Exp(X)), Cos(Exp(Number(-0.30183554))), Sin(Cos(X))), Mix(Number(0.24030519), Exp(Div(Number(-0.9082313), Y)), Sin(Div(Y, Y)), Cos(Mix(Y, Number(-0.9880708), X, Y))))))), Mult(Add(Sin(Mult(Exp(Mult(Add(X, X), Sin(X))), Sin(Sqrt(Cos(Y))))), Cos(Sin(Cos(Mix(Div(X, Y), Add(X, Number(0.39153206)), Add(Y, Y), Mix(Y, Number(-0.91434324), X, Y)))))), Cos(Cos(Sin(Sqrt(Sin(Mult(X, Number(0.6091267)))))))), Y)), X)), Exp(Cos(Div(Sin(X), Exp(Add(Mult(Add(Mult(Mix(Sqrt(Sin(X)), Sin(Mix(Y, Number(-0.52658355), Y, X)), Cos(Sin(Number(-0.3398602))), Div(Cos(X), Add(X, X))), Mult(Mult(Div(X, Y), Sqrt(Y)), Div(Sin(Y), Sin(X)))), Mix(Add(Mult(Cos(Number(0.5483179)), Exp(Y)), Sin(Add(X, Y))), Sin(Div(Add(X, Number(-0.500489)), Cos(X))), Cos(Sin(Add(Number(-0.5626701), Number(-0.768016)))), Div(Sin(Exp(X)), Sqrt(Cos(Number(0.68145275)))))), Sin(Div(Exp(Sqrt(Add(Number(-0.55919194), X))), Sqrt(Add(Div(Number(-0.6945194), X), Sin(Number(-0.8119772))))))), Cos(Y))))))))), Cos(Sin(Sin(Mult(Sqrt(Mult(Exp(Cos(Cos(Cos(Mix(Sin(Sqrt(Div(Y, Y))), Mult(Mix(Cos(X), Number(-0.9674282), Cos(Number(0.18193519)), Cos(Y)), Number(-0.93708736)), X, Cos(Mult(Exp(X), Cos(X)))))))), Cos(Sqrt(Sqrt(Sin(Sin(Add(Cos(Sin(Number(-0.77558005))), Cos(Add(X, X)))))))))), Mix(Mix(Exp(Exp(Sqrt(Add(Cos(Cos(Mult(Mix(Number(-0.547691), Y, Number(-0.007953167), Y), Y))), Add(Cos(Number(-0.5697737)), Sin(Cos(Exp(X)))))))), Mult(Cos(Cos(Cos(Sin(Div(Div(Mix(Y, Number(-0.98098034), Y, X), Mix(Number(-0.30729312), X, Number(-0.38762206), Number(0.43075))), Sqrt(Mix(X, Y, Number(0.77707875), Y))))))), Exp(Mix(Exp(Sin(Div(Cos(Sin(X)), Exp(Sqrt(Y))))), Sin(Add(Mix(Sin(Cos(Y)), Sin(Mix(Number(0.09861851), Number(0.41210186), X, Y)), Mult(Cos(Y), Div(Number(0.514251), Number(0.36669517))), Sin(Cos(Y))), Sin(Cos(Cos(X))))), Sin(Cos(Cos(Sin(Mix(Y, X, X, Number(-0.22689337)))))), Div(Cos(Mix(Mult(Y, Sin(X)), Sin(Add(X, X)), Exp(Mult(X, Y)), Number(0.94753397))), Exp(Sin(Sin(Sin(Number(0.16472459))))))))), Div(Sin(Exp(X)), Cos(Sin(Sqrt(Sqrt(Mult(Add(Exp(X), Mix(Number(-0.88163716), Y, Number(-0.8088156), X)), Cos(Mult(Number(0.39522815), Y)))))))), Cos(Add(Cos(Cos(Sin(Div(Mult(Div(X, X), Mult(Number(0.100788474), Number(-0.8276571))), Exp(Cos(X)))))), Cos(Cos(Cos(Exp(Cos(Exp(Number(0.9137466)))))))))), Exp(Sqrt(Sqrt(Add(Sin(Cos(Mult(X, X))), Number(-0.56119907))))), Sqrt(Sin(Sin(Cos(Mult(Add(Add(Sqrt(Exp(Y)), Add(Cos(Number(-0.5982443)), Sin(Number(-0.8906658)))), Mix(Number(0.18970656), Sin(Sin(X)), Cos(Mult(Number(0.64319396), X)), Cos(Sin(Number(-0.9670738))))), Sin(Sqrt(Mult(Sin(Y), Number(0.47086084))))))))), Cos(X)))))), Sin(Div(Sqrt(Cos(Mult(Y, Sin(Sin(Sin(Cos(Cos(Mult(Cos(Mult(Sin(Y), Sin(X))), X))))))))), Cos(Cos(Mix(Sin(Mix(Sin(Exp(Sin(Div(Mix(Sin(Cos(Y)), Sin(Div(Y, X)), Cos(Mult(Y, Y)), Cos(Cos(Y))), Sin(Sqrt(Div(Y, X))))))), Mix(Sin(Div(Sqrt(Sin(Mix(Y, Div(Y, Y), Cos(X), Mix(Number(0.729542), Number(0.33759356), X, X)))), Sqrt(Mix(Exp(Sin(Y)), Cos(X), Sqrt(Cos(X)), Sin(Sin(Y)))))), Mult(Cos(Mix(Mix(Sqrt(Cos(X)), Mult(Add(Number(-0.74272144), Y), Sin(X)), Mix(Sin(Y), Sqrt(Number(-0.4827276)), Cos(X), Add(Y, Y)), Y), Cos(Sin(Cos(X))), Mix(Mix(Sqrt(X), Sin(Number(0.3298148)), Sin(Number(-0.053871572)), Sin(X)), Cos(Cos(Y)), Add(Exp(Number(-0.81930643)), Exp(X)), Sin(Exp(X))), Mult(Sin(Sin(Number(-0.85651624))), Sin(Sin(Y))))), Mix(Cos(Cos(Add(Sin(Number(-0.8444094)), Sin(Y)))), Sqrt(Sin(Add(Cos(X), Exp(Number(0.35632575))))), Sin(Cos(Sqrt(Add(Number(0.8418726), Number(-0.26727647))))), Cos(Cos(Div(Cos(Number(-0.31411916)), Add(Number(-0.9008402), Number(-0.27474898))))))), Sin(Div(Cos(Mix(Sin(Sin(Number(0.7573323))), Mix(Cos(Y), Sin(Number(-0.7425834)), Sin(Y), Mult(X, X)), Sin(Exp(Number(0.59653795))), Mix(Sin(X), Sqrt(Number(-0.7789163)), Div(X, X), Y))), X)), Exp(X)), Cos(Mult(Mix(Mult(Cos(Cos(Div(Y, Y))), Cos(Cos(Sin(X)))), Sqrt(Mult(Add(Sqrt(X), Number(-0.87333417)), Sin(Add(Number(0.20148325), Y)))), Cos(Add(Cos(Cos(X)), Cos(Mix(X, Y, X, X)))), Number(0.97270644)), Sqrt(Cos(X)))), Cos(Div(Exp(Cos(Sin(Mix(Sin(Number(0.34279788)), Cos(Number(-0.6548697)), Sin(Number(-0.25879836)), Cos(Y))))), Sin(Div(Cos(Sin(Mult(Y, X))), Sin(Div(Div(Y, Number(0.68324757)), Add(X, Number(0.87821496)))))))))), Add(Cos(Mult(Cos(Div(Add(Sin(Sin(Add(Number(-0.055552423), Number(0.99940765)))), Mult(Y, Sin(Mix(Y, X, Number(-0.9506445), X)))), Sin(Mult(Sin(Cos(Number(0.41392815))), Cos(Cos(Y)))))), Sqrt(Mix(Mult(Mix(Sin(Sin(X)), Mix(Cos(Y), Cos(Number(0.05619228)), Cos(Number(0.96714926)), Exp(Number(0.36962056))), Add(Cos(X), Cos(Number(-0.6130491))), Mix(Cos(Number(0.27031553)), Mult(Y, Y), Mix(X, Number(0.5066961), Y, Number(0.56643534)), Cos(Y))), Cos(Cos(Cos(Number(-0.798253))))), Exp(Add(Exp(Sin(Number(0.023844123))), Sin(Sin(Number(-0.035259962))))), Mult(Cos(Sin(Sin(Number(0.18251252)))), Number(-0.8906218)), Cos(Add(Sqrt(Cos(Y)), Add(Div(Y, Y), Sin(X)))))))), Mix(Sqrt(Sqrt(Cos(Sqrt(Sin(Div(Mix(X, Number(0.37046874), Y, Number(-0.7258955)), Add(X, X))))))), Sin(Sqrt(Number(0.4627918))), Mix(Cos(Sin(Sin(Mix(Sin(Cos(Number(0.66513515))), Exp(Cos(Y)), Sin(Cos(X)), Cos(Sin(Number(-0.42014897))))))), Cos(X), Cos(Exp(Mult(Add(Sin(Y), Sin(Sin(Number(-0.678146)))), Sin(Cos(Mix(Number(-0.66386217), Number(-0.91416013), Number(-0.643108), Y)))))), Exp(Div(Sin(Sin(Cos(Mult(Number(0.46010458), Number(0.24866962))))), Add(Sin(Cos(Cos(X))), Sqrt(Div(Cos(Y), Exp(Number(0.55982554)))))))), Cos(Add(Mult(Cos(Y), Sin(Cos(Exp(Sin(X))))), Exp(Cos(X)))))), Sin(Mult(Mix(Cos(Add(Number(-0.9908572), Sin(Cos(Mult(Y, Exp(Y)))))), Cos(Cos(Mix(Add(Sin(Sin(Number(-0.6659081))), Sin(Mult(X, X))), Sin(Cos(Mult(Number(0.7922491), X))), Cos(Cos(Div(Number(0.55245924), Y))), Number(0.26839328)))), Sin(Sin(X)), Mult(X, Sin(Add(Mult(Sin(Sin(Y)), Cos(Sin(Y))), Mult(Sin(Sin(X)), Cos(Exp(Y))))))), Mult(Cos(Sin(Exp(Sqrt(Sin(Cos(Number(-0.027014256))))))), Sqrt(Cos(Add(Exp(Sqrt(Mult(Number(0.5093312), Number(0.7001902)))), Sqrt(X))))))), Cos(Mix(Mix(Sin(Div(Div(Sin(Sqrt(Sin(Number(-0.49456346)))), Add(Cos(Cos(X)), Mix(Sin(Number(-0.31392235)), Mix(Number(0.81482446), Number(-0.26293957), Number(-0.043800473), Number(-0.87839764)), Sin(Y), Cos(Number(-0.5087792))))), Div(Exp(Sin(Sin(Y))), Sqrt(Mix(Sqrt(Y), Div(X, X), Sin(X), Exp(X)))))), Div(Add(Mix(Add(Mult(Mult(Y, Y), Sin(Number(0.38485897))), Sin(Cos(X))), Exp(Sin(Sqrt(Y))), Cos(Mult(Mult(Y, X), Sin(Number(0.801288)))), Exp(Sin(Sqrt(X)))), Sin(Exp(Sqrt(Cos(Number(0.43515754)))))), X), Sin(Mix(Cos(Add(Sin(Sin(X)), Cos(Sin(Number(-0.41117322))))), Exp(Mix(Cos(Mult(X, X)), Mult(Sin(X), Sqrt(X)), Add(Cos(Y), Y), Sin(Mix(Number(-0.25734514), Number(-0.66918135), Number(-0.94133484), X)))), Cos(Div(Exp(Cos(Y)), Sin(Exp(X)))), Cos(Cos(Y)))), Sin(Mix(Div(Div(Sin(Sin(X)), Number(-0.4480347)), Sin(Exp(Number(-0.8372743)))), Exp(Cos(Sin(Mult(Y, Y)))), Add(Cos(Div(Cos(X), Exp(X))), Cos(Cos(Sqrt(Y)))), Add(Div(Mix(Cos(Number(0.87464654)), Sin(Number(-0.4076411)), Sin(Y), Sqrt(Number(0.52001953))), Cos(Mix(Number(0.0205127), Y, X, Y))), Sin(Sin(Cos(Number(0.37853062)))))))), Cos(Sin(Add(Mult(Sqrt(Sqrt(Cos(X))), Sin(Y)), Cos(Cos(Div(Sqrt(X), Exp(Y))))))), Mix(Mult(Sin(Mix(Cos(Sqrt(Div(X, Number(-0.6577972)))), Sqrt(Sin(Cos(Y))), Cos(Sqrt(Add(Number(0.33436704), X))), Mix(Sin(Sqrt(Number(0.122047305))), Mult(Cos(Number(0.43963623)), Cos(Y)), Sqrt(Mix(X, X, Y, Number(-0.18602538))), Sqrt(Mult(Number(0.81209207), X))))), Cos(Sqrt(Sqrt(Sqrt(Add(Y, Y)))))), X, Cos(Div(Sin(Sin(Mult(Cos(Number(-0.9063332)), Cos(Number(0.68846583))))), Number(0.65864503))), Sin(Cos(Exp(Sin(Cos(Cos(X))))))), X))))))), Sqrt(Y)))))
+
+======>
+https://www.reddit.com/r/ProgrammerHumor/comments/1grdmql/cacheinvalidationandnamingthings/
+-->>-->>
+Go to ProgrammerHumor r/ProgrammerHumor r/ProgrammerHumor This is a camelCase friendly community For anything funny related to programming and software development. 4M Members 553 Online • 1 day ago phantomias2023 ADMIN MOD cacheInvalidationAndNamingThings Meme function recordImagePerformanceMark() {
+            performance.mark('first-post-meaningful-paint');
+          }
+          document &&
+            document
+              .getElementById('post-image')
+              .addEventListener('load', recordImagePerformanceMark); AudibleCA • Promoted Saddle up for electrifying thrills with Wynonna Earp and Doc Holliday in Audible's captivating new audio experience. Learn More! Learn More audible.ca Add a Comment Sort by: Best Open comment sort options Best Top New Controversial Old Q&A IncompleteTheory • 23h ago • Adof provides the Final Solution™ for managing, sharing, and syncing config files across systems! Reply reply Powerful-Teaching568 • 1d ago • That comment gave me a good laugh, thank you Reply reply fnabinash • 22h ago • You forget to add the links Project -> https://github.com/fnabinash/adof Reddit post -> https://www.reddit.com/r/rust/comments/1gr4pyx/adof_v100_release/ Reply reply phantomias2023 • 19h ago • True, sorry! Reply reply 1 more reply 1 more reply More replies More replies Top 1% Rank by size This is a camelCase friendly community Public Anyone can view, post, and comment to this community More posts you may like r/ProgrammerHumor • 7 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online godHelpUs 2 7.2K upvotes · 236 comments r/ProgrammerHumor • 16 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online myBirthdayPresentFromMyGfAndItGlowsInTheDark 2 3.4K upvotes · 31 comments r/jailbreak • 11 yr. ago r/jailbreak This subreddit is for any and all iOS jailbreaking news, questions, etc. Got a question about iOS jailbreaking? You're in the right place!
+
+For additional jailbreak help, join our Discord at https://discord.gg/jb. 723K Members 202 Online For those who wants to edit music album art without iTunes, theres a new tweak coming soon! twitter 245 upvotes · 36 comments Promoted r/ProgrammerHumor • 14 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online googlerByDayProgrammerByNight 2 421 upvotes · 31 comments r/unRAID • 2 days ago r/unRAID 80K Members 83 Online How do I remove this disk 3 line from my pool? There was no data on it, so I removed it from the pool, but this line is persistent. 5 upvotes · 10 comments r/ProgrammerHumor • 28 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online colleagueHasNoChill 2 218 upvotes · 20 comments r/Syncthing • 25 days ago r/Syncthing For Syncthing related news, help, configurations 10K Members 12 Online Syncthing-Fork doesn't work with Windows? 3 upvotes · 6 comments r/ProgrammerHumor • 14 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online weAreNotTheSame 2 1.2K upvotes · 24 comments Promoted r/archlinux • 4 yr. ago r/archlinux A subreddit for the Arch Linux user community for support and useful news. 278K Members 89 Online Should I use http mirrors ? 71 upvotes · 27 comments r/ProgrammerHumor • 18 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online fckingMicrosoftVisualStudioAndTeamsExperience 1.7K upvotes · 14 comments r/ProgrammerHumor • 11 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online anEfficientAlgorithm 3.4K upvotes · 119 comments r/ProgrammerHumor • 3 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online meWritingCodeVsCommentsVsReadme 361 upvotes · 8 comments r/ProgrammerHumor • 14 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online compileTimeErrorVsRunTimeError 7.9K upvotes · 39 comments r/ProgrammerHumor • 7 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online newBestSortingAlgorithm 644 upvotes · 35 comments r/ProgrammerHumor • 2 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online nullPointersDereferencingFreedom 223 upvotes · 16 comments r/ProgrammerHumor • 24 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online theDependencyMonsterIsTheScariestOfAll 2.1K upvotes · 11 comments r/ProgrammerHumor • 1 day ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online averageCSharpDeveloper 3K upvotes · 308 comments r/ProgrammerHumor • 14 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online javaScriptDevsInstallingDependencies 2.7K upvotes · 38 comments r/ProgrammerHumor • 13 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online cppOutputStreamInPython 1.1K upvotes · 56 comments r/ProgrammerHumor • 6 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online agilePrototypingFTW 5.1K upvotes · 8 comments r/ProgrammerHumor • 1 mo. ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online youAreChromeSupport 1.3K upvotes · 21 comments r/ProgrammerHumor • 25 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online issueCompleted 441 upvotes · 13 comments r/ProgrammerHumor • 7 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online iPreferProgrammingInRunicScripture 4.5K upvotes · 103 comments r/ProgrammerHumor • 11 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online linkedInSaysDoodleOrDieInMediocrity 161 upvotes · 20 comments r/ProgrammerHumor • 25 days ago r/ProgrammerHumor For anything funny related to programming and software development. 4M Members 553 Online weCanGuessWhatWillHappenWithAIOrNoCode 190 upvotes · 35 comments
+======>
+https://old.reddit.com/r/ProgrammingHumor
+-->>-->>
+limit my search to r/programminghumor [-] use the following search parameters to narrow your results: subreddit: subreddit find submissions in "subreddit" author: username find submissions by "username" site: example.com find submissions from "example.com" url: text search for "text" in url selftext: text search for "text" in self post contents self:yes (or self:no) include (or exclude) self posts nsfw:yes (or nsfw:no) include (or exclude) results marked as NSFW e.g. subreddit:aww site:imgur.com dog see the search faq for details. advanced search: by author, subreddit...
+======>
+https://www.reddit.com/r/rust/comments/1gr4pyx/adof_v100_release/
+-->>-->>
+I’m excited to share A dof , a new tool I’ve been developing to simplify managing, sharing, and syncing config files across systems. Automatic Backups : Initialize a new setup in seconds by auto-finding and backing up your common config files. Quick Linking & Deploying : Link your setup to GitHub in a single command to let followers easily pull your configs—or deploy someone else's setup in seconds. Enhanced Commit Messages : Automatically generates rich, detailed commit messages that provide context for every change. README Generation : A dof creates a ready-to-go README for sharing on GitHub so others can use your setup effortlessly. Some features I’m planning to roll out in future versions: Auto-Update : An automated periodic backup feature. Profile Management : Support for multiple profile setups (e.g., work, personal). File Encryption : Keep sensitive configurations secure with optional encryption. Cloud-Friendly Portable Mode : Optimized for cloud environments to deploy temporary configurations. Adof is my first open-source Rust project, so I’m eager to learn and improve based on your feedback. GitHub Repo Link -> https://github.com/fnabinash/adof I would love to hear any feedback, suggestions, or issues! Feel free to open a GitHub issue, submit a PR, or just drop a comment below. Thanks for checking out! Edit: Many people have concerns with the name, so I am changing it soon with a better one. So please do not judge it according to name. I name it as ADOF - Automatic Dotfile Organizer Friend (a friend who helps you organizing your valuable things.) Renaming might take some time, for then please support me. Thank You, Read more
+
+
+======>
+https://github.com/fnabinash/adof
+-->>-->>
+Repository files navigation README Code of conduct MIT license Security ADOF - Automatic Dotfile Organizer Friend Adof helps you seamlessly keep your system configurations in sync, making your setup truly portable and shareable. With git integration, customizable tracking, and a deployed feature, Adof is your ultimate companion for maintaining and sharing configurations with ease. For demo checkout this repo -> https://github.com/fnabinash/test-adof.git Note:- You have to have fzf installed on your system. Oxide Org. We build fast, reliable and easy-to-use tools for developers. If you love Adof , you are most likely going to love my future projects (obviously going to be free and open source for everyone), but those are going to be more focused on enterprise or professional use cases. Already, planned out 7 projects that will help you in your different stages of development. So, I need your help to build those projects. Of course, your help never going to be free, you will get your exclusive benefits after the Org is launched. As everything going to be free and open-source, I am planning to sustain this org on sponsorships. So, the plan is simple after the org launch it going to have different tiers but as an individual, you will get two tiers one is tech enthusiast and the other is tech influencer . If you have some suggestions or need more info please share them with me on Twitter ( https://x.com/fnabinash ) or email me at fnabiansh@gmail.com . Comparison Feature adof GNU Stow Homeshick chezmoi Pattern-based Tracking Yes (fzf for selection) No No No Commit Message Customization Yes No No Limited Cloud Portability Planned No No No README Generation Yes No No No File Encryption Planned No No Yes Deploy from GitHub URL Yes No No Yes Auto Update with Time Limits Planned No No No Profiling Support Planned No No Limited Installation Install from crates.io Install Adof using Cargo from crates.io: cargo install adof Building from Source To build adof manually, clone the repository and compile it with Cargo: git clone https://github.com/fnabinash/adof.git cargo install --path adof/ Commands and Usage whatis adof whatis <command-name> - If you do not know which command what does then you use the whatis command to get detailed info about any command. For example adof whatis init give you detailed info about init command. init When you run adof init quickly, open the fzf window and list the files that match a specific pattern(you can improve the pattern by checking out pattern.rs and make a PR), then use the tab to select multiple files and when ready hit enter. Adof will create backup files of all the files you have selected in .adof/ dir. Adof automatically stage the file and commit the changes. If you think that the pattern can not cover all the files you want to track do not worry, for this scenario adof add command. add By running adof add you can add any files you want to keep track of and back of. It also opens a fzf window, and you can use tab to select multiple files. remove If you accidentally added a file that you do not want to keep track of, you can remove it using adof remove command. It list all the files that you are keeping track of and show them in fzf window and you can use tab to select file that you want to remove. It will remove the files, stage the changes and commit it. link <repo-url> If you are a tech influence most likely, your followers always ask you for your dotfiles. For that reason, I made the link command which takes a GitHub URL and links the local repo to the remote. It will auto-generate a README for you with instruction to copy the file to their local system with just one command. They like your ditfile, install Adof and just run one command and boom they have the exam files in the correct place in just a second. unlink adof unlink does what it said, it unlinks the remote repo with your local repo. push You do not have to manually go to the .adof dir and run git push to push the changes to GitHub, you can run adof push where ever you are in your terminal. If you have already set the credentials then it will push the changes if not it going to ask for the creds. update This command does what it is named for, it updates the changes. At anywhere in your terminal, just run the adof update it will fetch the changes in the files you are keeping track of and make the changes, stage those and commit it. Also it has a flag adof update --check or adof update -c , sometimes you just want to check the files that have changes to make, then run any of these commands it will list all the files that have changes but not backed up but it does not update the changes. To update, you have to run adof update . In future, I have plans to make auto-update command which periodically checks for changes if there are any changes it automatically backs up the changes. deploy <repo-url> Deploy is the most interesting command of Adof. It helps you copy any config from the internet that is made using Adof. It has two parameters, one is a GitHub URL and the other is a commit hash. adof deploy giithu-rul -c commit-id - it will copy all the files from that GitHub repo from that commit id and place it where it is meant to be. adof deploy github-url - it does the same thing but from the latest commit. adof deploy -c commit-id - it looks for the commit in your local repo and copies the file from that instance to the actual file location. For example, if you made some changes to your config and then realise you do not like it then you can run adof log to list all the commits and copy the commit id then run the adof deploy -c ccommit-id then your file is set to that instance. adof deploy - it deploys the latest commit instance from your local repo. uninstall It uninstalls Adof from your system completely. log It takes one flag and one parameter. The flag is --remote or -r and the parameter is number less than 100 . log command is used to list the git commit or logs in your .adof folder history. adof log - It list all the commits that you have not pushed to remote means the changes that are present in your local repo but not in the remote repo. If your local and remote are up to date then it lists the last 5 comits. adof log [number] - It lists the last [number] commits present in your local repo. adof log -r or adof log --remote - It lists the last 5 commits from your remote repo, If you have not configured your remote repo with local then it will list the last 5 commits from your local repo. adof log -r [number] or adof log --remote [number] - It lists the last [number] commits from your remote repo, if not configured then it lists from the local repo. list It will list all the file that you are keeping track of using Adof. Other Key Features In addition to core commands, Adof offers these valuable features: Enhanced Commit Messages : Automatically generated commit messages with detailed information on the day, date, time, and number of files and lines changed, including specific filenames and line numbers. This helps you easily track what has changed. Automated README Generation : For users who wish to share their dotfiles on GitHub, adof can automatically generate a README.md file containing essential information about the repository contents and usage instructions. The README can be customized to add more personal notes, but by default, it includes everything a user needs to get started. Error Handling : Provides detailed error messages and logging to help identify and resolve issues quickly, enhancing stability and ease of use. Future Plans Auto-update : Set an interval for adof to regularly check for and sync changes automatically. Profile Management : Maintain multiple profiles within one repository for different setups or environments(like for work, personal, streaming etc). File Encryption : Securely track and deploy sensitive files with encryption support. Portable Mode : Optimize Adof for cloud environments, using minimal resources and allowing temporary configuration deployments. Other Information Contributing : Contributions are always welcome! Check out our CONTRIBUTING.md for more details. Security : For details on reporting vulnerabilities, please see our SECURITY.md . License : adof is open-source and available under the MIT License . Thank you for choosing adof for your configuration management needs! We look forward to your feedback and contributions as we continue to make adof even better.
+======>
+https://github.com/lapce/floem
+-->>-->>
+Repository files navigation README MIT license Floem A native Rust UI library with fine-grained reactivity The project is still maturing. We will make occasional breaking changes and add missing features on our way to v1. Quickstart use floem :: prelude :: * ; fn main ( ) { floem :: launch ( counter_view ) ; } fn counter_view ( ) -> impl IntoView { let mut counter = RwSignal :: new ( 0 ) ; h_stack ( ( button ( "Increment" ) . action ( move || counter += 1 ) , label ( move || format ! ( "Value: {counter}" ) ) , button ( "Decrement" ) . action ( move || counter -= 1 ) , ) ) . style ( |s| s . size_full ( ) . items_center ( ) . justify_center ( ) . gap ( 10 ) ) } Features Inspired by Xilem , Leptos and rui , Floem aims to be a high performance declarative UI library with a highly ergonomic API. Cross-platform : Floem supports Windows, macOS and Linux with rendering using wgpu . In case a GPU is unavailable, a CPU renderer powered by tiny-skia will be used. Fine-grained reactivity : The entire library is built around reactive primitives inspired by leptos_reactive . The reactive "signals" allow you to keep your UI up-to-date with minimal effort, all while maintaining very high performance. Performance : The view tree is constructed only once, safeguarding you from accidentally creating a bottleneck in a view generation function that slows down your entire application. Floem also provides tools to help you write efficient UI code, such as a virtual list . Flexbox layout : Using Taffy , the library provides the Flexbox and Grid layout systems, which can be applied to any View node. Customizable widgets : Widgets are highly customizable. You can customize both the appearance and behavior of widgets using the styling API, which supports theming with classes. You can also install third-party themes. Transitions and Animations : Floem supports both transitions and animations. Transitions, like css transitions, can animate any property that can be interpolated and can be applied alongside other styles, including in classes.
+Floem also supports full keyframe animations that build on the ergonomics of the style system. In both transitions and animations, Floem supports easing with spring functions. Element inspector : Inspired by your browser's developer tools, Floem provides a diagnostic tool to debug your layout. To sample Floem's capabilities, check out the repo and run the widget gallery example with cargo. To help you master Floem, we provide documentation and code examples . Contributions Lapdev , developed by the Lapce team, is a cloud dev env service similar to GitHub Codespaces. By clicking the button above, you'll be taken to a fully set up Floem dev env where you can browse the code and start developing. All dependencies are pre-installed, so you can get straight to code. Contributions welcome! If you'd like to improve how Floem works and fix things, feel free to open an issue or submit a PR. If you'd like a conversation with Floem devs, you can join in the #floem channel on this Discord .
+======>
+https://old.reddit.com/r/rust/comments/1gro7r5/randomart_a_rust_implementation_of_generating/
+-->>-->>
+Github repository   
+
+   I'm new to Rust and to programming in general and wanted to share my best work yet. Resources are mentioned in    README.md    on the Github link. I watched    tsoding's video    on it and loved the idea, so I decided to implement it.   
+
+   How it works:   
+
+   
+   Hash Input: Converts a string input into a u64 hash.   
+   Generate PRNG: Uses the u64 hash as a seed for a pseudo-random number generator (PRNG).   
+   Build Grammar: Constructs a Probabilistic Context-Free Grammar (PCFG) that expands into various mathematical formulas and constants.   
+   Parse Tree: Creates a parse tree using the PCFG and the PRNG.   
+   Map Function: Generates a function that maps (x, y) pixel coordinates to (r, g, b) color channel values.   
+   Generate Image: Uses the function to create a colorful image based on the pixel values.   
+   
+
+   Feel free to share your feedback or suggestions for improvement!   
+   
+
+======>
+https://specy.app/blog/posts/a-rustc-soundness-bug-in-the-wild
+-->>-->>
+A rustc soundness bug in the wild 2024-11-12 How a bug in the rustc compiler drove me to madness for two days rust rooc Related Projects Rooc Modeling language to solve MILP problems in the browser Open How it started I was working on rooc , a modeling language for optimization problems running in the web;
+After months of “just one more feature” I decided to stop adding new things to the language, and instead focus on improving the
+solvers, which so far implemented only a very simple one which I developed. My goal was to be able to run everything in the browser, so solvers must be able to compile to WebAssembly. The easiest way to do this is to find pure rust libraries, which would allow me to simply compile the rust code to the wasm target. After many failed attempts at compiling for wasm, searching through the whole crates.io, I stumbled upon minilp , a rust only linear programming library. Perfect! But wait… “The project was archived 2 years ago, last commit 4 years ago” , oh well, I heard that rust is a stable language, so it should be fine, right? R i g h t ? ? Implementation After discovering the library I immediately added it as a solver to rooc, which was as easy as adding an adapter that transformed a LinearModel into a minilp::Problem . Let’s see how that goes! cargo test Running testssolver_tests.rs
+running 18 tests
+...
+test result: ok. 18 passed; 0 failed; 0 measured; 0 filtered out; finished in 0.03s Looks good to me! Let’s publish a new version of the library to npm with this newly added solver! But wait, right, before that I should probably test it in the browser, just to make sure . Uncaught (in promise) RuntimeError: unreachable
+    at __rust_start_panic (http://127.0.0.1:8080/wasm_bg.wasm:wasm-function[346]:0x274ec)
+    at rust_panic (http://127.0.0.1:8080/wasm_bg.wasm:wasm-function[254]:0x26d0b)
+    ... Huh? A panic? Oh well, I guess even this library does not work on the web… Being a bit discouraged, I kept searching on crates.io for alternatives, but sadly found none. My only chance was getting minilp to work, it seemed like there were no weird dependencies, no usage of OS specific things, so it should have worked on the web. Debugging begins Maybe it’s a web only problem? WASM stack traces are a bit… cryptic, you don’t really know where or what happened, as it completely strips away any kind of debug information to keep bundle sizes small.
+But let’s try using wasm2map to add debug map information to the wasm file, and see if we can get a better stack trace. called `Option::unwrap()` on a `None` value
+stack backtrace:
+   ...
+   3: core::option::unwrap_failed
+   4: microlp::order_simple
+   5: microlp::main Ah ok, it’s just a simple unwrap on a None value, I probably messed up somewhere in the adapter code.
+Let me create a new test using the same model that had issues, so I don’t have a regression in the future. cargo test Running testssolver_tests.rs
+running 19 tests
+...
+test result: ok. 19 passed; 0 failed; 0 measured; 0 filtered out; finished in 0.03s What??? The test passed? H o w ? ? I just had this panic on me a few seconds ago ? Ah whatever, let’s go to the issues page of the minilp repository, maybe someone else had this issue before. One random issue shows another panic at runtime, so I guess the library doesn’t guarantee the lack of panics,
+and it being archived, I should probably just fork it and fix it myself. Let’s look at the minilp::order_simple function and see what’s going on there. pub fn order_simple < 'a > ( size : usize , get_col : impl Fn ( usize ) -> & 'a [ usize ] ) -> Perm { let mut cols_queue = ColsQueue :: new ( size ) ; //some code... let mut new2orig = Vec :: with_capacity ( size ) ; while new2orig . len ( ) < size { let min = cols_queue . pop_min ( ) ; println! ( "min {:?}" , min ) ; new2orig . push ( min . unwrap ( ) ) ; } //other code... } It seems correct? cols_queue is initialized with size so it should never be out of elements to pop, is there something else
+that is modifying the cols_queue ? I put a breakpoint in the while loop to see what’s going on, and… it did not panic ? Ok this is starting to get weird, let’s look more in depth at the fn pop_min(&mut self) -> Option<usize> function,
+it is returning a None value, so let’s put some debug prints to see: fn pop_min ( & mut self ) -> Option < usize > { let col = loop { if self . min_score >= self . score2head . len ( ) { println! ( "None on min_score: {}" , self . min_score ) ; return None ; } if let Some ( col ) = self . score2head [ self . min_score ] { break col ; } self . min_score += 1 ; } ; self . remove ( col , self . min_score ) ; Some ( col ) } cargo run min: Some ( 1 ) min: Some ( 2 ) min: Some ( 3 ) called ` Option::unwrap ( ) ` on a ` None ` value Ok good, at least the bug happens now? I guess? But where is the None on min_score: {} print that I put in the only place where None is returned? Let’s add more prints! Yeeeeeeah , no, this cannot be sound, there must be something wrong somewhere, I did see an unsafe in the library, so maybe some memory corruption is happening? Running miri did not show any issues, but going step by step with my debugger did show an illegal memory access, so definitely something is wrong with the library. I also noticed that the bug happens only when running in release mode, so that does narrow down the issue a bit. Just to be sure I ran the same code in debug mode but disabling all debug checks like bound checking and overflow checking, but the bug
+did not reproduce. I managed to narrow it down to opt-level = 1 causing the panic. I tried to remove all unsafe usage everywhere in the library to make sure that’s not the issue. But the panic was still there. Hm, the only dependency of the crate is sprs which has a ton of unsafe code, let’s file an issue to see if i’m breaking some invariants. It is not clear it is a bug in sprs, try the following: order_simple ( 4 , | c | { match c { 0 => & [ 0 , 1 , 2 , 3 ] , 1 => & [ 2 ] , 2 => & [ 0 , 1 ] , 3 => & [ 1 , 2 , 3 ] , _ => unreachable! ( ) , } } ) ; Which… still panics? Ok, ok, ok , let’s recap: The bug happens only in release mode There is no unsafe code anywhere in the library Miri does not report any issues There are no dependencies which might cause issues There is only 100% plain safe rust code So how can it be panicking? Isn’t the whole purpose of rust to not have this kind of issues if you are not using unsafe code? The bug report I decided to make sure I wasn’t making any silly mistakes and tried to build a minimal reproduction using no dependencies or unsafe code: fn main ( ) { order_simple ( 4 , | c | { match c { 0 => & [ 0 , 1 , 2 , 3 ] , 1 => & [ 2 ] , 2 => & [ 0 , 1 ] , 3 => & [ 1 , 2 , 3 ] , _ => unreachable! ( ) , } } ) ; println! ( "All ok! Try running in release mode" ) } cargo run All ok! Try running in release mode cargo run --release thread 'main' panicked at 'called `Option::unwrap()` on a `None` value' Yup. Checks out. Time to file a bug report to the rustc repository! The fix After a few minutes the bug was minimized to just: fn pop_min ( mut score2head : Vec < Option < usize >> ) -> Option < usize > { loop { if let Some ( col ) = score2head [ 0 ] { score2head [ 0 ] = None ; return Some ( col ) ; } } } which turns out to have been an unsound mir optimization in the rustc compiler, affecting rust nightly versions 1.83.0 and 1.84.0.
+The issue was given a P-critical priority, the bugged code fixed in a few days, and released a week later. Conclusion After the bug was resolved I managed to publish the new version of the rooc library which now does work in the browser, also forked the minilp crate to fix some bugs and add some new features. I’m by no means a rust expert, nor a good low-level programmer, i’m just a frontender after all! But this experience taught
+me a ton about debugging so I wanted to share the thought process going through this bug.
+
+======>
+https://old.reddit.com/r/rust/comments/1gs81ed/best_design_for_a_temporary_struct/
+-->>-->>
+I have a part of the application that only exists while a timer is alive   
+
+   fn update_recording(&mut self) {
+        let Some((timer, some_struct)) = &mut self.recording else {
+            return;
+        };
+
+        if timer.elapsed().as_secs() >= self.record_duration as u64 {
+            self.recording = None;
+            return;
+        }
+
+        // use some_struct...
+}
+   
+
+   But I don't like the design, is there a way in which I can structure the code so that it will be guarded by the type to not use some_struct and to clear itself when the timer has ended, that you can recommend?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gs875p/cargo_as_lib_for_dynamic_project_build/
+-->>-->>
+I submitted the question to the rust forum, but I thought maybe here I will have more luck, since we build bizarre things here:   
+
+   Hello,   
+
+   For a project a need to use cargo as a library to compile some runtime dll that will be injected to a process. I checked cargo task and cargo make, but didn't return what I needed so I went with cargo.
+Also I know API is not stable and can change.   
+
+   The issue is I have been doing some tests and everything was fine until I included dashmap. Dashmap build complains about not having the    -Z unstable-options    flag must also be passed to enable the flag    check-cfg   .   
+
+   I checked with the CLI and it works so I'm missing something for sure.   
+
+   Here is the code, to prevent name clashing in questions I qualified all imports.   
+
+   ```rust
+fn generate_compile_options<S: AsRef<str>>(context: &cargo::GlobalContext,
+                                           profile: S,
+                                           feature_list: &[S],
+                                           packages: cargo::ops::Packages) -> cargo::CargoResult<cargo::ops::CompileOptions> {
+    let mut build_config = cargo::core::compiler::BuildConfig::new(
+        context,
+        None,
+        false,
+        &[], // TODO: Nice to have for future?
+        cargo::core::compiler::CompileMode::Build,
+    )?;
+    build_config.requested_profile = cargo::util::interning::InternedString::new(profile.as_ref());
+    let mut features = BTreeSet::default();
+    for feature in feature_list {
+        features.insert(cargo::core::summary::FeatureValue::new(
+            cargo::util::interning::InternedString::new(feature.as_ref()))
+        );
+    }
+    let cli_features = cargo::core::resolver::CliFeatures {
+        features: std::rc::Rc::new(features),
+        all_features: false,
+        uses_default_features: false,
+    };
+    Ok(cargo::ops::CompileOptions {
+        build_config,
+        cli_features,
+        spec: packages,
+        filter: cargo::ops::CompileFilter::Default {
+            required_features_filterable: false,
+        },
+        target_rustdoc_args: None,
+        target_rustc_args: None,
+        target_rustc_crate_types: None,
+        rustdoc_document_private_items: false,
+        honor_rust_version: None,
+    })
+}   
+
+   fn main() -> Result<(), Error> {
+    let module_path = std::path::PathBuf::from("./plugins/Cargo.toml");
+    let context = cargo::util::context::GlobalContext::default().unwrap();
+    let workspace = cargo::core::Workspace::new(&std::fs::canonicalize(module_path).unwrap(), &context).unwrap();
+    let compile_options = generate_compile_options(
+        &context,
+        "release",
+        &vec![],
+        cargo::ops::Packages::All,
+    ).unwrap();
+    let result = cargo::ops::compile(&workspace, &compile_options).unwrap();
+}
+```   
+
+   Any ideas?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gs8935/rust_to_python_bindings/
+-->>-->>
+I've been using Rust for running firmware in my embedded applications, frequently I want to publish bingings for them and will write a client using rust and I love how seamless it is to do that i usually have a project structure like this:   
+
+   
+   package-name
+
+   
+   crates 
+
+   
+   application   
+   device-driver-x   
+   device-driver-y   
+   device-driver-z   
+   common (or messages/proto something of that ilk)   
+   client   
+   
+   
+   
+
+   Then my common folder will have something like the following:   
+
+   ```lib.rs
+// Can Message Parser example   
+
+   [allow(unused_imports)]   
+
+   [cfg(feature = "defmt")]   
+
+   use defmt::Format;   
+
+   [derive(Copy, Clone, Eq, PartialEq)]   
+
+   [cfg_attr(feature = "defmt", derive(defmt::Format))]   
+
+   [repr(u8)]   
+
+   enum CommandIds {
+    MaskBits = 0x01,
+    SetBits = 0x02,
+    ReadBits = 0x03,
+    Invalid = 0x04,
+}   
+
+   impl TryFrom<u8> for CommandIds {
+    type Error = ();
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        match value {
+            0x01 => Ok(CommandIds::MaskBits),
+            0x02 => Ok(CommandIds::SetBits),
+            0x03 => Ok(CommandIds::ReadBits),
+            0x04 => Ok(CommandIds::Invalid),
+            _ => Err(()),
+        }
+    }
+}   
+
+   [derive(Copy, Clone, Eq, PartialEq)]   
+
+   [cfg_attr(feature = "defmt", derive(defmt::Format))]   
+
+   pub enum RelayCommands {
+    MaskBits(u16),
+    SetBits(u16),
+    ReadBits,
+}   
+
+   impl RelayCommands {
+    pub fn serialize_to_frame(&self) -> [u8; 8] {
+        let mut buffer: [u8; 8] = [0u8; 8];
+        match self {
+            RelayCommands::MaskBits(state) => { ... }
+            RelayCommands::SetBits(state) => { ... }
+            RelayCommands::ReadBits => { ... }
+        }
+        buffer
+    }
+}
+```   
+
+   My firmware will process these commands and my client will use them to send and receive and everything is well and good.   
+
+   Now every once in awhile my application that will be sending the messages is written in python. This is where i start to have some trouble.    
+
+   I've been trying to come up with a clean way to use PyO3 to generate bindings but haven't come up with a clean api for doing so.   
+
+   Ideally it would be nice to have a    bindings    crate where I could directly do something like:   
+
+   ```rust
+// bindings/lib.rs   
+
+   use messages::RelayCommands;
+use pyo3::prelude::*   
+
+   [pyclass]   
+
+   // export the RelayCommands but i can't so i need to wrap in a newtype
+pub struct RelayMessages(RelayCommands);   
+
+   // Add pyclass to export
+...   
+
+   ```   
+
+   Then in python my ideal api looks something like:   
+
+   ```python 
+from bindings import RelayMessages
+from can import Bus   
+
+   with Bus(...) as bus:
+    bus.send(RelayMessages.SetBits(0xFF00).serialize_to_frame())
+    ...
+```   
+
+   Any suggestions for approaches to this my main concern is not breaking bindings and avoiding adding redundant code.   
+
+   I think my options are to define the PyO3 classes and methods in the same module as the messages but this doesn't feel great, or doing something like:   
+
+   ```rust
+// bindings/lib.rs   
+
+   use messages::RelayCommands;
+use pyo3::prelude::*   
+
+   [pyclass]   
+
+   // export the RelayCommands but i can't so i need to wrap in a newtype
+pub struct RelayMessages();   
+
+   [pymethods]   
+
+   impl RelayMessages {
+    #[pymethod]
+    pub fn set_bits(bits: u16) -> [u8; 8] {
+        RelayCommands::SetBits(bits).serialize_to_frame()
+    }
+}   
+
+   // Add pyclass to export   
+
+   ```   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1gs9y05/borrow_checker_question/
+-->>-->>
+I was reading through the interactive rust book when I came across this code:   
+
+   fn main() {
+  let mut v: Vec<i32> = vec![1, 2, 3];
+  let mut v2: Vec<&mut i32> = Vec::new();
+  for i in &mut v {
+    v2.push(i);
+  }
+  *v2[0] = 5;
+
+  let a = *v2[0];
+  let b = v[0];
+  println!("{a} {b}");
+}
+
+output: 5 5
+   
+
+   I thought that aliasing and mutability were supposed to be mutually exclusive, why is the borrow checker not rejecting this?    
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1grt8ld/my_experience_of_being_trolled_on_my_first_oss_in/
+-->>-->>
+Hi Everyone,   
+
+   Yesterday, I launched my first ever OSS made in Rust which I have been working on since Nov 1st.   
+
+   It's not a great revolutionary project, it is just a dot file organiser.   
+
+   The problem I am trying to solve is you can just use a GitHub repo to copy anyone's configs in just one command also you can manage, store and share your config on the internet.   
+
+   If you need more information you can check out my repo here ->    https://github.com/fnabinash/adof   
+
+   But this post is about the experience I had on the first launch and how I got trolled and became a meme on    r/ProgrammingHummer   
+
+   Here is the post on which I launched my tool to the    r/rust     community.   
+
+   Launched post ->    https://www.reddit.com/r/rust/comments/1gr4pyx/adof_v100_release/   
+
+   The mistake was I named it "ADOF", which stands for Automatic DotFile ORganizer Friend.   
+
+   I never thought people going to relate it with "Adolf Hitler".   
+
+   So, lots of people before checking out my tool just went crazy on my name and suggest to change it to anything else, also some people made fun of it and some suggested weird names.   
+
+   Also, one of them shares the screenshot of the comment in the    r/ProgrammingHumor    subreddit with the caption "cacheInvalidationAndNamingThings".   
+
+   You can check that post here ->    https://www.reddit.com/r/ProgrammerHumor/comments/1grdmql/cacheinvalidationandnamingthings/   
+
+   But many people supported me by giving actual help feedback and suggestions which made me happy that at least a few people were helpful.   
+
+   But anyway, currently, my repo has around 30+ stars and 1 fork.   
+
+   My main motivation to come to open-source or in programming, in general, is I have many ideas to build but my financial condition is not good, my laptop which I bought in April is on EMI. So, to make those up and make a living I am trying to launch some helpful tools in exchange for sponsorship.   
+
+   I think everyone failed in somewhere and me too. Without thinking of that much, I started working on my second project.   
+
+   Here is the idea ->   
+
+   A CLI tool that helps you scaffold your Rust project smart scratch, means when you run    cargo new hello   , it creates a new rust-bin project with basic templates, my plan is to build a tool like this but with a bit more means, whether you are building a CLI or library or a web API it has templets for everything, for desktop apps in different crates also you can add additional features like if you want git feature, it going to add that, if you want to hash it going to add that for you, not only crates in the Cargo.toml also create a module for hashing and add the module to    main.rs    or    lib.rs   .   
+
+   Here are some other features I am planning to add;   
+
+   
+   GitHub action   
+   Generates meaningful README   
+   Adds appropriate license   
+   Sets up proper .gitignore   
+   Creates basic integration tests   
+   Configures GitHub Actions CI   
+   Adds dependabot setup   
+   
+
+   I also do some research on other crates/tools that provide the same benefits but here is a quick comparison   
+
+   
+   
+   Feature   
+   ezpz   
+   cargo-generate   
+   rust-starter   
+   cargo-template   
+   
+   
+   
+   Interactive CLI Wizard   
+   ✅   
+   ❌   
+   ❌   
+   ❌   
+   
+   
+   Smart Defaults   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+   Multiple Project Types Support   
+   ✅   
+   ✅   
+   ❌   
+   ✅   
+   
+   
+   Database Integration Options   
+   ✅   
+   ❌   
+   ❌   
+   ❌   
+   
+   
+   Auto-generated Tests   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+   CI/CD Setup   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+   Custom Template Support   
+   ❌   
+   ✅   
+   ❌   
+   ✅   
+   
+   
+   Variable Substitution   
+   ✅   
+   ✅   
+   ❌   
+   ✅   
+   
+   
+   Git Repository Integration   
+   ✅   
+   ✅   
+   ✅   
+   ❌   
+   
+   
+   Best Practices Enforcement   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+   Dependency Management   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+   Web/API Project Support   
+   ✅   
+   ✅   
+   ❌   
+   ✅   
+   
+   
+   CLI Project Support   
+   ✅   
+   ✅   
+   ✅   
+   ✅   
+   
+   
+   Library Project Support   
+   ✅   
+   ✅   
+   ❌   
+   ✅   
+   
+   
+   Logging Setup   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+   Config File Generation   
+   ✅   
+   ❌   
+   ✅   
+   ❌   
+   
+   
+
+   For now, this is the basic Idea, If you have more recommendations or suggestions please drop them below.   
+
+   Thank you.   
+   
+
+======>
+https://rerun.io/blog/maps
+-->>-->>
+Geospatial data and full H.264 support Written by Nikolaus West 3 days ago Rerun is building the multimodal data stack for robotics and spatial intelligence.
+Many of our users' products move about the physical world so we're particularly excited that the 0.20 release adds the first piece of supporting geospatial data in Rerun. This video shows the new map view in an example visualization of the nuScenes dataset. The geospatial support is a combination of two things: a set of geospatial primitives you can send to Rerun, and a new map view that draws these primitives on top of map tiles from either OpenStreetMap or Mapbox . The new geospatial primitives were designed to be compatible with GeoArrow ,
+and in future releases we'll make sure interop is both low friction and high performance.
+This release includes the GeoPoints and GeoLineStrings archetypes and a future release will include a GeoPolygons archetype as well for full compatibility. Geospatial support in Rerun has been heavily requested for a long time and this effort was even kicked off by a community contribution by Tamás Földi who opened the first pull request for the maps view,
+which we very much appreciate. You can read more about supported coordinate systems and how to use these new features here . Using FFMpeg to decode H.264 video in the native viewer using-ffmpeg-to-decode-h264-video-in-the-native-viewer Rerun 0.20 also brings the second part of video support in Rerun: support for H.264 video files in the native viewer.
+The next piece after this will be support for sending individual video encoded frames at a time to Rerun without the need for a container format like mp4.
+This then will pave the way to live ingest video streams as they are encoded. Video decoding in Rerun is handled by interfacing with an FFmpeg executable installed on the user’s system.
+We do this using the excellent open source crate ffmpeg-sidecar .
+We chose this approach to make Rerun easy to embed in all environments, whether commercial or non-commercial.
+Since critical parts of FFmpeg are GPL-licensed, bundling or even linking against it would have restricted this flexibility.
+By accessing FFmpeg externally, we provide optional native H.264 support that can be disabled on a case-by-case basis. This release also comes with many general stability and performance improvements.
+That includes updates to our standalone open source crate for parsing mp4 files that significantly reduce time and memory overhead for opening mp4 files.
+Among other things, we addressed issues around accurate timing and sample re-ordering (something very common in H.264 & H.265 videos).
+To that end, we added advanced inspection options for the raw video data and the frames produced by the video decoder.
+These are geared towards helping ourselves to better understand video streams and to debug issues,
+but they may also be useful if you want to gain a deeper understanding yourself: Video is a complex area and we're only starting our journey here, stay tuned for more! Try it out and let us know what you think try-it-out-and-let-us-know-what-you-think We're really excited to heat how the new geospatial features work for you.
+It's a first step into a very deep field but we're pretty happy with this first step and hope it will be useful for many teams. The best places to start are either this guide or this simple OpenStreetMap example . Join us on Github or Discord and let us know what you think and would hope to see in the future.
+
+======>
+https://old.reddit.com/r/rust/comments/1gs0yhe/making_my_first_oss_contribution_in_rust_after/
+-->>-->>
+Recently, I decided to switch from Neovim to Helix for several reasons. Tired of endlessly bloating my config, I just wanted something that worked out of the box.   
+
+   Helix is written in Rust, and it was lacking a feature that I really missed. Specifically, I really wanted the following features:   
+
+   
+   Surround selection with a HTML tag   
+   Delete the nearest pair of HTML tags   
+   Rename the nearest pair of HTML tags   
+   
+
+   These features were really important to me, because I could do them in Neovim but not Helix. The kind of programming I mostly did is making static websites in React for fun. The only language I knew was TypeScript.   
+
+   I decided to try out the challenge of learing Rust specifically so that I can add this feature. I completed the entire Rust Book, which took at least 40 hours -- it was very hard to get through because concepts like ownership were completely foreign to me.    
+
+   I had no idea what a stack or a heap was, but I managed to get through it because it was really interesting. While completing it, I also made about 10 other pull requests, each a lot smaller in scale and fairly trivial but it was enough for me to start feeling confident.   
+
+   So finally comes the day I sit down and try to develop the feature. Helix is a huge project for someone like me. It's about 83,000 line of Rust code. They don't have a lot of documentation so what was really hard for me was to find out where do I even begin and try to make sense of the project, how it works.   
+
+   Thankfully with the power of rust-analyzer, grep and find I was able to figure out what gets called where and where I should make my changes.   
+
+   Once I understood their internal APIs on how changes to documents are made, I needed to create an algorithm that finds closing tags by searching forward and opening tags by searching backward. Then it filters out all tags that don't make a pair, and extracts the exact position of the tag's name. For someone who hasn't done any algorithm stuff before, this was non-trivial.   
+
+   After about 2 whole days of trying to get it to work, I finally did it:    https://github.com/helix-editor/helix/pull/12055   !   
+
+   I'm really happy with myself because I never thought I could learn Rust enough to make an actual non-trivial contribution in just a week and actually start feeling more comfortable with the language. As a sidenote, I only have about 11 months of programming experience, all of which I did as a hobby and wasn't for work or anything.    
+
+   Now my plan is to learn backend web development because after doing front-end stuff I realised I really like working with algorithms more. And I'll do it with Rust.   
+
+   Note: I realise the pull request might not get merged or even looked at for several months but I'm fine with that, because I just use it in my own fork.   
+   
+
+======>
+https://godot-rust.github.io/dev/november-2024-update/
+-->>-->>
+November 2024 dev update Bromeon,
+      
+      2024-11-15 Things have been slightly calmer in the last few months, yet a lot has happened behind the scenes! This post announces the next big iteration of godot-rust, version 0.2 . We are excited to share what this release brings to the table. Ergonomic + fast argument passing In version 0.1, all Godot engine APIs took their arguments by value, with a concrete parameter type. This approach has notable drawbacks: It often requires conversions because your argument type doesn't match the declared parameter exactly. Passing strings as "string".into() has become its own idiom. If a method accepts Gd<Node> but you have a Gd<Node2D> , you'll need to call node.upcast() . If you want to keep using your (non- Copy ) argument after the call, you must use .clone() all the time. It makes code repetitive and attracts unneeded attention. In Rust, clone() is not that common for passing arguments. Creating such a clone army has a performance cost for reference-counted types ( Gd<RefCounted> , GString , Array , ...). If Godot takes ownership of a value (e.g. storing a string), it already clones internally, so you pay twice. Powerful conversions In version 0.2, we introduce a streamlined API for argument passing. Affecting the core type machinery, this took a ludicrous amount of time to implement, but is (hopefully...) worth the results: Pass by reference. All container types such as Gd , Array , Dictionary , GString , Callable , Variant , PackedInt32Array are now passed by reference. This means you get rid of an unnecessary clone, you can keep using the value after the call, and your call-site code is often reduced to a single & borrow. Types which implement Copy , such as i32 , bool , Vector3 , Color etc. are still passed by value. Automatic upcasting. If a parameter expects an object parameter of class T , you can now not only pass T objects, but instances of all classes that inherit from T . You no longer need a manual .upcast() call, the library takes care of this, completely type-safe. Rust is clearly a very OOP language. Implicit string conversions. Rust is following the "make things explicit" idea in a hardcore way, and in many cases this prevents errors and makes code easier to read. But there are situations where this results in verbosity before anything else, becoming a burden on your code -- especially in game development where fast prototyping matters. "some_string".into() is a good example of this. After certain time, you'll know that Godot has its own string types different from Rust &str , so the fact that a conversion is happening is no longer providing you valuable information -- at least not to the point where you want to be reminded of it in every 2nd line of code. This is why you can now pass &str strings as "some_string" literals directly. If you have String instances, just borrow them with &my_string . Talk is cheap, show me the code These are real code samples from the library's integration tests and the dodge-the-creeps demo.
+Get your own impression of the before/after: // BEFORE: strings always converted with .into(). message_label. set_text ( "Dodge the \n Creeps!" . into ()); let val: Array<GString> = array![ "Godot" . into (), "Rust" . into (), "Rocks" . into ()]; // AFTER: strings can be passed directly, even in array literals. message_label. set_text ( "Dodge the \n Creeps!" ); let val: Array<GString> = array![ "Godot" , "Rust" , "Rocks" ]; // BEFORE: test code needs to clone arg on each call. let changes = StringName::from( "property_changes" ); assert!(!revert. property_can_revert (changes. clone ())); assert!(revert. property_can_revert (changes. clone ())); assert_eq!(revert. property_get_revert (changes. clone ()), Variant::nil()); // AFTER: just borrow it. let changes = StringName::from( "property_changes" ); assert!(!revert. property_can_revert (&changes)); assert!(revert. property_can_revert (&changes)); assert_eq!(revert. property_get_revert (&changes), Variant::nil()); // BEFORE: not only cloning, but upcasting. self . base_mut (). add_child (mob_scene. clone (). upcast ()); // AFTER: auto-upcast, no clone. self . base_mut (). add_child (&mob_scene); These changes have been implemented in a marathon of PRs (where an addition typically required 3 follow-up PRs to fix the fallout): Object parameters: #800 , #823 , #830 , #846 Pass-by-ref: #900 , #906 , #947 , #948 String conversions: #940 (no follow-up here is admittedly suspicious...) Path-based node initialization In #807 , Houtamelo added a great feature: initialization for nodes based on a path. This was achieved by wiring up OnReady<T> with custom init logic, exposed through a new #[init(node)] attribute. The following code directly initializes fields with the nodes found at the given path: #[ derive (GodotClass)] #[ class (init, base=Node3D)] struct Main { base : Base<Node3D>, #[ init (node = "Camera3D" )] camera : OnReady<Gd<Camera3D>>, #[ init (node = "Hud/CoinLabel" )] coin_label : OnReady<Gd<Label>>, } In case you don't know OnReady , it provides a late-init mechanism with ergonomic access, i.e. no constant .unwrap() or defensive if-initialized checks. You can access OnReady<Gd<Node>> as if it were a Gd<Node> : self .coin_label. set_text (&format!( " {} coins" , self .coins)); Generating Godot docs from RustDoc #748 is a pull request from bend-n, which adds another great feature: the ability to register documentation alongside Rust classes and methods. If you enable the register-docs crate feature, you can use regular RustDoc comments, which will be picked up by the editor. Let's say you have the following Rust code. It registers a class with a property and a function, all of which are documented: /// A brief description on the first line. /// /// Link to a **Godot** type [AABB]. /// And [external link](https://godot-rust.github.io). /// /// ```gdscript /// # Syntax highlighted. /// extends Node /// /// @onready var x: Array[int] /// /// func _ready(): ///    pass /// ``` #[ derive (GodotClass)] #[ class (init, base=Node)] struct DocExample { /// Property is _documented_. #[ export ] integer : i32 , } #[ godot_api ] impl DocExample { /// Custom constructor takes `integer`. #[ func ] fn create ( integer : i32 ) -> Gd< Self > { Gd::from_object(DocExample { integer }) } } This will render as follows in the editor: This even works with editor hot-reloads (although you need to reopen the doc tab).
+Not all Markdown elements are supported yet, but this will improve over time. Contributions are of course welcome! #[rpc] attribute Houtamelo also helped build #902 , a PR which adds an #[rpc] attribute to user-defined functions. This brings the GDScript @rpc feature to Rust, allowing you to configure remote procedure calls in your Rust scripts. Example usage: #[ rpc (any_peer, reliable, call_remote, channel = 3)] fn my_rpc (& self , i : i32 , s : String) -> Variant { ... } You can also define a global RPC configuration and reuse it for multiple functions: const CONFIG : RpcConfig = RpcConfig { rpc_mode: RpcMode:: AUTHORITY , transfer_mode: TransferMode:: RELIABLE , call_local: false , channel: 1 , }; QoL features Lots of little things have been added to make your life easier. Here are some highlights related to enums: // Bitmask support for known enum combinations. let shifted_key = Key::A | KeyModifierMask:: SHIFT ; // String conversions. let b: BlendMode = BlendMode:: MIX ; let s: & str = b. as_str (); // "MIX" // Complex ordinals. #[ derive (GodotConvert)] #[ godot (via = i64)] enum SomeEnum { A = ( 1 + 2 ), // Use non-literal expressions. B, C = (AnotherEnum::B as isize ), // Refer to other constants. } Panics have become much more helpful, thanks to 0x53A adding source locations to error messages ( #926 ). Library usage is now more robust due to various validations: #[class(tool)] is required for classes that need an editor context ( #852 ). Array<i8> etc. now verify that elements are in range ( #853 ). Disallow Export if class doesn't inherit Node or Resource ( #839 ). Disallow Export for Node s if the base class isn't also Node ( #841 ). Performance Interactions with Godot have been boosted quite a bit, in particular: Pass-by-ref alleviating ref-counting operations which use thread synchronization. Cached internal object pointers ( #831 ), no longer fetching it through Godot's object database. Complete rewrite of ClassName , using global backing memory with interned class strings ( #834 ). Removed panic hooks in Release mode ( #889 ). Many thanks to Ughuu for driving multiple improvements and providing detailed benchmarks. Conclusion This release is a big step forward when it comes to UX and interacting with Godot APIs. At the same time, v0.2 also lays the groundwork for many future additions. A ton of features, bugfixes and tooling enhancements haven't been covered in this post. This time, our changelog was so big that subsections were necessary to keep an overview. Check it out! If you have existing 0.1 code and feel overwhelmed, there is a migration guide to help you out.
+======>
+https://old.reddit.com/r/rust/comments/1gryrh3/floem_020_native_gui_now_with_wasm_vello_dynamic/
+-->>-->>
+Floem is a cross-platform GUI library that aims to be extremely performant while providing world-class developer ergonomics.   
+
+   This release of Floem is the result of nearly a year of work and has fixed many bugs, added many new features, and has greatly improved the ergonomics of the API.    
+
+   Link to the repsitory with the latest release    here   .    
+
+   We also have a    new website    for getting started!   
+   

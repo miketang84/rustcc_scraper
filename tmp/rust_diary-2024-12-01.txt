@@ -1,0 +1,261 @@
+https://github.com/bevyengine/bevy.git
+-->>-->>
+Repository files navigation README Code of conduct Apache-2.0 license MIT license What is Bevy? Bevy is a refreshingly simple data-driven game engine built in Rust. It is free and open-source forever! WARNING Bevy is still in the early stages of development. Important features are missing. Documentation is sparse. A new version of Bevy containing breaking changes to the API is released approximately once every 3 months . We provide migration guides , but we can't guarantee migrations will always be easy. Use only if you are willing to work in this environment. MSRV: Bevy relies heavily on improvements in the Rust language and compiler.
+As a result, the Minimum Supported Rust Version (MSRV) is generally close to "the latest stable release" of Rust. Design Goals Capable : Offer a complete 2D and 3D feature set Simple : Easy for newbies to pick up, but infinitely flexible for power users Data Focused : Data-oriented architecture using the Entity Component System paradigm Modular : Use only what you need. Replace what you don't like Fast : App logic should run quickly, and when possible, in parallel Productive : Changes should compile quickly ... waiting isn't fun About Features : A quick overview of Bevy's features. News : A development blog that covers our progress, plans and shiny new features. Docs Quick Start Guide : Bevy's official Quick Start Guide. The best place to start learning Bevy. Bevy Rust API Docs : Bevy's Rust API docs, which are automatically generated from the doc comments in this repo. Official Examples : Bevy's dedicated, runnable examples, which are great for digging into specific concepts. Community-Made Learning Resources : More tutorials, documentation, and examples made by the Bevy community. Community Before contributing or participating in discussions with the community, you should familiarize yourself with our Code of Conduct . Discord : Bevy's official discord server. Reddit : Bevy's official subreddit. GitHub Discussions : The best place for questions about Bevy, answered right here! Bevy Assets : A collection of awesome Bevy projects, tools, plugins and learning materials. Contributing If you'd like to help build Bevy, check out the Contributor's Guide .
+For simple problems, feel free to open an issue or PR and tackle it yourself! For more complex architecture decisions and experimental mad science, please open an RFC (Request For Comments) so we can brainstorm together effectively! Getting Started We recommend checking out the Quick Start Guide for a brief introduction. Follow the Setup guide to ensure your development environment is set up correctly.
+Once set up, you can quickly try out the examples by cloning this repo and running the following commands: # Switch to the correct version (latest release, default is main development branch) git checkout latest # Runs the "breakout" example cargo run --example breakout To draw a window with standard functionality enabled, use: use bevy :: prelude :: * ; fn main ( ) { App :: new ( ) . add_plugins ( DefaultPlugins ) . run ( ) ; } Fast Compiles Bevy can be built just fine using default configuration on stable Rust. However for really fast iterative compiles, you should enable the "fast compiles" setup by following the instructions here . Bevy Cargo Features This list outlines the different cargo features supported by Bevy. These allow you to customize the Bevy feature set for your use-case. Thanks Bevy is the result of the hard work of many people. A huge thanks to all Bevy contributors, the many open source projects that have come before us, the Rust gamedev ecosystem , and the many libraries we build on. A huge thanks to Bevy's generous sponsors . Bevy will always be free and open source, but it isn't free to make. Please consider sponsoring our work if you like what we're building. This project is tested with BrowserStack. License Bevy is free, open source and permissively licensed!
+Except where noted (below and/or in individual files), all code in this repository is dual-licensed under either: MIT License ( LICENSE-MIT or http://opensource.org/licenses/MIT ) Apache License, Version 2.0 ( LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0 ) at your option.
+This means you can select the license you prefer!
+This dual-licensing approach is the de-facto standard in the Rust ecosystem and there are very good reasons to include both. Some of the engine's code carries additional copyright notices and license terms due to their external origins.
+These are generally BSD-like, but exact details vary by crate:
+If the README of a crate contains a 'License' header (or similar), the additional copyright notices and license terms applicable to that crate will be listed.
+The above licensing requirement still applies to contributions to those crates, and sections of those crates will carry those license terms.
+The license field of each crate will also reflect this.
+For example, bevy_mikktspace has code under the Zlib license (as well as a copyright notice when choosing the MIT license). The assets included in this repository (for our examples ) typically fall under different open licenses.
+These will not be included in your game (unless copied in by you), and they are not distributed in the published bevy crates.
+See CREDITS.md for the details of the licenses of those files. Your contributions Unless you explicitly state otherwise,
+any contribution intentionally submitted for inclusion in the work by you,
+as defined in the Apache-2.0 license,
+shall be dual licensed as above,
+without any additional terms or conditions.
+======>
+https://github.com/ted-mundy/aoc-24/tree/main/day-1
+-->>-->>
+README.md Day 1 First ever challenge. I think there is some sort of theme that both challenges are related/share logic?
+This one does, anyway. All in Rust! Update I've done my best to make the error-handling on this small project quite good. After all, people love Rust's errors (including me), so
+why unwrap everything, when it could panic?
+Hope to learn more as the days go on :) Update 2 I've posted this on Reddit , and the nice people over there have given me a couple tips.
+Also reminded me I shouldn't post my inputs. Thanks! Will look to put in some of the improvements over the next
+few days.
+======>
+https://github.com/aljen/modbus-relay
+-->>-->>
+Repository files navigation README Apache-2.0 license MIT license modbus-relay 🚀 High-performance Modbus TCP to RTU relay written in Rust Features • Installation • Usage • Configuration • Monitoring • Contributing 🌟 Features 🔄 Transparent TCP to RTU protocol conversion 🚀 High-performance asynchronous I/O with Tokio 🔧 Advanced RS485 support with configurable RTS control 🛡️ Robust error handling and connection management ⚡ Zero-copy buffer handling for optimal performance 📝 Structured logging with multiple output formats 🔌 Connection pooling with per-IP limits 🔄 Automatic reconnection with configurable backoff 🎯 Comprehensive test suite 📊 Built-in metrics and monitoring via HTTP API 🚀 Quick Start Installation # Install from crates.io cargo install modbus-relay # Or build from source git clone https://github.com/aljen/modbus-relay cd modbus-relay
+cargo build --release Basic Usage # Generate default configuration modbus-relay --dump-default-config > config.yaml # Run with custom config modbus-relay -c /path/to/config.yaml # Run with default settings modbus-relay ⚙️ Configuration Configuration is managed through YAML files. Here's a complete example ( config.yaml ): tcp : bind_addr : " 0.0.0.0 " bind_port : 502 rtu : device : " /dev/ttyUSB0 " baud_rate : 9600 data_bits : 8 parity : " none " stop_bits : 1 flush_after_write : true rts_type : " none " # Options: none, up, down rts_delay_us : 0 transaction_timeout : " 1s " serial_timeout : " 100ms " max_frame_size : 256 http : enabled : true bind_addr : " 127.0.0.1 " bind_port : 8080 metrics_enabled : true connection : max_connections : 100 idle_timeout : " 60s " connect_timeout : " 5s " per_ip_limits : 10 backoff : initial_interval : " 100ms " max_interval : " 30s " multiplier : 2.0 max_retries : 5 logging : trace_frames : false log_level : " info " format : " pretty " # Options: pretty, json include_location : false 📊 Monitoring The HTTP API provides basic monitoring endpoints: GET /health - Health check endpoint GET /status - Detailed status information Planned monitoring features: Prometheus metrics support OpenTelemetry integration Advanced connection statistics Detailed performance metrics 🔍 Examples Industrial Automation Setup Example setup running on Raspberry Pi with multiple Modbus RTU devices connected via RS485. 🛠️ Tech Stack tokio - Asynchronous runtime tokio-serial - Async serial port handling tracing - Structured logging config - Configuration management axum - HTTP server framework Coming Soon Prometheus metrics integration OpenTelemetry support 📚 Documentation API Documentation Configuration Guide Metrics Reference Troubleshooting Guide 🤝 Contributing Contributions are welcome! Please check out our: Contributing Guidelines Code of Conduct 📄 License This project is licensed under either of Apache License, Version 2.0, ( LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0 ) MIT license ( LICENSE-MIT or http://opensource.org/licenses/MIT ) at your option.
+======>
+https://github.com/refacktor-aws/aws-lambda-libc-runtime
+-->>-->>
+Repository files navigation README MPL-2.0 license This is an ultra-slim, minimalistic custom runtime for AWS Lambda, with API bindings for C and Rust. Features No abstraction bloat: HTTP Headers and JSON payload delivered in a raw char* buffer No dependencies outside of standard C library. Opt-in to whatever you actually need. Dynamically linked to glibc on target al2023 image, to minimize binary size No allocator dependency: Bring your own arena or gc allocator, or use malloc if you want (Optional) Rust language binding with no_std, no_main and no#tokio Rust binary is the same size as C binary (probably because of ELF page-boundary padding). Benefits Extremely small deployment package size (~5kb zipped)! Extremely fast cold starts (4 to 5 milliseconds) Minimizes waste of compute resources, slowing down Global Warming! Alternatives This is an alternative to https://github.com/PauloMigAlmeida/aws-lambda-c-runtime for C It's also an alternative to https://github.com/awslabs/aws-lambda-rust-runtime for Rust If you are not sure which project to use, you should probably choose one of the others. If you like Javascript, have a look at https://github.com/awslabs/llrt Project Structure src/ : The C source code which includes the runtime and an example function tests/ : Unit-integration test using a mock server in Python to emulate the AWS Lambda Environment locally. sam-deploy/ : Scripts for building & deploying using AWS SAM CLI in Docker. This is optional, you could alternatively use CDK, Terraform, the plain AWS CLI, etc. rust-binding/ & rust-example/ : experimental Rust integration Getting Started Pre-requisites git clone 
+aws configure C python sam-deploy/deploy.py Rust python rust-example/build-test-deploy.py
+======>
+https://old.reddit.com/r/rust/comments/1h4ffas/do_you_have_a_macbook_air_can_you_try_timing_this/
+-->>-->>
+EDIT: I'm not asking you to build/run    my    code, but the famous open-source project Bevy. If you're concerned, please don't build/run this.   
+
+   
+
+   EDIT2: Clearly the M3 MacBook Air is considerably faster than my 8-year old Intel MBP. No surprises there. It's also ~33% faster than a 4 year old "pretty decent" Intel laptop, which is pretty impressive.   
+
+   If you have a recent M-based MacBook    Pro    please feel free to play along too - currently the time to beat is 61 seconds...   
+
+   
+
+   I'm looking to upgrade an old MacBook Pro that is struggling to build modern Rust projects in reasonable time, so I'm curious about the M2- and M3-based MacBook Airs. I would like to do a quick, casual benchmark to get a rough idea of what kind of improvement I'd be looking at.   
+
+   If you have Rust 1.83 installed, can you try this please? It should only take about 10 minutes all up.   
+
+   ```
+$ cargo version
+cargo 1.83.0 (5ffbef321 2024-10-29)   
+
+   $ git clone --branch release-0.15.0    https://github.com/bevyengine/bevy.git   
+
+   $ cd bevyengine/bevy.git
+$ cargo fetch   
+
+   $ cargo clean && time cargo build --example breakout
+...
+$ cargo clean && time cargo build --example breakout
+...
+$ cargo clean && time cargo build --example breakout
+...
+```   
+
+   Please take the best of three, and let me know which model and how much RAM your MBA has too, please.   
+
+   See if you can beat 220 seconds (my MBP 2017), or 90 seconds (a Dell XPS 17 from 2021).   
+   
+
+======>
+https://github.com/leptos-rs/leptos/releases/tag/v0.7.0
+-->>-->>
+Releases v0.7.0 v0.7.0 Latest Latest Compare Choose a tag to compare Could not load tags Nothing to show {{ refName }} default Loading View all tags gbj released this 30 Nov 17:24 v0.7.0 d665dd4 At long last, as the culmination of more than a year of work, the 0.7 release has arrived! 0.7 is a nearly-complete rewrite of the internals of the framework, with the following goals: maintain backwards compatibility for as much user application code as possible improve the async story and fix Suspense edge cases and limitations reduce WASM binary size reduce HTML size faster HTML rendering allow signals to be sent across threads enhance the ergonomics of things like prop spreading and accessing the HTML shell of your application build the foundation for future work reactive stores to make nested reactivity more pleasant client-side routing with islands and state preservation integrating with native UI toolkits to create desktop applications Getting Started 0.7 works with the current cargo-leptos version. If you want to start exploring, there are starter templates for Axum and Actix. Each template is only three files. They show some of the boilerplate differences; for more details, see below. Axum: cargo leptos new --git https://github.com/leptos-rs/start-axum ( repo ) Actix: cargo leptos new --git https://github.com/leptos-rs/start-actix ( repo ) New Features .await on resources and async in <Suspense/> Currently, create_resource allows you to synchronously access the value of some async data as either None or Some(_) . However, it requires that you always access it this way. This has some drawbacks: requires that you null-check every piece of data makes it difficult for one resource to wait for another resource to load Now, you can .await a resource, and you can use async blocks within a <Suspense/> via the Suspend wrapper, which makes it easier to chain two resources: let user = Resource :: new ( || ( ) , |_| user_id ( ) ) ; let posts = Resource :: new ( // resources still manually track dependencies (necessary for hydration) move || user . get ( ) , move |_| async move { // but you can .await a resource inside another let user = user . await ? ; get_posts ( user ) . await } , ) ; view ! { < Suspense > // you can `.await` resources to avoid dealing with the `None` state <p> "User ID: " { move || Suspend ::new ( async move { match user. await { // ... } } ) } </p> // or you can still use .get() to access resources in things like component props < For each=move || posts.get ( ) .and_then ( Result ::ok ) .unwrap_or_default ( ) key=|post| post.id let :post
+        > // ... </ For >
+    </ Suspense > } Reference-counted signal types One of the awkward edge cases of current Leptos is that our Copy arena for signals makes it possible to leak memory if you have a collection of nested signals and do not dispose them. ( See 0.6 example .) 0.7 exposes ArcRwSignal , ArcReadSignal , etc., which are Clone but not Copy and manage their memory via reference counting, but can easily be converted into the copyable RwSignal etc. This makes working with nested signal correctly much easier, without sacrificing ergonomics meaningfully. See the 0.7 counters example for more. .read() and .write() on signals You can now use .read() and .write() to get immutable and mutable guards for the value of a signal, which will track/update appropriately: these work like .with() and .update() but without the extra closure, or like .get() but without cloning. let long_vec = RwSignal :: new ( vec ! [ 42 ; 1000 ] ) ; let short_vec = RwSignal :: new ( vec ! [ 13 ; 2 ] ) ; // bad: clones both Vecs let bad_len = move || long_vec . get ( ) . len ( ) + short_vec . get ( ) . len ( ) ; // ugly: awkward nested syntax (or a macro) let ugly_len = move || long_vec . with ( |long| short_vec . with ( |short| long . len ( ) + short . len ( ) ) ) ; // readable but doesn't clone let good_len = move || long_vec . read ( ) . len ( ) + short_vec . read ( ) . len ( ) ; These should always be used for short periods of time, not stored somewhere for longer-term use, just like any guard or lock, or you can cause deadlocks or panics. Custom HTML shell The HTML document "shell" for server rendering is currently hardcoded as part of the server integrations, limiting your ability to customize it. Now you simply include it as part of your application, which also means that you can customize things like teh <title> without needing to use leptos_meta . pub fn shell ( options : LeptosOptions ) -> impl IntoView { view ! { <! DOCTYPE html>
+        <html lang= "en" >
+            <head>
+                <meta charset= "utf-8" />
+                <meta name= "viewport" content= "width=device-width, initial-scale=1" />
+                < AutoReload options=options.clone ( ) />
+                < HydrationScripts options/>
+                < MetaTags />
+            </head>
+            <body>
+                < App />
+            </body>
+        </html> } } Enhanced attribute spreading Any valid attribute can now be spread onto any component, allowing you to extend the UI created by a component however you want. This works through multiple components: for example, if you spread attributes onto a Suspense they will be passed through to whatever it returns. // attributes that are spread onto a component will be applied to *all* elements returned as part of
+// the component's view. to apply attributes to a subset of the component, pass them via a component prop
+< ComponentThatTakesSpread // the class:, style:, prop:, on: syntaxes work just as they do on elements class : foo =true style : font-weight = " bold " prop : cool =42 on : click =move |_| alert( " clicked ComponentThatTakesSpread " )
+    // props are passed as they usually are on components some_prop =13
+    // to pass a plain HTML attribute, prefix it with attr: attr : id = " foo " // or, if you want to include multiple attributes, rather than prefixing each with
+    // attr:, you can separate them from component props with the spread {..}
+    {..} // everything after this is treated as an HTML attribute title = " ooh, a title! " {..spread_onto_component}
+/> Improved <ProtectedRoute/> The current ProtectedRoute component is not great: it checks the condition once, synchronously, on navigation, and so it doesn't respond to changes and can't easily be used with async data. The new ProtectedRoute is reactive and uses Suspense so you can use resources or reactive data. There are examples of this now in router and ssr_modes_axum . Two-way binding with bind: syntax Two-way binding allows you to pass signals directly to inputs, rather than separately managing prop:value and on:input to sync the signals to the inputs. // You can use `RwSignal`s let is_awesome = RwSignal :: new ( true ) ; let sth = RwSignal :: new ( "one" . to_string ( ) ) ; // And you can use split signals let ( text , set_text ) = signal ( "Hello world" . to_string ( ) ) ; view ! { // Use `bind:checked` and a `bool` signal for a checkbox <input type = "checkbox" bind:checked=is_awesome /> // Use `bind:group` and `String` for radio inputs <input type = "radio" value= "one" bind:group=sth />
+    <input type = "radio" value= "two" bind:group=sth />
+    <input type = "radio" value= "trhee" bind:group=sth /> // Use `bind:value` and `String` for everything else <input type = "text" bind:value= ( text, set_text ) />
+    <textarea bind:value= ( text, set_text ) /> } Reactive Stores Stores are a new reactive primitive that allow you to reactively access deeply-nested fields in a struct without needing to create signals inside signals; rather, you can use plain data types, annotated with #[derive(Store)] , and then access fields with reactive getters/setters. Updating one subfield of a Store does not trigger effects only listening to a sibling field; listening to one field of a store does not track the sibling fields. Stores are most useful for nested data structures, so a succinct example is difficult, but the stores example shows a complete use case. Support the View Transition API for router animations The Routes / FlatRoutes component now have a transition prop. Setting this to true will cause the router to use the browser's View Transition API during navigation. You can control animations during navigation using CSS classes. Which animations are used can be controlled using classes that the router will set on the <html> element: .routing-progress while navigating, .router-back during a back navigation, and .router-outlet-{n} for the depth of the outlet that is being changed ( 0 for the root page changing, 1 for the first Outlet , etc.) The router example uses this API. Note: View Transitions are not supported on all browsers, but have been accepted as a standard and can be polyfilled . Using a built-in browser API is much better in the long term than our bug-prone and difficult-to-maintain custom implementation. Breaking Changes Imports I'm reorganizing the module structure to improve docs and discoverability. We will still have a prelude that can be used for glob imports of almost everything that's currently exported from the root. - use leptos::*; + use leptos::prelude::*; Likewise, the router exposes things via leptos_router::components and leptos_router::hooks . rust-analyzer can help fix imports fairly well. I'm hoping for feedback on the new module structure, whether it makes sense, and any improvements. I have not done too much work to sort through the reexports, look at how docs look, etc. yet. Naming We're migrating away from create_ naming toward more idiomatic Rust naming patterns: create_signal to signal (like channel ) create_rw_signal to RwSignal::new() etc. I've left some of the current functions in, marked deprecated; others may have been missed, but should be easy to find via docs.rs . Type erasure and view types One of the major changes in this release is replacing the View enum with statically-typed views, which is where most of the binary size savings come from. If you need to branch and return one of several types, you can either use one of the Either enums in leptos::either , or you can use .into_any() to erase the type. Generally speaking the compiler can do its job better if you maintain more type information so the Either types should be preferred, but AnyView is not bad to use when needed. // Either if some_condition { Either :: Left ( view ! { <p> "Foo" </p> } ) } else { Either :: Right ( "Bar" ) } // .into_any() if some_condition { view ! { <p> "Foo" </p> } . into_any ( ) } else { "Bar" . into_any ( ) } Boilerplate There have been changes to the SSR and hydration boilerplate, which include (but aren't limited to) get_configuration is sync (remove the .await ) you provide the app shell .leptos_routes no longer takes LeptosOptions as an argument use leptos::mount::hydrate_body (hydration) instead of leptos::mount::mount_to_body (which is now CSR-specific) ... and probably more Check the starter templates for a good setup. Route definitions The patterns for route definition have changed in several ways. fallback is now a required prop on <Routes/> , rather than an optional prop on <Router/> If you do not need nested routes, there is now a <FlatRoutes/> component that optimizes for this case If you use nested routes, any routes with children should be <ParentRoute/> Route paths are defined with static types, rather than strings: path="foo" becomes path=StaticSegment("foo") , and there are path=":id" becomes path=ParamSegment("id") , path="posts/:id" becomes path=(StaticSegment("posts"), ParamSegment("id")) , and so on.  There is a path!() macro that will do this for you: i.e., it will expand path!("/foo/:id") to path=(StaticSegment("foo"), ParamSegment("id")) . See the router and hackernews examples. Send / Sync signals By default, the data held in reactive primitives (signals, memos, effects) must be safe to send across threads. For non-threadsafe types, there is a "storage" generic on signal types. This defaults to SyncStorage , but you can optionally specify LocalStorage instead. Many APIs have _local() alternatives to enable this. let ( foo , bar ) = signal ( "baz" ) ; // error: `std::rc::Rc<&str>` cannot be shared between threads safely // let (foo, bar) = signal(Rc::new("baz")); let ( foo , bar ) = signal_local ( Rc :: new ( "baz" ) ) ; let qux = RwSignal :: new ( "baz" ) ; // error: `std::rc::Rc<&str>` cannot be shared between threads safely // let qux = RwSignal::new(Rc::new("baz")); let qux = RwSignal :: new_local ( Rc :: new ( "baz" ) ) ; Minor Breaking Changes The Await component now takes a plain Future for its future prop rather than a Fn() -> Future , because it uses an optimized resource implementation Views for arbitrary data types can now be added by implementing IntoRender rather than IntoView (see discussion in #3062 ) ParamsMap supports multiple values per key (which is supported by query strings), so the API now differentiates between inserting a new value for the same key and replacing the value, and between getting one value and getting all values for a key The Stylesheet component no longer automatically works with the file hashing feature of cargo-leptos . You can use HashedStylesheet and pass it the appropriate props instead. A number of components previously had props that existed only to pass an HTML attribute down to the element they create. (For example, an <A> component with a class prop that set the class on the <a> element.) These have been replaced by the new attribute-spreading API, to reduce complexity of the components themselves. LeptosOptions now uses Arc<str> for its fields that were formerly String , so that it is less expensive to clone. In practice, this usually only means using &field or field.as_ref() in a few places that require &str , and so on. experimental-islands feature renamed to islands Miscellaneous I'm sure there are a bunch of small and larger changes I have not mentioned above. By the time of final release, help compiling a total list of breaking changes/migration guide would be much appreciated. At present, the starter templates and the examples directory in the PR can provide a pretty comprehensive set of changes. On storing views in signals... There's a pattern I've seen many use that I do not particularly like, but accidentally enabled through the way APIs happened to be (or needed to be) designed in Leptos 0.1-0.6, in which a user stores some view in a signal and then reads it somewhere else. This was possible because View needed to be Clone for internal reasons. Some users used this to create custom control flow: for example, you could create a global "header view" signal, and then update it from leaf components by storing a new view in it. I'd consider this a bit of an antipattern, for a couple reasons: Ideally the application is designed so that data flows through the reactive graph, and the view is defined declaratively at the "leaves" of the application by components that take that reactive data More practically, DOM elements are Clone but in a surprising way: you can clone the reference to a DOM node, but that is a shallow, not a deep clone, and if you use it in multiple places by .get() ing the signal more than once, it will only appear in the last location In the statically-typed view tree, views are not necessarily cloneable (including the AnyView type), so they can't easily be stored in a signal. However, it is possible to achieve a similar goal by using a "reactive channel" pattern instead: let count = RwSignal :: new ( 0 ) ; let trigger = ArcTrigger :: new ( ) ; let ( tx , rx ) = std :: sync :: mpsc :: channel ( ) ; let on_click = { let trigger = trigger . clone ( ) ; move |_| { leptos :: logging :: log! ( "clicked" ) ; * count . write ( ) += 1 ; tx . send ( if * count . read ( ) % 2 == 0 { view ! { <p> "An even paragraph" </p> } . into_any ( ) } else { view ! { <span> "An odd span" </span> } . into_any ( ) } ) . unwrap ( ) ; trigger . trigger ( ) ; } } ; view ! { <div>
+        <button on:click=on_click> "Update view" </button> { move || { trigger.track ( ) ;
+            rx.try_recv ( ) .unwrap_or_else ( |_| view! { <p> "Click the button once to begin." </p> } .into_any ( ) ) } } </div> } Send the views through a channel means they do not need to be cloned, and won't be used in more than once place (avoiding the edge cases of 2 above.) Each time you send a view through the channel, simply trigger the trigger. Assets 2 Loading 2 ShenMian and boyswan reacted with thumbs up emoji 3 revskill10, hqdncw, and boyswan reacted with laugh emoji 78 paolobettelini, kingwingfly, mateuszkj, TahaHachana, erlend-sh, purung, mProjectsCode, ogghead, martinfrances107, May1a, and 68 more reacted with hooray emoji 29 thomasjo, whisperpine, dustypomerleau, mahmoud-eltahawy, blorbb, edorgeville, hendriknielaender, bbstilson, Pencilcaseman, saikatdas0790, and 19 more reacted with heart emoji 28 peterhirn, pharaok, SleeplessOne1917, huuff, pythoneer, benwis, callmeitachi, whisperpine, mahmoud-eltahawy, blorbb, and 18 more reacted with rocket emoji 3 callmeitachi, saikatdas0790, and boyswan reacted with eyes emoji All reactions 2 reactions 3 reactions 78 reactions 29 reactions 28 reactions 3 reactions 99 people reacted
+======>
+https://old.reddit.com/r/rust/comments/1h3zwwp/what_builder_pattern_library_do_you_use/
+-->>-->>
+I want to use a builder pattern library to reduce boilerplate. I see there a lot of crates for it online. Which one is the best one?   
+   
+
+======>
+https://github.com/YShoji-HEP/ArrayObject
+-->>-->>
+Repository files navigation README Apache-2.0 license Array Object Self-describing binary format for arrays of integers, real numbers, complex numbers and strings, designed for object storage, database and single file. ArrayObject is a part of dbgbb project. Highlights The data is self-describing and can inflate itself into typed variables. No nested structures, no tuple, no dataset name, always a simple array of uniform data. Generic integer and float types absorb the difference of type sizes. Automatic compression using variable length integer/float and dictionary-coder for string. The data is stored in the minimal data size. Conversions from/into Vec<_> , [T; N] , ndarray and nalgebra are supported. Caution This crate is under development and is subject to change in specification. Examples Rust example: use array_object :: * ; fn main ( ) { // Convert data into binary let original = vec ! [ 1u32 , 2 , 3 , 4 ] ; let obj : ArrayObject = original . clone ( ) . try_into ( ) . unwrap ( ) ; let packed = obj . pack ( ) ; // This converts the data into Vec<u8>. // Restore data let unpacked = ArrayObject :: unpack ( packed ) . unwrap ( ) ; let inflated : Vec < u32 > = unpacked . try_into ( ) . unwrap ( ) ; assert_eq ! ( original, inflated ) ; } Format The data format is automatically selected to minimize the datasize. For the specification of encording, see spec . Integer Integer is either unsigned or signed, which is determined when [ ArrayObject ] is constructed. The zigzag encoding is used for signed integers. When restored to a variable, data is automatically converted into the desired integer type if the ranges overlap. Scalar Short Integer (5bit) The data is stored in the same byte as the footer. Thus the total data size is only one byte. Variable Length (8 x n bit) The integer is shortened to 8bit x (smallest number). Array Fixed Length (8bit, 16bit, 32bit, 64bit, 128bit) Use the smallest possible size.
+All the elements have the same size. Variable Length (8bit, 16bit, 32bit, 63bit, 64-128bit variable) The integer is shortened to the smallest possible size. Each four integers, one byte is added to indicate the size of each integer type. If the integer is longer than 63 bit, one byte is added to indicate how many bytes should be read additionally. Float (Real, Complex) Currently 32bit and 64bit floating numbers are supported. Scalar Fixed Length ( 16bit , 32bit, 64bit, 128bit ) Use the smallest possible size without loss of precision. Array Fixed Length ( 16bit , 32bit, 64bit, 128bit ) Use the smallest possible size without loss of precision. All the numbers have the same size. Variable Length ( 16bit , 32bit, 64bit, 128bit ) The floating number is shortened to the smallest size. Fach four integers, one byte is added to indicate the size of each integer type. String Only UTF-8 string is allowed, in particular, the non-UTF value of 0xFF is used internally and should be avoided. Scalar Single Vec[u8] binary data Array Joined The strings are joined with marker 0xFF, which never appears in UTF-8. Dictionary Create a dictionary of maximum 256 variants and the array is converted into an array of the references to the dictionary. ToDo Implimentation in different languages: Python, Julia, R, C++, Fortran, ... Half float and long double float support. Support for [T; N] . Support for usize and isize . Q&A When is it useful? A simple case is to store a 2D array of numbers similar to a CSV file. Unlike a CSV file, ArrayObject can store arrays of more than two-dimensions, has a smaller filesize, and is fast to read and write.
+Instead, it is not possible to append data to ArrayObject or to have different types of data in a single ArrayObject . The definition of ArrayObject is a chunk of data that is not separable. Hence there is no sense in appending data or having different types. In other words, ArrayObject is the data that we want to load into memory simultaneously, not line by line.
+Another use is an object for object storage, which is actually what the ArrayObject is for. The object storage does the things that ArrayObject cannot: it allows you to append the data and store different types of data in a storage. This is why ArrayObject should not have these capabilities: having multiple options to do the same thing would complicate the system.
+Instead, with a minimal footer, it does what the object storage cannot: type abstraction, forced type checking and type-dependent compression. What is the difference from a raw binary file? A raw binary file has no type checking system. Integers, for example, can be unsigned or signed, 32bit or 64bit, little endian or big endian, etc. Without type checking, one has to check that both reader and writer are using the same format.
+When it comes to an array, it becomes more complicated: the raw memory order can be row major or column major depending on the programing language, and the real part and the imaginary part of complex numbers can be assigned to the most inner or the most outer index. ArrayObject has a well defined spec and one does not need to worry about these things. What is the difference from database like HDF5? ArrayObject is a simple, compact and portable data format for a single array, but is not a database. Thus, it does not have complicated structure like dataset or group. Even so, ArrayObject is self-contained: it knows how to inflate itself and we do not need to feed any information to read the data.
+Instead, ArrayObject does not have information of datasize, name, timestamp, permission, etc, which are supposed to be managed by object storage or filesystem. ArrayObject is rather closer to a CSV file: the program knows how to read it, but does not know what the data is about, when it is created, or what are the column and row, without accessing the metadata stored outside of the file. What is the difference from serialization like Serde? ArrayObject forbids nested structures: it can be an array of numbers or strings, but not of ArrayObject s themselves. It also cannot be a tuple. Such structures are supposed to be provided by the storage.
+Serialization typically adds the datasize to each data to indicate the boundaries of the data. This information is not necessary for storing data in a file or a object storage because it is already managed by the storage. Instead, ArrayObject stores the information about the shape of the array.
+A more technical difference is that ArrayObject adds a footer instead of a header, allowing metadata to be separated at no cost. Why Complex Numbers? The relation between complex numbers and real numbers is the same as that of real numbers and integers. A subset of complex numbers is real numbers and there is a well-defined map betwen them where they overlap. This makes a difference between a complex number and a vague array of length 2.
+Practically, in dynamically typed languages, the results of functions like sqrt or log yield either real numbers or complex numbers depending on the sign of the argument. It is thus useful to manifestly indicate complex numbers as a type and keep the same array shape.
+In addition, it is somewhat cumbersome to convert an array of complex numbers into an array of real numbers. ArrayObject provides a handy export/import option for complex numbers. Why is there no conversion from Vec<Vec<_>> ? Vec<Vec<_>> may contain vectors of different lengths and does not fit into ArrayObject .
+In general, if you work with an fixed length array, it is much efficient to use a crate like ndarray or nalgebra.
+If necessary, for ArrayObject s having the same size, shape and type, .try_concat() method is available for Vec<ArrayObject> , which generates a one-dimensional higher array.
+On the other hand, if the lengths are different, it can be stored as multiple ArrayObject s in an object storage. See dbgbb for such an implementation.
+======>
+https://old.reddit.com/r/rust/comments/1h4e9y3/rust_newbie_here_would_appreciate_code_review/
+-->>-->>
+This is only a very very small terminal app, as it's for AOC 24 day 1. Would still appreciate anything, any suggestions on how to improve it. I come from a python and JS/TS/frontend background with a little bit of golang in there, so I'm interested in seeing other people's POVs   
+
+   https://github.com/ted-mundy/aoc-24/tree/main/day-1   
+
+   Thanks :)   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h47304/how_to_ensure_a_rust_trait_object_is_unusable/
+-->>-->>
+I'm trying to design a    FileSystem    trait in Rust where, after calling a    delete    method, the object becomes completely unusable at compile time. Here's a simplified version of my trait:   
+
+   pub trait FileSystem {   
+
+   fn create(file_name: &str) -> FileSystemResult<impl FileSystem>;   
+
+   fn seek(&mut self, pos: SeekFromPos) -> FileSystemResult<u64>;   
+
+   fn write(&mut self, buf: &[u8]) -> FileSystemResult<()>;   
+
+   fn read(&mut self, buf: &mut [u8]) -> FileSystemResult<()>;   
+
+   fn delete(self) -> FileSystemResult<()>;   
+
+   }   
+
+   The    delete    method is intended to consume the object, ensuring it can no longer be used. However, I want to manage these objects dynamically, using something like    Rc    or    Box   .   
+
+   How can achieve that with Rc or Box?   
+
+   Is it possible?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h40vgo/how_do_you_build_your_state_machines/
+-->>-->>
+Do you use any library or just handroll it using enums and the typesystem?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h43y1t/with_rust_on_apple_silicone_any_gotchas_to_watch/
+-->>-->>
+Hi, I just bought an M4 Mac Mini, originally to do iOS dev, but now I'm considering it as my daily dev driver.   
+
+   I do both full stack dev as work and casual game dev experimentally; all with Rust.   
+
+   For the full stack side, docker, dbs, etc., any advice on gotchas, if any?   
+
+   How about for middle ware running in docker, like grafana, influx, redis, rabbit mq, etc?   
+
+   Thanks   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h4ey5w/modbusrelay_a_highperformance_modbus_tcp_to_rtu/
+-->>-->>
+Hey Rustaceans! I'd like to share a project I've been working on that just hit its first release.   
+
+   The project started from a personal need - I was developing software to control my home ventilation system running on a Raspberry Pi 3. With just 1GB of RAM, developing directly on the Pi wasn't practical. I needed a lightweight bridge between Modbus TCP and RTU that would run on the Pi while allowing me to develop and deploy the main control software on more powerful hardware.   
+
+   Key features:   
+
+   
+   Built with async I/O (Tokio) for maximum performance   
+   Zero-copy operations for efficient memory use   
+   Smart RS485 handling with configurable RTS control   
+   Built-in HTTP monitoring API   
+   Comprehensive error handling and connection management   
+   
+
+   Tech stack:   
+
+   
+   Rust (with Tokio for async runtime)   
+   Axum for HTTP server   
+   Various Rust crates for configuration and logging   
+   
+
+   The project is packaged for both Debian (amd64, arm64, armhf) and Arch Linux, making it easy to deploy on various systems including Raspberry Pi.   
+
+   GitHub:    https://github.com/aljen/modbus-relay   
+
+   I'd love to hear your thoughts, feedback, or if anyone finds it useful for their projects!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h4f165/custom_linting/
+-->>-->>
+As far as I understand it, plugin support was removed from Rust some time ago, and a number of custom linters broke. `herbie-lint` was one of these, and it's never been updated afaict. Is there some common method all you Rustaceans use for custom linting? Or specifically, is there a crate, or crates, that can provide warnings on potentially numerically unstable floating point expressions? Thanks for your help!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h48us2/opinions_on_rust_in_scientific_settings/
+-->>-->>
+I am a graduate student who works primarily in holography and applied electromagnetics. I code quite a bit and daily drive python for most of my endeavors. However, I have started some projects recently that I think will be limited by python's speed. Rust seems like an appealing choice as an alternative primarily due to feeling significantly more modern than other lower level languages like C++ (i.e. Cargo). What is the communities opinions/maturity on things like:   
+- Py03 (general interoperability between rust in python)   
+- Plotting libraries (general ease of use data visualization)   
+- Image creating libraries (i.e. converting arrays to .png)   
+- GPU programming   
+- Multithreading   
+Are there an resources that you would recommend for any of the above topics in conjunction with documentation? I am not wholly unfamiliar with rust, have done a few embedded projects and the sort. However, I would say I am still at a beginner level, therefore, any resources are highly appreciated.    
+
+   Thank you for the input!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1h40cdd/a_no_std_no_main_notokio_runtime_for_aws_lambda/
+-->>-->>
+I've had a long-term interest in finding the most efficient AWS Lambda implementation that can possibly exist.   
+
+   I have been disappointed with the standard offerings in both Go and Rust, as they're almost as bloated as Java AOT. Nim and Zig looked promising but lack maturity at this time.   
+
+   So, I decided it was time to learn some low-level Rust and C interop, by implementing a new runtime from scratch, starting from the lowest levels and only adding what was absolutely necessary.   
+
+   This is rough around the edges but passes "hello world" deployment:   
+
+   https://github.com/refacktor-aws/aws-lambda-libc-runtime   
+
+   It looks very promising with 15kb binaries, 5ms cold starts, and sub-millisecond warm response!   
+
+   Additional testing, bug reports, and bugfix PRs would be welcomed :-)   
+   
+
+======>
+https://www.rustfinity.com/advent-of-rust
+-->>-->>
+If you like Rustfinity, make sure you give us a star on GitHub and a follow on X Rustfinity Practice Learn Blog Advent of Rust new Login/Sign Up Advent of Rust 🦀 2024 Learn and Practice Rust by solving daily challenges for a month on Advent of Rust 2024. Next Challenge in 04:59:38 Day 1 Day 2 Day 3 Day 4 Day 5 Day 6 Day 7 Day 8 Day 9 Day 10 Day 11 Day 12 Day 13 Day 14 Day 15 Day 16 Day 17 Day 18 Day 19 Day 20 Day 21 Day 22 Day 23 Day 24 Day 25 Get notified when the event starts Subscribe What is Advent of Rust? Advent of code is a great way to improve your programming skills. It's a month-long event where you can learn Rust by solving daily challenges. Each day, a new challenge is released, and you have 24 hours to solve it. The challenges are designed to be fun and educational, and they cover a wide range of topics, from basic syntax to advanced algorithms. Advent of Rust is just like Advent of Code, but with a focus on Rust, we'll focus on the core Rust language features like Ownership, Borrowing, Lifetimes, and more. Rustfinity.com Links Home Learn Rust Get Started Practice Rust Challenges Advent of Rust Tutorials Blog Playground Jobs Open source Newsletter Learn Gleam Socials GitHub X Legal Privacy Policy Terms of Service
