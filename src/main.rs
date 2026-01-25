@@ -8,7 +8,7 @@ use tokio::time::{sleep, Duration};
 
 // mod claude;
 
-const SLEEP_TIME: u64 = 1;
+const SLEEP_TIME: u64 = 3;
 const OLD_REDDIT: &str = "https://old.reddit.com";
 const ITEM_LEN: usize = 15;
 
@@ -25,14 +25,29 @@ fn extract_content(html: &str) -> String {
     use dom_content_extraction::{scraper::Html as IHtml, DensityTree};
 
     let document = IHtml::parse_document(&html);
-    let mut dtree = DensityTree::from_document(&document); // &scraper::Html
-                                                           // let sorted_nodes = dtree.sorted_nodes();
-                                                           // let node_id = sorted_nodes.last().unwrap().node_id;
+    let mut dtree = match DensityTree::from_document(&document) {
+        Ok(tree) => tree,
+        Err(err) => {
+            log::warn!("density tree init failed: {}", err);
+            return sanitize_html(html);
+        }
+    };
+    // let sorted_nodes = dtree.sorted_nodes();
+    // let node_id = sorted_nodes.last().unwrap().node_id;
 
     // println!("{}", get_node_text(node_id, &document));
 
-    dtree.calculate_density_sum();
-    let extracted_content = dtree.extract_content(&document);
+    if let Err(err) = dtree.calculate_density_sum() {
+        log::warn!("density sum failed: {}", err);
+        return sanitize_html(html);
+    }
+    let extracted_content = match dtree.extract_content(&document) {
+        Ok(content) => content,
+        Err(err) => {
+            log::warn!("content extract failed: {}", err);
+            return sanitize_html(html);
+        }
+    };
 
     // println!("extracted_content {}", extracted_content);
 
@@ -56,7 +71,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     // Set up the WebDriver client
-    let c = ClientBuilder::native()
+    let c = ClientBuilder::rustls()?
         .connect("http://localhost:4444")
         .await?;
 
@@ -67,7 +82,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let posts = c.find_all(Locator::Css("#siteTable a.title")).await?;
 
     let mut post_results: Vec<(String, String)> = vec![];
-    for post in &posts[2..(ITEM_LEN + 2)] {
+    for post in posts.iter().skip(2).take(ITEM_LEN) {
         let title = post.text().await?;
         let href = post.attr("href").await?.expect("should be a url");
         log::info!("=> {}, {}", title, href);

@@ -4,19 +4,18 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-chrono = "0.4.38"
-dom-content-extraction = "0.3.2"
+chrono = "0.4.43"
+dom-content-extraction = "=0.3.15"
 dotenv = "0.15.0"
-env_logger = "0.11.5"
-fantoccini = "0.21.2"
-futures = "0.3.30"
-log = "0.4.22"
-reqwest = { version = "0.12.7", features = ["json"] }
-scraper = "0.20.0"
-serde_json = "1.0.128"
-tokio = { version = "1.40.0", features = ["full"] }
+env_logger = "0.11.8"
+fantoccini = { version = "0.22.0", default-features = false, features = ["rustls-tls"] }
+futures = "0.3.31"
+log = "0.4.29"
+reqwest = { version = "0.13.1", features = ["json"] }
+scraper = "0.25.0"
+serde_json = "1.0.149"
+tokio = { version = "1.49.0", features = ["full"] }
 
 [[bin]]
 name = "call_claude"
 path = "src/call_claude.rs"
-

@@ -21,7 +21,7 @@ pub async fn call_claude_to_summarize(api_key: &str, text: &str) -> Result<Strin
         .header("anthropic-version", "2023-06-01")
         .header("x-api-key", api_key)
         .json(&json!({
-            "model": "claude-3-sonnet-20240229",
+            "model": "claude-sonnet-4-5",
             "max_tokens": 1536,
             "messages": [
                 {
