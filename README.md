@@ -12,6 +12,8 @@ This is a bot to scrape the reddit latest Rust lang news, automatically clear th
 
 wait for the finish of it.
 
-4. cargo run --bin call_claude
+This also runs `call_claude` with the same date to generate the report.
+
+4. (optional) cargo run --bin call_claude -- 2026-01-24
 
 wait for the finish of it.

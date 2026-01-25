@@ -10,7 +10,7 @@ pub async fn call_claude_to_summarize(api_key: &str, text: &str) -> Result<Strin
     let content_to_summarize = text;
     // Construct the prompt
     let prompt = format!(
-        "请用中文总结以下内容:\n\n{}\n\nSummary:",
+        "请用中文总结以下内容. For the title uses ##, for the key point section uses ### :\n\n{}\n\nSummary:",
         content_to_summarize
     );
 
