@@ -25,6 +25,14 @@ struct Args {
     #[arg(long)]
     daily: bool,
 
+    /// Run at a timer interval (HH:MM format), executing the full pipeline once per day
+    #[arg(long, value_name = "TIME", value_parser = parse_clock)]
+    interval_run_at: Option<NaiveTime>,
+
+    /// Number of days between runs (used with --interval-run-at)
+    #[arg(long, value_name = "DAYS", default_value = "1")]
+    interval_days: u64,
+
     /// Time of day to run in daily mode, format: HH:MM (24-hour)
     #[arg(long, value_name = "CLOCK", default_value = "02:00", value_parser = parse_clock)]
     clock: NaiveTime,
@@ -57,6 +65,16 @@ fn next_run_at(clock: NaiveTime, now: DateTime<Local>) -> DateTime<Local> {
     if next < now {
         let tomorrow = today + ChronoDuration::days(1);
         next = local_datetime(tomorrow, clock, now + ChronoDuration::days(1));
+    }
+    next
+}
+
+fn next_run_at_interval(clock: NaiveTime, interval_days: u64, now: DateTime<Local>) -> DateTime<Local> {
+    let today = now.date_naive();
+    let mut next = local_datetime(today, clock, now + ChronoDuration::hours(1));
+    if next < now {
+        let next_date = today + ChronoDuration::days(interval_days as i64);
+        next = local_datetime(next_date, clock, now + ChronoDuration::days(interval_days as i64));
     }
     next
 }
@@ -273,6 +291,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let formatted_date = today_string();
             if let Err(err) = run_pipeline(&formatted_date).await {
                 log::error!("daily run failed: {err}");
+            }
+        }
+    } else if let Some(interval_time) = args.interval_run_at {
+        if args.date.is_some() {
+            log::warn!("date override ignored in interval-run-at mode");
+        }
+        let interval_days = args.interval_days;
+        loop {
+            let now = Local::now();
+            let next = next_run_at_interval(interval_time, interval_days, now);
+            let wait = (next - now).to_std().unwrap_or_else(|_| Duration::from_secs(0));
+            log::info!("next run scheduled at {} (every {} days)", next, interval_days);
+            sleep(wait).await;
+
+            let formatted_date = today_string();
+            if let Err(err) = run_pipeline(&formatted_date).await {
+                log::error!("interval run failed: {err}");
             }
         }
     } else {
