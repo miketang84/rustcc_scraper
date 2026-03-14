@@ -2189,6 +2189,7 @@ name = "rustcc_scraper"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "clap",
  "dom-content-extraction",
  "dotenv",
  "env_logger",
