@@ -1,0 +1,280 @@
+https://preview.redd.it/9utt0luek1sg1.png?width=2868&format=png&auto=webp&s=f572eb4fbf291569ad5402ea7a9ac652628a7e39
+-->>-->>
+Reddit - https://preview.redd.it/9utt0luek1sg1.png?width=2868&format=png&auto=webp&s=f572eb4fbf291569ad5402ea7a9ac652628a7e39
+======>
+https://github.com/tejachundru/runbook%5D(vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/code/electron-browser/workbench/workbench.html)
+-->>-->>
+
+======>
+https://old.reddit.com/r/rust
+-->>-->>
+
+======>
+https://github.com/OhMyDitzzy/LazyChess
+-->>-->>
+OhMyDitzzy/LazyChess main 2 Branches 0 Tags Go to file Code Open more actions menu Folders and files Name Name Last commit message Last commit date Latest commit OhMyDitzzy fix: CI file Mar 29, 2026 06e0289 · Mar 29, 2026 History 14 Commits Open commit details 14 Commits .github/ workflows .github/ workflows fix: CI file Mar 29, 2026 assets assets Add: Experimental move analysis Mar 28, 2026 examples examples add: perft examples and test Mar 29, 2026 src src fix: clippy at run_partial Mar 29, 2026 tests tests fix: CI file Mar 29, 2026 .gitignore .gitignore LazyChess: first init Mar 27, 2026 CHANGELOG.md CHANGELOG.md Bump version to v0.1.1 Mar 28, 2026 Cargo.lock Cargo.lock Update README Mar 28, 2026 Cargo.toml Cargo.toml Bump version to v0.1.1 Mar 28, 2026 LICENSE LICENSE LazyChess: first init Mar 27, 2026 openings.json openings.json LazyChess: first init Mar 27, 2026 readme.md readme.md add: run_partial() on analyzer Mar 29, 2026 rustfmt.toml rustfmt.toml fix: Clippy Mar 27, 2026 View all files Repository files navigation README MIT license LazyChess A fast, memory-efficient chess engine library for Rust. LazyChess implements the full FIDE ruleset — castling, en passant, pawn promotion, and every draw condition — along with FEN/PGN serialisation, opening detection, and UCI engine communication. Note LazyChess is still in its early stages of development. Your feedback and suggestions are very helpful for this library! Don't hesitate to visit the issues page if you have any problems with LazyChess! Installation Install with cargo : cargo add lazychess Quick Start use lazychess :: Game ; fn main ( ) { let mut game = Game :: new ( ) ; let moves = [ "e2e4" , "e7e5" , "g1f3" , "b8c6" , "f1b5" ] ; for mv in & moves { game . do_move ( mv ) . expect ( "move should be legal" ) ; } println ! ( "{}" , game . display_board ( ) ) ; println ! ( "Opening : {:?}" , game . opening_name ( ) ) ; println ! ( "Status : {}" , game . get_game_status_str ( ) ) ; println ! ( "FEN : {}" , game . get_fen ( ) ) ; println ! ( "PGN : {}" , game . get_pgn ( ) ) ; } Output: +------------------------+ 8 | r . b q k b n r | 7 | p p p p . p p p | 6 | . . n . . . . . | 5 | . B . . p . . . | 4 | . . . . P . . . | 3 | . . . . . N . . | 2 | P P P P . P P P | 1 | R N B Q K . . R | +------------------------+ a b c d e f g h Opening : Some("Ruy Lopez") Status : ongoing FEN : r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3 PGN : 1. e4 e5 2. Nf3 Nc6 3. Bb5 * Features Full FIDE rules : all piece types, castling, en passant, promotion Draw detection : 50-move rule, threefold repetition, insufficient material Notation : FEN & PGN import/export, SAN generation, UCI move format Opening book : built-in ECO table, load your own openings.json at runtime UCI : spawn and communicate with any UCI-compatible engine (Stockfish, etc.) Undo : full move history stack Analysis : Move classification with accuracy scoring Examples More complete examples are available in the examples/ folder: Example Description basic New game, make moves, display board, undo board_inspection Access the board array and piece data fen_pgn FEN/PGN import and export game_status Checkmate, stalemate, and draw detection move_validation Legal move generation and validation uci_engine Connect to Stockfish, get best move, MultiPV analysis analysis Full game analysis with move classification cargo run --example basic cargo run --example uci_engine -- /path/to/stockfish cargo run --example analysis -- /path/to/stockfish Quick Documentation UCI LazyChess communicates with external UCI-compatible engines (Stockfish, Lc0, etc.) through a dedicated background thread that reads the engine's stdout without blocking your application. This design choice comes from the nature of chess engines themselves — a serious analysis at depth 20+ can take several seconds, and blocking the main thread (or an async executor) for that duration is impractical. Why a thread-based approach? Dedicated resources : Each engine instance gets its own OS thread for stdout reading, ensuring lines are never dropped or delayed by other work happening in your program. No async dependency : You don't need Tokio or any async runtime. LazyChess works in synchronous codebases, CLI tools, game servers, or anywhere else without pulling in a heavy runtime. Backpressure-free : The reader thread buffers lines in an mpsc channel. Your code reads from the channel at its own pace — there's no risk of the engine's output blocking the engine process itself. Note This is an experimental feature. Any errors or bugs may occur. Your suggestions will help us improve! Quick Start Spawn an engine, make a move, and ask for the best reply: use lazychess :: { uci :: { SearchConfig , UciEngine } , Game , } ; fn main ( ) { let engine_path = std :: env :: args ( ) . nth ( 1 ) . unwrap_or_else ( || "stockfish" . to_string ( ) ) ; println ! ( "Spawning engine: {engine_path} \n " ) ; // Spawn the engine process and perform the UCI handshake. // with_options() lets you set engine parameters upfront. let mut engine = UciEngine :: with_options ( & engine_path , & [ ( "Threads" , "4" ) , ( "Hash" , "128" ) ] ) . unwrap_or_else ( |e| { eprintln ! ( "Failed to start engine: {e}" ) ; eprintln ! ( "Make sure Stockfish (or another UCI engine) is installed." ) ; eprintln ! ( "Usage: cargo run -- /path/to/engine" ) ; std :: process :: exit ( 1 ) ; } ) ; // Engine metadata is populated during the UCI handshake. if let Some ( name ) = & engine . info . name { println ! ( "Engine : {name}" ) ; } if let Some ( author ) = & engine . info . author { println ! ( "Author : {author}" ) ; } println ! ( ) ; let mut game = Game :: new ( ) ; // White plays 1. e4 game . do_move ( "e2e4" ) . unwrap ( ) ; println ! ( "{}" , game . display_board ( ) ) ; // Ask the engine for Black's best reply at depth 14. // Higher depth = stronger but slower. let config = SearchConfig :: depth ( 14 ) ; let result = engine . play ( & game , & config ) . expect ( "play() failed" ) ; println ! ( "Engine plays : {}" , result . best_move ) ; // Apply the engine's move to advance the game state. game . do_move ( & result . best_move ) . unwrap ( ) ; println ! ( "{}" , game . display_board ( ) ) ; } Output: Spawning engine: stockfish Engine : Stockfish 18 Author : the Stockfish developers (see AUTHORS file) +------------------------+ 8 | r n b q k b n r | 7 | p p p p p p p p | 6 | . . . . . . . . | 5 | . . . . . . . . | 4 | . . . . P . . . | 3 | . . . . . . . . | 2 | P P P P . P P P | 1 | R N B Q K B N R | +------------------------+ a b c d e f g h Engine plays : e7e5 +------------------------+ 8 | r n b q k b n r | 7 | p p p p . p p p | 6 | . . . . . . . . | 5 | . . . . p . . . | 4 | . . . . P . . . | 3 | . . . . . . . . | 2 | P P P P . P P P | 1 | R N B Q K B N R | +------------------------+ a b c d e f g h Pondering Pondering lets the engine think in the background while waiting for the opponent's reply. play() returns both the engine's chosen move and its suggested ponder move extracted directly from the bestmove e2e4 ponder e7e5 response — you never have to hardcode which move to ponder. use lazychess :: { uci :: { SearchConfig , UciEngine } , Game , } ; fn main ( ) { let mut engine = UciEngine :: with_options ( "stockfish" , & [ ( "Threads" , "2" ) , ( "Hash" , "64" ) , ( "Ponder" , "true" ) ] , ) . expect ( "failed to start engine" ) ; engine . new_game ( ) . expect ( "ucinewgame failed" ) ; let mut game = Game :: new ( ) ; let config = SearchConfig :: depth ( 14 ) ; // Engine plays and returns its ponder suggestion let result = engine . play ( & game , & config ) . expect ( "play() failed" ) ; println ! ( "Engine plays : {}" , result . best_move ) ; game . do_move ( & result . best_move ) . unwrap ( ) ; // Start background thinking on the expected opponent reply if let Some ( ref ponder_mv ) = result . ponder_move { println ! ( "Pondering : {ponder_mv}" ) ; engine . sync_game ( & game ) . unwrap ( ) ; engine . ponder ( ponder_mv , & config ) . unwrap ( ) ; } // Opponent plays — if they played the ponder move, call ponderhit() // to get the engine's reply instantly using the warm hash table if let Some ( ref ponder_mv ) = result . ponder_move { game . do_move ( ponder_mv ) . unwrap ( ) ; let hit = engine . ponderhit ( ) . expect ( "ponderhit failed" ) ; println ! ( "Engine reply : {}" , hit . best_move ) ; game . do_move ( & hit . best_move ) . unwrap ( ) ; } println ! ( "{}" , game . display_board ( ) ) ; engine . quit ( ) . unwrap ( ) ; } If the opponent plays a different move than expected, call ponder_miss() to abort the background search, then call play() again for a fresh search: engine . ponder_miss ( ) . unwrap ( ) ; game . do_move ( "c7c5" ) . unwrap ( ) ; // actual opponent move let result = engine . play ( & game , & config ) . expect ( "fresh search failed" ) ; println ! ( "Engine reply : {}" , result . best_move ) ; Timeout LazyChess enforces a read timeout on every blocking call to the engine to guard against hangs — for example if the engine crashes silently, takes unexpectedly long at a high depth, or is left in infinite search mode by mistake. Scope Default How to change Engine-level (all operations) 10 000 ms engine.set_timeout(ms) Per-search override inherited SearchConfig::builder().read_timeout_ms(ms) Analyzer per-move 60 000 ms AnalyzerConfig::depth(n).with_timeout(ms) // Raise the engine-level timeout globally (affects handshake, isready, etc.) engine . set_timeout ( 30_000 ) ; // 30 seconds // Override for one deep search only — does not affect the engine default. let config = SearchConfig :: builder ( ) . depth ( 25 ) . read_timeout_ms ( 120_000 ) // 2 minutes for this search . build ( ) ; // Disable timeout entirely — useful during development or on slow hardware. engine . set_timeout ( u64 :: MAX ) ; When the timeout is reached, the operation returns Err(UciError::Timeout) with the message: Engine did not respond in time . Move Analysis Note This feature is experimental. Classification results may not be perfectly accurate in all positions. Feedback and bug reports are very welcome! MoveAnalyzer analyses every move in a game by asking the UCI engine to evaluate positions before and after each move, then comparing those evaluations to determine how good or bad the move was. The result is a human-readable classification familiar from platforms like Chess.com and Lichess. Classification Types Classification Symbol Meaning Brilliant !! An outstanding move, often a surprising sacrifice Great ! A strong move that is hard to find Best The objectively top engine move Excellent Very close to best with minimal loss Good A solid move with small inaccuracy Okay Playable but slightly imprecise Inaccuracy ?! A noticeable mistake that gives up some advantage Miss ? A missed opportunity — a much better move was available Mistake ? A significant error that worsens the position Blunder ?? A serious error, often losing material or the game Forced Only one legal move was available Book A known opening theory move Risky !? Objectively fine but leads to sharp, dangerous play Usage use lazychess :: { analyzer :: { AnalyzerConfig , MoveAnalyzer } , uci :: UciEngine , Game , } ; fn main ( ) { let mut engine = UciEngine :: with_options ( "stockfish" , & [ ( "Threads" , "4" ) , ( "Hash" , "128" ) ] ) . expect ( "failed to start engine" ) ; // Analyse at depth 16 with a 60-second timeout per move (default). // Use .with_timeout(ms) to override if you need deeper searches. let config = AnalyzerConfig :: depth ( 16 ) . with_timeout ( u64 :: MAX ) ; let mut analyzer = MoveAnalyzer :: new ( & mut engine , config ) ; let pgn = "1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7" ; let report = analyzer . analyze_pgn ( pgn ) . on_progress ( |cur , tot , mv| println ! ( "Analysing move {cur}/{tot}: {mv}" ) ) . run ( ) . expect ( "analysis failed" ) ; // Formatted table (per-move breakdown) println ! ( "{}" , report . to_table ( ) ) ; // Annotated PGN // Symbols like !!, !, ?!, ?, ?? are inserted after each move. println ! ( " \n Annotated PGN: \n {}" , report . to_pgn ( ) ) ; // Classify a single move in real time // Useful for live game analysis without re-analysing the full game. let mut game = Game :: new ( ) ; game . do_move ( "e2e4" ) . unwrap ( ) ; let mc = analyzer . classify_move ( & game , "e7e5" ) . unwrap ( ) ; println ! ( " \n Move : e7e5" ) ; println ! ( "Kind : {}" , mc . kind ) ; println ! ( "Eval before : {:?}" , mc . eval_before ) ; println ! ( "Eval after : {:?}" , mc . eval_after ) ; println ! ( "Point loss : {:.4}" , mc . point_loss ) ; println ! ( "Accuracy : {:.2}%" , mc . accuracy ) ; } Output: Filtering and Options The builder returned by analyze_pgn() supports additional options: use lazychess :: analyzer :: Side ; // Analyse only White's moves let report = analyzer . analyze_pgn ( pgn ) . side ( Side :: White ) . run ( ) ? ; // Only include moves classified as Inaccuracy or worse use lazychess :: classifications :: types :: ClassificationKind ; let report = analyzer . analyze_pgn ( pgn ) . min_classification ( ClassificationKind :: Inaccuracy ) . run ( ) ? ; Partial Results on Engine Crash .run() stops and returns an error the moment the engine fails, discarding all results collected so far. Use .run_partial() instead to recover whatever was analysed before the crash. match analyzer . analyze_pgn ( pgn ) . on_progress ( |cur , tot , mv| println ! ( "Analysing {cur}/{tot}: {mv}" ) ) . run_partial ( ) { Ok ( report ) => { println ! ( "{}" , report . to_table ( ) ) ; println ! ( "Annotated PGN: {}" , report . to_pgn ( ) ) ; } Err ( partial ) => { eprintln ! ( "Engine crashed: {}" , partial . error ) ; if partial . report . moves . is_empty ( ) { eprintln ! ( "No moves were analysed." ) ; } else { eprintln ! ( "Partial results ({} moves analysed):" , partial . report . moves . len ( ) ) ; println ! ( "{}" , partial . report . to_table ( ) ) ; println ! ( "Partial PGN: {}" , partial . report . to_pgn ( ) ) ; } } } run_partial() accepts all the same builder options as run() : analyzer . analyze_pgn ( pgn ) . side ( Side :: White ) . min_classification ( ClassificationKind :: Mistake ) . run_partial ( ) The PartialReport returned in Err contains: report : a valid GameReport of every move that succeeded before the crash error : the underlying ChessError that caused the abort If you don't need partial results and just want to propagate the error, .run() is still the simpler choice. Timeout for Deep Analysis The default 60-second timeout per move is sufficient for most depths. For very deep searches (depth 22+) or slow hardware, raise it: // 2 minutes per move let config = AnalyzerConfig :: depth ( 22 ) . with_timeout ( 120_000 ) ; License MIT License Copyright (c) 2026 Ditzzy LazyChess Authors Copyright (c) 2026 LazyChess Contributors Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. About A fast, memory-efficient chess engine library for Rust. Resources Readme License MIT license Uh oh! There was an error while loading. Please reload this page . Activity Stars 13 stars Watchers 0 watching Forks 0 forks Report repository Releases No releases published Packages 0 No packages published Contributors 1 OhMyDitzzy Ditzzzy Languages Rust 100.0%
+======>
+http://crates.io
+-->>-->>
+crates.io The Rust community’s crate registry Submit Change color scheme light dark system Browse All Crates | Log in with GitHub Change color scheme light dark system Menu Browse All Crates Log in with GitHub Install Cargo Getting Started Instantly publish your crates and install them. Use the API to interact and find out more information about available crates. Become a contributor and enhance the site with your work. ---,---,--- Downloads ---,--- Crates in stock New Crates Most Downloaded Just Updated Most Recent Downloads Popular Keywords Popular Categories Rust rust-lang.org Rust Foundation The crates.io team Get Help The Cargo Book Support System Status Report a bug Policies Usage Policy Security Privacy Policy Code of Conduct Data Access Rate Limits Social rust-lang/crates.io #t-crates-io @cratesiostatus
+======>
+https://github.com/mayuso/PNGToSVG
+-->>-->>
+mayuso/PNGToSVG master 1 Branch 8 Tags Go to file Code Open more actions menu Folders and files Name Name Last commit message Last commit date Latest commit mayuso Include missing cargo publish dry run in release instructions Mar 28, 2026 e8d303e · Mar 28, 2026 History 44 Commits Open commit details 44 Commits .github/ workflows .github/ workflows Compress the binaries before release to preserve file permissions Dec 6, 2025 legacy_python legacy_python Updated README with gif demonstrations Mar 28, 2026 resources resources Updated README with gif demonstrations Mar 28, 2026 src src Speed up SVG generation by reusing memory and simplifying shape tracing Mar 8, 2026 .gitignore .gitignore Moved python code to legacy folder to prioritize Rust Dec 6, 2025 Cargo.lock Cargo.lock Bump release version Mar 28, 2026 Cargo.toml Cargo.toml Bump release version Mar 28, 2026 LICENSE LICENSE Updated license Mar 28, 2026 README.md README.md Removed empty code box in README Mar 28, 2026 Release_instructions.md Release_instructions.md Include missing cargo publish dry run in release instructions Mar 28, 2026 build.rs build.rs Added executable simple icon Mar 28, 2026 icon.ico icon.ico Added executable simple icon Mar 28, 2026 View all files Repository files navigation README MIT license PNGToSVG A high-performance tool written in Rust that converts PNG raster images into SVG vectors. Note: This is a fast, standalone Rust rewrite of our original Python prototype. The old code is archived in /legacy_python . Installation For Users: Download the standalone executable for your system from the Releases page. No dependencies required. For Developers: cargo install pngtosvg Usage Command Line (CLI) pngtosvg image.png # Convert a single file pngtosvg ./assets/icons/ # Convert a specific folder pngtosvg . # Convert the current directory (Note for Linux/macOS: If not in your PATH , prefix the executable with ./ ) Windows Desktop GUI You don't need the terminal to use this tool on Windows: Drag & Drop: Drag your .png files directly onto the executable. Double Click: Double-click the executable to automatically convert all images in the same folder. Use as a Rust Library Add the dependency to your project: cargo add pngtosvg Minimal Example: use pngtosvg :: convert_file_to_svg ; use std :: path :: Path ; fn main ( ) { let svg_content = convert_file_to_svg ( Path :: new ( "image.png" ) ) . unwrap ( ) ; println ! ( "{}" , svg_content ) ; } For advanced features, including in-memory RgbaImage conversions, please read the official documentation on docs.rs . About A fast CLI tool and Rust library to convert PNG images into SVG vectors crates.io/crates/pngtosvg Topics svg rust cli png image-processing rust-library vectorization conversion-tool Resources Readme License MIT license Uh oh! There was an error while loading. Please reload this page . Activity Stars 82 stars Watchers 4 watching Forks 26 forks Report repository Releases 8 v0.6.1 Latest Mar 28, 2026 + 7 releases Uh oh! There was an error while loading. Please reload this page . Contributors 3 mayuso Mayuso dependabot[bot] Salman-Sali Salman Sali Languages Rust 58.3% Python 41.7%
+======>
+https://internals.rust-lang.org/t/change-error-message-of-a-failing-assert-eq/24118
+-->>-->>
+nik-rev 1 1h When an assert_eq! fails, you get a very generic "left VS right" message: assertion `left == right` failed left: "a" right: "b" This makes it hard to read output of failing tests if you're unsure whether the "expected" value is the "left" or the "right". I frequently come across Rust codebases that have a different order ( actual VS expected OR expected VS actual ), even in the same test module! A quick GitHub search shows: assert_eq!(expected, actual) is used 17,600 times assert_eq!(actual, expected) is used 32,800 times I think there's a lot of value to gain in eliminating this inconsistency from the ecosystem, to have an actual idiom of the order of "actual VS expected" or "expected VS actual" in assertions. Because the "actual VS expected" case reads more naturally, and because it is also the most common, I propose changing the error message of a failing assert_eq! to "actual VS expected": assertion `actual == expected` failed actual: "a" expected: "b" ​ ​ 56 views 2 links 2
+======>
+https://old.reddit.com/r/rust/comments/1s75wqh/built_a_small_notebook_app_with_tauri_write/
+-->>-->>
+Hey    r/rust   !   
+
+   I got tired of spinning up a Jupyter server just to quickly test a snippet or jot down notes alongside code. So I built Runbook — a desktop app where you can write notes in Markdown and run code right next to them, all offline, all local.   
+
+   You paste a snippet, hit run, and the output shows up right below the cell. One caveat worth knowing upfront: it doesn't bundle any runtimes. It uses whatever you already have installed on your machine — [rustc](vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/code/electron-browser/workbench/workbench.html), python3, node, bun — so if a runtime isn't installed, that language just won't run. For most Rust folks that's fine, but it's not a zero-setup experience for everything.   
+
+   Stack:   
+
+   
+   Tauri 2.0 (Rust backend, SQLite for storage)   
+   Next.js + React for the UI   
+   Monaco Editor (same editor as VS Code)   
+   ~4 MB bundle — no bundled browser, uses the system webview   
+   
+
+   It's early — v0.1.0, macOS only for now. I'd love feedback from anyone who knows Rust, especially on how I'm handling code execution. I'm not fully confident that's done well.   
+
+   GitHub: [   https://github.com/tejachundru/runbook](vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/code/electron-browser/workbench/workbench.html)   
+
+   https://preview.redd.it/9utt0luek1sg1.png?width=2868&format=png&auto=webp&s=f572eb4fbf291569ad5402ea7a9ac652628a7e39   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1s7k53u/finished_the_rust_book_what_should_i_do_next/
+-->>-->>
+Hi everyone,   
+
+   I’ve just finished working through The Rust Programming Language book, and I also practiced exercises along the way. I feel fairly comfortable with the basics now and can write Rust code with some confidence.   
+
+   I’m trying to figure out what to do next to keep improving. What would you recommend as the next steps after finishing the book? Any resources, project ideas, or areas I should focus on?   
+
+   I also have another challenge. I come from a machine learning background using Python, so I’m not very familiar with Rust’s concurrency model yet. I understand the rust concurrency model but I find it difficult to Finished the Rust Book — What Should I Do Next + Struggling with Concurrencycomfortably use things like mpsc channels and write parallel code in an idiomatic way.   
+
+   Do you have any advice, resources, or strategies to get better at Rust concurrency and make working with channels feel more natural?   
+
+   Thanks in advance!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1s6rkcm/introducing_lazychess_chess_engine_library_in_rust/
+-->>-->>
+Hello Rustaceans   
+
+   After months of development, I’m happy to share LazyChess, a fast and memory-efficient chess engine library written in Rust. My goal was to create a chess engine that fully supports the FIDE ruleset and works well in performance-critical applications. The library implements everything from castling, en passant, pawn promotion, to advanced features like FEN/PGN serialization, opening detection, and UCI engine communication also Human Move Clasifications Analysis   
+
+   Features:   
+
+   - Full FIDE Rules:    Implements castling, en passant, pawn promotion, and all draw conditions (including threefold repetition, insufficient material, etc.).   
+
+   - FEN/PGN Support:    Easily serialize chess positions and games with FEN and PGN.
+   - UCI Compatibility:    Communicate with UCI-compatible engines like Stockfish for advanced game analysis.
+   - Opening Detection:    Built-in ECO table for detecting openings, and support for custom opening books.
+   - Move History:    Track full game history with undo/redo support.
+   - Move Analysis:    Evaluate moves and classify them based on engine evaluation.
+   - Draw Detection:    Handle special cases like the 50-move rule and insufficient material.   
+
+   Installation:   
+
+   I have published two versions to    crates.io   , you can install via cargo:   
+
+   cargo add lazychess
+   
+
+   Heres a simple example showing how you can use LazyChess to play a few moves and display the board:   
+
+   use lazychess::Game;
+   
+
+   fn main() {
+    let mut game = Game::new();   
+
+   let moves = ["e2e4", "e7e5", "g1f3", "b8c6", "f1b5"];
+for mv in &moves {
+    game.do_move(mv).expect("move should be legal");
+}
+
+println!("{}", game.display_board());
+println!("Opening : {:?}", game.opening_name());
+println!("Status  : {}", game.get_game_status_str());
+println!("FEN     : {}", game.get_fen());
+println!("PGN     : {}", game.get_pgn());
+   
+
+   }   
+
+   Feedback:   
+
+   LazyChess is still in its early development stages, so any feedback or suggestions are highly appreciated! If you encounter bugs or have ideas for new features, feel free to visit the issues page or contribute directly.   
+
+   Repository:    https://github.com/OhMyDitzzy/LazyChess   
+   
+
+======>
+https://github.com/navid-m/lhc
+-->>-->>
+Repository files navigation README GPL-3.0 license LHC LSP Server Health Checker Application, initially made in order to test axels for Axelang. Example usage: lhc clangd --lang=cpp The above will show the performance of the clangd server when used on C++ source files. Below is an example with clangd and C: Builtin languages (custom languages or DSLs are supported with the --ref=<example-script.lang> flag): Ada Axe Bash C Clojure CoffeeScript C++ Crystal C# Cython D Dart Elixir Erlang Factor Fish Fortran F# GDScript Go Groovy Hare Haskell Haxe HolyC Java JavaScript Julia Kotlin Lisp Lua Mojo Nim Nu Oberon OCaml Perl PHP Pony PowerShell Prolog PureScript Python R Raku Rebol Red Ruby Rust Scala Scheme Shell Swift Terraform TypeScript Vala Wren Zig License GPL-3.0-only
+======>
+https://old.reddit.com/r/rust/comments/1s6s8lk/i_had_a_small_tool_to_convert_png_to_svg_in/
+-->>-->>
+I just wanted to share this tool I’ve been working on called    PNGToSVG   . As I assume you can already imagine, it converts PNG images into SVG vectors.   
+
+   PNGToSVG in GitHub   
+
+   I originally wrote a small Python script to be used for a frontend job I had in 2019, sometimes we were required to work with SVG, and I just needed a quick way to convert images without uploading them to any remote service.   
+
+   When I switched jobs, I took that code, uploaded it to GitHub and didn't think about it too much. 5 years later, someone ("Kartik Nayak" on GitHub) made the first Rust implementation of the tool. 3 months later someone else ("Salman Sali" on GitHub) improved the code by including parallelization.   
+
+   This was in late 2024. Since then, I have learnt a bit of Rust, polished the tool, and published a couple new releases, mainly focusing on ease of use and performance. Yesterday, I did the latest release (v0.6.1) which included an amazing programmer art new shiny icon hahaha.   
+
+   What in 2019 was a forgotten Python script on my hard drive is now a tool I actively use for my projects, I used to convert 64x64 or 128x128 icons to SVG in a couple seconds, it can now convert 8000x8000 images in a fraction of that time. According to my quick benchmarks, the performance increase in my machine of the latest release compared to the first version I shared in Python in 2019 is around 2580x.   
+
+   And that's not even the best part, thanks to randomly deciding to share a quick script I have been able to see very useful contributions to my code from the community, learn a complete new language, and actually build an easy to use tool I am actually willing to use myself.   
+
+   I'd love to hear some constructive feedback. I am sure I can still improve some rough edges, as I still don't fully know Rust conventions, and I'd love to learn as much as possible while building something useful.   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1s7kq90/eliminating_redundant_oneshot_channels_in_a/
+-->>-->>
+I'm building a real-time chat server in Rust using a hand-rolled actor system on top of Tokio. Actors communicate via mpsc channels and use tokio::sync::oneshot for request-response. The architecture looks like:   
+
+   UserSession ──mpsc──► Router ──mpsc──► PersistenceActor ──mpsc──► RoomActor ──mpsc──► PersistenceActor   
+
+   The problem is that every forwarded request creates a chain of redundant oneshot channels + bridging tasks. For example, SendDirectMessage:   
+
+   // UserSession: creates oneshot #1, spawns task to await reply
+let (tx1, rx1) = oneshot::channel();
+router_sender.send(RouterMessage::SendDirectMessage { respond_to: Some(tx1), .. });
+
+tokio::spawn(async move {
+if let Ok(ack) = rx1.await {
+ack_sender.send(ChatMessage::MessageAck { .. }).await;
+}
+});
+
+// Router: creates oneshot #2, spawns task to bridge #2 → #1
+let (tx2, rx2) = oneshot::channel();
+persistence_sender.send(PersistenceMessage::Persist { respond_to: tx2, .. });
+tokio::spawn(async move {
+match rx2.await {
+Ok(Ok(())) => { tx1.send(ack_ok); }
+Ok(Err(e)) => { tx1.send(ack_fail(e)); }
+Err(_) => { tx1.send(ack_fail("timeout")); } // not actually a timeout, sender dropped
+}
+});
+   
+
+   So a single message persistence incurs 2 oneshot allocations + 2 tokio::spawn calls purely for response plumbing. This pattern repeats across 6 message types (SendDirectMessage, GetPaginatedMessages, JoinRoom, GetRoomMembers, SyncMessages, SendRoomMessage).   
+
+   The persistence actor is a thin wrapper around a gRPC client (tonic), which is already Clone + Send + Sync and safe to call concurrently. The room actor does need serialization for broadcast/membership mutations.   
+
+   Option I'm considering:   
+
+   Replace PersistenceActor with Arc<PersistenceService>    — the router calls async methods directly, eliminating the inner oneshot + spawn for all persistence operations. The UserSession → Router oneshot stays.   
+   
+
+======>
+https://github.com/nik-rev/better-tokio-select
+-->>-->>
+nik-rev/better-tokio-select main 1 Branch 7 Tags Go to file Code Open more actions menu Folders and files Name Name Last commit message Last commit date Latest commit History 36 Commits 36 Commits .github .github Adapt tokio 's documentation for the tokio_select! macro Mar 29, 2026 src src Add section with more examples Mar 29, 2026 tests tests Adapt tokio 's documentation for the tokio_select! macro Mar 29, 2026 .gitignore .gitignore Implement #[tokio_select] attribute macro Mar 29, 2026 .rustfmt.toml .rustfmt.toml Implement #[tokio_select] attribute macro Mar 29, 2026 CHANGELOG.md CHANGELOG.md chore: Release better_tokio_select version 0.2.0 Mar 29, 2026 Cargo.lock Cargo.lock chore: Release better_tokio_select version 0.2.0 Mar 29, 2026 Cargo.toml Cargo.toml chore: Release better_tokio_select version 0.2.0 Mar 29, 2026 LICENSE-APACHE LICENSE-APACHE Implement #[tokio_select] attribute macro Mar 29, 2026 LICENSE-MIT LICENSE-MIT Implement #[tokio_select] attribute macro Mar 29, 2026 README.md README.md chore: Release better_tokio_select version 0.2.0 Mar 29, 2026 rust-toolchain.toml rust-toolchain.toml Implement #[tokio_select] attribute macro Mar 29, 2026 View all files Repository files navigation README Apache-2.0 license MIT license better_tokio_select This crate exports the macro tokio_select! , which, unlike tokio::select! , can be formatted by rustfmt ! better_tokio_select = " 0.2 " Syntax This macro has all the same capabilities as tokio::select! , but the syntax is slightly different. tokio::select! takes a list of branches: <pattern> = <async expression> (, if <precondition>)? => <handler>, Example: tokio :: select! { Ok ( res ) = reader . read ( & mut buf ) , if can_read => { writer . write_all ( res . bytes ) } } tokio_select! takes a match .. expression as an argument, which has a list of arms: .. if let <pattern> = <async expression> (&& <precondition>)? => <handler>, Example: tokio_select ! ( match .. { .. if let Ok ( res ) = reader . read ( & mut buf ) && can_read => { writer . write_all ( res . bytes ) } } ) For rustfmt to work, the argument to a macro must be a valid Rust expression. Hence the odd-looking .. s. Rust compiler expects a pattern in that position, and we provide it with one. Admittedly, the syntax is a little strange. But it’s also formattable by rustfmt . Trade-offs, people, trade-offs! Examples TCP Proxy with Cancellation and Guard tokio::select! : tokio :: select! { res = reader . read ( & mut buf ) , if can_read => { let n = res? ; if n == 0 { return Ok ( ( ) ) ; } writer . write_all ( & buf [ ..n ] ) . await ? ; } _ = shutdown . recv ( ) => { return Ok ( ( ) ) ; } } tokio_select! : tokio_select ! ( match .. { .. if let Ok ( n ) = reader . read ( & mut buf ) && can_read => { let n = res? ; if n == 0 { return Ok ( ( ) ) ; } writer . write_all ( & buf [ ..n ] ) . await ? ; } .. if let _ = shutdown . recv ( ) => { return Ok ( ( ) ) } } ) Rate-Limited Message Processor tokio :: select! { biased ; Some ( Message :: Data { id , payload } ) = rx . recv ( ) => { process ( id , payload ) . await ; } else => { println! ( "no messages pending" ) ; tokio :: time :: sleep ( Duration :: from_millis ( 50 ) ) . await ; } } tokio_select! : tokio_select ! ( biased , match .. { .. if let Some ( Message :: Data { id , payload } ) = rx . recv ( ) => { process ( id , payload ) . await ; } _ => { println! ( "no messages pending" ) ; tokio :: time :: sleep ( Duration :: from_millis ( 50 ) ) . await ; } } ) More examples More examples are available in the documentation of tokio_select! . Global import You can make the tokio_select! macro globally available in your crate, without needing to import it, with: # [ macro_use ( tokio_select ) ] extern crate better_tokio_select ; About tokio::select! that can be formatted by rustfmt Resources Readme License Apache-2.0, MIT licenses found Licenses found Apache-2.0 LICENSE-APACHE MIT LICENSE-MIT Uh oh! There was an error while loading. Please reload this page . Activity Stars 13 stars Watchers 0 watching Forks 0 forks Report repository Releases 7 v0.2.0 Latest Mar 29, 2026 + 6 releases Packages 0 Uh oh! There was an error while loading. Please reload this page . Contributors 1 nik-rev Nik Revenco Languages Rust 100.0%
+======>
+https://youtu.be/r-owKdehQqE
+-->>-->>
+Bad Apple but it's on my playstation 1 emulator Tap to unmute 2x Search Copy link Info Shopping If playback doesn't begin shortly, try restarting your device. • Up next Live Upcoming Cancel Play Now You're signed out Videos you watch may be added to the TV's watch history and influence TV recommendations. To avoid this, cancel and sign in to YouTube on your computer. Cancel Confirm Share Include playlist An error occurred while retrieving sharing information. Please try again later. 0:00 0:00 / 3:58 Live • Watch full video • •
+======>
+https://old.reddit.com/r/rust/comments/1s7ijpn/italian_rust_programmers/
+-->>-->>
+Are there any Italian Rust programmers working from Italy? (I mean even basic or intermediate Rust level).     
+
+   I need someone working in Italy for collaborations and/or hiring at startups, because I know practically no Rust programmers in Italy. I'm checking Reddit to see if I can find anyone.   
+   
+
+======>
+https://rust-analyzer.github.io/thisweek/2026/03/30/changelog-321.html
+-->>-->>
+#21588 (first contribution) fix asm! sym operand parsing for parenthesized expr fragments. #21871 revert TyLoweringContext::store after lowering parent defaults. #21876 keep value when trying to produce a default call. #21904 fix panic on trailing | in unmerge_match_arm . #21838 skip usages inside macro expansions in destructure_{struct,tuple}_binding . #21860 , #21865 wrap ascribed type in Option<> or Result<> in desugar_try_expr with let - else . #21744 keep comments in add_missing_match_arms . #20681 fix indent after fixing trait_impl_redundant_assoc_item . #21411 offer merge_match_arms on ambiguous identifier patterns. #21709 fix spurious flychecks with multiple workspaces.
+======>
+https://old.reddit.com/r/rust/comments/1s7jk66/assert_eqexpected_actual_vs_assert_eqactual/
+-->>-->>
+I constantly trip up about the order in which ACTUAL vs EXPECTED are specified in an assertion.   
+
+   Rust calls it "left VS right". I wish that it was more opinionated in this regard, because I frequently come across projects that have different orders even within the same test module!   
+
+   Maybe this is an idiom that we can all agree on, and change the actual    assert_eq!    message to be something like "expected: ..., actual: ..." OR "actual: ..., expected: ..." instead of "left: ..., right: ..."   
+
+   edit: I made a    proposal    on the Rust internals forum to change the error message of    assert_eq!   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1s6xx8l/the_mystical_references_of_the_borrow_checker/
+-->>-->>
+Old school C programmer here. I just started taking up Rust. Feels like C with someone (borrow checker) constantly minding my ass. (At other times - traits, etc. - feels a bit like Java - without the syntax monstrosity.)   
+
+   So far so good. But then it seems everyone (transitioning, if that's a word in this context) has some beef with the borrow checker. And confusion.   
+
+   I do not get it. The confusion. Is it because I happen to be a C programmer and everyone else came from ... JavaScript? Or will something come back to bite me later?   
+   
+
+======>
+https://i.redd.it/9qwjnuzhs3sg1.jpeg
+-->>-->>
+Reddit - https://i.redd.it/9qwjnuzhs3sg1.jpeg
+======>
+https://github.com/austin-weeks/miasma
+-->>-->>
+Repository files navigation README GPL-3.0 license 🌀 Miasma AI companies continually scrape the internet at an enormous scale, swallowing up all of its contents to use as training data for their next models. If you have a public website, they are already stealing your work. Miasma is here to help you fight back! Spin up the server and point any malicious traffic towards it. Miasma will send poisoned training data from the poison fountain alongside multiple self-referential links. It's an endless buffet of slop for the slop machines. Miasma is very fast and has a minimal memory footprint - you should not have to waste compute resources fending off the internet's leeches. Installation Install with cargo (recommended): cargo install miasma Or, download a pre-built binary from releases . Quick Start Start Miasma with default configuration: miasma View all available configuration options : miasma --help How to Trap Scrapers Let's walk through an example of setting up a server to trap scrapers with Miasma . We'll pick /bots as our server's path to direct scraper traffic. We'll be using Nginx as our server's reverse proxy, but the same result can be achieved with many different setups. When we're done, scrapers will be trapped like so: Embedding Hidden Links Within our site, we'll include a few hidden links leading to /bots . < a href =" /bots " style =" display: none; " aria-hidden =" true " tabindex =" 1 " > Amazing high quality data here! </ a > The style="display: none;" , aria-hidden="true" , and tabindex="1" attributes ensure links are totally invisible to human visitors and will be ignored by screen readers and keyboard navigation. They will only be visible to scrapers. Configuring our Nginx Proxy Since our hidden links point to /bots , we'll configure this path to proxy Miasma . Let's assume we're running Miasma on port 9855 . location ~ ^/bots ( $|/.* ) $ { proxy_pass http ://localhost: 9855 ; } This will match all variations of the /bots path -> /bots , /bots/ , /bots/12345 , etc. Run Miasma Lastly, we'll start Miasma and specify /bots as the link prefix. This instructs Miasma to start links with /bots/ , which ensures scrapers are properly routed through our Nginx proxy back to Miasma . We'll also limit the number of max in-flight connections to 50. At 50 connections, we can expect 50-60 MB peak memory usage. Note that any requests exceeding this limit will immediately receive a 429 response rather than being added to a queue. miasma --link-prefix ' /bots ' -p 9855 -c 50 Enjoy! Let's deploy and watch as multi-billion dollar companies greedily eat from our endless slop machine! robots.txt Be sure to protect friendly bots and search engines from Miasma in your robots.txt ! User-agent: Googlebot User-agent: Bingbot User-agent: DuckDuckBot User-agent: Slurp User-agent: SomeOtherNiceBot Disallow: /bots Allow: / Configuration Miasma can be configured via its CLI options: Option Default Description port 9999 The port the server should bind to. host localhost The host address the server should bind to. max-in-flight 500 Maximum number of allowable in-flight requests. Requests received when in flight is exceeded will receive a 429 response. Miasma's memory usage scales directly with the number of in-flight requests - set this to a lower value if memory usage is a concern. link-prefix / Prefix for self-directing links. This should be the path where you host Miasma , e.g. /bots . link-count 5 Number of self-directing links to include in each response page. force-gzip false Always gzip responses regardless of the client's Accept-Encoding header. Forcing compression can help reduce egress costs. poison-source https://rnsaffn.com/poison2/ Proxy source for poisoned training data. Development Contributions are welcome! Please open an issue for bugs reports or feature requests. Primarily AI-generated contributions will be automatically rejected.
+======>
+https://old.reddit.com/r/rust/comments/1s7fne1/is_there_a_more_ergonomic_pattern_for_types_that/
+-->>-->>
+A few times, I've found myself needing a type with "stages" that add upon eachother, usually when dealing with some kind of graph structure. One way of doing this is:   
+
+   enum Thing {
+    Stage1 { a: u8 },
+    Stage2 { a: u8, b: u8 },
+    Stage3 { a: u8, b: u8, c: u8, d: u8 },
+}
+   
+
+   But that requires some ugly pattern matching when trying to write code that works for multiple stages:   
+
+   match thing {
+    Stage1 { .. } => panic!("stage 2 or 3 required"),
+    Stage2 { a, b } | Stage3 { a, b, .. } => todo!(),
+}
+   
+
+   It also doesn't work well when switching stages because fields need to be moved into the other variant rather than just staying in place. This isn't a problem for this example, but it is in a real usecase where some fields are not    Copy   .   
+
+   The other way I have found is:   
+
+   struct Stage3 {
+    c: u8,
+    d: u8,
+}
+struct Stage2 {
+    b: u8,
+    stage_3: Option<Stage3>,
+}
+struct Thing {
+    a: u8,
+    stage_2: Option<Stage2>,
+}
+   
+
+   This avoids some of the problems of the other way, but it's also pretty ugly to work with, and it requires defining a lot of extra structs, probably in a dedicated module, depending on how many stages you need.   
+
+   Is there a nicer way of doing this?   
+
+   Edit: To clarify, there is a constraint that    Thing    has the same type regardless of what stage it's in. It needs to be able to be stored generically over its stage. This is why the builder/typestate pattern doesn't work here.   
+   

@@ -1,0 +1,326 @@
+https://docs.rs/bigoish/latest/bigoish/
+-->>-->>
+use bigoish::{N, Log, assert_best_fit, growing_inputs}; // The function whose complexity we want to assert. fn sort( mut v: Vec<i64>) -> Vec<i64> { v.sort(); v } // Creates a test input of a particular size for `sort()`. fn make_vec(n: usize) -> Vec<i64> { // Random number generation library: use fastrand; std::iter::repeat_with(|| fastrand::i64(..)).take(n).collect() } // Assert that that n*log(n) is the complexity model that fits `sort()` best. assert_best_fit( // The expected best-fitting computational complexity model: N * Log(N), // The function being tested: sort, // Pairs of (input length, input); the inputs will be passed to `sort()`. [ ( 10 , make_vec( 10 )), ( 100 , make_vec( 100 )), ( 1000 , make_vec( 1000 )), ( 10_000 , make_vec( 10_000 )), ( 100_000 , make_vec( 100_000 )) ] ); // You can use `growing_inputs()` to generate input pairs more easily. assert_best_fit( N * Log(N), sort, // Starting with input size 10, generate 25 increasingly larger inputs using // `make_vec()`. growing_inputs( 10 , make_vec, 25 ), );
+======>
+https://preview.redd.it/26jljr9p2tsg1.png?width=832&format=png&auto=webp&s=a54e45257cf55a296307abc4c9a32b44bcd1baa0
+-->>-->>
+Reddit - https://preview.redd.it/26jljr9p2tsg1.png?width=832&format=png&auto=webp&s=a54e45257cf55a296307abc4c9a32b44bcd1baa0
+======>
+https://docs.rs/bigoish/latest/bigoish/
+-->>-->>
+use bigoish::{N, Log, assert_best_fit, growing_inputs}; // The function whose complexity we want to assert. fn sort( mut v: Vec<i64>) -> Vec<i64> { v.sort(); v } // Creates a test input of a particular size for `sort()`. fn make_vec(n: usize) -> Vec<i64> { // Random number generation library: use fastrand; std::iter::repeat_with(|| fastrand::i64(..)).take(n).collect() } // Assert that that n*log(n) is the complexity model that fits `sort()` best. assert_best_fit( // The expected best-fitting computational complexity model: N * Log(N), // The function being tested: sort, // Pairs of (input length, input); the inputs will be passed to `sort()`. [ ( 10 , make_vec( 10 )), ( 100 , make_vec( 100 )), ( 1000 , make_vec( 1000 )), ( 10_000 , make_vec( 10_000 )), ( 100_000 , make_vec( 100_000 )) ] ); // You can use `growing_inputs()` to generate input pairs more easily. assert_best_fit( N * Log(N), sort, // Starting with input size 10, generate 25 increasingly larger inputs using // `make_vec()`. growing_inputs( 10 , make_vec, 25 ), );
+======>
+https://imgur.com/a/Udfkbx6
+-->>-->>
+Add to Favorites Select ... Share icon Share Facebook Twitter Bluesky Reddit Email Copy link to clipboard 8 Views • 2h Select ... Options Menu icon Embed Embed Download Download Report Request Deletion Select ... Options Menu icon Link Copy Link Download Download Select ... Options Menu icon Link Copy Link Download Download Select ... Options Menu icon Link Copy Link Download Download Select ... Options Menu icon Link Copy Link Download Download Newest in most viral Softest awoos before bedtime Tablecloth trick, Polish version. What then, comrade ? When you buy something from Chinese EC sites Actually those were pretty good.
+======>
+https://www.reddit.com/r/rust/
+-->>-->>
+https://github.com/jams246/i-built-i-built-builder I've been seeing a lot of: I built ... posts here recently and I realized that the real missing piece was not another CLI tool, but a tool for building tools that are built to be posted as "I built" posts here on reddit. So what is this tool? I'm glad you asked! I built I built builder is a CLI that scaffolds Rust CLI tools whose natural end state is an "I built" post. With I built I built builder , you can build a tool, build the README, build the release workflow, and build the post explaining that you built the thing that I built I built builder helped you build. In other words, I built I built builder to help people say "I built" with more consistency, velocity, and mechanical sympathy. The idea is simple: instead of building a tool and then separately writing about how you built it, I built I built builder helps you build the thing and the "I built" around the thing you built. Example: i-built-i-built-builder --name tomlshave --solves "trimming whitespace in embedded TOML snippets" That command lets I built I built builder scaffold the tool, build the docs, and build the "I built" narrative around why the built tool needed to be built. Anyway, I built I built I built builder , and now I’m posting that I built I built I built builder so that other people who build tools can use I built I built builder to build better “I built” tools and better “I built” posts about the tools they built. Feedback welcome. Validation preferred.
+======>
+https://preview.redd.it/ix4isxfa6xsg1.png?width=1238&format=png&auto=webp&s=45ab88a26068683d489cbb9fa6958015838280db
+-->>-->>
+Reddit - https://preview.redd.it/ix4isxfa6xsg1.png?width=1238&format=png&auto=webp&s=45ab88a26068683d489cbb9fa6958015838280db
+======>
+https://github.com/jams246/i-built-i-built-builder
+-->>-->>
+main Branches Tags Go to file Code Open more actions menu Folders and files Name Name Last commit message Last commit date Latest commit History 3 Commits 3 Commits .github/ workflows .github/ workflows src src templates templates tests tests .gitignore .gitignore Cargo.lock Cargo.lock Cargo.toml Cargo.toml LICENSE LICENSE PROJECT_IDEA.md PROJECT_IDEA.md README.md README.md View all files Repository files navigation README MIT license i-built-i-built-builder Scaffold release-ready Rust CLIs with launch-ready documentation, in a single command. i-built-i-built-builder is an opinionated scaffolding tool that generates complete Rust CLI projects — including the README, CI workflows, and a prewritten Reddit launch post. Given a tool name and a highly personal problem statement, it produces everything you need to go from private inconvenience to public open-source announcement. It is "I built" infrastructure as code. Why I Built This There are already many ways to create a Rust CLI from scratch, but most of them stop at the code. In practice, shipping a modern command-line tool also involves a README, release automation, installation instructions, example usage, feature positioning, and a carefully calibrated launch post that explains why this specific niche problem needed a new binary. I wanted a faster way to go from idea to announcement without assembling that boilerplate by hand every time. What It Does Run one command: i-built-i-built-builder --name cachepilot --solves " renaming temporary markdown files during travel " And it scaffolds: A complete Rust CLI project with Cargo.toml and main.rs A clap -based argument parser A README.md with installation, usage, motivation, and roadmap sections A CHANGELOG.md starter GitHub Actions workflows for CI and release automation A launch-ready Reddit post draft A .gitignore tuned for Rust projects A license file (MIT, Apache 2.0, or dual) Optional niche problem synthesis when your problem statement is too vague Installation cargo install i-built-i-built-builder Or from source: git clone https://github.com/jams246/i-built-i-built-builder.git cd i-built-i-built-builder cargo install --path . Usage Basic i-built-i-built-builder --name my-tool --solves " a problem nobody has " Full options i-built-i-built-builder \ --name clipipe \ --solves " reformatting clipboard-derived shell fragments while offline " \ --why " I wanted something simpler than existing solutions " \ --humility high \ --reddit-tone feedback-welcome \ --audience power-users \ --ci github \ --license mit \ --screenshot gif \ --verbose Command-Line Options Flag Required Default Values Description --name <NAME> Yes — any string Name of the generated CLI tool --solves <PROBLEM> Yes — any string The niche problem the tool addresses --why <RATIONALE> No — any string Optional justification for why the tool exists --humility <LEVEL> No medium low , medium , high Controls the tone of generated docs and launch copy --reddit-tone <TONE> No humble humble , curious , feedback-welcome Style of the generated community announcement --audience <AUDIENCE> No nobody nobody , solo-dev , power-users , teams Intended user base for positioning --ci <MODE> No github github , no-ci CI/release automation strategy --license <LICENSE> No mit mit , apache2 , dual License for the generated project --screenshot <FORMAT> No — png , svg , gif Default format for demo assets -q , --quiet No — flag Suppress non-essential output -v , --verbose No — flag Show detailed generation output --quiet and --verbose are mutually exclusive. Generated Project Structure A typical generated project looks like this: my-tool/ ├── .github/ │ └── workflows/ │ ├── ci.yml │ └── release.yml ├── src/ │ └── main.rs ├── Cargo.toml ├── CHANGELOG.md ├── LICENSE ├── README.md └── launch_post.md Additional files may be included depending on configuration. Philosophy If a problem is sufficiently niche, it deserves a polished command-line interface, three badges, and a humble launch post. The generated projects aim to feel believable, modern, and release-ready. The goal is not merely to create code, but to produce the full ecosystem expected of a serious Rust utility — strong defaults, ergonomic command structure, polished repository presentation, CI from day one, and community-facing launch collateral. The tool does not validate whether a project should exist. That is your decision, and you have already made it. Contributing Contributions are welcome, especially in the following areas: Better README phrasing and template improvements More realistic niche problem synthesis Stronger release workflow templates Additional announcement tone presets Please open an issue before proposing major changes to the sincerity engine. License This project is licensed under the MIT License .
+======>
+https://old.reddit.com/r/rust/comments/1sagkit/can_someone_give_a_nice_explanation_of_closures/
+-->>-->>
+Ok, so I am trying to learn leptos (I'm learning leptos to use for the frontend in tauri to use for the GUI of a project I'm working on)   
+
+   and I have realised that there is a lot of usage of closures, and I never really understood much about them.   
+
+   I know they are anonymous functions that capture the environment they are defined in as either immutable references, mutable references or taking ownership, but I don't really understand that much more. So I was wondering if I could get a nice explanation on them   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1safm14/would_people_be_interested_in_another_3d_physics/
+-->>-->>
+Hello, some time ago when making my game i got unjustifiably angry at rapier3d and decided to go a bit overboard and implemented my own physics library, with collisions and all. It is pretty barebones but rather fast and has almost no deps.   
+
+   I wonder if i should publish it, as it is made already as standalone project, and can be used without troubles.   
+
+   But first i never published anything to crates, not sure what good practices are, and i really wonder if there is sense to it, because rapier exists.   
+
+   For the rapier problem - actually was my fault but i only discovered this after swapping rapier with my library, heh…   
+   
+
+======>
+https://youtu.be/Cg8gASzqqOs
+-->>-->>
+Jon Gjengset on Rust Internals, Vibe Coding, and Teaching by Streaming Tap to unmute 2x Search Copy link Info Shopping If playback doesn't begin shortly, try restarting your device. • Up next Live Upcoming Cancel Play Now You're signed out Videos you watch may be added to the TV's watch history and influence TV recommendations. To avoid this, cancel and sign in to YouTube on your computer. Cancel Confirm Share Include playlist An error occurred while retrieving sharing information. Please try again later. 0:00 0:00 / 1:34:43 Live • Watch full video • •
+======>
+https://old.reddit.com/r/rust/comments/1samn44/bigoish_test_the_empirical_computational/
+-->>-->>
+Your functions or datastructure methods implement an algorithm; how do you know if they’re scaling as expected? For example, imagine you’ve implemented a new sorting algorithm. Decent sorting is typically O(nlogn), but how about    your    implementation? Maybe there’s a bug somewhere that makes it worse.   
+
+   With my new crate,    bigoish   , pronounced “big-o-ish”, you can write tests that assert that a particular function has a particular empirical computational complexity. More accurately, you can assert that an expected complexity model you provide is empirically the best fit for measured runtime, when compared to the fits of a specific set of common complexity models. Real big-O, in contrast, is a mathematically-proven upper bound.   
+
+   Here’s an example, asserting that Rust’s built-in    sort()    fits    n*log(n)    best:   
+
+   use bigoish::{N, Log, assert_best_fit, growing_inputs};
+
+// The function whose complexity we want to assert.
+fn sort(mut v: Vec<i64>) -> Vec<i64> {
+    v.sort();
+    v
+}
+
+// Creates a test input of a particular size for `sort()`.
+fn make_vec(n: usize) -> Vec<i64> {
+    // Random number generation library:
+    use fastrand;
+    std::iter::repeat_with(|| fastrand::i64(..)).take(n).collect()
+}
+
+// Assert that that n*log(n) is the complexity model that fits `sort()` best.
+assert_best_fit(
+    // The expected best-fitting computational complexity model:
+    N * Log(N),
+    // The function being tested:
+    sort,
+    // Pairs of (input length, input); the inputs will be passed to `sort()`.
+    [
+        (10, make_vec(10)), (100, make_vec(100)), (1000, make_vec(1000)),
+        (10_000, make_vec(10_000)), (100_000, make_vec(100_000))
+    ]
+);
+
+// You can use `growing_inputs()` to generate input pairs more easily.
+assert_best_fit(
+    N * Log(N),
+    sort,
+    // Starting with input size 10, generate 25 increasingly larger inputs using
+    // `make_vec()`.
+    growing_inputs(10, make_vec, 25),
+);
+   
+
+   If you were to erroneously assert that    sort()    uses model    N   :   
+
+   assert_best_fit(N, sort, growing_inputs(10, make_vec, 25));
+   
+
+   You would then get a panic that looks like this:   
+
+   Graph showing red dots (real measured complexity) vs estimated model, and the panic error suggesting that the best matching model is n*log(n) despite expected model being n. If you're using a screen reader you can disable the graph part.   
+
+   Docs can be found here   .   
+
+   All code written by a human.   
+   
+
+======>
+https://github.com/TM9657/flow-like
+-->>-->>
+TM9657/flow-like dev 14 Branches 10 Tags Go to file Code Open more actions menu Folders and files Name Name Last commit message Last commit date Latest commit felix-schultz feat: update app to beta version with tracking authorization and impr… Open commit details pending Apr 3, 2026 6543120 · Apr 3, 2026 History 1,423 Commits Open commit details 1,423 Commits .cargo .cargo Refactor app import functionality and update dependencies Sep 13, 2025 .github .github feat: update app to beta version with tracking authorization and impr… Apr 3, 2026 .run .run Added: Docker Compose, Client Configuration, Website Translation, Doc… Dec 30, 2025 apps apps feat: update app to beta version with tracking authorization and impr… Apr 3, 2026 assets assets feat: add base logo SVG and swimlanes JSON for homepage layout Sep 10, 2025 libs libs feat: enhance error handling and logging in various components; impro… Apr 1, 2026 packages packages refactor: enhance dependency installation and OpenCL support in Docke… Apr 2, 2026 templates templates feat: enhance error handling and logging in various components; impro… Apr 1, 2026 tests tests Refactor code structure for improved readability and maintainability Mar 12, 2026 thirdparty thirdparty Add new components and examples for game UI, settings panel, and geo … Mar 18, 2026 tools tools refactor: enhance dependency installation and OpenCL support in Docke… Apr 2, 2026 .deepsource.toml .deepsource.toml Merge branch 'dev' of https://github.com/TM9657/flow-like into dev Mar 9, 2025 .dockerignore .dockerignore Added kubernetes setup, removed creation pages Jan 1, 2026 .fossa.yml .fossa.yml feat: add FOSSA configuration and workflow for license scanning May 20, 2025 .gitignore .gitignore Add new components and examples for game UI, settings panel, and geo … Mar 18, 2026 .pre-commit-config.yaml .pre-commit-config.yaml Added kubernetes setup, removed creation pages Jan 1, 2026 .taurignore .taurignore feat: enhance app creation with optional ID and improve download mana… Jun 22, 2025 CLAUDE.md CLAUDE.md Refactor database access and credential handling Mar 23, 2026 CODE_OF_CONDUCT.md CODE_OF_CONDUCT.md fix: Update email addresses and links to reflect new domain Aug 17, 2025 CONTRIBUTING.md CONTRIBUTING.md Added wasm templates and working integration + website updates + docs… Feb 20, 2026 Cargo.lock Cargo.lock Refactor screenshot capture functions for improved async handling and… Apr 2, 2026 Cargo.toml Cargo.toml feat: add catalog build helper and integrate into existing packages Mar 30, 2026 LICENSE LICENSE 🚀 Initial Commit Feb 16, 2025 README.md README.md Added wasm templates and working integration + website updates + docs… Feb 20, 2026 SECURITY.md SECURITY.md Added wasm templates and working integration + website updates + docs… Feb 20, 2026 about.toml about.toml feat: add comprehensive license generation tool for Rust and npm pack… Feb 4, 2026 biome.json biome.json feat: add LayerInnerNode component with context menu and editing capa… Aug 16, 2025 bun.lock bun.lock chore: update wrangler to version 4.77.0 and add @cloudflare/vite-plu… Apr 1, 2026 bunfig.toml bunfig.toml fix: update bun version to 1.3.1 in alpha-release workflow; add bunfi… Oct 25, 2025 flow-like.code-workspace flow-like.code-workspace feat: enhance environment variable handling and add user existence ch… Feb 24, 2026 flow-like.config.json flow-like.config.json feat: Enhance ActionHandler with stored element merging and board ele… Mar 19, 2026 mise.toml mise.toml Refactor screenshot capture functions for improved async handling and… Apr 2, 2026 package.json package.json bump version to 0.1.0 in tauri configuration Apr 1, 2026 ruff.toml ruff.toml Added wasm templates and working integration + website updates + docs… Feb 20, 2026 View all files Repository files navigation README Code of conduct Contributing License Security Flow-Like If you can't see it, you can't trust it. A Rust-powered workflow engine that runs on your device — laptop, server, or phone. Fully typed. Fully traceable. Fully yours. ⭐ Star on GitHub · 📖 Docs · 💬 Discord · 📥 Download Flow-Like is a visual workflow automation platform that runs entirely on your hardware. Build workflows with drag-and-drop blocks, run them on your laptop, phone, or server, and get a clear record of where data came from, what changed, and what came out — no cloud dependency, no black boxes, no guesswork. Why Flow-Like? You decide where your workflows run. Not us. Most workflow tools force you into their cloud. Your data leaves your machine, passes through third-party servers, and you're locked into their infrastructure. Offline? Stuck. Want to self-host? Pay enterprise prices. Flow-Like runs wherever you choose — your laptop, your phone, your private server, or cloud infrastructure you control. Your data stays where you put it. No forced cloud dependency, no vendor lock-in, no "upgrade to enterprise for basic autonomy." Local-first by default. Cloud-ready when you need it. Automate on your couch without Wi-Fi. Deploy to your own AWS/GCP/Azure. Run in air-gapped factory networks. Process sensitive data in hospital environments. Your workflows, your infrastructure, your rules. A Rust engine fast enough to run on a phone The reason this works is raw performance. Flow-Like's engine is built in Rust — compiled to native code, no garbage collector, no runtime overhead. The same workflow that takes 500ms in a Node.js engine takes 0.6ms in Flow-Like. Metric Flow-Like Typical workflow engines Execution speed ~244,000 workflows/sec ~200 workflows/sec Latency per workflow ~0.6ms ~50-500ms Engine Rust (native compiled) Python / Node.js (interpreted) That 1000x performance gap means real workflows can run on resource-constrained devices — phones, edge hardware, Raspberry Pis — not just beefy cloud servers. And on powerful machines, it means processing millions of executions without breaking a sweat. Full visibility into every execution Most workflow tools show a green checkmark and move on. You're left guessing where data came from and why the result looks the way it does. Flow-Like workflows are fully typed — they track what data flows where and why . Every input, transformation, and output is recorded with complete lineage and audit trails. Data Origins — See exactly where each value came from: the API response, the file, the user input. Transformations — Every validation, enrichment, and reformatting step is visible and traceable. Clear Contracts — Type-safe input/output definitions catch errors before deployment, not in production. Three Perspectives — Process view for business, Data view for analysts, Execution view for engineers. Same workflow, different lenses. And everything else AI-Native — Run LLMs locally or in the cloud with guardrails, approval gates, and full execution tracing on every call. White-Label Ready — Embed the editor in your product. Your logo, your colors, your brand. SSO, usage metering, and per-tenant scoping included. Source Available — BSL license, free for the vast majority of users (<2,000 employees and <$300M ARR). How it compares Feature Flow-Like n8n Zapier / Make Temporal Runs on your device ✅ Desktop, phone, edge, server ⚠️ Needs a server ❌ Cloud only ⚠️ Needs infrastructure Works 100% offline ✅ Full capability ⚠️ Partial ❌ Requires internet ✅ Self-hosted Type safety ✅ Fully typed ❌ Runtime only ❌ None ⚠️ Language-level Data lineage / audit trail ✅ Complete ❌ Limited ❌ None ⚠️ Via logging Performance ✅ ~244K/sec (Rust) ⚠️ ~200/sec (Node) ⚠️ Cloud-limited ⚠️ Go-based Visual builder ✅ Full IDE ✅ Good ✅ Simple ❌ Code only UI builder ✅ Built-in ❌ None ❌ None ❌ None LLM orchestration ✅ Built-in + guardrails ⚠️ Via nodes ⚠️ Via integrations ❌ Manual White-label / embed ✅ Full customization ❌ Branded ❌ Branded ❌ No UI Business process views ✅ Process / Data / Execution ❌ Single view ❌ Single view ❌ Code only License Source Available (BSL) Sustainable Use Proprietary MIT Quick Start 💻 Desktop App ☁️ Web App 📱 Mobile App ⚙️ From Source Download Now Try Online Coming Soon Build Yourself macOS · Windows · Linux Available now iOS · Android Latest features The Ecosystem 🎨 Visual Workflow Studio A no-code IDE for building workflows. Smart wiring with type-aware pins, inline execution feedback, live validation, and snapshot-based debugging. 🧩 900+ Built-in Nodes APIs & webhooks, databases, file processing (Excel, CSV, PDF), AI models & computer vision, messaging (Slack, Discord, email), IoT, logic & control flow, security & auth — and growing. → Explore the Node Catalog 🤖 AI-Powered Workflows Download and run LLMs, vision models, and embeddings locally or in the cloud. Every AI decision is logged with full context — inputs, outputs, model version, and reasoning trace. 📦 Apps & Templates Package workflows as shareable applications with built-in storage. Run them offline or in the cloud. Browse the template store or share your own. Who it's for 👨‍💻 Developers Runs on any device — laptop, phone, edge, server Type-safe data contracts Custom node SDK (Rust) Git-based version control Source available codebase 📊 Business & Analysts No-code drag-and-drop builder Process, Data, and Technical views Approval workflows and change tracking Shareable apps and templates 🏢 IT & Operations RBAC and enterprise governance Complete audit trails Air-gap and offline deployment SSO / OIDC integration Compliance-ready (GDPR, SOC2) Build from Source # Prerequisites: mise, Rust, Bun, Tauri prerequisites, Protobuf compiler # Full guide: https://docs.flow-like.com/contributing/getting-started/ git clone https://github.com/TM9657/flow-like.git cd flow-like mise trust && mise install # install toolchains (Rust, Bun, Node, Python, uv) bun install # install Node packages mise run build:desktop # production build All dev / build / deploy tasks are defined in the root mise.toml . Run mise tasks to see every available task, or mise run <task> to execute one: mise run dev:desktop:mac:arm # dev mode – macOS Apple Silicon mise run dev:web # dev mode – Next.js web app mise run build:desktop # production desktop build mise run fix # auto-fix lint (clippy + fmt + biome) mise run check # run all checks without fixing 💡 Platform-specific hints for macOS, Windows, and Linux are in the docs . White-Label & Customization Embed the visual editor in your application, or run the engine headlessly behind the scenes. Themes — Catppuccin, Cosmic Night, Neo-Brutalism, Soft Pop, Doom, or create your own Design Tokens — Map your brand palette with dark/light mode support SSO — OIDC/JWT with scoped secrets per tenant Usage Metering — Per-tenant quotas, event tracking, audit trails SDKs & APIs — Control workflows programmatically 🔌 SDKs Integrate Flow-Like into your applications with official SDKs: Language Package Install Node.js / TypeScript @flow-like/sdk npm install @flow-like/sdk Python flow-like uv add flow-like Both SDKs support workflows, file management, LanceDB, chat completions, embeddings, and optional LangChain integration. → SDK Docs Perfect for SaaS platforms, internal tools, client portals, and embedded automation. Contributing We welcome contributions of all kinds — new nodes, bug fixes, docs, themes, and ideas. → Read CONTRIBUTING.md for setup instructions and guidelines. → Browse good first issue to find a place to start. → Join Discord for questions and discussion. 📸 Screenshots & Gallery Team & Access Management Built-in Storage & Search Files, tables, and hybrid keyword+vector search — right on the canvas. No extra services needed. ❓ FAQ Is Flow-Like free to use? Most likely, yes. Flow-Like uses the Business Source License (BSL), which is free if your organization has fewer than 2,000 employees and less than $300M in annual recurring revenue. This covers startups, SMBs, and most enterprises. Read the full license . Can I run it completely offline? Yes, 100%. Flow-Like works fully offline on your local machine — ideal for air-gapped networks and secure environments. Switch to online mode anytime to collaborate. Can I embed it in my product? Yes. Flow-Like is white-label ready — embed the visual editor, customize the theme to your brand, integrate SSO, or run just the engine headlessly. What languages can I use? The visual builder is no-code. For custom nodes, you write Rust. SDKs and REST APIs are available for programmatic control. Is it production-ready? Flow-Like is actively developed and used in production. We recommend thorough testing for mission-critical workflows. See the releases page for version stability. How do I get support? Discord for quick help, Docs for guides, or GitHub Issues for bugs and features. 🏗️ Built With Flow-Like stands on the shoulders of incredible open-source projects: Frontend: React Flow · Radix UI · shadcn/ui · Next.js · Tailwind CSS · Framer Motion Desktop & Runtime: Tauri · Rust · Tokio · Axum AI & ML: llama.cpp · Candle · ONNX Runtime Data: Zustand · TanStack Query · Dexie.js · SeaORM · Zod Tooling: mise · Bun · Vite · Biome Thank you to all maintainers and contributors of these projects! 🙏 📊 Project Stats Website · Docs · Download · Blog Made with ❤️ in Munich, Germany License · Code of Conduct · Security About Flow-Like: Strongly Typed Enterprise Scale Workflows. Built for scalability, speed, seamless AI integration and rich customization. flow-like.com Topics rust workflow development automation typescript ai mcp data-flow self-hosted apis typed agents workflow-automation low-code no-code visual-scripting llm mcp-server mcp-client Resources Readme License View license Code of conduct Code of conduct Contributing Contributing Security policy Security policy Uh oh! There was an error while loading. Please reload this page . Activity Custom properties Stars 674 stars Watchers 5 watching Forks 46 forks Report repository Releases 10 tags Sponsor this project TM9657 Great-Co.de Sponsor Learn more about GitHub Sponsors Uh oh! There was an error while loading. Please reload this page . Contributors 6 Languages Rust 51.2% TypeScript 36.0% Astro 6.0% Python 1.7% MDX 1.1% Metal 1.1% Other 2.9%
+======>
+https://old.reddit.com/r/rust/comments/1sb3prh/what_are_the_cargo_toolkits_you_use_to_make_your/
+-->>-->>
+As title says, What are some tools you have as a Rust dev that make the DX better?   
+
+   I currently use these:   
+   cargo-zigbuild    for cross compiling.   
+
+   cargo-edit    mostly for the set-version command and bumping versions.   
+
+   cargo-audit    for checking deps for security vulnerabilities.     
+
+   want to know if there are cool things out there that I am missing. Thanks   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1sb3x20/is_the_book_rust_in_action_great_for_beginners/
+-->>-->>
+Over the past week I’ve been exploring Rust and systems programming. I’m not a beginner programmer—I have some web development experience with Next.js, and I’ve already built a few small Rust projects like a CLI web scraper, an AI tool, and a file reader. I’m wondering whether I need prior systems‑level knowledge to continue learning Rust. For context, I’m also currently pursuing a CS degree.   
+   
+
+======>
+https://seqeralabs.github.io/RustQC/
+-->>-->>
+Matching Results Produces identical or near-identical output to R’s dupRadar and featureCounts, plus faithful reimplementations of 8 RSeQC tools (including TIN), preseq, and samtools. See benchmark details . Dramatically Faster Processes ~186M reads in 14m 54s on AWS vs ~15h 34m of sequential tool runtimes - including TIN, which takes 9h 45m alone in the traditional workflow. All-in-One Replaces 14+ separate QC tool invocations with a single CLI command. One task to stage data for. One pass through the BAM file. Minimal staging and I/O overhead. SAM / BAM / CRAM Accepts SAM, BAM, and CRAM alignment files. Parallelises across chromosomes and across multiple BAM files to make the most of the available resources. Matching Results Produces identical or near-identical output to R’s dupRadar and featureCounts, plus faithful reimplementations of 8 RSeQC tools (including TIN), preseq, and samtools. See benchmark details .
+======>
+https://vinayakdsci.hashnode.dev/exploring-rust-lifetimes?trk=feed-detail_main-feed-card_feed-article-content
+-->>-->>
+vinayakdsci.hashnode.dev Performing security verification This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot. Verification successful. Waiting for vinayakdsci.hashnode.dev to respond
+======>
+https://blog.orhun.dev/800-rust-projects/
+-->>-->>
+Home Categories Source GitHub Donate RSS About 800 Rust terminal projects in 3 years 15 minute read Published: 2026-04-03 I have discovered and shared ~800 open source Rust CLI projects over the past 3 years. Above is a collage of screenshots from hundreds of Rust terminal and TUI projects shared on Mastodon. 🔗 Click here to jump to the "Top 99 Rust terminal projects"! If you follow me on X / Mastodon / Bluesky / LinkedIn , you might be familiar with my regular posts that usually go like this: I have discovered a 🐀 today! 🐀 - a rat! 💯 Does rat things ⭐ GitHub: ... #rat Today, I have realized it has been a while since I started doing this and wondered what I could do with everything I collected over the years. So here we are! But first, I feel like you might have some questions. Uhh, yeah. I have one: "Why?" I have detailed my motivation and strategy towards open source in this blog post and conference talk , but in a nutshell: 1 . I like Rust and I want more people to use it after seeing what they can build with it, 2 . I maintain Ratatui and sharing projects built with it helps grow the ecosystem, 3 . It helps surface hidden gems that would otherwise go unnoticed, 4 . It's hella fun. Recently, one of the Rust ecosystem leaders said : " I love these posts :) highlight of my day to see all the awesome stuff people do " I also received many similar messages over the years, so I guess that's a good enough reason to keep doing it! How do you discover projects? In the same way that everyone does: through GitHub, social media and word of mouth. A couple of my special sources include: 1 . Discord servers like Ratatui , Grindhouse and Terminal Collective (follow channels like #showcase and #show-and-tell for the good stuff!) 2 . Terminal Trove newsletter for weekly curated terminal projects (they sponsored me a while back which I'm super grateful for, definitely give them a sub!) 3 . GitHub search, e.g. searching for Ratatui projects (this method is underrated) Then I maintain a list of things to post in a plain text file and try to post something every day. It's probably fine if I miss a day or two, but I try to keep the cheese rolling 🧀 Looking at the data 👀 So, I have ran the numbers: Posts analyzed: 786 Posting range: 2022-12-15 to 2026-03-31 Total favourites: 10655 Total reblogs: 4529 Total replies: 658 Average favourites per post: 13.56 Average reblogs per post: 5.76 Average replies per post: 0.84 Active days: 653 Covered date range: 2022-12-15 to 2026-03-31 (1203 days) Average posts per active day: 1.20 Please note that those are aggregated from Mastodon only , since the other platforms weren't that friendly for automation: Platform Public API? Reality X (Twitter) ❌ (paid/locked) Expensive / restricted Mastodon (Fosstodon) ✅ Fully open, best option Bluesky ✅ Modern + dev-friendly LinkedIn ❌ (restricted) Only for approved apps I put together a Rust script to fetch my Mastodon project posts, save them as structured JSON, and analyze their posting and engagement stats. Luckily megalodon-rs exists, which made everything super easy. The full script is available on GitHub ⭐ With using the data over the years, I present you the Top 99 Rust terminal projects as of April 2026! 🏆 Disclaimers: The ranking is based on the number of favourites x reblogs x replies each post received on Mastodon , which may not be a perfect indicator of a project's quality or popularity. But it's a fun way to see which projects resonated with y'all the most! On other platforms, the ranking might be different due to different audiences and engagement patterns. The Ratatui projects ( github.com/ratatui ) and my personal projects ( github.com/orhun ) are excluded from the ranking to keep it fair. I'm sure there is something in there for everyone! Top 99 Rust Terminal Tools Rank Project Description Repo Score 🥇 🌸 cyme A modern and cross-platform lsusb tuna-f1sh/cyme 369 🥈 🥒 gurk Signal Messenger client for the terminal boxdot/gurk-rs 214 🥉 ⚔️ ratthew A 3D dungeon crawler in the terminal cxreiff/ratthew 197 4 📡 atac A simple API client in your terminal Julien-cpsn/ATAC 163 5 💾 monolith CLI tool for saving complete web pages Y2Z/monolith 149 6 🖌️ brush Bash/POSIX-compatible shell implemented in Rust reubeno/brush 119 7 📨 iamb A Matrix client for Vim addicts ulyssa/iamb 114 8 📄 doxx Terminal-based document viewer for Microsoft Word files bgreenwell/doxx 109 9 🔎 flamelens An interactive flamegraph viewer for the terminal YS-L/flamelens 90 10 💽 caligula A user-friendly, lightweight TUI for disk imaging ifd3f/caligula 89 11 🛠️ heretek A gdb TUI dashboard wcampbell0x2a/heretek 88 12 🎮 Plastic A NES emulator that runs in your terminal Amjad50/plastic 87 13 🧩 setrixtui A TUI puzzle game where falling blocks become sand Mjoyufull/Setrixtui 81 14 🎬 gitlogue A cinematic Git commit replay tool for the terminal unhappychoice/gitlogue 79 15 🌀 cute TUI HTTP client with API/auth key management and request history/storage PThorpe92/CuTE 73 16 🚀 serie A rich git commit graph in your terminal, like magic lusingander/serie 71 17 ⚙️ systemctl-tui A fast and simple TUI for interacting with systemd services and their logs rgwood/systemctl-tui 69 18 📡 netscanner Network scanning tool Chleba/netscanner 67 19 🧊 soft_ratatui Pure software renderer gold-silver-copper/soft_ratatui 64 20 🎼 scope-tui A simple oscilloscope/vectorscope/spectroscope for your terminal alemidev/scope-tui 62 21 ⚡ eilmeldung A fast & powerful TUI RSS reader christo-auer/eilmeldung 61 22 🐗 hexhog A configurable hex viewer & editor for your terminal DVDTSB/hexhog 61 23 🎧 Auditorium Listen to your music library in the terminal nate-craft/auditorium 59 24 🔮 regect Regex 101 like CLI tool kloki/regect 59 25 🌳 treemd An interactive Markdown navigator with a collapsible heading tree Epistates/treemd 58 26 🎛️ wiremix A simple TUI audio mixer for PipeWire tsowell/wiremix 57 27 📰 bulletty A RSS/ATOM feed reader for your terminal CrociDB/bulletty 55 28 🪄 xan The CSV magician medialab/xan 54 29 💠 bevy_tui_texture A Bevy plugin for rendering TUIs using Ratatui and wgpu tt-toe/bevy_tui_texture 52 30 🐠 lifecycler Terminal aquarium cxreiff/lifecycler 52 31 🌀 ratatui-wgpu A wgpu based rendering backend for Jesterhearts/ratatui-wgpu 52 32 🌀 bevy_ratatui_render A Bevy plugin for rendering a Bevy app to the terminal using Ratatui cxreiff/bevy_ratatui_render 51 33 🔍 bpftop Provides a dynamic real-time view of running eBPF programs Netflix/bpftop 51 34 ✨ Gitu A TUI Git client inspired by Magit altsem/gitu 51 35 📄 tdf A TUI-based PDF viewer itsjunetime/tdf 50 36 ⌨️ typr Typing practice plugin for Neovim with dashboard nvzone/typr 49 37 🪨 basalt Manage Obsidian notes directly from the terminal erikjuhani/basalt 46 38 🏴‍☠️ Rebels in the Sky P2P terminal game about space pirates playing basketball across the galaxy ricott1/rebels-in-the-sky 46 39 🌀 systemd-manager-tui Manage systemd services in the terminal matheus-git/systemd-manager-tui 46 40 🌀 termscp A feature rich TUI for file transfer and explorer veeso/termscp 46 41 👾 cellular-automaton execute aesthetically pleasing animations Eandrju/cellular-automaton.nvim 44 42 🧪 jiq An interactive JSON query tool with live results bellicose100xp/jiq 44 43 ➡️ ratatui-ffi Native C ABI bindings for Ratatui holo-q/ratatui-ffi 44 44 🌀 rumdl A fast Markdown linter & formatter rvben/rumdl 44 45 🚗 suzui-rs Suzuki Serial Data Line (SDL) viewer in Rust thatdevsherry/suzui-rs 44 46 🤠 yeehaw A batteries-included text-based application framework bogzbonny/yeehaw 44 47 📊 tui-piechart A customizable pie chart widget for sorinirimies/tui-piechart 43 48 ⚙️ DataTUI A terminal UI for viewing data forensicmatt/datatui 41 49 📨 mqttui Subscribe to a MQTT Topic or publish something quickly from the terminal EdJoPaTo/mqttui 41 50 🐱 manga-tui Terminal-based manga reader and downloader josueBarretogit/manga-tui 40 51 🐭 webatui Make TUI-themed WASM web apps TylerBloom/webatui 40 52 🛠️ csvlens A command line CSV file viewer YS-L/csvlens 39 53 🔋 jolt A battery & energy monitor TUI jordond/jolt 39 54 ⚙️ journalview View, filter, and navigate system logs from journalctl codervijo/journalview 39 55 🏒 ssHattrick Multiplayer game that you can play over SSH ricott1/sshattrick 39 56 🧱 tetrs A modern Tetromino game with a TUI strophox/tetrs 39 57 🌲 lstr A minimalist directory tree viewer with an optional TUI mode bgreenwell/lstr 38 58 🧬 NanoCore An 8-bit CPU emulator + assembler + TUI debugger AfaanBilal/NanoCore 38 59 ♜ chess-tui Play chess in your terminal thomas-mauran/chess-tui 37 60 🌀 hl The tool for analyzing logs pamburus/hl 37 61 🦀 modalkit A Rust library for building modal editing applications ulyssa/modalkit 37 62 🍺 zerobrew A modern drop-in replacement for Homebrew on macOS lucasgelfond/zerobrew 37 63 🦆 ducker A terminal app for managing Docker containers robertpsoane/ducker 36 64 🎮 sharad_ratatui A text-based Shadowrun role-playing game ProHaller/sharad_ratatui 36 65 🔍 tabiew View and query CSV and TSV files shshemi/tabiew 36 66 🦾 tenere TUI for LLMs written in Rust pythops/tenere 36 67 🐘 tsql A modern PostgreSQL manager TUI fcoury/tsql 36 68 🌀 channels-console A TUI dashboard for inspecting std/tokio/futures/crossbeam channels pawurb/channels-console 35 69 🖼️ md-tui Markdown renderer in the terminal henriklovhaug/md-tui 35 70 🦀 cargo-wizard Applies profile and config templates to your Cargo project Kobzol/cargo-wizard 34 71 🎧 concertus A plug-and-play TUI music player for local libraries Jaxx497/concertus 34 72 🎹 CrabSID A TUI music player for Commodore 64 SID tunes mlund/crabsid 34 73 💽 dua View disk space usage and delete unwanted data Byron/dua-cli 34 74 🦀 md-tui Markdown renderer henriklovhaug/Preview.nvim 34 75 💯 pls A prettier and powerful ls(1) for the pros pls-rs/pls 34 76 🧪 SeqTUI A terminal-based sequence data viewer & toolkit ranwez-search/SeqTUI 34 77 🧭 tui-scrollbar Smooth & fractional scrollbar widget for joshka/tui-widgets 34 78 🧹 wiper Disk cleanup tool with visual breakdown of directory sizes ikebastuz/wiper 34 79 ✈️ adsb_deku Rust ADS-B decoder + TUI radar application rsadsb/adsb_deku 33 80 🐦 perch A TUI client for Mastodon & Bluesky ricardodantas/perch 33 81 🌀 rgx TUI regex tester with real-time matching brevity1swos/rgx 33 82 🧲 superseedr A full-featured BitTorrent client for the terminal Jagalite/superseedr 33 83 📖 bookokrat A terminal-based EPUB reader bugzmanov/bookokrat 32 84 🔧 jirust Jira terminal UI Code-Militia/jirust 32 85 🦀 ouch Painless compression and decompression in the terminal - written in Rust ouch-org/ouch 32 86 📺 television A general purpose fuzzy finder TUI alexpasmantier/television 32 87 🌀 tui-shader A library for using GPU shaders in TUI applications pemattern/tui-shader 32 88 🃏 BalatroTUI Balatro game in your terminal Passeriform/BalatroTUI 31 89 🌪️ blendr The hacker's BLE (bluetooth low energy) browser terminal app dmtrKovalenko/blendr 31 90 🧬 keifu A TUI for visualizing Git commit graphs trasta298/keifu 31 91 🃏 private_poker A poker library, server, client, and TUI theOGognf/private_poker 31 92 🐭 ratframe egui widget + Ratatui backend gold-silver-copper/ratatui_egui_wasm 31 93 🌐 RustNet A cross-platform network monitor domcyrus/rustnet 31 94 🏗️ texaform A factory game automated by your code JoshuaPostel/texaform 31 95 🐢 tortuise Render 3D scenes using pure terminal symbols buildoak/tortuise 31 96 🛰️ tracker Track satellites and predict orbits in real-time in your terminal ShenMian/tracker 31 97 📓 tui-journal Your journal app if you live in a terminal AmmarAbouZor/tui-journal 31 98 📚 ekphos A markdown research TUI inspired by Obsidian hanebox/ekphos 30 99 🌌 fractouille Fractal explorer for the terminal PottierLoic/Fractouille 30 The full list (600+) is also available here . What's next? I will keep posting. If you want to help in any way: If you have a Rust/Ratatui/terminal project or if you know one that deserves more attention, send it to me and I will post about it! If you have ideas for what I could do with this data or have any feedback for the posts, let me know! Smash the sponsor button below if you want to support the work that I do. Cheers! 🐁 X | Mastodon | Bluesky | LinkedIn Published by Orhun Parmaksız in Projects 0 ✨ Sponsored by:
+======>
+https://old.reddit.com/r/rust/comments/1sb6oks/suggestions_for_a_gui_framework_for_a_modern_ide/
+-->>-->>
+Hi    r/rust   .   
+
+   I've been working on this personal project for a while now.   
+
+   I'm a control systems engineer / automation engineer by profession. I regularly work on hardware (PLCs) that was installed during the 1980s / 1990s. Obviously this legacy hardware requires legacy software for programming, fault finding etc.   
+
+   The most common legacy PLCs that I'm work with regularly are Siemens STEP5 / S5 PLCs (first introduced in 1979). Honestly, they just don't tend to fail so there are still way more of these chugging along in 2026 than there should be.   
+
+   My biggest issue with working with them is the software environment. The official Siemens package started off as a CP/M program, and then transitioned to MS-DOS, and the last version released supports up to Windows XP (as long as it's running on a single core CPU, or XP is booted in single core mode). It uses some add-on packages for configuring communication cards etc. - but these are still the original CP/M binaries, being emulated in DOS.   
+
+   There are third-party alternatives to the official Siemens software that seemed to spawn in the 90s as MFC applications but most of these feel clunkier than using the original DOS program.   
+
+   So I began working to implement my own re-imagining of the DOS software when I started learning rust. My primary development environment is Linux, however I also want to run this on Windows.   
+
+   I've covered the file formats used by S5-DOS, and implemented around 80% of the serial protocol used for communicating with the actual PLCs.   
+
+   I struggled to settle on a GUI framework to use but began to experiment with GTK4.   
+
+   I only took a cursory glance at things like Iced etc. but none of them seemed (or looked) easy to implement a tree-like navigator (which seems to be the only way I can imagine navigating between a folder / block structure, where the block could be nested at the n-th sub-folder).   
+
+   When it comes to editing the actual STL (loosely, the Siemens S5 equivalent of assembly), I'd like to implement syntax highlighting, auto-formatting / alignment etc. along with line numbers (or offset address of each line etc.)   
+
+   Primarily I'm only really concerned with being able to edit and compile (and debug) the STL code, but the other methods of programming PLCs are visual languages like LAD (ladder - designed to mimic an electrical schematic for relay logic) or FBD (function block diagram - AND gates, OR gates etc.). If I decide to implement these at a later date I'd need some way of drawing boxes / shapes in an editor widget of some kind, along with adding text fields to input addresses above or below these graphical elements.   
+
+   I started throwing together a GTK4 application using the Relm4 crate but the GUI development stalled while I was focusing on researching and implementing the AS511 protocol (the serial comms) for my underlying library.   
+
+   What i've developed so far runs great on Linux, for the small portions I've implemented (which is mostly just navigation and editing of metadata). It runs on windows but crashes or freezes randomly, which I can't reproduce on Linux (admittedly, I haven't looked into it that much at this point).   
+
+   Now I'm wondering whether I should switch to a different GUI framework before I go any further.   
+
+   I have uploaded some screenshots of the original DOS program, and my partial GTK implementation here:    https://imgur.com/a/Udfkbx6   
+
+   TLDR:   
+
+   Are there any other GUI frameworks I could be using in 2026, to implement a basic, but modern feeling IDE (with syntax highlighting, tabbed windows, tree-like navigation between the different elements of the project's heirarchy) ?   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1sb1v2j/looking_for_projects_with_high_quality_rust_code/
+-->>-->>
+I have been learning rust for some time now. I have developed a few personal projects , solved AOC and some challenges from code crafters. I am working on a pretty cool project that I just started but I feel like the code I write isn’t the most idiomatic, performant and production ready. I can use AI but I can’t judge its output when I can’t evaluate myself what’s the best way to do something.   
+
+   I am looking for some open source project recommendations that have really high quality rust code(basically how a senior rust engineer would code).    
+
+   My plan is to read through the code and learn about rust specific design patterns and good rust coding practices and I wanna develop a feel for how rust is programmed for production applications. Any recommendations are highly appreciated.   
+
+   Thank you    
+   
+
+======>
+https://blog.rust-lang.org/2026/04/04/docsrs-only-default-targets/
+-->>-->>
+docs.rs: building fewer targets by default Apr. 4, 2026 · Denis Cornehl on behalf of the docs.rs team Building fewer targets by default On 2026-05-01 , docs.rs will make a breaking change to its build behavior. Today, if a crate does not define a targets list in its docs.rs metadata , docs.rs builds documentation for a default list of five targets. Starting on 2026-05-01 , docs.rs will instead build documentation for only the default target unless additional targets are requested explicitly. This is the next step in a change we first introduced in 2020, when docs.rs added support for opting into fewer build targets. Most crates do not compile different code for different targets, so building fewer targets by default is a better fit for most releases. It also reduces build times and saves resources on docs.rs. This change only affects: new releases rebuilds of old releases How is the default target chosen? If you do not set default-target , docs.rs uses the target of its build servers: x86_64-unknown-linux-gnu . You can override that by setting default-target in your docs.rs metadata : [ package . metadata . docs . rs ] default-target = " x86_64-apple-darwin " How do I build documentation for additional targets? If your crate needs documentation to be built for more than the default target, define the full list explicitly in your Cargo.toml : [ package . metadata . docs . rs ] targets = [ " x86_64-unknown-linux-gnu " , " x86_64-apple-darwin " , " x86_64-pc-windows-msvc " , " i686-unknown-linux-gnu " , " i686-pc-windows-msvc " ] When targets is set, docs.rs will build documentation for exactly those targets. docs.rs still supports any target available in the Rust toolchain. Only the default behavior is changing.
+======>
+https://old.reddit.com/r/rust/comments/1sb5vcq/building_a_gpubased_browser_renderer_from_scratch/
+-->>-->>
+https://preview.redd.it/ix4isxfa6xsg1.png?width=1238&format=png&auto=webp&s=45ab88a26068683d489cbb9fa6958015838280db   
+
+   Hey everyone,   
+
+   I’ve been working on a browser engine called    Aurora   , focused on a GPU-first rendering pipeline using wgpu — no Skia, no Chromium just wgpu and vello.    
+
+   I recently reached a milestone where my custom GPU painter can render a    static Google homepage fixture   :   
+
+   
+   Custom layout + rendering pipeline   
+   Pure GPU painting (wgpu)   
+   No existing browser engine dependencies   
+   Rendering from a static HTML fixture   
+   
+
+   To be clear, this is not a full browser yet:   
+
+   
+   Text shaping is still very rough   
+   Layout is simplified   
+   
+
+   But it’s the first time I can render a real-world page structure end-to-end through my own pipeline, which feels like a big step.   
+
+   Next steps:   
+
+   
+   Proper text shaping (currently experimenting beyond HarfBuzz)   
+   
+
+   Would love feedback, especially from anyone who’s worked on rendering engines or GPU pipelines.   
+
+   This was the page i used to test :   
+
+   <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="top-links">
+        <a href="#">Gmail</a>
+        <a href="#">Images</a>
+        <a href="#" class="app-link">Apps</a>
+        <a href="#" class="sign-in">Sign-in</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <h1 class="logo" aria-label="Google">
+        <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+      </h1>
+      <div class="search-shell">
+        <span class="search-icon">Q</span>
+        <input class="search-input" type="text" placeholder="Search Google or type a URL">
+      </div>
+      <div class="actions">
+        <button>Google Search</button>
+        <button>I'm Feeling Lucky</button>
+      </div>
+      <p class="tagline">Static Aurora fixture for Google homepage rendering.</p>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-row">
+        <span>United States</span>
+      </div>
+      <div class="footer-row footer-links">
+        <a href="#">Advertising</a>
+        <a href="#">Business</a>
+        <a href="#">How Search works</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Settings</a>
+      </div>
+    </footer>
+  </body>
+</html>
+   
+   
+
+======>
+https://old.reddit.com/r/rust/comments/1sb4no2/i_built_i_built_builder_a_tool_for_helping_i/
+-->>-->>
+https://github.com/jams246/i-built-i-built-builder   
+
+   I've been seeing a lot of:   
+
+   
+   I built ...   
+   
+
+   posts here recently and I realized that the real missing piece was not another CLI tool, but a tool for building tools that are built to be posted as "I built" posts here on reddit.   
+
+   So what is this tool? I'm glad you asked!   
+
+   I built I built builder    is a CLI that scaffolds Rust CLI tools whose natural end state is an "I built" post. With    I built I built builder   , you can build a tool, build the README, build the release workflow, and build the post explaining that you built the thing that    I built I built builder    helped you build.   
+
+   In other words, I built    I built builder    to help people say "I built" with more consistency, velocity, and mechanical sympathy.   
+
+   The idea is simple: instead of building a tool and then separately writing about how you built it,    I built I built builder    helps you build the thing and the "I built" around the thing you built.   
+
+   Example:   
+
+   i-built-i-built-builder --name tomlshave --solves "trimming whitespace in embedded TOML snippets"   
+
+   That command lets    I built I built builder    scaffold the tool, build the docs, and build the "I built" narrative around why the built tool needed to be built.   
+
+   Anyway, I built    I built I built builder   , and now I’m posting that I built    I built I built builder    so that other people who build tools can use    I built I built builder    to build better “I built” tools and better “I built” posts about the tools they built.   
+
+   Feedback welcome. Validation preferred.   
+   
